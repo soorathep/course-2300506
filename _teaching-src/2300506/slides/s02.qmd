@@ -1,0 +1,512 @@
+---
+title: "Trees, information and AHP"
+subtitle: "Session 2 of 18 · 120 minutes · Decision Making, part 2"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Where we left CellCo {#recap}
+
+::: {.takeaways}
+::: {.tk}
+EMV picks **A, the new LFP line**, at CNY 56 million with demand probabilities 0.3, 0.5 and 0.2.
+:::
+::: {.tk}
+EVPI is **CNY 39 million**: no forecast can be worth more to this decision.
+:::
+::: {.tk}
+A risk-averse board prefers C or B: the choice depends on risk tolerance R.
+:::
+:::
+
+::: {.route-question}
+Two questions for today. A market-research firm offers a demand survey for CNY 5 million: should CellCo buy it? And which storage technology should the new plant install?
+:::
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:1"}
+[0–10]{.t} **Start** [Recap]{.d}
+:::
+::: {.seg .concept style="--w:3"}
+[10–40]{.t} **Concepts** [Trees, Bayes, EVSI]{.d}
+:::
+::: {.seg .act style="--w:1.5"}
+[40–55]{.t} **Activity 1** [A cheaper survey]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[55–65]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[65–80]{.t} **Concepts** [Pugh matrix, AHP]{.d}
+:::
+::: {.seg .act style="--w:3"}
+[80–110]{.t} **Activity 2** [Stakeholder AHP]{.d}
+:::
+::: {.seg .wrap style="--w:1"}
+[110–120]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: what is a piece of information worth, and how do we choose when one number cannot capture what matters?
+:::
+
+## A decision tree {#tree-basics}
+
+```{=html}
+<figure class="widget">
+<svg viewBox="0 0 1160 330" role="img" aria-label="Decision tree. A square decision node leads to option A and option C. Each leads to a round chance node with low, medium and high demand. A pays minus 120, 80 and 260 with probabilities 0.3, 0.5 and 0.2, so its expected value is 56. C pays 10, 40 and 70, expected value 37. Folding back, the decision node takes the larger value, 56, so A is chosen.">
+  <g font-family="Source Sans 3, sans-serif" font-size="19" fill="#1C242B">
+    <rect x="30" y="140" width="44" height="44" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2.5"/>
+    <text x="52" y="210" text-anchor="middle" font-size="17" fill="#66727C">decide</text>
+    <text x="52" y="130" text-anchor="middle" font-weight="700" fill="#9a5f10">56</text>
+    <line x1="74" y1="162" x2="330" y2="80" stroke="#0F6E6B" stroke-width="3"/>
+    <line x1="74" y1="162" x2="330" y2="250" stroke="#B9C1C6" stroke-width="2.5"/>
+    <text x="196" y="102" font-weight="700" transform="rotate(-17.7 196 102)">A · New LFP line</text>
+    <text x="186" y="226" transform="rotate(19 186 226)">C · Tolling contract</text>
+    <line x1="140" y1="190" x2="160" y2="214" stroke="#BE654C" stroke-width="3"/><line x1="150" y1="186" x2="170" y2="210" stroke="#BE654C" stroke-width="3"/>
+    <circle cx="352" cy="80" r="22" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2.5"/>
+    <text x="352" y="44" text-anchor="middle" font-weight="700" fill="#9a5f10">EMV 56</text>
+    <circle cx="352" cy="250" r="22" fill="#F3F0EB" stroke="#333F4A" stroke-width="2.5"/>
+    <text x="352" y="214" text-anchor="middle" font-weight="700">EMV 37</text>
+    <g stroke="#333F4A" stroke-width="2">
+      <line x1="374" y1="80" x2="660" y2="30"/><line x1="374" y1="80" x2="660" y2="80"/><line x1="374" y1="80" x2="660" y2="130"/>
+      <line x1="374" y1="250" x2="660" y2="200"/><line x1="374" y1="250" x2="660" y2="250"/><line x1="374" y1="250" x2="660" y2="300"/>
+    </g>
+    <g font-weight="600"><text x="672" y="36">−120 <tspan font-weight="400" font-size="16" fill="#66727C">low, 0.3</tspan></text><text x="672" y="86">80 <tspan font-weight="400" font-size="16" fill="#66727C">medium, 0.5</tspan></text><text x="672" y="136">260 <tspan font-weight="400" font-size="16" fill="#66727C">high, 0.2</tspan></text>
+      <text x="672" y="206">10 <tspan font-weight="400" font-size="16" fill="#66727C">low, 0.3</tspan></text><text x="672" y="256">40 <tspan font-weight="400" font-size="16" fill="#66727C">medium, 0.5</tspan></text><text x="672" y="306">70 <tspan font-weight="400" font-size="16" fill="#66727C">high, 0.2</tspan></text></g>
+    <g font-size="17" fill="#333F4A">
+      <rect x="840" y="40" width="10" height="10" fill="#0F6E6B"/><text x="862" y="50">Square: a decision, you choose</text>
+      <circle cx="845" cy="90" r="6" fill="#F3F0EB" stroke="#333F4A" stroke-width="2"/><text x="862" y="96">Circle: chance, the world chooses</text>
+      <text x="840" y="150" font-weight="700" fill="#1C242B">Fold back from right to left:</text>
+      <text x="840" y="178">at a circle, take the expected value;</text>
+      <text x="840" y="204">at a square, take the best branch</text>
+      <text x="840" y="230">and cut the others (//).</text>
+    </g>
+  </g>
+</svg>
+</figure>
+```
+
+[B and D are left out of the drawing to keep it readable; their EMVs, 48 and 0, are lower than A's.]{.note-line}
+
+## The survey offer {#survey}
+
+::: {.two}
+::: {}
+A market-research firm offers a demand survey for **CNY 5 million**. It reports either **favorable (F)** or **unfavorable (U)**.
+
+Its track record gives the chance of a favorable report in each true state. The survey is useful but not perfect: in one low-demand case out of five it still reports F.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>True demand</th><th class="num">Prior</th><th class="num">P(F | state)</th><th class="num">P(U | state)</th></tr></thead>
+  <tbody>
+    <tr><td>Low</td><td class="num">0.3</td><td class="num">0.2</td><td class="num">0.8</td></tr>
+    <tr><td>Medium</td><td class="num">0.5</td><td class="num">0.6</td><td class="num">0.4</td></tr>
+    <tr><td>High</td><td class="num">0.2</td><td class="num">0.8</td><td class="num">0.2</td></tr>
+  </tbody>
+</table>
+```
+:::
+:::
+
+::: {.route-question}
+To use the report, we need the reverse: P(state | F) and P(state | U). Bayes' theorem gives them.
+:::
+
+## Bayes: revise the probabilities {#bayes}
+
+```{=html}
+<div class="formula"><p>P(<i>s</i> | F) = P(F | <i>s</i>) · P(<i>s</i>) / P(F), &nbsp;&nbsp; P(F) = Σ<sub><i>s</i></sub> P(F | <i>s</i>) · P(<i>s</i>)</p></div>
+<table class="wide">
+  <thead><tr><th>State</th><th class="num">Prior</th><th class="num">Joint with F</th><th class="num">Posterior given F</th><th class="num">Joint with U</th><th class="num">Posterior given U</th></tr></thead>
+  <tbody>
+    <tr><td>Low</td><td class="num">0.30</td><td class="num">0.06</td><td class="num">0.115</td><td class="num">0.24</td><td class="num hit">0.500</td></tr>
+    <tr><td>Medium</td><td class="num">0.50</td><td class="num">0.30</td><td class="num">0.577</td><td class="num">0.20</td><td class="num">0.417</td></tr>
+    <tr><td>High</td><td class="num">0.20</td><td class="num">0.16</td><td class="num hit">0.308</td><td class="num">0.04</td><td class="num">0.083</td></tr>
+    <tr><td><b>Total</b></td><td class="num">1.00</td><td class="num"><b>P(F) = 0.52</b></td><td class="num">1.000</td><td class="num"><b>P(U) = 0.48</b></td><td class="num">1.000</td></tr>
+  </tbody>
+</table>
+```
+
+[A favorable report raises P(high) from 0.20 to 0.31. An unfavorable report raises P(low) from 0.30 to 0.50.]{.note-line}
+
+## The full tree, folded back {#survey-tree}
+
+```{=html}
+<figure class="widget">
+<svg viewBox="0 0 1160 420" role="img" aria-label="Survey decision tree. Without the survey, the best option is A with EMV 56. With the survey, a favorable report (probability 0.52) leads to option A with expected value 112.3, and an unfavorable report (0.48) leads to option C with 27.5. The survey branch is worth 71.6 before its cost and 66.6 after the 5 million cost, more than 56, so CellCo should buy the survey.">
+  <g font-family="Source Sans 3, sans-serif" font-size="19" fill="#1C242B">
+    <rect x="20" y="190" width="44" height="44" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2.5"/>
+    <text x="42" y="180" text-anchor="middle" font-weight="700" fill="#9a5f10">66.6</text>
+    <line x1="64" y1="212" x2="300" y2="70" stroke="#B9C1C6" stroke-width="2.5"/>
+    <line x1="64" y1="212" x2="300" y2="290" stroke="#0F6E6B" stroke-width="3"/>
+    <text x="110" y="118">No survey</text>
+    <line x1="150" y1="130" x2="166" y2="152" stroke="#BE654C" stroke-width="3"/><line x1="160" y1="126" x2="176" y2="148" stroke="#BE654C" stroke-width="3"/>
+    <text x="110" y="292" font-weight="700">Survey, cost 5</text>
+    <rect x="300" y="48" width="44" height="44" fill="#F3F0EB" stroke="#333F4A" stroke-width="2.5"/>
+    <text x="322" y="38" text-anchor="middle" font-weight="700">56</text>
+    <line x1="344" y1="70" x2="560" y2="70" stroke="#333F4A" stroke-width="2"/>
+    <text x="572" y="76">A, EMV 56 (B 48, C 37, D 0)</text>
+    <circle cx="322" cy="290" r="22" fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2.5"/>
+    <text x="322" y="254" text-anchor="middle" font-weight="700" fill="#9a5f10">71.6 − 5 = 66.6</text>
+    <line x1="344" y1="290" x2="600" y2="210" stroke="#333F4A" stroke-width="2"/>
+    <line x1="344" y1="290" x2="600" y2="360" stroke="#333F4A" stroke-width="2"/>
+    <text x="400" y="232" font-size="17" fill="#66727C">favorable 0.52</text>
+    <text x="400" y="358" font-size="17" fill="#66727C">unfavorable 0.48</text>
+    <rect x="600" y="188" width="44" height="44" fill="#F3F0EB" stroke="#333F4A" stroke-width="2.5"/>
+    <text x="622" y="178" text-anchor="middle" font-weight="700">112.3</text>
+    <rect x="600" y="338" width="44" height="44" fill="#F3F0EB" stroke="#333F4A" stroke-width="2.5"/>
+    <text x="622" y="328" text-anchor="middle" font-weight="700">27.5</text>
+    <g stroke="#333F4A" stroke-width="2">
+      <line x1="644" y1="210" x2="860" y2="160"/><line x1="644" y1="210" x2="860" y2="210"/><line x1="644" y1="210" x2="860" y2="260"/>
+      <line x1="644" y1="360" x2="860" y2="320"/><line x1="644" y1="360" x2="860" y2="360"/><line x1="644" y1="360" x2="860" y2="400"/>
+    </g>
+    <text x="872" y="166" font-weight="700" fill="#9a5f10">A · 112.3 (best)</text><text x="872" y="216">B · 76.2</text><text x="872" y="266">C · 45.8</text>
+    <text x="872" y="326" font-weight="700" fill="#9a5f10">C · 27.5 (best)</text><text x="872" y="366">B · 17.5</text><text x="872" y="406">A · −5.0</text>
+  </g>
+</svg>
+</figure>
+```
+
+[Each value after a report is an EMV with the posterior probabilities from the previous slide. 0.52 × 112.3 + 0.48 × 27.5 = 71.6.]{.note-line}
+
+## What the survey is worth {#evsi}
+
+::: {.two}
+::: {}
+```{=html}
+<div class="formula"><p>EVSI = 71.6 − 56 = <b>15.6</b></p></div>
+```
+
+EVSI is the expected value with the survey minus the expected value without it. Efficiency = EVSI / EVPI = 15.6 / 39 = **40%**.
+
+The survey is worth up to CNY 15.6 million. At CNY 5 million, buying it adds **10.6 million** of expected value.
+:::
+::: {}
+::: {.route-question}
+The survey has value only because an unfavorable report changes the choice from A to C. Information that cannot change a decision is worth nothing to that decision.
+:::
+:::
+:::
+
+[With a risk-averse board (R = 100), the survey still pays: its certainty equivalent is 36.4 against 34.8 without it, and after a favorable report the board picks B, not A.]{.note-line}
+
+## Change the survey {#evsi-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="ev">
+  <div class="w-controls">
+    <label class="w-slider">P(F | low) <strong id="ev-l-v">0.20</strong><input type="range" id="ev-l" min="0" max="1" step="0.05" value="0.2"></label>
+    <label class="w-slider">P(F | medium) <strong id="ev-m-v">0.60</strong><input type="range" id="ev-m" min="0" max="1" step="0.05" value="0.6"></label>
+    <label class="w-slider">P(F | high) <strong id="ev-h-v">0.80</strong><input type="range" id="ev-h" min="0" max="1" step="0.05" value="0.8"></label>
+    <label class="w-slider">Survey cost <strong id="ev-c-v">5</strong><input type="range" id="ev-c" min="0" max="30" step="1" value="5"></label>
+  </div>
+  <table class="wide" id="ev-table"></table>
+  <div class="w-readout" id="ev-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ev');
+  if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const prior = [0.3, 0.5, 0.2];
+  const O = [['A', [-120, 80, 260]], ['B', [-40, 60, 150]], ['C', [10, 40, 70]], ['D', [0, 0, 0]]];
+  const f = (x) => x.toFixed(1).replace('-', '−');
+  const ids = ['l', 'm', 'h', 'c'];
+  function draw() {
+    const v = Object.fromEntries(ids.map((k) => [k, +document.getElementById('ev-' + k).value]));
+    ids.forEach((k) => { document.getElementById('ev-' + k + '-v').textContent = k === 'c' ? v.c : v[k].toFixed(2); });
+    const lik = [v.l, v.m, v.h];
+    const pF = prior.reduce((s, p, i) => s + p * lik[i], 0), pU = 1 - pF;
+    const post = (rep) => prior.map((p, i) => (rep === 'F' ? p * lik[i] / pF : p * (1 - lik[i]) / pU));
+    const best = (q) => O.map(([k, pay]) => [k, pay.reduce((s, x, i) => s + x * q[i], 0)]).reduce((m, x) => (x[1] > m[1] ? x : m));
+    const rows = [];
+    let ev = 0;
+    for (const [rep, pr] of [['F', pF], ['U', pU]]) {
+      if (pr < 1e-9) { rows.push(`<tr><td>Report ${rep}</td><td class="num">0.00</td><td colspan="3">never happens</td></tr>`); continue; }
+      const q = post(rep), b = best(q); ev += pr * b[1];
+      rows.push(`<tr><td>Report ${rep}</td><td class="num">${pr.toFixed(2)}</td><td class="num">${q.map((x) => x.toFixed(2)).join(' · ')}</td><td class="num hit">${b[0]}</td><td class="num">${f(b[1])}</td></tr>`);
+    }
+    document.getElementById('ev-table').innerHTML = '<thead><tr><th>Report</th><th class="num">Probability</th><th class="num">Posterior low · medium · high</th><th class="num">Best option</th><th class="num">EMV</th></tr></thead><tbody>' + rows.join('') + '</tbody>';
+    const evsi = ev - 56, net = evsi - v.c;
+    document.getElementById('ev-out').innerHTML = `EVSI = ${f(ev)} − 56 = <b>${f(evsi)}</b> (efficiency ${Math.max(0, evsi / 39 * 100).toFixed(0)}%). ` +
+      (net > 1e-9 ? `<span class="best">Buy: net gain ${f(net)}</span>` : `<span class="best">Do not buy: the survey costs more than it is worth</span>`);
+  }
+  ids.forEach((k) => document.getElementById('ev-' + k).addEventListener('input', draw));
+  draw();
+})();
+</script>
+```
+
+[Try P(F | state) = 0.5 in every state: the report then says nothing, and EVSI falls to zero.]{.hint}
+
+## Activity 1 · A cheaper survey {#act1 .activity data-hold="true"}
+
+[Pairs · 15 minutes · paper and calculator]{.act-label}
+
+::: {.prompt}
+A second firm offers a survey for **CNY 2 million**, with P(F | low, medium, high) = 0.4, 0.6 and 0.7.
+:::
+
+1. Compute P(F), P(U) and the posteriors with a Bayes table.
+2. Fold back the tree. Which option follows each report?
+3. Compute its EVSI. Which survey should CellCo buy: this one, the first one, or neither?
+
+[Check your answers on the previous slide by moving the sliders.]{.hint}
+
+::: {.selfstudy}
+Studying alone: write the EVSI and your choice before you go to the next slide.
+:::
+
+## Activity 1 · Answer {#act1-answer}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Survey</th><th class="num">P(F)</th><th>After F</th><th>After U</th><th class="num">EV with survey</th><th class="num">EVSI</th><th class="num">Cost</th><th class="num">Net gain</th></tr></thead>
+  <tbody>
+    <tr><td>First firm (0.2, 0.6, 0.8)</td><td class="num">0.52</td><td>A, 112.3</td><td>C, 27.5</td><td class="num">71.6</td><td class="num">15.6</td><td class="num">5</td><td class="num hit">10.6</td></tr>
+    <tr><td>Second firm (0.4, 0.6, 0.7)</td><td class="num">0.56</td><td>A, 82.1</td><td>C, 31.8</td><td class="num">60.0</td><td class="num">4.0</td><td class="num">2</td><td class="num">2.0</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+Both surveys pay for themselves, but the first adds 10.6 million against 2.0. The cheaper survey is less able to tell low demand from medium, so its efficiency is only 10%.
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break, a second decision: CellCo's new plant needs 10 MWh of on-site storage. LCOS, safety, footprint, cycle life and supply risk all matter, and no single number captures them.
+:::
+
+## Screening with a Pugh matrix {#pugh}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Criterion</th><th>LFP Li-ion (datum)</th><th>Vanadium flow</th><th>Aqueous organic flow</th></tr></thead>
+  <tbody>
+    <tr><td>LCOS</td><td>S</td><td>−</td><td>−</td></tr>
+    <tr><td>Safety</td><td>S</td><td class="hit">+</td><td class="hit">+</td></tr>
+    <tr><td>Footprint</td><td>S</td><td>−</td><td>−</td></tr>
+    <tr><td>Cycle life</td><td>S</td><td class="hit">+</td><td>S</td></tr>
+    <tr><td>Supply risk</td><td>S</td><td>−</td><td class="hit">+</td></tr>
+    <tr><td><b>Count</b></td><td>0</td><td>2 plus, 3 minus</td><td>2 plus, 2 minus</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+A Pugh matrix compares each option with a reference, criterion by criterion: better (+), same (S) or worse (−). It screens quickly, but it treats every criterion as equally important.
+:::
+
+[Ratings in Sessions 2 and 3 are illustrative, written for the CellCo case, not an assessment of any product.]{.source}
+
+## AHP in four steps {#ahp}
+
+::: {.elements}
+::: {.el}
+[1 · Hierarchy]{.label}
+Goal, then criteria, then alternatives.
+:::
+::: {.el}
+[2 · Pairwise comparisons]{.label}
+For each pair of criteria: how much more important is one? Scale 1 (equal) to 9 (extreme).
+:::
+::: {.el}
+[3 · Weights]{.label}
+Geometric mean of each row, normalized to sum to 1 (close to the principal eigenvector).
+:::
+::: {.el .key}
+[4 · Consistency]{.label}
+CI = (λ~max~ − n)/(n − 1), CR = CI / RI. Accept if CR < 0.10 (RI = 1.12 for n = 5).
+:::
+:::
+
+::: {.bridge}
+Comparing two things at a time is easier than scoring five at once, and the consistency ratio tells you when the judgments contradict each other.
+:::
+
+## The board's comparisons {#ahp-weights}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Row is how many times as important as column</th><th class="num">LCOS</th><th class="num">Safety</th><th class="num">Footprint</th><th class="num">Cycle life</th><th class="num">Supply risk</th><th class="num">Weight</th></tr></thead>
+  <tbody>
+    <tr><td>LCOS</td><td class="num">1</td><td class="num">1/2</td><td class="num">5</td><td class="num">2</td><td class="num">3</td><td class="num">0.266</td></tr>
+    <tr><td>Safety</td><td class="num">2</td><td class="num">1</td><td class="num">7</td><td class="num">3</td><td class="num">4</td><td class="num hit">0.432</td></tr>
+    <tr><td>Footprint</td><td class="num">1/5</td><td class="num">1/7</td><td class="num">1</td><td class="num">1/3</td><td class="num">1/2</td><td class="num">0.053</td></tr>
+    <tr><td>Cycle life</td><td class="num">1/2</td><td class="num">1/3</td><td class="num">3</td><td class="num">1</td><td class="num">2</td><td class="num">0.155</td></tr>
+    <tr><td>Supply risk</td><td class="num">1/3</td><td class="num">1/4</td><td class="num">2</td><td class="num">1/2</td><td class="num">1</td><td class="num">0.094</td></tr>
+  </tbody>
+</table>
+```
+
+[λ~max~ = 5.034, CI = 0.0085, CR = 0.008, well below 0.10. The board's judgments are consistent: safety first, then LCOS.]{.note-line}
+
+## Scores and ranking {#ahp-result}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Rating 1 to 10 (illustrative)</th><th class="num">LCOS</th><th class="num">Safety</th><th class="num">Footprint</th><th class="num">Cycle life</th><th class="num">Supply risk</th><th class="num">Weighted score</th></tr></thead>
+  <tbody>
+    <tr><td><i>Weight</i></td><td class="num"><i>0.266</i></td><td class="num"><i>0.432</i></td><td class="num"><i>0.053</i></td><td class="num"><i>0.155</i></td><td class="num"><i>0.094</i></td><td></td></tr>
+    <tr><td>LFP Li-ion</td><td class="num">9</td><td class="num">5</td><td class="num">9</td><td class="num">6</td><td class="num">6</td><td class="num">0.330</td></tr>
+    <tr><td>Vanadium flow</td><td class="num">6</td><td class="num">8</td><td class="num">4</td><td class="num">9</td><td class="num">4</td><td class="num hit">0.342</td></tr>
+    <tr><td>Aqueous organic flow</td><td class="num">4</td><td class="num">9</td><td class="num">3</td><td class="num">6</td><td class="num">8</td><td class="num">0.329</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+Each rating is divided by its column total, then weighted. Vanadium flow leads, but the three scores lie within 0.013 of each other. A result this close says more about the weights than about the technologies.
+:::
+
+## Activity 2 · Stakeholder AHP {#act2 .activity data-hold="true"}
+
+[Groups of 4 · 30 minutes · role cards and the next slide]{.act-label}
+
+::: {.prompt}
+Each member takes one role and fills in the ten pairwise comparisons from that role's point of view.
+:::
+
+1. Roles: **CFO** (cost), **safety officer**, **plant manager** (space and uptime), **sustainability lead** (supply chain).
+2. Combine the four judgments for each pair by geometric mean, for example (3 × 1/2 × 2 × 1)^1/4^.
+3. Enter the group's comparisons on the next slide. Is CR below 0.10? Which technology wins?
+4. Each group reports its weights and winner. We compare across the room.
+
+::: {.selfstudy}
+Studying alone: fill in the comparisons twice, once as the CFO and once as the safety officer, and compare the winners.
+:::
+
+## Enter your comparisons {#ahp-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="ahpw">
+  <div class="ahp-grid" id="ahp-pairs"></div>
+  <div class="w-readout" id="ahp-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ahpw');
+  if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const C = ['LCOS', 'Safety', 'Footprint', 'Cycle life', 'Supply risk'];
+  const S = [[9, 5, 9, 6, 6], [6, 8, 4, 9, 4], [4, 9, 3, 6, 8]];
+  const ALT = ['LFP Li-ion', 'Vanadium flow', 'Aqueous organic flow'];
+  // Board defaults, as slider positions: +k means row criterion is (k+1) times as important; -k the reverse.
+  const base = { '0-1': -1, '0-2': 4, '0-3': 1, '0-4': 2, '1-2': 6, '1-3': 2, '1-4': 3, '2-3': -2, '2-4': -1, '3-4': 1 };
+  const pairs = Object.keys(base);
+  const toVal = (k) => (k >= 0 ? k + 1 : 1 / (1 - k));
+  const lab = (k) => (k === 0 ? 'equal' : k > 0 ? (k + 1) + '×' : '1/' + (1 - k));
+  document.getElementById('ahp-pairs').innerHTML = pairs.map((p) => {
+    const [i, j] = p.split('-').map(Number);
+    return `<label class="ahp-pair"><span class="ahp-l">${C[i]}</span><input type="range" min="-8" max="8" step="1" value="${base[p]}" data-p="${p}"><span class="ahp-r">${C[j]}</span><b data-v="${p}"></b></label>`;
+  }).join('') + '<button type="button" class="ahp-reset" id="ahp-reset">Reset to the board</button>';
+  const sums = [0, 1, 2, 3, 4].map((c) => S.reduce((s, r) => s + r[c], 0));
+  function draw() {
+    const A = C.map(() => C.map(() => 1));
+    root.querySelectorAll('input[data-p]').forEach((el) => {
+      const [i, j] = el.dataset.p.split('-').map(Number), k = +el.value;
+      A[i][j] = toVal(k); A[j][i] = 1 / toVal(k);
+      root.querySelector(`b[data-v="${el.dataset.p}"]`).textContent = lab(k);
+    });
+    const gm = A.map((r) => Math.pow(r.reduce((s, x) => s * x, 1), 1 / 5));
+    const tot = gm.reduce((s, x) => s + x, 0), w = gm.map((x) => x / tot);
+    const Aw = A.map((r) => r.reduce((s, x, j) => s + x * w[j], 0));
+    const lam = Aw.reduce((s, x, i) => s + x / w[i], 0) / 5, CR = ((lam - 5) / 4) / 1.12;
+    const score = S.map((r) => r.reduce((s, x, c) => s + (x / sums[c]) * w[c], 0));
+    const bi = score.indexOf(Math.max(...score));
+    document.getElementById('ahp-out').innerHTML =
+      'Weights: ' + C.map((c, i) => `${c} <b>${w[i].toFixed(3)}</b>`).join(', ') +
+      `. CR = <b style="color:${CR < 0.1 ? '#0F6E6B' : '#BE654C'}">${CR.toFixed(3)}</b> ${CR < 0.1 ? '(consistent)' : '(revise your judgments)'}<br>` +
+      'Scores: ' + ALT.map((a, i) => `${a} ${score[i].toFixed(3)}`).join(', ') + `. Winner: <span class="best">${ALT[bi]}</span>`;
+  }
+  root.addEventListener('input', draw);
+  document.getElementById('ahp-reset').addEventListener('click', () => {
+    root.querySelectorAll('input[data-p]').forEach((el) => { el.value = base[el.dataset.p]; }); draw();
+  });
+  draw();
+})();
+</script>
+```
+
+[Move a slider toward the criterion that matters more. The middle position means equal importance.]{.hint}
+
+## How fragile is the ranking? {#act2-debrief}
+
+::: {.two}
+::: {}
+Hold the board's other judgments in proportion and change one weight:
+
+- LFP overtakes vanadium flow once the LCOS weight passes **0.32** (board: 0.27).
+- Aqueous organic flow overtakes vanadium flow once the safety weight passes **0.56** (board: 0.43), or the LCOS weight falls below **0.16**.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Typical role weights</th><th>Winner</th></tr></thead>
+  <tbody>
+    <tr><td>CFO, LCOS 0.50</td><td>LFP Li-ion</td></tr>
+    <tr><td>Plant manager, footprint 0.30</td><td>LFP Li-ion</td></tr>
+    <tr><td>Safety officer, safety 0.60</td><td>Aqueous organic flow</td></tr>
+    <tr><td>Sustainability lead, supply 0.40</td><td>Aqueous organic flow</td></tr>
+  </tbody>
+</table>
+```
+:::
+:::
+
+::: {.bridge}
+AHP does not remove disagreement. It shows where the disagreement is, so the board argues about weights instead of conclusions.
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+A decision tree folds back from right to left: expected value at chance nodes, best branch at decision nodes.
+:::
+::: {.tk}
+Bayes' theorem turns a survey's track record into posterior probabilities. The first survey's EVSI is CNY 15.6 million, 40% of EVPI, so it is worth its CNY 5 million price.
+:::
+::: {.tk .key}
+AHP turns pairwise judgments into weights and checks their consistency. CellCo's three technologies score within 0.013, so the choice depends on whose weights the board adopts.
+:::
+:::
+
+[Session 3: Monte Carlo simulation of the new line's NPV, and the value of building in stages.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Decision tree | 决策树 | Expected value of sample information (EVSI) | 样本信息期望价值 |
+| Decision node | 决策节点 | Efficiency of sample information | 样本信息效率 |
+| Chance node | 机会节点 | Analytic hierarchy process (AHP) | 层次分析法 |
+| Fold back (roll back) | 逆推求解 | Pairwise comparison | 两两比较 |
+| Prior probability | 先验概率 | Criterion weight | 准则权重 |
+| Posterior probability | 后验概率 | Consistency ratio (CR) | 一致性比率 |
+| Bayes' theorem | 贝叶斯定理 | Pugh matrix | Pugh 矩阵 |
+| Levelized cost of storage (LCOS) | 平准化储能成本 | Sensitivity analysis | 敏感性分析 |
+:::
+
+## Exit ticket · 3 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Name one piece of information CellCo could buy before choosing its storage technology, and explain in one sentence how you would decide the most it should pay.
+:::
+
+::: {.selfstudy}
+Studying alone: compare your answer with the EVSI slide.
+:::

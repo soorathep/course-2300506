@@ -1,0 +1,640 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to session two: trees, information and AHP.",
+   "Today we ask what a piece of information is worth, and how to choose when one number cannot capture everything that matters."
+  ],
+  "en": {
+   "audio": "narration/s02/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.35
+    ],
+    [
+     4.7,
+     12.76
+    ]
+   ]
+  }
+ },
+ "recap": {
+  "text": [
+   "Here is where we left CellCo.",
+   "With demand probabilities of 0.3, 0.5 and 0.2, EMV picks the new LFP line, at 56 million yuan.",
+   "The value of perfect information is 39 million yuan, so no forecast can be worth more than that.",
+   "And a risk-averse board prefers the tolling contract or the sodium-ion retrofit, depending on its risk tolerance.",
+   "Today there are two new questions. A market-research firm offers a demand survey for 5 million yuan. Should CellCo buy it? And which storage technology should the new plant install?"
+  ],
+  "en": {
+   "audio": "narration/s02/recap.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.3
+    ],
+    [
+     2.65,
+     14.4
+    ],
+    [
+     14.75,
+     21.94
+    ],
+    [
+     22.29,
+     30.48
+    ],
+    [
+     30.83,
+     43.63
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan.",
+   "First we build decision trees, use Bayes' theorem to update probabilities, and compute the value of the survey. Then you will price a cheaper survey in pairs.",
+   "After the break, we screen storage technologies with a Pugh matrix and rank them with AHP.",
+   "In the second activity, your group will play four stakeholders and see how their priorities change the ranking."
+  ],
+  "en": {
+   "audio": "narration/s02/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.66
+    ],
+    [
+     2.01,
+     13.14
+    ],
+    [
+     13.49,
+     20.24
+    ],
+    [
+     20.59,
+     27.56
+    ]
+   ]
+  }
+ },
+ "tree-basics": {
+  "text": [
+   "A decision tree draws a decision in time order, from left to right.",
+   "A square is a decision: you choose the branch. A circle is a chance node: the world chooses, with the probabilities written on each branch.",
+   "To solve the tree, fold it back from right to left. At each circle, take the expected value. At each square, take the best branch and cut the others.",
+   "Here, the chance node after A is worth 56 and the one after C is worth 37, so the decision node takes 56 and chooses A, the same answer as the EMV table."
+  ],
+  "en": {
+   "audio": "narration/s02/tree-basics.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.64
+    ],
+    [
+     4.99,
+     14.25
+    ],
+    [
+     14.6,
+     24.72
+    ],
+    [
+     25.07,
+     38.44
+    ]
+   ]
+  }
+ },
+ "survey": {
+  "text": [
+   "The survey costs 5 million yuan and reports either favorable or unfavorable.",
+   "Its track record tells us how likely a favorable report is in each true state: 0.2 when demand is low, 0.6 when it is medium, and 0.8 when it is high.",
+   "So the survey is useful but not perfect. In one low-demand case out of five, it still reports favorable.",
+   "To act on a report, we need the reverse probabilities: the chance of each state given the report. Bayes' theorem gives them."
+  ],
+  "en": {
+   "audio": "narration/s02/survey.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.92
+    ],
+    [
+     6.27,
+     19.95
+    ],
+    [
+     20.3,
+     27.66
+    ],
+    [
+     28.01,
+     36.46
+    ]
+   ]
+  }
+ },
+ "bayes": {
+  "text": [
+   "Bayes' theorem revises the prior probabilities using the report.",
+   "First multiply each prior by the chance of a favorable report in that state. These joint probabilities add up to 0.52, the probability of a favorable report.",
+   "Then divide each joint probability by 0.52 to get the posterior.",
+   "A favorable report raises the probability of high demand from 0.20 to 0.31. An unfavorable report raises the probability of low demand from 0.30 to 0.50."
+  ],
+  "en": {
+   "audio": "narration/s02/bayes.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.96
+    ],
+    [
+     5.31,
+     17.9
+    ],
+    [
+     18.25,
+     24.01
+    ],
+    [
+     24.36,
+     41.71
+    ]
+   ]
+  }
+ },
+ "survey-tree": {
+  "text": [
+   "Now the full tree. The first decision is whether to buy the survey.",
+   "Without the survey, CellCo chooses A, worth 56.",
+   "With the survey, a favorable report comes with probability 0.52. Using the posterior probabilities, A is then worth 112.3, the best option.",
+   "An unfavorable report comes with probability 0.48. Then C is best, worth 27.5, and A would lose 5 million in expectation.",
+   "Folding back, the survey branch is worth 0.52 times 112.3 plus 0.48 times 27.5, which is 71.6. After the 5 million cost it is worth 66.6, more than 56, so CellCo should buy the survey."
+  ],
+  "en": {
+   "audio": "narration/s02/survey-tree.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.94
+    ],
+    [
+     5.29,
+     9.13
+    ],
+    [
+     9.48,
+     22.37
+    ],
+    [
+     22.72,
+     34.56
+    ],
+    [
+     34.91,
+     56.82
+    ]
+   ]
+  }
+ },
+ "evsi": {
+  "text": [
+   "The expected value of sample information, EVSI, is the expected value with the survey minus the expected value without it: 71.6 minus 56, which is 15.6 million yuan.",
+   "Its efficiency is EVSI divided by EVPI: 15.6 over 39, or 40 percent.",
+   "At a price of 5 million, buying the survey adds 10.6 million of expected value.",
+   "Notice why the survey has value: an unfavorable report changes the choice from A to C. Information that cannot change a decision is worth nothing to that decision.",
+   "For a risk-averse board with R equal to 100, the survey still pays, and after a favorable report that board picks B rather than A."
+  ],
+  "en": {
+   "audio": "narration/s02/evsi.en.mp3",
+   "cues": [
+    [
+     0.25,
+     16.19
+    ],
+    [
+     16.54,
+     25.45
+    ],
+    [
+     25.8,
+     32.22
+    ],
+    [
+     32.57,
+     44.33
+    ],
+    [
+     44.68,
+     54.13
+    ]
+   ]
+  }
+ },
+ "evsi-explorer": {
+  "text": [
+   "Use the sliders to change the survey's track record and its price.",
+   "The table shows the probability of each report, the posterior probabilities, and the best option after each report. The readout gives the EVSI and whether to buy.",
+   "Try setting all three probabilities to 0.5. The report then carries no information, and the EVSI falls to zero."
+  ],
+  "en": {
+   "audio": "narration/s02/evsi-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.56
+    ],
+    [
+     4.91,
+     17.22
+    ],
+    [
+     17.57,
+     27.4
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity one. Work in pairs for fifteen minutes.",
+   "A second firm offers a cheaper survey for 2 million yuan. Its chances of a favorable report are 0.4, 0.6 and 0.7 for low, medium and high demand.",
+   "Build the Bayes table, fold back the tree, and compute the EVSI. Then decide which survey CellCo should buy: this one, the first one, or neither.",
+   "You can check your answer on the previous slide with the sliders."
+  ],
+  "en": {
+   "audio": "narration/s02/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.79
+    ],
+    [
+     4.14,
+     18.18
+    ],
+    [
+     18.53,
+     29.52
+    ],
+    [
+     29.87,
+     33.73
+    ]
+   ]
+  }
+ },
+ "act1-answer": {
+  "text": [
+   "Here is the answer.",
+   "For the second survey, a favorable report has probability 0.56. After it, A is best at 82.1. After an unfavorable report, C is best at 31.8.",
+   "The expected value with this survey is 60.0, so its EVSI is 4.0, and after its cost of 2 million it adds 2.0.",
+   "Both surveys pay for themselves, but the first adds 10.6 million against 2.0. The cheaper survey is less able to tell low demand from medium, so its efficiency is only 10 percent."
+  ],
+  "en": {
+   "audio": "narration/s02/act1-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.74
+    ],
+    [
+     2.09,
+     16.49
+    ],
+    [
+     16.84,
+     28.21
+    ],
+    [
+     28.56,
+     42.94
+    ]
+   ]
+  }
+ },
+ "break": {
+  "text": [
+   "Let us take a ten-minute break.",
+   "Afterwards we turn to a second decision: the new plant needs 10 megawatt hours of on-site storage, and several criteria matter at once."
+  ],
+  "en": {
+   "audio": "narration/s02/break.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.32
+    ],
+    [
+     2.67,
+     12.55
+    ]
+   ]
+  }
+ },
+ "pugh": {
+  "text": [
+   "CellCo's engineers shortlist three technologies: LFP lithium-ion, vanadium flow, and aqueous organic flow batteries.",
+   "A Pugh matrix compares each option with a reference, here LFP, criterion by criterion: better, the same, or worse.",
+   "Vanadium flow has two pluses and three minuses. Aqueous organic flow has two pluses and two minuses.",
+   "The Pugh matrix screens quickly, but it treats every criterion as equally important, so it cannot settle the choice.",
+   "The ratings in this case are illustrative, written for teaching, not an assessment of any product."
+  ],
+  "en": {
+   "audio": "narration/s02/pugh.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.79
+    ],
+    [
+     10.14,
+     19.46
+    ],
+    [
+     19.81,
+     27.89
+    ],
+    [
+     28.24,
+     36.24
+    ],
+    [
+     36.59,
+     42.95
+    ]
+   ]
+  }
+ },
+ "ahp": {
+  "text": [
+   "The analytic hierarchy process, AHP, adds weights in four steps.",
+   "First, build a hierarchy: the goal, the criteria, and the alternatives.",
+   "Second, compare the criteria two at a time, on a scale from 1, equally important, to 9, extremely more important.",
+   "Third, compute the weights. The geometric mean of each row, normalized to sum to one, is a good approximation of the principal eigenvector.",
+   "Fourth, check consistency. The consistency ratio should be below 0.10. If it is higher, the judgments contradict each other and should be revised."
+  ],
+  "en": {
+   "audio": "narration/s02/ahp.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.39
+    ],
+    [
+     5.74,
+     10.56
+    ],
+    [
+     10.91,
+     19.57
+    ],
+    [
+     19.92,
+     30.04
+    ],
+    [
+     30.39,
+     41.82
+    ]
+   ]
+  }
+ },
+ "ahp-weights": {
+  "text": [
+   "Here are the board's pairwise comparisons.",
+   "Read each row against each column. For example, the board rates safety two times as important as LCOS, and seven times as important as footprint.",
+   "The resulting weights put safety first at 0.43, then LCOS at 0.27, cycle life at 0.16, supply risk at 0.09, and footprint at 0.05.",
+   "The consistency ratio is 0.008, far below 0.10, so the board's judgments are consistent."
+  ],
+  "en": {
+   "audio": "narration/s02/ahp-weights.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.92
+    ],
+    [
+     3.27,
+     14.94
+    ],
+    [
+     15.29,
+     32.59
+    ],
+    [
+     32.94,
+     42.52
+    ]
+   ]
+  }
+ },
+ "ahp-result": {
+  "text": [
+   "Now combine the weights with the engineers' ratings.",
+   "Each rating is divided by its column total and multiplied by the criterion weight, and the products are added.",
+   "Vanadium flow scores 0.342, LFP 0.330, and aqueous organic flow 0.329.",
+   "Vanadium flow leads, but the three scores lie within 0.013 of each other. A result this close tells us more about the weights than about the technologies."
+  ],
+  "en": {
+   "audio": "narration/s02/ahp-result.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.51
+    ],
+    [
+     3.86,
+     11.48
+    ],
+    [
+     11.83,
+     22.86
+    ],
+    [
+     23.21,
+     35.16
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   "Activity two. Work in groups of four for thirty minutes.",
+   "Each member takes one role: the chief financial officer, who cares about cost; the safety officer; the plant manager, who cares about space and uptime; and the sustainability lead, who cares about the supply chain.",
+   "Each of you fills in the ten pairwise comparisons from your role's point of view.",
+   "Then combine the four judgments for each pair with the geometric mean, enter the group's comparisons on the next slide, and check the consistency ratio and the winner.",
+   "At the end, each group reports its weights and winner, and we compare them across the room."
+  ],
+  "en": {
+   "audio": "narration/s02/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.2
+    ],
+    [
+     4.55,
+     19.71
+    ],
+    [
+     20.06,
+     25.14
+    ],
+    [
+     25.49,
+     36.33
+    ],
+    [
+     36.68,
+     42.16
+    ]
+   ]
+  }
+ },
+ "ahp-explorer": {
+  "text": [
+   "Each slider is one pairwise comparison. Move it toward the criterion that matters more. The middle position means equal importance.",
+   "The readout shows the weights, the consistency ratio, and the score of each technology.",
+   "If the consistency ratio turns red, your judgments contradict each other. Revise the comparisons until it is below 0.10.",
+   "The reset button returns to the board's comparisons."
+  ],
+  "en": {
+   "audio": "narration/s02/ahp-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.68
+    ],
+    [
+     10.03,
+     15.87
+    ],
+    [
+     16.22,
+     26.64
+    ],
+    [
+     26.99,
+     30.44
+    ]
+   ]
+  }
+ },
+ "act2-debrief": {
+  "text": [
+   "How fragile is the ranking?",
+   "Keep the board's other judgments in proportion and change one weight. LFP overtakes vanadium flow once the LCOS weight passes 0.32. The board's value is 0.27.",
+   "Aqueous organic flow overtakes vanadium flow once the safety weight passes 0.56, or once the LCOS weight falls below 0.16.",
+   "Typical role weights give different winners: the chief financial officer and the plant manager pick LFP, while the safety officer and the sustainability lead pick aqueous organic flow.",
+   "AHP does not remove disagreement. It shows where the disagreement is, so the board can argue about weights instead of conclusions."
+  ],
+  "en": {
+   "audio": "narration/s02/act2-debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.32
+    ],
+    [
+     2.67,
+     18.01
+    ],
+    [
+     18.36,
+     31.26
+    ],
+    [
+     31.61,
+     44.93
+    ],
+    [
+     45.28,
+     54.83
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   "Let us summarize.",
+   "A decision tree folds back from right to left: expected value at chance nodes, best branch at decision nodes.",
+   "Bayes' theorem turns a survey's track record into posterior probabilities. The first survey's EVSI is 15.6 million yuan, 40 percent of EVPI, so it is worth its price of 5 million.",
+   "AHP turns pairwise judgments into weights and checks their consistency. CellCo's three technologies score within 0.013, so the choice depends on whose weights the board adopts.",
+   "In session three, we simulate the new line's net present value with Monte Carlo, and value the option to build in stages."
+  ],
+  "en": {
+   "audio": "narration/s02/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.7
+    ],
+    [
+     2.05,
+     10.14
+    ],
+    [
+     10.49,
+     26.46
+    ],
+    [
+     26.81,
+     40.94
+    ],
+    [
+     41.29,
+     50.06
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference.",
+   "Use the English terms in your assignments and quizzes."
+  ],
+  "en": {
+   "audio": "narration/s02/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ],
+    [
+     5.57,
+     8.83
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   "To finish, take three minutes for the exit ticket.",
+   "Name one piece of information CellCo could buy before choosing its storage technology, and explain in one sentence how you would decide the most it should pay.",
+   "Hand it in at the door."
+  ],
+  "en": {
+   "audio": "narration/s02/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.19
+    ],
+    [
+     3.54,
+     14.59
+    ],
+    [
+     14.94,
+     16.74
+    ]
+   ]
+  }
+ }
+}

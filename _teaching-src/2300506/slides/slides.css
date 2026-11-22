@@ -122,3 +122,12 @@
 .reveal .lottery button[aria-pressed="true"] { background: #0F6E6B; color: #fff; }
 .reveal .lottery button:focus-visible { outline: 2px solid #E29A2D; outline-offset: 2px; }
 .reveal .lot-result { margin-top: .8em; font-size: .68em; background: #F3F0EB; border-radius: 4px; padding: 12px 18px; color: #1C242B; }
+
+/* AHP pairwise sliders (s02) */
+.reveal .ahp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 36px; font-size: .52em; margin-top: .3em; }
+.reveal .ahp-pair { display: grid; grid-template-columns: 6.6em 1fr 6.6em 3.4em; align-items: center; gap: 10px; cursor: pointer; }
+.reveal .ahp-pair .ahp-l { text-align: right; color: #1C242B; }
+.reveal .ahp-pair .ahp-r { color: #1C242B; }
+.reveal .ahp-pair input[type=range] { width: 100%; accent-color: #E29A2D; cursor: pointer; }
+.reveal .ahp-pair b { color: #9a5f10; font-variant-numeric: tabular-nums; }
+.reveal .ahp-reset { justify-self: start; border: 1.5px solid #0F6E6B; background: #fff; color: #0F6E6B; border-radius: 4px; padding: 5px 14px; font: 600 1em "Source Sans 3", sans-serif; cursor: pointer; }

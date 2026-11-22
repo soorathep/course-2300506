@@ -52,7 +52,7 @@ SPOKEN = [
     (r'\bCellCo\b', 'Cell Co'),
     (r'\bGWh\b', 'gigawatt hours'),
     (r'\bMILP\b', 'M I L P'),
-    (r'\b(EMV|EOL|EVPI|EVSI|AHP|NPV|LFP|CE|MDP|HQU|LP|SQC|OEE|RTY|FPY|DPMO|PERT|CPM)\b', lambda m: ' '.join(m.group(1))),
+    (r'\b(EMV|EOL|EVPI|EVSI|AHP|NPV|LFP|LCOS|CE|CR|MDP|HQU|LP|SQC|OEE|RTY|FPY|DPMO|PERT|CPM)\b', lambda m: ' '.join(m.group(1))),
     (r'−(?=\d)', 'minus '),
     (r'≈', 'about'),
     (r'α', 'alpha'),
