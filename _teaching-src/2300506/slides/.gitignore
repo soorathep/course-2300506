@@ -1,0 +1,8 @@
+_site/
+.quarto/
+kokoro-models/
+*_files/
+s[0-9]*.html
+narration/
+__pycache__/
+*.wav

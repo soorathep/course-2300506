@@ -1,0 +1,34 @@
+# 2300506 Industrial Science decks (HQU): Quarto + Reveal.js with English narration and English captions.
+# Render from this folder:  quarto render s01.qmd && python3 publish.py
+# Theme and click-to-advance are copies of the shared 2105603 theme (theme/).
+project:
+  type: default
+  output-dir: _site
+  resources:
+    - narration/**
+    - figures/*.png
+
+format:
+  revealjs:
+    theme: [default, theme/teal-amber.scss]
+    css: slides.css
+    width: 1280
+    height: 720
+    margin: 0.06
+    center: false
+    auto-stretch: false
+    slide-number: c/t
+    progress: true
+    hash: true
+    transition: none
+    menu: false
+    controls: true
+    controlsLayout: edges
+    controlsBackArrows: visible
+    html-math-method: plain
+    embed-resources: false
+    include-in-header:
+      text: '<meta name="robots" content="noindex">'
+    include-after-body:
+      - theme/click-advance.html
+      - narration-player.html
