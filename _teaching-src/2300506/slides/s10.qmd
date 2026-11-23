@@ -150,7 +150,7 @@ Part 2 (10 minutes). Write a three-sentence idea card for your research note: th
 Quiz 2 covers Markov Analysis and Network Model, Sessions 4 to 9.
 :::
 
-[Quiz 1, on Decision Making, ran online on the evening of Day 1. The two quizzes together are proposed at 15% of the Block 1 grade.]{.note-line}
+[Quiz 1, on Decision Making, was on the evening of Day 1. The two quizzes together are proposed at 15% of the Block 1 grade.]{.note-line}
 
 ## Block 1 and Block 2 {#to-block2}
 

@@ -225,7 +225,7 @@ Studying alone: use the method table in Session 10 as a checklist, and write the
 Quiz 4 covers Statistical Quality Control, Sessions 15 to 18.
 :::
 
-[Quiz 3, on Linear Programming, ran online yesterday evening. The two quizzes together are proposed at 15% of the Block 2 grade.]{.note-line}
+[Quiz 3, on Linear Programming, was yesterday evening. The two quizzes together are proposed at 15% of the Block 2 grade.]{.note-line}
 
 ## One company, five methods {#synthesis}
 

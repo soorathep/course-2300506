@@ -383,7 +383,7 @@
  "exit": {
   "text": [
    "For the exit ticket, explain in one sentence to a production engineer why two hundred logged shifts are not enough to estimate the down row precisely.",
-   "Remember that quiz one opens online this evening."
+   "Remember that quiz one is this evening."
   ],
   "en": {
    "audio": "narration/s04/exit.en.mp3",
@@ -394,7 +394,7 @@
     ],
     [
      10.75,
-     13.98
+     13.14
     ]
    ]
   }

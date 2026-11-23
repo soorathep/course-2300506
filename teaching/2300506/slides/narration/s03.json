@@ -498,7 +498,7 @@
    "Monte Carlo simulation turns a model and input distributions into a full risk profile. Option A's mean NPV of 57 hides a 40 percent chance of loss.",
    "With a thousand runs, the mean carries a standard error of about 6. Report the number of runs, and do not read meaning into smaller differences.",
    "Building in stages is a real option. Expanding only if demand reaches 1.9 gigawatt hours per year adds about 22 million of expected NPV and halves the chance of loss.",
-   "Quiz one opens online this evening and covers sessions one to three. After the break, session four starts Markov analysis."
+   "Quiz one is this evening and covers sessions one to three. After the break, session four starts Markov analysis."
   ],
   "en": {
    "audio": "narration/s03/debrief.en.mp3",
@@ -521,7 +521,7 @@
     ],
     [
      40.97,
-     50.06
+     48.95
     ]
    ]
   }

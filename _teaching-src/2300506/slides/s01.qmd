@@ -596,7 +596,7 @@ Utility puts the board's risk attitude into numbers. CellCo's choice moves from 
 Write two sentences for CellCo's board: which option you recommend, and which number from today supports it.
 :::
 
-[Quiz 1 opens online this evening and covers Sessions 1 to 3.]{.hint}
+[Quiz 1 is this evening and covers Sessions 1 to 3.]{.hint}
 
 ::: {.selfstudy}
 Studying alone: compare your answer with the reference values two slides back.

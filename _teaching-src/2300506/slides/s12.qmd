@@ -236,7 +236,7 @@ Studying alone: write all five answers before you go on.
 The Solver model, the dual, and the annotated sensitivity report.
 
 ::: {.route-question}
-Quiz 3, on today's material, runs online this evening.
+Quiz 3, on today's material, is this evening.
 :::
 :::
 :::
