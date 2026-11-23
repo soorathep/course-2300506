@@ -26,6 +26,7 @@ format:
     controlsLayout: edges
     controlsBackArrows: visible
     html-math-method: plain
+    html-table-processing: none
     embed-resources: false
     include-in-header:
       text: '<meta name="robots" content="noindex">'

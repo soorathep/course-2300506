@@ -37,7 +37,7 @@
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="s01_files/libs/revealjs/dist/theme/quarto-b334f3268ccd5e08bfe37898af6488d3.css">
-  <link rel="stylesheet" href="slides.css?v=75d850a4">
+  <link rel="stylesheet" href="slides.css?v=b0a401c7">
   <link href="s01_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="s01_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="s01_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -273,41 +273,14 @@ Soorathep Kheawhom, Ph.D., FRSC
 </section>
 <section id="payoff" class="slide level2">
 <h2>The payoff table</h2>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Alternative</th>
-<th class="num" data-quarto-table-cell-role="th">Low demand</th>
-<th class="num" data-quarto-table-cell-role="th">Medium demand</th>
-<th class="num" data-quarto-table-cell-role="th">High demand</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A · New LFP line</td>
-<td class="num">−120</td>
-<td class="num">80</td>
-<td class="num">260</td>
-</tr>
-<tr class="even">
-<td>B · Sodium-ion retrofit</td>
-<td class="num">−40</td>
-<td class="num">60</td>
-<td class="num">150</td>
-</tr>
-<tr class="odd">
-<td>C · Tolling contract</td>
-<td class="num">10</td>
-<td class="num">40</td>
-<td class="num">70</td>
-</tr>
-<tr class="even">
-<td>D · Do nothing</td>
-<td class="num">0</td>
-<td class="num">0</td>
-<td class="num">0</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Alternative</th><th class="num">Low demand</th><th class="num">Medium demand</th><th class="num">High demand</th></tr></thead>
+  <tbody>
+    <tr><td>A · New LFP line</td><td class="num">−120</td><td class="num">80</td><td class="num">260</td></tr>
+    <tr><td>B · Sodium-ion retrofit</td><td class="num">−40</td><td class="num">60</td><td class="num">150</td></tr>
+    <tr><td>C · Tolling contract</td><td class="num">10</td><td class="num">40</td><td class="num">70</td></tr>
+    <tr><td>D · Do nothing</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+  </tbody>
 </table>
 <p><span class="note-line">NPV in CNY million. No alternative is best in every state, so the table alone does not give a choice.</span></p>
 <div class="route-question">
@@ -316,53 +289,15 @@ Soorathep Kheawhom, Ph.D., FRSC
 </section>
 <section id="criteria" class="slide level2">
 <h2>Five criteria without probabilities</h2>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Criterion</th>
-<th data-quarto-table-cell-role="th">Rule</th>
-<th data-quarto-table-cell-role="th">Score of A, B, C, D</th>
-<th data-quarto-table-cell-role="th">Choice</th>
-<th data-quarto-table-cell-role="th">Attitude it encodes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Maximax</td>
-<td>Best of the best cases</td>
-<td class="num">260, 150, 70, 0</td>
-<td class="hit">A</td>
-<td>Optimist</td>
-</tr>
-<tr class="even">
-<td>Maximin</td>
-<td>Best of the worst cases</td>
-<td class="num">−120, −40, 10, 0</td>
-<td class="hit">C</td>
-<td>Pessimist</td>
-</tr>
-<tr class="odd">
-<td>Hurwicz, α = 0.6</td>
-<td>α · best + (1 − α) · worst</td>
-<td class="num">108, 74, 46, 0</td>
-<td class="hit">A</td>
-<td>Set by α</td>
-</tr>
-<tr class="even">
-<td>Laplace</td>
-<td>Average, states equally likely</td>
-<td class="num">73.3, 56.7, 40, 0</td>
-<td class="hit">A</td>
-<td>No information</td>
-</tr>
-<tr class="odd">
-<td>Minimax regret</td>
-<td>Smallest maximum regret</td>
-<td class="num">130, 110, 190, 260</td>
-<td class="hit">B</td>
-<td>Fear of hindsight</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Criterion</th><th>Rule</th><th>Score of A, B, C, D</th><th>Choice</th><th>Attitude it encodes</th></tr></thead>
+  <tbody>
+    <tr><td>Maximax</td><td>Best of the best cases</td><td class="num">260, 150, 70, 0</td><td class="hit">A</td><td>Optimist</td></tr>
+    <tr><td>Maximin</td><td>Best of the worst cases</td><td class="num">−120, −40, 10, 0</td><td class="hit">C</td><td>Pessimist</td></tr>
+    <tr><td>Hurwicz, α = 0.6</td><td>α · best + (1 − α) · worst</td><td class="num">108, 74, 46, 0</td><td class="hit">A</td><td>Set by α</td></tr>
+    <tr><td>Laplace</td><td>Average, states equally likely</td><td class="num">73.3, 56.7, 40, 0</td><td class="hit">A</td><td>No information</td></tr>
+    <tr><td>Minimax regret</td><td>Smallest maximum regret</td><td class="num">130, 110, 190, 260</td><td class="hit">B</td><td>Fear of hindsight</td></tr>
+  </tbody>
 </table>
 <div class="bridge">
 <p>Three criteria pick A, one picks C and one picks B. The data did not change; only the rule did.</p>
@@ -421,53 +356,15 @@ Soorathep Kheawhom, Ph.D., FRSC
 </section>
 <section id="regret" class="slide level2">
 <h2>Regret: the cost of hindsight</h2>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Regret = best in that state − this payoff</th>
-<th class="num" data-quarto-table-cell-role="th">Low</th>
-<th class="num" data-quarto-table-cell-role="th">Medium</th>
-<th class="num" data-quarto-table-cell-role="th">High</th>
-<th class="num" data-quarto-table-cell-role="th">Maximum regret</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Best payoff in the state</td>
-<td class="num ref">10 (C)</td>
-<td class="num ref">80 (A)</td>
-<td class="num ref">260 (A)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>A · New LFP line</td>
-<td class="num">130</td>
-<td class="num">0</td>
-<td class="num">0</td>
-<td class="num">130</td>
-</tr>
-<tr class="odd">
-<td>B · Sodium-ion retrofit</td>
-<td class="num">50</td>
-<td class="num">20</td>
-<td class="num">110</td>
-<td class="num hit">110</td>
-</tr>
-<tr class="even">
-<td>C · Tolling contract</td>
-<td class="num">0</td>
-<td class="num">40</td>
-<td class="num">190</td>
-<td class="num">190</td>
-</tr>
-<tr class="odd">
-<td>D · Do nothing</td>
-<td class="num">10</td>
-<td class="num">80</td>
-<td class="num">260</td>
-<td class="num">260</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Regret = best in that state − this payoff</th><th class="num">Low</th><th class="num">Medium</th><th class="num">High</th><th class="num">Maximum regret</th></tr></thead>
+  <tbody>
+    <tr><td>Best payoff in the state</td><td class="num ref">10 (C)</td><td class="num ref">80 (A)</td><td class="num ref">260 (A)</td><td></td></tr>
+    <tr><td>A · New LFP line</td><td class="num">130</td><td class="num">0</td><td class="num">0</td><td class="num">130</td></tr>
+    <tr><td>B · Sodium-ion retrofit</td><td class="num">50</td><td class="num">20</td><td class="num">110</td><td class="num hit">110</td></tr>
+    <tr><td>C · Tolling contract</td><td class="num">0</td><td class="num">40</td><td class="num">190</td><td class="num">190</td></tr>
+    <tr><td>D · Do nothing</td><td class="num">10</td><td class="num">80</td><td class="num">260</td><td class="num">260</td></tr>
+  </tbody>
 </table>
 <div class="bridge">
 <p>Minimax regret picks B: its worst regret, 110, is the smallest. B is never the best choice in any single state, yet it is never far from the best.</p>
@@ -491,60 +388,16 @@ Soorathep Kheawhom, Ph.D., FRSC
 </section>
 <section id="act1-answer" class="slide level2">
 <h2>Activity 1 · Answer</h2>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Regret with E included</th>
-<th class="num" data-quarto-table-cell-role="th">Low</th>
-<th class="num" data-quarto-table-cell-role="th">Medium</th>
-<th class="num" data-quarto-table-cell-role="th">High</th>
-<th class="num" data-quarto-table-cell-role="th">Maximum regret</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Best payoff in the state</td>
-<td class="num ref">10 (C)</td>
-<td class="num ref">80 (A)</td>
-<td class="num ref">300 (E)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>A · New LFP line</td>
-<td class="num">130</td>
-<td class="num">0</td>
-<td class="num">40</td>
-<td class="num hit">130</td>
-</tr>
-<tr class="odd">
-<td>B · Sodium-ion retrofit</td>
-<td class="num">50</td>
-<td class="num">20</td>
-<td class="num">150</td>
-<td class="num">150</td>
-</tr>
-<tr class="even">
-<td>C · Tolling contract</td>
-<td class="num">0</td>
-<td class="num">40</td>
-<td class="num">230</td>
-<td class="num">230</td>
-</tr>
-<tr class="odd">
-<td>D · Do nothing</td>
-<td class="num">10</td>
-<td class="num">80</td>
-<td class="num">300</td>
-<td class="num">300</td>
-</tr>
-<tr class="even">
-<td>E · Mega-line</td>
-<td class="num">210</td>
-<td class="num">60</td>
-<td class="num">0</td>
-<td class="num">210</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Regret with E included</th><th class="num">Low</th><th class="num">Medium</th><th class="num">High</th><th class="num">Maximum regret</th></tr></thead>
+  <tbody>
+    <tr><td>Best payoff in the state</td><td class="num ref">10 (C)</td><td class="num ref">80 (A)</td><td class="num ref">300 (E)</td><td></td></tr>
+    <tr><td>A · New LFP line</td><td class="num">130</td><td class="num">0</td><td class="num">40</td><td class="num hit">130</td></tr>
+    <tr><td>B · Sodium-ion retrofit</td><td class="num">50</td><td class="num">20</td><td class="num">150</td><td class="num">150</td></tr>
+    <tr><td>C · Tolling contract</td><td class="num">0</td><td class="num">40</td><td class="num">230</td><td class="num">230</td></tr>
+    <tr><td>D · Do nothing</td><td class="num">10</td><td class="num">80</td><td class="num">300</td><td class="num">300</td></tr>
+    <tr><td>E · Mega-line</td><td class="num">210</td><td class="num">60</td><td class="num">0</td><td class="num">210</td></tr>
+  </tbody>
 </table>
 <div class="bridge">
 <p>E is not chosen, but the choice moves from B to A. Minimax regret depends on which options are on the table, so a proposal that will be rejected can still decide the outcome.</p>
@@ -559,46 +412,14 @@ Soorathep Kheawhom, Ph.D., FRSC
 <section id="emv" class="slide level2">
 <h2>Decisions under risk: expected monetary value</h2>
 <div class="formula"><p>EMV(<i>a</i>) = Σ<sub><i>s</i></sub> <i>p</i><sub><i>s</i></sub> · payoff(<i>a</i>, <i>s</i>)</p></div>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Alternative</th>
-<th class="num" data-quarto-table-cell-role="th">Low, p = 0.3</th>
-<th class="num" data-quarto-table-cell-role="th">Medium, p = 0.5</th>
-<th class="num" data-quarto-table-cell-role="th">High, p = 0.2</th>
-<th class="num" data-quarto-table-cell-role="th">EMV</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A · New LFP line</td>
-<td class="num">−120</td>
-<td class="num">80</td>
-<td class="num">260</td>
-<td class="num hit">56</td>
-</tr>
-<tr class="even">
-<td>B · Sodium-ion retrofit</td>
-<td class="num">−40</td>
-<td class="num">60</td>
-<td class="num">150</td>
-<td class="num">48</td>
-</tr>
-<tr class="odd">
-<td>C · Tolling contract</td>
-<td class="num">10</td>
-<td class="num">40</td>
-<td class="num">70</td>
-<td class="num">37</td>
-</tr>
-<tr class="even">
-<td>D · Do nothing</td>
-<td class="num">0</td>
-<td class="num">0</td>
-<td class="num">0</td>
-<td class="num">0</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Alternative</th><th class="num">Low, p = 0.3</th><th class="num">Medium, p = 0.5</th><th class="num">High, p = 0.2</th><th class="num">EMV</th></tr></thead>
+  <tbody>
+    <tr><td>A · New LFP line</td><td class="num">−120</td><td class="num">80</td><td class="num">260</td><td class="num hit">56</td></tr>
+    <tr><td>B · Sodium-ion retrofit</td><td class="num">−40</td><td class="num">60</td><td class="num">150</td><td class="num">48</td></tr>
+    <tr><td>C · Tolling contract</td><td class="num">10</td><td class="num">40</td><td class="num">70</td><td class="num">37</td></tr>
+    <tr><td>D · Do nothing</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+  </tbody>
 </table>
 <p><span class="note-line">EMV picks A at CNY 56 million. It assumes the board is risk-neutral: a loss of 120 weighs exactly as much as a gain of 120.</span></p>
 </section>
@@ -611,41 +432,14 @@ Soorathep Kheawhom, Ph.D., FRSC
 <p>For every alternative, EMV + EOL = <strong>95</strong>. Minimizing EOL and maximizing EMV always give the same choice.</p>
 </div>
 <div>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Alternative</th>
-<th class="num" data-quarto-table-cell-role="th">EMV</th>
-<th class="num" data-quarto-table-cell-role="th">EOL</th>
-<th class="num" data-quarto-table-cell-role="th">Sum</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A</td>
-<td class="num hit">56</td>
-<td class="num hit">39</td>
-<td class="num">95</td>
-</tr>
-<tr class="even">
-<td>B</td>
-<td class="num">48</td>
-<td class="num">47</td>
-<td class="num">95</td>
-</tr>
-<tr class="odd">
-<td>C</td>
-<td class="num">37</td>
-<td class="num">58</td>
-<td class="num">95</td>
-</tr>
-<tr class="even">
-<td>D</td>
-<td class="num">0</td>
-<td class="num">95</td>
-<td class="num">95</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Alternative</th><th class="num">EMV</th><th class="num">EOL</th><th class="num">Sum</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td class="num hit">56</td><td class="num hit">39</td><td class="num">95</td></tr>
+    <tr><td>B</td><td class="num">48</td><td class="num">47</td><td class="num">95</td></tr>
+    <tr><td>C</td><td class="num">37</td><td class="num">58</td><td class="num">95</td></tr>
+    <tr><td>D</td><td class="num">0</td><td class="num">95</td><td class="num">95</td></tr>
+  </tbody>
 </table>
 </div>
 </div>
@@ -840,60 +634,16 @@ Soorathep Kheawhom, Ph.D., FRSC
 </section>
 <section id="act2-answer" class="slide level2">
 <h2>Activity 2 · Reference values</h2>
-<table class="wide caption-top">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Risk tolerance R, CNY million</th>
-<th class="num" data-quarto-table-cell-role="th">CE of A</th>
-<th class="num" data-quarto-table-cell-role="th">CE of B</th>
-<th class="num" data-quarto-table-cell-role="th">CE of C</th>
-<th data-quarto-table-cell-role="th">Preferred</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>50</td>
-<td class="num">−61.3</td>
-<td class="num">9.4</td>
-<td class="num">32.7</td>
-<td class="hit">C</td>
-</tr>
-<tr class="even">
-<td>100</td>
-<td class="num">−21.2</td>
-<td class="num">26.6</td>
-<td class="num">34.8</td>
-<td class="hit">C</td>
-</tr>
-<tr class="odd">
-<td>200</td>
-<td class="num">13.2</td>
-<td class="num">37.0</td>
-<td class="num">35.9</td>
-<td class="hit">B</td>
-</tr>
-<tr class="even">
-<td>400</td>
-<td class="num">33.9</td>
-<td class="num">42.4</td>
-<td class="num">36.5</td>
-<td class="hit">B</td>
-</tr>
-<tr class="odd">
-<td>1,000</td>
-<td class="num">47.1</td>
-<td class="num">45.8</td>
-<td class="num">36.8</td>
-<td class="hit">A</td>
-</tr>
-<tr class="even">
-<td>Risk-neutral (EMV)</td>
-<td class="num">56.0</td>
-<td class="num">48.0</td>
-<td class="num">37.0</td>
-<td class="hit">A</td>
-</tr>
-</tbody>
+<table class="wide">
+  <thead><tr><th>Risk tolerance R, CNY million</th><th class="num">CE of A</th><th class="num">CE of B</th><th class="num">CE of C</th><th>Preferred</th></tr></thead>
+  <tbody>
+    <tr><td>50</td><td class="num">−61.3</td><td class="num">9.4</td><td class="num">32.7</td><td class="hit">C</td></tr>
+    <tr><td>100</td><td class="num">−21.2</td><td class="num">26.6</td><td class="num">34.8</td><td class="hit">C</td></tr>
+    <tr><td>200</td><td class="num">13.2</td><td class="num">37.0</td><td class="num">35.9</td><td class="hit">B</td></tr>
+    <tr><td>400</td><td class="num">33.9</td><td class="num">42.4</td><td class="num">36.5</td><td class="hit">B</td></tr>
+    <tr><td>1,000</td><td class="num">47.1</td><td class="num">45.8</td><td class="num">36.8</td><td class="hit">A</td></tr>
+    <tr><td>Risk-neutral (EMV)</td><td class="num">56.0</td><td class="num">48.0</td><td class="num">37.0</td><td class="hit">A</td></tr>
+  </tbody>
 </table>
 <div class="bridge">
 <p>C is preferred below R ≈ 180, B between 180 and 835, and A only above 835. EMV’s choice, A, holds only for a board close to risk-neutral.</p>
