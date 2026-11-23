@@ -1,0 +1,287 @@
+---
+title: "Module 1 · Decision Making"
+subtitle: "Reading notes for Sessions 1 to 3 · 2300506 Industrial Science"
+author: "Soorathep Kheawhom"
+---
+
+::: {.small}
+These notes follow the slides and use the same numbers and symbols. Read a session's section before class, then again before its workshop. Each section ends with self-check questions; the answers are at the end. CellCo and all its numbers are fictional, written for teaching.
+:::
+
+## Symbols used in this module {#symbols}
+
+| Symbol | Meaning | Unit |
+|---|---|---|
+| $a$ | an option (alternative): A, B, C or D | |
+| $s$ | a state of nature: low, medium or high demand | |
+| $p_s$ | probability of state $s$ | |
+| $x_{a,s}$ | payoff (NPV) of option $a$ in state $s$ | CNY million |
+| $\alpha$ | optimism weight in the Hurwicz criterion | |
+| EMV, EOL | expected monetary value, expected opportunity loss | CNY million |
+| EVPI, EVSI | expected value of perfect information, of sample information | CNY million |
+| F, U | favorable or unfavorable survey report | |
+| $R$ | risk tolerance in exponential utility | CNY million |
+| CE | certainty equivalent | CNY million |
+| $a_{ij}$, $w_i$ | AHP pairwise comparison, criterion weight | |
+| $\lambda_{\max}$, CI, CR, RI | AHP consistency measures | |
+| $D$, $P$, $K$, $m$ | demand, cell price, cathode cost, unit margin $P-K-190$ | GWh/yr, CNY/kWh |
+| $T$ | demand threshold for the second stage | GWh/yr |
+
+## Session 1 · Choosing under uncertainty {#s01}
+
+### The decision and its four elements
+
+CellCo, a maker of LFP battery cells, wants 2 GWh/yr of new capacity. It must choose before it knows demand three years ahead. Every decision problem has four elements:
+
+1. **Alternatives**: what can be chosen. Here A, a new LFP line; B, a sodium-ion retrofit; C, a tolling contract; D, do nothing.
+2. **States of nature**: what happens outside our control. Here low, medium or high demand.
+3. **Payoffs**: the result of each alternative in each state, here the NPV over ten years.
+4. **Criterion**: the rule that turns the payoff table into a choice. The first three come from the problem; the criterion is chosen by the decision maker.
+
+::: {.cellco}
+**CellCo payoff table, NPV in CNY million**
+
+| Option | Low | Medium | High |
+|---|---:|---:|---:|
+| A · New LFP line | −120 | 80 | 260 |
+| B · Sodium-ion retrofit | −40 | 60 | 150 |
+| C · Tolling contract | 10 | 40 | 70 |
+| D · Do nothing | 0 | 0 | 0 |
+:::
+
+No option is best in every state, so the table alone does not decide.
+
+### Criteria without probabilities
+
+| Criterion | Rule | CellCo choice |
+|---|---|---|
+| Maximax | best of the best cases: $\max_a \max_s x_{a,s}$ | A (260) |
+| Maximin | best of the worst cases: $\max_a \min_s x_{a,s}$ | C (10) |
+| Hurwicz | $H(a) = \alpha \max_s x_{a,s} + (1-\alpha)\min_s x_{a,s}$ | A at $\alpha = 0.6$ |
+| Laplace | average over states, treated as equally likely | A (73.3) |
+| Minimax regret | smallest largest regret | B (110) |
+
+**Regret** is the payoff missed by not choosing the best option for the state that happened: $r_{a,s} = \max_b x_{b,s} - x_{a,s}$. The best payoffs per state are 10 (C), 80 (A) and 260 (A). So the regrets of A are 130, 0, 0; of B, 50, 20, 110; of C, 0, 40, 190; of D, 10, 80, 260. The largest regrets are 130, 110, 190 and 260, and B has the smallest.
+
+::: {.keybox}
+The data did not change between rows of the table above; only the rule did, and the choice changed with it. The Hurwicz choice also moves with $\alpha$: C wins below about 0.39, B in a narrow band to about 0.42, and A above that.
+:::
+
+::: {.mistake}
+**Common mistake.** Minimax regret can change its choice when an option that nobody picks is added. In Activity 1, adding a mega-line E (−200, 20, 300) moves the choice from B to A, although E itself is not chosen. Criteria that score each option on its own do not have this weakness.
+:::
+
+### Adding probabilities: EMV, EOL and EVPI
+
+A market study gives $p = (0.3, 0.5, 0.2)$ for low, medium and high demand.
+
+$$\text{EMV}(a) = \sum_s p_s\, x_{a,s}$$
+
+For A: $0.3(-120) + 0.5(80) + 0.2(260) = 56$. B gives 48, C gives 37 and D gives 0, so EMV picks A. EMV assumes a risk-neutral board: a loss of 120 weighs exactly as much as a gain of 120.
+
+The **expected opportunity loss** is the expected regret, $\text{EOL}(a) = \sum_s p_s r_{a,s}$. For A it is $0.3 \times 130 = 39$. For every option, EMV + EOL = 95, so the option with the largest EMV also has the smallest EOL.
+
+The **expected value of perfect information** is what a perfect forecast would add:
+
+$$\text{EVPI} = \sum_s p_s \max_a x_{a,s} \;-\; \max_a \text{EMV}(a) = (0.3 \times 10 + 0.5 \times 80 + 0.2 \times 260) - 56 = 95 - 56 = 39.$$
+
+EVPI equals the smallest EOL. No forecast, however good, is worth more than CNY 39 million for this decision.
+
+::: {.keybox}
+The choice is sensitive to the chance of low demand: with $p_{\text{high}}$ held at 0.2, A stays best until $p_{\text{low}}$ reaches 0.38, and then B takes over. Sensitivity is what gives information its value.
+:::
+
+### Utility and risk attitude
+
+With exponential utility, $U(x) = 1 - e^{-x/R}$, where $R$ is the risk tolerance in CNY million. The **certainty equivalent** is the sure amount with the same expected utility as the gamble:
+
+$$\text{CE}(a) = -R \,\ln\!\Big(\sum_s p_s\, e^{-x_{a,s}/R}\Big).$$
+
+For a risk-averse decision maker, CE is below EMV, and CE approaches EMV as $R$ grows large.
+
+::: {.cellco}
+**Certainty equivalents, CNY million**
+
+| $R$ | A | B | C | Preferred |
+|---:|---:|---:|---:|---|
+| 100 | −21.2 | 26.6 | 34.8 | C |
+| 400 | 33.9 | 42.4 | 36.5 | B |
+
+C is preferred below $R \approx 180$, B between about 180 and 835, and A only above 835, which is where the EMV choice holds.
+:::
+
+::: {.selfcheck}
+Self-check · Session 1
+
+1. Which option does the Hurwicz criterion pick with $\alpha = 0.3$?
+2. With $p = (0.4, 0.4, 0.2)$, compute the EMV of A, B and C, the best option, and EVPI.
+3. Show in one line why EMV + EOL is the same for every option.
+:::
+
+## Session 2 · Trees, information and AHP {#s02}
+
+### Decision trees
+
+A tree draws the decision in time order. A **square** is a decision node: you choose a branch. A **circle** is a chance node: the world chooses, with probabilities on the branches. Solve by **folding back** from right to left: expected value at each circle, best branch at each square.
+
+### Bayes' theorem and the value of a survey
+
+A survey costs CNY 5 million and reports favorable (F) or unfavorable (U). Its track record gives $P(F \mid s) = 0.2, 0.6, 0.8$ for low, medium and high demand. To act on a report we need the reverse, $P(s \mid F)$:
+
+$$P(s \mid F) = \frac{P(F \mid s)\,p_s}{P(F)}, \qquad P(F) = \sum_s P(F \mid s)\,p_s.$$
+
+::: {.cellco}
+**Bayes table**
+
+| State | Prior | $P(F \mid s)$ | Joint with F | Posterior given F | Joint with U | Posterior given U |
+|---|---:|---:|---:|---:|---:|---:|
+| Low | 0.30 | 0.2 | 0.06 | 0.115 | 0.24 | 0.500 |
+| Medium | 0.50 | 0.6 | 0.30 | 0.577 | 0.20 | 0.417 |
+| High | 0.20 | 0.8 | 0.16 | 0.308 | 0.04 | 0.083 |
+| Total | 1.00 | | $P(F) = 0.52$ | 1.000 | $P(U) = 0.48$ | 1.000 |
+:::
+
+After F, A is best with EMV 112.3. After U, C is best with 27.5 (A would lose 5.0). Folding back:
+
+$$\text{EV with survey} = 0.52 \times 112.3 + 0.48 \times 27.5 = 71.6, \qquad \text{EVSI} = 71.6 - 56 = 15.6.$$
+
+The survey's **efficiency** is EVSI/EVPI = 15.6/39 = 40%. At a price of 5, it adds 10.6 of expected value, so CellCo should buy it.
+
+::: {.keybox}
+Information has value only if it can change the decision. Here an unfavorable report changes the choice from A to C; if every report led to A, the EVSI would be zero.
+:::
+
+### AHP: weighing several criteria
+
+When one number cannot capture everything, the **analytic hierarchy process** builds weights from pairwise judgments:
+
+1. **Hierarchy**: goal, criteria, alternatives.
+2. **Pairwise comparisons** $a_{ij}$ on a scale of 1 (equal) to 9 (extreme), with $a_{ji} = 1/a_{ij}$.
+3. **Weights**: the geometric mean of each row, normalized to sum to 1: $w_i = g_i / \sum_k g_k$ with $g_i = \big(\prod_j a_{ij}\big)^{1/n}$.
+4. **Consistency**: $\lambda_{\max} = \frac{1}{n}\sum_i \frac{(A w)_i}{w_i}$, $\text{CI} = \frac{\lambda_{\max} - n}{n - 1}$, $\text{CR} = \text{CI}/\text{RI}$, with RI = 1.12 for $n = 5$. Accept if CR < 0.10.
+
+::: {.cellco}
+**CellCo's storage technology.** The board's comparisons give weights Safety 0.432, LCOS 0.266, Cycle life 0.155, Supply risk 0.094, Footprint 0.053, with CR = 0.008. Combining them with the engineers' ratings (each rating divided by its column total, then weighted) gives Vanadium flow 0.342, LFP Li-ion 0.330 and Aqueous organic flow 0.329. The ratings are illustrative.
+:::
+
+The three scores lie within 0.013, so the result says more about the weights than about the technologies. LFP overtakes vanadium flow once the LCOS weight passes 0.32. AHP does not remove disagreement; it shows where the disagreement is.
+
+::: {.mistake}
+**Common mistake.** A Pugh matrix (better, same or worse than a reference) is useful for screening, but it treats every criterion as equally important. Do not use its plus and minus counts to make the final choice.
+:::
+
+::: {.selfcheck}
+Self-check · Session 2
+
+1. A survey reports F with probability 0.5 in every state. What is its EVSI, and why?
+2. For the cheaper survey with $P(F \mid s) = 0.4, 0.6, 0.7$, compute $P(F)$.
+3. A 3 × 3 AHP matrix has $a_{12} = 2$, $a_{13} = 4$, $a_{23} = 2$. Find the weights. What is its CR?
+:::
+
+## Session 3 · Simulation and real options {#s03}
+
+### Monte Carlo simulation in five steps
+
+1. Write the output (NPV) as a formula of the uncertain inputs.
+2. Give each uncertain input a probability distribution, from data or expert judgment.
+3. Draw one value of every input, compute the NPV, and repeat 1,000 times or more.
+4. Summarize: mean, P10, P50, P90 and the probability of loss, which together form the **risk profile**.
+5. Question the result: which input drives the spread, and would another reasonable distribution change the decision?
+
+### CellCo's model for option A
+
+$$\text{NPV} = -600 + 6.710 \times \big[\min(2, D)\,(P - K - 190) - 35\big]$$
+
+Here 6.710 is the annuity factor for 10 years at 8%, 190 CNY/kWh is other variable cost, and 35 is the yearly fixed cost in CNY million. Since $D$ is in GWh/yr and the margin in CNY/kWh, their product is in CNY million per year.
+
+| Input | Distribution | Parameters |
+|---|---|---|
+| $D$, demand | Triangular | min 0.9, mode 1.7, max 2.5 GWh/yr |
+| $P$, cell price | Normal | mean 380, SD 8 CNY/kWh |
+| $K$, cathode cost | Lognormal | median 110, log-SD 0.08 (a cost cannot be negative) |
+
+To draw a triangular value from a uniform random number $U$, use the inverse of its cumulative distribution:
+
+$$D = \begin{cases} a + \sqrt{U\,(b-a)(c-a)} & \text{if } U < \frac{c-a}{b-a} \\ b - \sqrt{(1-U)(b-a)(b-c)} & \text{otherwise} \end{cases}$$
+
+with minimum $a$, mode $c$ and maximum $b$. In Excel, the normal draw is `NORMINV(U, mean, SD)` and the lognormal draw `LOGINV(U, LN(median), log-SD)`.
+
+::: {.cellco}
+**Risk profile of option A** (400,000 runs): mean 57, which matches the EMV of 56; P10 −208; P90 321; standard deviation 201; probability of loss 40%.
+:::
+
+With $n$ runs, the standard error of the mean is $\text{SD}/\sqrt{n}$: about $201/\sqrt{1000} = 6.4$ for 1,000 runs. Two careful students can differ by about 13 in the mean, so report the number of runs and do not read meaning into smaller differences.
+
+### The value of waiting: a real option
+
+In the **staged strategy**, CellCo builds 1 GWh now for 330, learns demand over two years, and adds the second 1 GWh for another 330 only if $D \ge T$. A real option is the right, but not the obligation, to invest later.
+
+$$\text{NPV}_{\text{staged}} = -330 + 1.783\,[\min(1,D)\,m - 20] + \begin{cases} -330 \times 0.857 + 4.927\,[\min(2,D)\,m - 35] & D \ge T \\ 4.927\,[\min(1,D)\,m - 20] & D < T \end{cases}$$
+
+where $m = P - K - 190$, 1.783 is the 2-year annuity factor, 0.857 the year-2 discount factor and 4.927 the annuity factor for years 3 to 10.
+
+::: {.cellco}
+**Staged against commit, $T = 1.9$:** mean 79 against 57, probability of loss 20% against 40%, P10 −43 against −208, but P90 201 against 321. The **value of flexibility** is about 79 − 57 = 22. A risk-averse board ($R = 100$) gains from ever higher thresholds.
+:::
+
+::: {.mistake}
+**Where simulation misleads.** (1) Correlated inputs: if price falls when demand falls (correlation 0.5), the P10 of option A drops from −208 to −239. (2) Chosen distributions: the downside depends on the minimum demand of 0.9, so ask what evidence supports it. (3) One draw per input: the model fixes price and demand for ten years; yearly variation would change the spread.
+:::
+
+::: {.selfcheck}
+Self-check · Session 3
+
+1. With 4,000 runs instead of 1,000, what happens to the standard error of the mean NPV of option A?
+2. With min 0.9, mode 1.7, max 2.5 and $U = 0.25$, what demand does the triangular inverse give?
+3. Why is the P90 of the staged strategy lower than that of committing now?
+:::
+
+## Workshops for this module {#workshops}
+
+- **W1** (Sessions 1 and 2): EMV and EVPI, the survey's Bayes table and EVSI, certainty equivalents, and AHP weights with the consistency ratio.
+- **W2** (Session 3): 1,000-run simulation of option A and of the staged strategy, with the risk profile and the best threshold $T$.
+
+Your group's data differ from the slides; the methods are the same.
+
+## Key terms in English and Chinese {#glossary}
+
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Decision alternative | 决策方案 | State of nature | 自然状态 |
+| Payoff table | 收益表 | Regret | 后悔值 |
+| Maximax criterion | 乐观准则（大中取大） | Maximin criterion | 悲观准则（小中取大） |
+| Hurwicz criterion | 折中准则 | Laplace criterion | 等可能性准则 |
+| Minimax regret criterion | 最小最大后悔值准则 | Expected monetary value (EMV) | 期望货币价值 |
+| Expected opportunity loss (EOL) | 期望机会损失 | Expected value of perfect information (EVPI) | 完全信息期望价值 |
+| Utility function | 效用函数 | Certainty equivalent (CE) | 确定性等价 |
+| Risk tolerance | 风险容忍度 | Risk aversion | 风险规避 |
+| Decision tree | 决策树 | Decision node, chance node | 决策节点、机会节点 |
+| Fold back (roll back) | 逆推求解 | Bayes' theorem | 贝叶斯定理 |
+| Prior, posterior probability | 先验概率、后验概率 | Expected value of sample information (EVSI) | 样本信息期望价值 |
+| Efficiency of sample information | 样本信息效率 | Analytic hierarchy process (AHP) | 层次分析法 |
+| Pairwise comparison | 两两比较 | Criterion weight | 准则权重 |
+| Consistency ratio (CR) | 一致性比率 | Pugh matrix | Pugh 矩阵 |
+| Levelized cost of storage (LCOS) | 平准化储能成本 | Sensitivity analysis | 敏感性分析（灵敏度分析） |
+| Monte Carlo simulation | 蒙特卡洛模拟 | Probability distribution | 概率分布 |
+| Triangular, normal, lognormal distribution | 三角分布、正态分布、对数正态分布 | Percentile (P10, P90) | 百分位数 |
+| Probability of loss | 亏损概率 | Standard error | 标准误差 |
+| Net present value (NPV) | 净现值 | Annuity factor | 年金系数 |
+| Real option | 实物期权 | Value of flexibility | 灵活性价值 |
+| Correlation | 相关性 | Sampling error | 抽样误差 |
+
+## Answers to the self-checks {#answers}
+
+**Session 1.**
+1. $H$ = 0.3 × max + 0.7 × min: A −6, B 17, C 28, D 0. Hurwicz picks C.
+2. EMV: A 36, B 38, C 34, so B is best. EV with perfect information = 0.4 × 10 + 0.4 × 80 + 0.2 × 260 = 88, so EVPI = 88 − 38 = 50.
+3. $\text{EMV}(a) + \text{EOL}(a) = \sum_s p_s\,[x_{a,s} + (\max_b x_{b,s} - x_{a,s})] = \sum_s p_s \max_b x_{b,s}$, which does not depend on $a$.
+
+**Session 2.**
+1. EVSI = 0. With the same chance of F in every state, the posteriors equal the priors, so no report can change the decision.
+2. $P(F) = 0.3 \times 0.4 + 0.5 \times 0.6 + 0.2 \times 0.7 = 0.56$.
+3. Geometric means 2, 1 and 0.5, so $w = (0.571, 0.286, 0.143)$. The matrix is perfectly consistent ($a_{13} = a_{12} a_{23}$), so CR = 0.
+
+**Session 3.**
+1. It halves, from about 6.4 to about 3.2, because it falls with $\sqrt{n}$.
+2. $U = 0.25 < 0.5$, so $D = 0.9 + \sqrt{0.25 \times 1.6 \times 0.8} = 1.466$ GWh/yr.
+3. In the best futures the staged plant sells at most 1 GWh in the first two years and pays 660 in total capital, against 600 for building at once. Staging gives up some upside in return for a smaller downside.

@@ -263,7 +263,7 @@ Most what-if questions are answered by one report line, if the change is single 
 | English | 中文 | English | 中文 |
 |---|---|---|---|
 | Simplex method | 单纯形法 | Reduced cost | 检验数（约简成本） |
-| Sensitivity analysis | 灵敏度分析 | Allowable range | 允许变化范围 |
+| Sensitivity analysis | 灵敏度分析（敏感性分析） | Allowable range | 允许变化范围 |
 | Right-hand side | 右端项 | Solver | 规划求解 |
 :::
 

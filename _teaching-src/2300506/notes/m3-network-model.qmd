@@ -1,0 +1,236 @@
+---
+title: "Module 3 · Network Model"
+subtitle: "Reading notes for Sessions 7 to 10 · 2300506 Industrial Science"
+author: "Soorathep Kheawhom"
+---
+
+::: {.small}
+These notes follow the slides and use the same numbers and symbols. Read a session's section before class, then again before its workshop. Each section ends with self-check questions; the answers are at the end. CellCo and all its numbers are fictional, written for teaching.
+:::
+
+## Symbols used in this module {#symbols}
+
+| Symbol | Meaning | Unit |
+|---|---|---|
+| ES, EF | earliest start, earliest finish of an activity | weeks |
+| LS, LF | latest start, latest finish | weeks |
+| Slack | LS − ES, also called total float | weeks |
+| $a$, $m$, $b$ | optimistic, most likely, pessimistic duration | weeks |
+| $t_e$ | PERT expected duration $(a + 4m + b)/6$ | weeks |
+| $\sigma^2$ | PERT variance $((b - a)/6)^2$ | weeks² |
+| $T_e$ | expected length of the longest expected path | weeks |
+| $x_k$, $c_k$ | crash weeks of activity $k$; crash cost per week | weeks; CNY million per week |
+
+## Session 7 · Project networks {#s07}
+
+### The installation project
+
+CellCo installs a 10 MWh storage system at its plant. The project has eight activities.
+
+::: {.cellco}
+| Activity | Description | Predecessors | Most likely duration $m$, weeks |
+|---|---|---|---:|
+| A | Survey, permits | – | 3 |
+| B | Design | A | 4 |
+| C | Containers | B | 8 |
+| D | Civil works | A | 5 |
+| E | PCS, transformer | B | 7 |
+| F | Install containers | C, D | 2 |
+| G | Install PCS, grid | D, E | 3 |
+| H | Commission | F, G | 2 |
+:::
+
+In an **activity-on-node** network, each box is an activity and each arrow says that one activity must finish before the next can start. F has two arrows coming in, from C and from D.
+
+### Forward and backward pass
+
+- **Forward pass:** ES = the largest EF of the predecessors (0 for the first activity); EF = ES + duration. The project length is the largest EF.
+- **Backward pass:** LF = the smallest LS of the successors (the project length for the last activity); LS = LF − duration.
+- **Slack** = LS − ES. Activities with zero slack are **critical**: any delay to them delays the project.
+
+::: {.cellco}
+| Activity | ES | EF | LS | LF | Slack |
+|---|---:|---:|---:|---:|---:|
+| A | 0 | 3 | 0 | 3 | 0 |
+| B | 3 | 7 | 3 | 7 | 0 |
+| C | 7 | 15 | 7 | 15 | 0 |
+| D | 3 | 8 | 9 | 14 | 6 |
+| E | 7 | 14 | 7 | 14 | 0 |
+| F | 15 | 17 | 15 | 17 | 0 |
+| G | 14 | 17 | 14 | 17 | 0 |
+| H | 17 | 19 | 17 | 19 | 0 |
+
+The project takes **19 weeks**, with two critical paths, A-B-C-F-H and A-B-E-G-H. Only the civil works (D) have slack, 6 weeks.
+:::
+
+::: {.keybox}
+With two parallel critical paths, shortening one activity on only one of them does not shorten the project. Shortening C from 8 to 6 weeks still leaves 19 weeks, because A-B-E-G-H is unchanged.
+:::
+
+::: {.selfcheck}
+Self-check · Session 7
+
+1. The civil works take 11 weeks instead of 5. Does the project length change? What if they take 12?
+2. Why does D's slack not appear on either critical path?
+:::
+
+## Session 8 · PERT, simulation and crashing {#s08}
+
+### Three estimates per activity
+
+PERT asks for an optimistic ($a$), most likely ($m$) and pessimistic ($b$) duration:
+
+$$t_e = \frac{a + 4m + b}{6}, \qquad \sigma^2 = \left(\frac{b - a}{6}\right)^2.$$
+
+| Activity | $a$ | $m$ | $b$ | $t_e$ | $\sigma^2$ |
+|---|---:|---:|---:|---:|---:|
+| A | 2 | 3 | 6 | 3.33 | 0.44 |
+| B | 3 | 4 | 8 | 4.50 | 0.69 |
+| C | 6 | 8 | 14 | 8.67 | 1.78 |
+| D | 3 | 5 | 7 | 5.00 | 0.44 |
+| E | 5 | 7 | 9 | 7.00 | 0.44 |
+| F | 1 | 2 | 3 | 2.00 | 0.11 |
+| G | 2 | 3 | 5 | 3.17 | 0.25 |
+| H | 1 | 2 | 4 | 2.17 | 0.25 |
+
+Most estimates are skewed to the right, so $t_e$ is above $m$.
+
+### The PERT answer
+
+With expected durations, the longest path is A-B-C-F-H at $T_e$ = 20.67 weeks; A-B-E-G-H follows at 20.17. PERT adds the variances along the longest path, $\sigma^2 = 3.28$, so $\sigma = 1.81$ weeks, and treats the project length as normal:
+
+$$P(\text{finish} \le 22) = \Phi\!\left(\frac{22 - 20.67}{1.81}\right) = \Phi(0.74) = 0.77.$$
+
+### Check PERT by simulation: merge bias
+
+A simulation draws every duration from a beta-PERT distribution with the same $a$, $m$, $b$ and takes the longest path in each run. In Excel, a draw is `BETAINV(U, α, β, a, b)` with
+
+$$\alpha = 1 + 4\,\frac{m - a}{b - a}, \qquad \beta = 1 + 4\,\frac{b - m}{b - a}.$$
+
+::: {.cellco}
+| Deadline, weeks | 20 | 21 | 22 | 23 | 24 |
+|---|---:|---:|---:|---:|---:|
+| PERT, longest path only | 36% | 57% | 77% | 90% | 97% |
+| Simulation, all paths | 26% | 49% | 71% | 86% | 94% |
+
+The simulated mean is 21.1 weeks, not 20.7, and A-B-E-G-H is the longest path in 41% of runs. For a 90% on-time promise, PERT suggests 23.0 weeks; the simulation says 23.4.
+:::
+
+::: {.keybox}
+**Merge bias.** Where paths merge, the finish date is the maximum of several uncertain paths, and that maximum is later than any one path alone. PERT, which looks at one path, is therefore optimistic.
+:::
+
+### Crashing as a linear program
+
+**Crashing** means paying to shorten activities. With crash weeks $x_k$, crash cost $c_k$ per week and limit $\bar x_k$:
+
+$$\min \sum_k c_k x_k \quad \text{subject to} \quad \sum_{k \in \text{path}} (t_{e,k} - x_k) \le \text{target for every path}, \qquad 0 \le x_k \le \bar x_k.$$
+
+| Activity | A | B | C | D | E | F | G | H |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Cost per week, CNY million | 0.40 | 0.25 | 0.30 | 0.20 | 0.35 | 0.50 | 0.45 | 0.60 |
+| Maximum weeks | 1 | 1.5 | 3 | 2 | 2 | 0.5 | 1 | 0.5 |
+
+::: {.cellco}
+To reach 19 expected weeks, the cheapest plan crashes B by 1.5 weeks and C by 0.17 weeks, for **CNY 0.425 million**. B goes first because both long paths share it and it is the cheapest critical activity. Crashing D buys nothing: D is not critical. To reach 20 weeks, B by 0.67 weeks is enough (CNY 0.167 million).
+:::
+
+::: {.mistake}
+**Common mistake.** Crashing to 19 *expected* weeks does not mean the project will finish in 19 weeks: the uncertainty remains. Check the on-time probability again after crashing.
+:::
+
+::: {.selfcheck}
+Self-check · Session 8
+
+1. An activity has $a = 2$, $m = 4$, $b = 12$ weeks. Find $t_e$ and $\sigma^2$.
+2. Why is the simulated probability of finishing in 22 weeks lower than PERT's?
+3. Which activity would you crash first to reach 20 weeks, and why?
+:::
+
+## Session 9 · Limited resources and other networks {#s09}
+
+### One crew, two jobs
+
+CPM assumes unlimited crews. If F and G need the same installation crew, one must wait. With expected durations, G is ready at week 14.83 (after E) and F at 16.50 (after C).
+
+| Schedule | G | F | Finish, weeks |
+|---|---|---|---:|
+| Unlimited crews (CPM) | 14.83–18.00 | 16.50–18.50 | 20.67 |
+| One crew, G first | 14.83–18.00 | 18.00–20.00 | **22.17** |
+| One crew, F first | 18.50–21.67 | 16.50–18.50 | 23.83 |
+
+Even the better sequence adds 1.5 weeks that the CPM schedule does not show. A second crew for G at CNY 0.6 million restores 20.67 weeks; if the grid bonus pays CNY 0.5 million per week saved, that is worth $1.5 \times 0.5 = 0.75$, so hiring pays.
+
+### Shortest path
+
+To route a delivery from port P to plant T, **Dijkstra's algorithm** labels each node with its shortest known distance from P and always fixes the unvisited node with the smallest label next. In the slide's road network, the shortest route is P-a-c-T, 95 minutes. Going first to the nearest junction (b, 25 minutes) leads to at best 100 minutes: nearest-first is not shortest.
+
+### Maximal flow and the minimum cut
+
+Each link of the cell line has a capacity in cells per hour. The **max-flow min-cut theorem** says the largest flow from source to sink equals the smallest total capacity of links whose removal disconnects them.
+
+::: {.cellco}
+The line's maximal flow is **1,300 cells/h**, equal to the minimum cut: the two links from aging to packing, 700 + 600. Raising formation supply buys nothing. Raising the A2 → packing link to 800 lifts the flow to 1,400, where packing becomes the limit.
+:::
+
+::: {.selfcheck}
+Self-check · Session 9
+
+1. With one crew, why is "G first" better here than "F first"?
+2. In the road network, the link a → c rises from 25 to 40 minutes. What is the shortest time from P to T now?
+3. Instead of A2, the A1 → packing link is raised from 700 to 800. What is the new maximal flow?
+:::
+
+## Session 10 · Group clinic and Quiz 2 {#s10}
+
+Session 10 brings the block together. Each method answers one kind of question:
+
+| Situation in your research | Method |
+|---|---|
+| Decide now, an uncertain event, then decide again | Decision tree, value of information |
+| Several criteria without a common unit | AHP with a consistency check |
+| One output driven by several uncertain inputs | Monte Carlo simulation |
+| States observed at fixed steps | Markov chain (absorbing if some states are final) |
+| An observed state and an action that changes the next state | Markov decision process |
+| Tasks with precedence and uncertain durations | Network with PERT and simulation |
+| Capacities on links between stages | Maximal flow, minimum cut |
+
+**The individual research note** (2 pages) applies one Block 1 method to a decision or process in your own research. State the decision, the data you have or would collect, the model, the assumptions, and what the model cannot tell you. It is due with the group report on 21 February 2027 and is marked on correct use of the method (50%), quality of assumptions (30%) and clarity (20%). A small, correct model of a real decision scores better than a large model with unstated assumptions.
+
+## Workshops for this module {#workshops}
+
+- **W4** (Sessions 7 to 9): CPM with most likely durations; PERT; a 1,000-run simulation; crashing with Solver; and one crew for F and G.
+
+## Key terms in English and Chinese {#glossary}
+
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Activity on node (AON) | 节点式网络图（单代号网络图） | Precedence | 紧前关系 |
+| Critical path method (CPM) | 关键路径法 | Critical path | 关键路径 |
+| Earliest start (ES) | 最早开始时间 | Latest start (LS) | 最迟开始时间 |
+| Total slack (float) | 总时差 | Forward and backward pass | 正向与逆向计算 |
+| PERT | 计划评审技术 | Three-point estimate | 三点估算 |
+| Optimistic, most likely, pessimistic | 乐观、最可能、悲观时间 | Beta distribution | 贝塔分布 |
+| Merge bias | 汇合偏差 | Crashing | 赶工（压缩工期） |
+| Time-cost trade-off | 时间-成本权衡 | Crash cost | 赶工成本 |
+| Resource-constrained scheduling | 资源受限项目调度 | Gantt chart | 甘特图 |
+| Shortest path | 最短路径 | Dijkstra's algorithm | 迪杰斯特拉算法 |
+| Maximal flow | 最大流 | Minimum cut | 最小割 |
+| Research note | 研究短文 | Peer review | 同行评审 |
+| Assumption | 假设 | Limitation | 局限性 |
+
+## Answers to the self-checks {#answers}
+
+**Session 7.**
+1. At 11 weeks, D finishes at week 14, exactly when G can start anyway, so the project still takes 19 weeks. At 12 weeks, D finishes at 15, G runs 15–18, H 18–20: the project takes 20 weeks.
+2. Slack belongs to an activity that is not on a critical path; D lies on the paths A-D-F-H and A-D-G-H, which are shorter than 19 weeks.
+
+**Session 8.**
+1. $t_e = (2 + 16 + 12)/6 = 5$ weeks; $\sigma^2 = (10/6)^2 = 2.78$ weeks².
+2. In many runs A-B-E-G-H turns out longer than A-B-C-F-H; the project length is the maximum of the paths, which PERT ignores (merge bias).
+3. B: it lies on both long paths and is the cheapest activity that shortens both (CNY 0.25 million per week).
+
+**Session 9.**
+1. G is ready earlier (week 14.83) and F does not become ready until 16.50, so G uses the crew while F would otherwise wait for its predecessors.
+2. P-a-c-T becomes 110; the shortest routes are now P-a-d-T and P-b-d-T, both 100 minutes.
+3. 1,400 cells/h: A1 can receive 500 + 300 = 800, so the cut 800 + 600 = 1,400 matches the packing limit of 1,400.

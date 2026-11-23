@@ -46,8 +46,8 @@ Question for today: where does CellCo lose most of its output, and what is fixin
 <table class="wide">
   <thead><tr><th>Metric</th><th>Definition</th><th>CellCo, one week</th></tr></thead>
   <tbody>
-    <tr><td>First-pass yield (FPY)</td><td>Share of units passing a step the first time, without rework</td><td>Coating 0.962, slitting 0.985, assembly 0.978, formation 0.990</td></tr>
-    <tr><td>Rolled throughput yield (RTY)</td><td>Product of the FPYs: share passing every step first time</td><td class="hit">0.962 × 0.985 × 0.978 × 0.990 = 0.917</td></tr>
+    <tr><td>First-pass yield (FPY)</td><td>Share of units passing a step the first time, without rework</td><td>Coating 0.972, slitting 0.981, assembly 0.967, formation and aging test 0.874 (Block 1: 0.95 × 0.92)</td></tr>
+    <tr><td>Rolled throughput yield (RTY)</td><td>Product of the FPYs: share passing every step first time</td><td class="hit">0.972 × 0.981 × 0.967 × 0.874 = 0.806</td></tr>
     <tr><td>Defects per million opportunities (DPMO)</td><td>Defects ÷ (units × opportunities per unit) × 10<sup>6</sup></td><td>2,900 ÷ (37,260 × 10) × 10<sup>6</sup> = 7,780</td></tr>
     <tr><td>Overall equipment effectiveness (OEE)</td><td>Availability × performance × quality</td><td>Computed in the activity</td></tr>
   </tbody>
@@ -55,7 +55,7 @@ Question for today: where does CellCo lose most of its output, and what is fixin
 ```
 
 ::: {.bridge}
-Block 1 found a final line yield of **0.933**, after rework. RTY is **0.917**. The gap is the hidden factory: about 1.6% of all cells pass only after rework, which costs time and capacity that the final yield does not show.
+In Block 1, the formation and aging stage passed **0.874** of cells first time but ended with **0.933** good after rework. The 5.9-point gap is the hidden factory: cells that pass only after rework, using test time and capacity that the final yield does not show.
 :::
 
 ## OEE: one number, three losses {#oee}
@@ -81,7 +81,7 @@ Breakdowns and scrap are logged; minor stops and slow running often are not. OEE
 [Groups, then individual · 25 minutes · loss breakdown and one-minute paper]{.act-label}
 
 ::: {.prompt}
-From last week's shift log, compute availability, performance, quality and OEE. Then express every loss in cells and name the largest.
+From last week's coating-line log (output counted in cell equivalents), compute availability, performance, quality and OEE. Then express every loss in cells and name the largest.
 :::
 
 ::: {.two}
@@ -96,7 +96,7 @@ From last week's shift log, compute availability, performance, quality and OEE. 
     <tr><td>Waiting for material</td><td class="num">5 h</td></tr>
     <tr><td>Ideal rate</td><td class="num">300 cells/h</td></tr>
     <tr><td>Cells made</td><td class="num">37,260</td></tr>
-    <tr><td>Good first time</td><td class="num">34,190</td></tr>
+    <tr><td>Good first time</td><td class="num">36,216</td></tr>
   </tbody>
 </table>
 ```
@@ -116,7 +116,7 @@ From last week's shift log, compute availability, performance, quality and OEE. 
   <div class="w-controls">
     <label class="w-slider">Die changes, h <strong id="oex-dv">9</strong><input type="range" id="oex-d" min="0" max="20" step="1" value="9"></label>
     <label class="w-slider">Cells made <strong id="oex-mv">37,260</strong><input type="range" id="oex-m" min="30000" max="45000" step="60" value="37260"></label>
-    <label class="w-slider">Good first time, % <strong id="oex-qv">91.8</strong><input type="range" id="oex-q" min="85" max="99.5" step="0.01" value="91.76"></label>
+    <label class="w-slider">Good first time, % <strong id="oex-qv">97.2</strong><input type="range" id="oex-q" min="85" max="99.5" step="0.01" value="97.198"></label>
   </div>
   <svg id="oex-svg" viewBox="0 0 1160 230" role="img" aria-label="Weekly losses in cells, largest first"></svg>
   <div class="w-readout" id="oex-out" aria-live="polite"></div>
@@ -143,13 +143,13 @@ From last week's shift log, compute availability, performance, quality and OEE. 
 </script>
 ```
 
-[Last week: availability 86.3%, performance 90.0%, quality 91.8%, OEE 71.2%. The largest single loss, 4,140 cells, is the one nobody logs: minor stops and slow running.]{.hint}
+[Last week: availability 86.3%, performance 90.0%, quality 97.2% (the coating FPY), OEE 75.5%. The largest single loss, 4,140 cells, is the one nobody logs: minor stops and slow running.]{.hint}
 
 ## From yield to profit {#yield-profit data-hold="true"}
 
 ```{=html}
 <div class="widget" id="ypx">
-  <div class="w-controls"><label class="w-slider">Coating first-pass yield <strong id="ypx-v">0.962</strong><input type="range" id="ypx-y" min="0.962" max="0.995" step="0.001" value="0.981"></label></div>
+  <div class="w-controls"><label class="w-slider">Coating first-pass yield <strong id="ypx-v">0.972</strong><input type="range" id="ypx-y" min="0.972" max="0.995" step="0.001" value="0.986"></label></div>
   <div class="w-readout" id="ypx-out" aria-live="polite"></div>
 </div>
 <script>
@@ -158,8 +158,8 @@ From last week's shift log, compute availability, performance, quality and OEE. 
   root.addEventListener('click', (e) => e.stopPropagation());
   function draw() {
     const y = +document.getElementById('ypx-y').value; document.getElementById('ypx-v').textContent = y.toFixed(3);
-    const hrs = 240 * (y / 0.962 - 1), eff = 240 + hrs, gain = 15 * Math.min(hrs, 60), rty = 0.917 * y / 0.962;
-    document.getElementById('ypx-out').innerHTML = `RTY rises from 0.917 to <b>${rty.toFixed(3)}</b>. The same 240 coating hours now make as much good output as <b>${eff.toFixed(1)} hours</b> did before: ${hrs.toFixed(1)} extra effective hours, worth <span class="best">CNY ${gain.toFixed(0)} thousand a week</span>, about CNY ${(gain * 52 / 1000).toFixed(1)} million a year, at the shadow price of 15 per hour${hrs > 60 ? ' (capped: above 300 hours formation binds)' : ''}.`;
+    const hrs = 240 * (y / 0.972 - 1), eff = 240 + hrs, gain = 15 * Math.min(hrs, 60), rty = 0.806 * y / 0.972;
+    document.getElementById('ypx-out').innerHTML = `RTY rises from 0.806 to <b>${rty.toFixed(3)}</b>. The same 240 coating hours now make as much good output as <b>${eff.toFixed(1)} hours</b> did before: ${hrs.toFixed(1)} extra effective hours, worth <span class="best">CNY ${gain.toFixed(0)} thousand a week</span>, about CNY ${(gain * 52 / 1000).toFixed(1)} million a year, at the shadow price of 15 per hour${hrs > 60 ? ' (capped: above 300 hours formation binds)' : ''}.`;
   }
   document.getElementById('ypx-y').addEventListener('input', draw);
   draw();
@@ -172,7 +172,7 @@ From last week's shift log, compute availability, performance, quality and OEE. 
 **The link to the LP.** Coating is CellCo's bottleneck. Any coating loss removed acts like extra coating hours, priced by the shadow price from Session 12: CNY 15,000 per hour up to 300 hours.
 :::
 ::: {}
-**Where the yield is.** Halving coating defects (FPY 0.962 to 0.981) is worth about CNY 71,000 a week. The mass-loading work in Session 17 removes only about 700 ppm; most coating losses are streaks, pinholes and edges. The Pareto, not one capability index, shows where the yield is.
+**Where the yield is.** Halving coating defects (FPY 0.972 to 0.986) is worth about CNY 52,000 a week. The mass-loading work in Session 17 removes only about 700 ppm; most coating losses are streaks, pinholes and edges. The Pareto, not one capability index, shows where the yield is.
 :::
 :::
 
@@ -230,7 +230,7 @@ Quiz 4 covers Statistical Quality Control, Sessions 15 to 18.
   <thead><tr><th>Module</th><th>CellCo question</th><th>Key number</th></tr></thead>
   <tbody>
     <tr><td>Decision Making</td><td>How to add 2 GWh/yr of capacity?</td><td>Staged build: mean NPV CNY 79 million, P(loss) 20%</td></tr>
-    <tr><td>Markov Analysis</td><td>How do yield and maintenance behave?</td><td>Final yield 0.933; preventive maintenance only in Major wear</td></tr>
+    <tr><td>Markov Analysis</td><td>How do yield and maintenance behave?</td><td>Yield from formation 0.933; preventive maintenance only in Major wear</td></tr>
     <tr><td>Network Model</td><td>When will the storage system be ready?</td><td>71% by 22 weeks; 19 weeks for CNY 0.425 million</td></tr>
     <tr><td>Linear Programming</td><td>What to make each week?</td><td>E 30, P 60 MWh; a coating hour is worth CNY 15,000</td></tr>
     <tr><td>Quality Control</td><td>Is the coating in control and capable?</td><td>In control; C<sub>pk</sub> 1.07, 1.33 needs re-centering and σ 0.150</td></tr>
@@ -256,7 +256,7 @@ At the bottleneck, a yield gain is a capacity gain, priced by the LP's shadow pr
 :::
 :::
 
-[Thank you for your work in both blocks. Questions about the assignment or the research note go through the HQU platform.]{.note-line}
+[Thank you for your work in both blocks. Send questions about the assignment or the research note to the instructor by email.]{.note-line}
 
 ## Key terms in English and Chinese {#glossary}
 

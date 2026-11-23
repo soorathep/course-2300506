@@ -54,7 +54,7 @@ Question for today: which Block 1 method fits a decision in your own research, a
 
 State the decision or process, the data you have or would collect, the model, the assumptions, and what the model cannot tell you.
 
-**Due** with the group report, proposed 6 February 2027.
+**Due** with the group report, 21 February 2027.
 :::
 ::: {}
 ```{=html}
@@ -156,7 +156,7 @@ Quiz 2 covers Markov Analysis and Network Model, Sessions 4 to 9.
 
 ::: {.two}
 ::: {}
-**Before 6 February 2027**
+**By 21 February 2027**
 
 - Group report, workbook or notebook, and 10-minute recorded presentation.
 - Individual research note.

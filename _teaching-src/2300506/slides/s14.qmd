@@ -235,7 +235,7 @@ With the shocks included, the stochastic plan is still **40 MWh**, worth CNY 706
   </tbody>
 </table>
 ```
-[Report of at most 10 pages, workbook or notebook, 10-minute recorded presentation. Deadline on the HQU platform.]{.hint}
+[Report of at most 10 pages, workbook or notebook, 10-minute recorded presentation. The deadline is announced in class.]{.hint}
 :::
 :::
 
@@ -262,7 +262,7 @@ Judge a plan by its expected result on the same scenarios, not by one lucky or u
 |---|---|---|---|
 | Two-stage stochastic programming | 两阶段随机规划 | Robust optimization | 鲁棒优化 |
 | Scenario | 情景 | Worst case | 最坏情况 |
-| Value of the stochastic solution (VSS) | 随机解价值 | Expected value of perfect information | 完全信息期望值 |
+| Value of the stochastic solution (VSS) | 随机解价值 | Expected value of perfect information | 完全信息期望价值 |
 :::
 
 ## Exit ticket · 2 minutes {#exit .activity}

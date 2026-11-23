@@ -1,0 +1,236 @@
+---
+title: "Module 2 · Markov Analysis"
+subtitle: "Reading notes for Sessions 4 to 6 · 2300506 Industrial Science"
+author: "Soorathep Kheawhom"
+---
+
+::: {.small}
+These notes follow the slides and use the same numbers and symbols. Read a session's section before class, then again before its workshop. Each section ends with self-check questions; the answers are at the end. CellCo and all its numbers are fictional, written for teaching.
+:::
+
+## Symbols used in this module {#symbols}
+
+| Symbol | Meaning |
+|---|---|
+| $P = [p_{ij}]$ | transition matrix: probability of moving from state $i$ (row) to state $j$ (column) in one step |
+| $\pi$ | steady-state distribution, a row vector with $\pi = \pi P$ and $\sum_j \pi_j = 1$ |
+| $n_{ij}$, $n_i$ | number of logged moves from $i$ to $j$; number of moves out of $i$ |
+| $\hat p_{ij}$, SE | estimated transition probability and its standard error |
+| $\chi^2$, df | chi-square statistic and its degrees of freedom |
+| $Q$, $R$ | blocks of an absorbing chain: moves among transient states; moves into absorbing states |
+| $N$, $B$, $t$ | fundamental matrix $(I-Q)^{-1}$; absorption probabilities $NR$; expected steps $N\mathbf{1}$ |
+| $c_i$, $g$, $h_i$ | cost of the action in state $i$; long-run cost per shift; relative cost of starting in $i$ |
+
+::: {.mistake}
+**Letters that change meaning between sessions.** In Session 4 the line states are R = Running, S = Slow, D = Down. In Session 5 the cell states are F = Formation, A = Aging test, R = Rework, G = Good, S = Scrap, and $R$ in italics is also the matrix block of moves into absorbing states. In Session 6 the machine states are G = Good, Mi = Minor wear, Ma = Major wear, F = Failed. Read the letters within their own session.
+:::
+
+## Session 4 · Markov chains from data {#s04}
+
+### A line that changes state
+
+In every shift, CellCo records whether its cell line is running (R), slow (S) or down (D). A **Markov chain** assumes that the next state depends only on the current state, not on the history before it. Each row of the transition matrix sums to 1.
+
+::: {.cellco}
+**Teaching matrix (sixths, so that a die can play the line)**
+
+| From \\ To | R | S | D |
+|---|---:|---:|---:|
+| R | 4/6 | 1/6 | 1/6 |
+| S | 3/6 | 2/6 | 1/6 |
+| D | 3/6 | 1/6 | 2/6 |
+:::
+
+### Where will the line be after $n$ shifts?
+
+If $x^{(0)}$ is the starting distribution (a row vector), then $x^{(n)} = x^{(0)} P^n$. Starting from Down, the chance of Running is 0.500 after one shift, 0.583 after two and 0.600 after four: the chain forgets where it started.
+
+The long-run **steady state** solves
+
+$$\pi = \pi P, \qquad \sum_j \pi_j = 1.$$
+
+Here $\pi = (0.6, 0.2, 0.2)$. If a slow shift makes half the cells, throughput is $0.6 + 0.5 \times 0.2 = 70\%$ of capacity, so a line rated at 2 GWh/yr delivers about 1.4.
+
+::: {.keybox}
+**Two quick readings of $\pi$.** The **mean recurrence time** of state $j$ is $1/\pi_j$: the line returns to Down every $1/0.2 = 5$ shifts on average. Once Running, the line stays there for $1/(1 - p_{RR}) = 1/(1 - 4/6) = 3$ shifts on average.
+:::
+
+To compute $\pi$ in Excel, one way is to transpose $I - P$, replace its last row by ones to get a matrix $A$, and take the last column of $A^{-1}$: $\pi_j$ = `INDEX(MINVERSE(A), j, n)`. Another way is to raise $P$ to a high power with repeated `MMULT`; every row then approaches $\pi$.
+
+### Estimating $P$ from a log
+
+The maximum-likelihood estimate of a row is counts divided by visits:
+
+$$\hat p_{ij} = \frac{n_{ij}}{n_i}, \qquad \text{SE}(\hat p_{ij}) = \sqrt{\frac{\hat p_{ij}(1-\hat p_{ij})}{n_i}}, \qquad \text{95\% interval: } \hat p_{ij} \pm 1.96\,\text{SE}.$$
+
+::: {.cellco}
+By day, the line left Running 635 times and stayed Running 448 times: $\hat p_{RR} = 0.706$, SE 0.018, interval 0.67 to 0.74. The Down row was visited only 189 times, so its standard error is about twice as large. Ten times more data makes an interval about $\sqrt{10} \approx 3$ times narrower.
+:::
+
+### Is the night shift different?
+
+Before using one matrix for all conditions, test whether the conditions share it. For each From state, compare the day and night counts in a 2 × 3 table with a chi-square test: expected count = row total × column total / table total, and $\chi^2 = \sum (\text{observed} - \text{expected})^2/\text{expected}$. Each table has 2 degrees of freedom, so the three tables together have 6.
+
+::: {.cellco}
+$\chi^2 = 16.85 + 1.46 + 2.24 = 20.55$, df = 6, p = 0.002. One matrix does not fit both shifts. The difference is in the Running row: a running line breaks down in 23.1% of night shifts (± 3.6 points) against 15.0% by day (± 2.8). The steady-state share of Running is 0.635 for the day matrix and 0.528 for the night matrix, so matching the day shift would add about 107 running shifts per 1,000.
+:::
+
+::: {.selfcheck}
+Self-check · Session 4
+
+1. Better repairs change the steady state to $\pi = (0.65, 0.20, 0.15)$. What is the throughput, with slow shifts at half output?
+2. A row was visited 100 times and $\hat p = 0.2$. Give the 95% interval.
+3. A machine is Up or Down. From Up it fails with probability 0.1 per shift; from Down it is repaired with probability 0.5. What share of shifts is it Up in the long run?
+:::
+
+## Session 5 · Yield, rework and scrap {#s05}
+
+### An absorbing chain
+
+Every cell passes Formation (F) and the Aging test (A). A cell that fails the test goes to Rework (R) and is tested again. Each cell ends either Good (G) or Scrapped (S). G and S are **absorbing**: once there, a cell never leaves. F, A and R are **transient**.
+
+::: {.cellco}
+| From \\ To | F | A | R | G | S |
+|---|---:|---:|---:|---:|---:|
+| F | 0 | 0.95 | 0.03 | 0 | 0.02 |
+| A | 0 | 0 | 0.05 | 0.92 | 0.03 |
+| R | 0 | 0.80 | 0 | 0 | 0.20 |
+:::
+
+### Three matrices answer three questions
+
+Order the states transient first, then absorbing, and split the matrix into $Q$ (transient to transient) and $R$ (transient to absorbing). Then
+
+$$N = (I - Q)^{-1}, \qquad B = N R, \qquad t = N\mathbf{1}.$$
+
+- $N_{ij}$ is the expected number of visits to transient state $j$ for a cell starting in $i$. The inverse adds all paths: $N = I + Q + Q^2 + \dots$
+- $B_{ik}$ is the probability that a cell starting in $i$ ends in absorbing state $k$.
+- $t_i$ is the expected number of steps before absorption.
+
+::: {.cellco}
+**Results for a cell entering formation:** P(Good) = 0.933 and P(Scrap) = 0.067; 1.015 visits to the aging test and 0.081 reworks per cell (about 101 tests and 8 reworks per 100 started cells); 2.095 steps on average. A cell already in rework ends good with probability only 0.767, against 0.958 for a cell entering the aging test.
+:::
+
+In Excel, `MINVERSE` gives $N$ and `MMULT` gives $B$ and $t$. In older versions, select the output block, type the formula and press Ctrl+Shift+Enter; or take single entries with `INDEX(MINVERSE(...), i, j)`.
+
+For this particular chain there is also a short formula, useful for checking:
+
+$$y_A = \frac{p_{AG}}{1 - p_{AR}\,p_{RA}}, \qquad y_R = p_{RA}\,y_A, \qquad \text{yield} = p_{FA}\,y_A + p_{FR}\,y_R.$$
+
+With today's values, $y_A = 0.92/0.96 = 0.958$, $y_R = 0.767$ and yield = 0.933.
+
+### Comparing improvements
+
+| Option | Change | Cost, CNY million | Yield | Gain, points |
+|---|---|---:|---:|---:|
+| (a) Formation control | F→S from 0.02 to 0.01 (F→A 0.96) | 1.2 | 0.9430 | 0.96 |
+| (b) Rework training | R→A from 0.80 to 0.90 (R→S 0.10) | 0.6 | 0.9412 | 0.78 |
+| (c) Fewer false rejects | A→R from 0.05 to 0.03 (A→G 0.94) | 0.9 | 0.9381 | 0.47 |
+| (a) + (b) | both changes | 1.8 | 0.9508 | 1.74 |
+
+CellCo starts 6.25 million cells a year and each good cell contributes CNY 25, so one percentage point of yield is worth about CNY 1.56 million a year. Option (b) gives the most yield per yuan, 1.30 points per CNY million. Within a budget of CNY 2 million, (a) + (b) is best: 1.74 points, worth CNY 2.72 million a year, paying back in about eight months.
+
+::: {.mistake}
+**Common mistake.** Effects of changes in one chain do not simply add up. Test combined changes together on the model, and compare options in the same unit, for example yield per yuan.
+:::
+
+::: {.selfcheck}
+Self-check · Session 5
+
+1. Why is $N(F, A)$, the expected number of aging tests per started cell, larger than 1?
+2. If rework always succeeded ($p_{RA} = 1$, $p_{RS} = 0$), what would the yield from formation be?
+3. What is a yield gain of 0.5 points worth per year?
+:::
+
+## Session 6 · Maintenance as a Markov decision process {#s06}
+
+### From a chain to a decision
+
+A **Markov decision process** (MDP) adds choices to a Markov chain: in each state the planner picks an **action**, and the action sets both the cost and the transition probabilities. A **policy** names one action for every state. Each policy is an ordinary Markov chain, so its steady state gives its long-run cost per shift:
+
+$$g = \sum_i \pi_i\, c_i.$$
+
+::: {.cellco}
+**CellCo's coating machine.** If it continues to run:
+
+| From \\ To | G | Mi | Ma | F | Cost per shift, CNY |
+|---|---:|---:|---:|---:|---:|
+| Good (G) | 0.80 | 0.15 | 0.04 | 0.01 | 0 |
+| Minor wear (Mi) | 0 | 0.85 | 0.12 | 0.03 | 500 |
+| Major wear (Ma) | 0 | 0 | 0.60 | 0.40 | 3,000 |
+| Failed (F) | repair to Good | | | | 20,000 |
+
+In Mi or Ma, preventive maintenance (PM) restores Good before the next shift for CNY 6,000.
+:::
+
+| Policy (action in Mi, in Ma) | Steady state G, Mi, Ma, F | Cost per shift, CNY |
+|---|---|---:|
+| Run to failure (continue, continue) | 0.385, 0.385, 0.154, 0.077 | 2,192 |
+| PM in Minor only (PM, continue) | 0.769, 0.115, 0.077, 0.038 | 1,692 |
+| PM at any wear (PM, PM) | 0.833, 0.125, 0.033, 0.008 | 1,117 |
+| PM in Major only (continue, PM) | 0.455, 0.455, 0.073, 0.018 | **1,027** |
+
+PM in Major only is 53% cheaper than running to failure and 8% cheaper than PM at any wear. The best policy depends on prices: PM at any wear is best below a PM cost of about CNY 4,960, PM in Major only between 4,960 and 22,020, and running to failure above 22,020. At CNY 6,000 the margin is only CNY 90 per shift, so the number to track is the PM cost relative to the cost of a failure.
+
+### Policy iteration
+
+With many states, listing every policy is impossible. **Policy iteration** finds the best one in a few steps:
+
+1. **Evaluate** the current policy: solve $g + h_i = c_i + \sum_j p_{ij} h_j$ for all $i$, with $h_G = 0$. Here $g$ is the cost per shift and $h_i$ the extra cost of starting in state $i$.
+2. **Improve**: in each state, choose the action with the smallest $c_i + \sum_j p_{ij} h_j$.
+3. Repeat until the policy does not change.
+
+::: {.cellco}
+Starting from run to failure (2,192), the first improvement switches to PM at any wear (1,117), the second to PM in Major only (1,027), and the third changes nothing. The optional notebook in W3 runs these steps.
+:::
+
+::: {.selfcheck}
+Self-check · Session 6
+
+1. If a PM contract costs CNY 4,000, which policy is best?
+2. Under run to failure, the machine is Failed in 7.7% of shifts. On average, how many shifts pass between failures?
+3. In policy evaluation, why do we fix $h_G = 0$?
+:::
+
+## Workshops for this module {#workshops}
+
+- **W3** part 1 (Session 4): estimate day and night matrices from a 2,000-transition log, test whether they differ, and compare steady states.
+- **W3** part 2 (Session 5): $N$ and $B$ for the cell line, and the best improvement plan within the budget.
+- **W3** part 3 (Session 6): cost per shift of the four maintenance policies; optional policy-iteration notebook.
+
+## Key terms in English and Chinese {#glossary}
+
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Markov chain | 马尔可夫链 | State | 状态 |
+| Transition matrix | 转移矩阵 | Transition probability | 转移概率 |
+| n-step transition | n步转移 | Steady state (stationary distribution) | 稳态分布 |
+| Mean recurrence time | 平均返回时间 | Maximum-likelihood estimate | 最大似然估计 |
+| Standard error | 标准误差 | Confidence interval | 置信区间 |
+| Chi-square test | 卡方检验 | Homogeneity | 同质性 |
+| Absorbing state | 吸收态 | Transient state | 瞬态（非常返态） |
+| Absorbing Markov chain | 吸收马尔可夫链 | Fundamental matrix | 基本矩阵 |
+| Absorption probability | 吸收概率 | Expected number of visits | 期望访问次数 |
+| Yield | 良率 | Rework, scrap | 返工、报废 |
+| Payback period | 投资回收期 | Markov decision process (MDP) | 马尔可夫决策过程 |
+| Action | 行动（决策） | Policy | 策略 |
+| Policy iteration | 策略迭代 | Value function | 价值函数 |
+| Average cost per period | 单位时间平均成本 | Preventive maintenance | 预防性维护 |
+| Run to failure | 故障后维修 | | |
+
+## Answers to the self-checks {#answers}
+
+**Session 4.**
+1. $0.65 + 0.5 \times 0.20 = 0.75$, that is 75% of capacity.
+2. SE = $\sqrt{0.2 \times 0.8/100} = 0.04$, so 0.2 ± 0.078: from 0.12 to 0.28.
+3. In balance, $0.1\,\pi_{\text{Up}} = 0.5\,\pi_{\text{Down}}$, so $\pi_{\text{Up}} = 0.5/(0.1 + 0.5) = 0.833$.
+
+**Session 5.**
+1. A cell that fails the test goes to rework and returns to the test, so some cells are tested two or more times.
+2. $y_A = 0.92/(1 - 0.05 \times 1) = 0.968$, $y_R = 0.968$, yield = $0.95 \times 0.968 + 0.03 \times 0.968 = 0.949$.
+3. $0.5 \times 1.5625 \approx$ CNY 0.78 million a year.
+
+**Session 6.**
+1. PM at any wear (best below about CNY 4,960).
+2. The mean recurrence time is $1/0.0769 = 13$ shifts.
+3. The equations determine the $h_i$ only up to a constant, because adding the same amount to every $h_i$ leaves them true. Fixing one of them makes the solution unique; $g$ is not affected.

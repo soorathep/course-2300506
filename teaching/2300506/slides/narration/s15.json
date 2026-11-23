@@ -42,7 +42,7 @@
    "Our case for today is CellCo's coating line. A slot die spreads cathode slurry on aluminum foil, which then dries in a long oven.",
    "The mass loading decides how much energy each cell stores. The target is 20.0 milligrams per square centimeter, and the specification runs from 19.4 to 20.6.",
    "Every hour, five coupons are punched across the web and weighed.",
-   "In Block one, coating scrap was the largest loss on the line. Today we start to trace that scrap to its cause."
+   "In Block one, 93.3 percent of the cells that entered formation ended good. Today we look further upstream, at the coating line, where many defects start."
   ],
   "en": {
    "audio": "narration/s15/coating.en.mp3",
@@ -61,7 +61,7 @@
     ],
     [
      29.12,
-     36.91
+     40.83
     ]
    ]
   }

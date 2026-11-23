@@ -2,71 +2,149 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session eighteen, the last session of the course: quality metrics and course synthesis."},
-   {"en": "Today we count quality in four ways, find CellCo's biggest loss, price a yield gain with the production plan, and close the course."}
+   {
+    "en": "Welcome to session eighteen, the last session of the course: quality metrics and course synthesis."
+   },
+   {
+    "en": "Today we count quality in four ways, find CellCo's biggest loss, price a yield gain with the production plan, and close the course."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First quality metrics and an activity to find the biggest loss. After the break, the pre-read discussion, a group clinic, and quiz four."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First quality metrics and an activity to find the biggest loss. After the break, the pre-read discussion, a group clinic, and quiz four."
+   }
   ],
   "metrics": [
-   {"en": "First-pass yield is the share of units that pass a step the first time, without rework."},
-   {"en": "Rolled throughput yield multiplies the first-pass yields of all steps. For CellCo it is 0.917."},
-   {"en": "Defects per million opportunities normalizes defect counts across products of different complexity. For CellCo it is about 7,780."},
-   {"en": "In Block one, the final yield after rework was 0.933. The gap from 0.917 is the hidden factory: about 1.6 percent of cells pass only after rework, which costs time and capacity that the final yield does not show."}
+   {
+    "en": "First-pass yield is the share of units that pass a step the first time, without rework."
+   },
+   {
+    "en": "Rolled throughput yield multiplies the first-pass yields of all steps. For CellCo it is 0.806."
+   },
+   {
+    "en": "Defects per million opportunities normalizes defect counts across products of different complexity. For CellCo it is about 7,780."
+   },
+   {
+    "en": "In Block one, the formation and aging stage passed 0.874 of cells first time, but ended with 0.933 good after rework. The 5.9-point gap is the hidden factory: cells that pass only after rework, using test time and capacity that the final yield does not show."
+   }
   ],
   "oee": [
-   {"en": "Overall equipment effectiveness multiplies three factors."},
-   {"en": "Availability is lost to breakdowns, die changes and waiting. Performance is lost to minor stops and slow running. Quality is lost to scrap and rework."},
-   {"en": "Breakdowns and scrap are usually logged, but minor stops and slow running often are not. OEE makes them visible by working back from the ideal rate."}
+   {
+    "en": "Overall equipment effectiveness multiplies three factors."
+   },
+   {
+    "en": "Availability is lost to breakdowns, die changes and waiting. Performance is lost to minor stops and slow running. Quality is lost to scrap and rework."
+   },
+   {
+    "en": "Breakdowns and scrap are usually logged, but minor stops and slow running often are not. OEE makes them visible by working back from the ideal rate."
+   }
   ],
   "act1": [
-   {"en": "Activity, find the biggest loss. Work in groups for twenty-two minutes, then three minutes on your own."},
-   {"en": "From last week's shift log, compute availability, performance, quality and OEE."},
-   {"en": "Then express every loss in cells at the ideal rate, name the largest single loss, and propose one action against it."},
-   {"en": "In the last three minutes, write a one-minute paper on your own: which method from this course will you use in your research, and on what?"}
+   {
+    "en": "Activity, find the biggest loss. Work in groups for twenty-two minutes, then three minutes on your own."
+   },
+   {
+    "en": "From last week's coating-line log, compute availability, performance, quality and OEE."
+   },
+   {
+    "en": "Then express every loss in cells at the ideal rate, name the largest single loss, and propose one action against it."
+   },
+   {
+    "en": "In the last three minutes, write a one-minute paper on your own: which method from this course will you use in your research, and on what?"
+   }
   ],
   "act1-answer": [
-   {"en": "Last week, availability was 86.3 percent, performance 90.0 percent, and quality 91.8 percent, for an OEE of 71.2 percent."},
-   {"en": "In cells, the largest single loss is minor stops and slow running, 4,140 cells, more than scrap and rework, and more than die changes."},
-   {"en": "It is the loss nobody logs. Move the sliders to see how the ranking changes."}
+   {
+    "en": "Last week, the coating line had an availability of 86.3 percent, a performance of 90.0 percent, and a quality of 97.2 percent, for an OEE of 75.5 percent."
+   },
+   {
+    "en": "In cells, the largest single loss is minor stops and slow running, 4,140 cells, more than scrap and rework, and more than die changes."
+   },
+   {
+    "en": "It is the loss nobody logs. Move the sliders to see how the ranking changes."
+   }
   ],
   "yield-profit": [
-   {"en": "Now we link quality to the production plan."},
-   {"en": "Coating is CellCo's bottleneck. Any coating loss removed acts like extra coating hours, priced by the shadow price from session twelve, fifteen thousand yuan per hour."},
-   {"en": "Halving coating defects, from a first-pass yield of 0.962 to 0.981, is worth about 71 thousand yuan a week."},
-   {"en": "Note that the mass-loading work from session seventeen removes only about seven hundred parts per million. Most coating losses are streaks, pinholes and edges. The Pareto chart, not one capability index, shows where the yield is."}
+   {
+    "en": "Now we link quality to the production plan."
+   },
+   {
+    "en": "Coating is CellCo's bottleneck. Any coating loss removed acts like extra coating hours, priced by the shadow price from session twelve, fifteen thousand yuan per hour."
+   },
+   {
+    "en": "Halving coating defects, from a first-pass yield of 0.972 to 0.986, is worth about 52 thousand yuan a week."
+   },
+   {
+    "en": "Note that the mass-loading work from session seventeen removes only about seven hundred parts per million. Most coating losses are streaks, pinholes and edges. The Pareto chart, not one capability index, shows where the yield is."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards, we discuss the pre-read paper on process control in electrode manufacturing."}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards, we discuss the pre-read paper on process control in electrode manufacturing."
+   }
   ],
   "preread": [
-   {"en": "Discuss the pre-read paper in groups for twelve minutes, then as a whole class for eight."},
-   {"en": "Ask which quality characteristic the authors monitored and whether the measurement was checked; which chart or model they used and whether its assumptions were checked; and what you would change to apply it on CellCo's line or in your own lab."}
+   {
+    "en": "Discuss the pre-read paper in groups for twelve minutes, then as a whole class for eight."
+   },
+   {
+    "en": "Ask which quality characteristic the authors monitored and whether the measurement was checked; which chart or model they used and whether its assumptions were checked; and what you would change to apply it on CellCo's line or in your own lab."
+   }
   ],
   "clinic": [
-   {"en": "Group clinic, for fifteen minutes. Check your Block two report against the six points on the slide."},
-   {"en": "Pay particular attention to the last one: carry the improved yield into the production plan, and report the gain in weekly contribution."},
-   {"en": "Each of you also writes an individual research note, applying one Block two method to your own research."}
+   {
+    "en": "Group clinic, for fifteen minutes. Check your Block two report against the six points on the slide."
+   },
+   {
+    "en": "Pay particular attention to the last one: carry the improved yield into the production plan, and report the gain in weekly contribution."
+   },
+   {
+    "en": "Each of you also writes an individual research note, applying one Block two method to your own research."
+   }
   ],
   "quiz4": [
-   {"en": "Quiz four covers statistical quality control, sessions fifteen to eighteen. Work on your own, on paper, for twenty minutes."}
+   {
+    "en": "Quiz four covers statistical quality control, sessions fifteen to eighteen. Work on your own, on paper, for twenty minutes."
+   }
   ],
   "synthesis": [
-   {"en": "Across the course, one company met five methods."},
-   {"en": "Decision making chose a staged build. Markov analysis described yield and maintenance. The network model scheduled the storage system. Linear programming planned the weekly mix. And quality control checked the coating."},
-   {"en": "Each method answered one question well, and none answered all of them. The decisions improved where one module's output became another's input."}
+   {
+    "en": "Across the course, one company met five methods."
+   },
+   {
+    "en": "Decision making chose a staged build. Markov analysis described yield and maintenance. The network model scheduled the storage system. Linear programming planned the weekly mix. And quality control checked the coating."
+   },
+   {
+    "en": "Each method answered one question well, and none answered all of them. The decisions improved where one module's output became another's input."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize today."},
-   {"en": "Rolled throughput yield counts first-pass quality across steps, and the gap to final yield is the hidden factory of rework."},
-   {"en": "OEE exposes unlogged losses. CellCo's largest single loss is minor stops and slow running, not scrap."},
-   {"en": "And at the bottleneck, a yield gain is a capacity gain, priced by the shadow price."},
-   {"en": "Thank you for your work in both blocks."}
+   {
+    "en": "Let us summarize today."
+   },
+   {
+    "en": "Rolled throughput yield counts first-pass quality across steps, and the gap to final yield is the hidden factory of rework."
+   },
+   {
+    "en": "OEE exposes unlogged losses. CellCo's largest single loss is minor stops and slow running, not scrap."
+   },
+   {
+    "en": "And at the bottleneck, a yield gain is a capacity gain, priced by the shadow price."
+   },
+   {
+    "en": "Thank you for your work in both blocks."
+   }
   ],
   "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "This slide lists today's key terms in English and Chinese, for reference."
+   }
   ]
  }
 }

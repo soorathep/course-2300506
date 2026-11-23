@@ -40,9 +40,9 @@
  "metrics": {
   "text": [
    "First-pass yield is the share of units that pass a step the first time, without rework.",
-   "Rolled throughput yield multiplies the first-pass yields of all steps. For CellCo it is 0.917.",
+   "Rolled throughput yield multiplies the first-pass yields of all steps. For CellCo it is 0.806.",
    "Defects per million opportunities normalizes defect counts across products of different complexity. For CellCo it is about 7,780.",
-   "In Block one, the final yield after rework was 0.933. The gap from 0.917 is the hidden factory: about 1.6 percent of cells pass only after rework, which costs time and capacity that the final yield does not show."
+   "In Block one, the formation and aging stage passed 0.874 of cells first time, but ended with 0.933 good after rework. The 5.9-point gap is the hidden factory: cells that pass only after rework, using test time and capacity that the final yield does not show."
   ],
   "en": {
    "audio": "narration/s18/metrics.en.mp3",
@@ -53,15 +53,15 @@
     ],
     [
      6.19,
-     14.81
+     14.85
     ],
     [
-     15.16,
-     26.7
+     15.2,
+     26.74
     ],
     [
-     27.05,
-     46.01
+     27.09,
+     50.05
     ]
    ]
   }
@@ -93,7 +93,7 @@
  "act1": {
   "text": [
    "Activity, find the biggest loss. Work in groups for twenty-two minutes, then three minutes on your own.",
-   "From last week's shift log, compute availability, performance, quality and OEE.",
+   "From last week's coating-line log, compute availability, performance, quality and OEE.",
    "Then express every loss in cells at the ideal rate, name the largest single loss, and propose one action against it.",
    "In the last three minutes, write a one-minute paper on your own: which method from this course will you use in your research, and on what?"
   ],
@@ -106,22 +106,22 @@
     ],
     [
      7.17,
-     12.82
+     13.34
     ],
     [
-     13.17,
-     21.58
+     13.69,
+     22.09
     ],
     [
-     21.93,
-     30.72
+     22.44,
+     31.23
     ]
    ]
   }
  },
  "act1-answer": {
   "text": [
-   "Last week, availability was 86.3 percent, performance 90.0 percent, and quality 91.8 percent, for an OEE of 71.2 percent.",
+   "Last week, the coating line had an availability of 86.3 percent, a performance of 90.0 percent, and a quality of 97.2 percent, for an OEE of 75.5 percent.",
    "In cells, the largest single loss is minor stops and slow running, 4,140 cells, more than scrap and rework, and more than die changes.",
    "It is the loss nobody logs. Move the sliders to see how the ranking changes."
   ],
@@ -130,15 +130,15 @@
    "cues": [
     [
      0.25,
-     14.22
+     16.25
     ],
     [
-     14.57,
-     26.14
+     16.6,
+     28.16
     ],
     [
-     26.49,
-     32.25
+     28.51,
+     34.27
     ]
    ]
   }
@@ -147,7 +147,7 @@
   "text": [
    "Now we link quality to the production plan.",
    "Coating is CellCo's bottleneck. Any coating loss removed acts like extra coating hours, priced by the shadow price from session twelve, fifteen thousand yuan per hour.",
-   "Halving coating defects, from a first-pass yield of 0.962 to 0.981, is worth about 71 thousand yuan a week.",
+   "Halving coating defects, from a first-pass yield of 0.972 to 0.986, is worth about 52 thousand yuan a week.",
    "Note that the mass-loading work from session seventeen removes only about seven hundred parts per million. Most coating losses are streaks, pinholes and edges. The Pareto chart, not one capability index, shows where the yield is."
   ],
   "en": {
@@ -163,11 +163,11 @@
     ],
     [
      16.22,
-     27.6
+     27.7
     ],
     [
-     27.95,
-     44.56
+     28.05,
+     44.67
     ]
    ]
   }

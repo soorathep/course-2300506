@@ -1,0 +1,240 @@
+---
+title: "Module 5 · Statistical Quality Control"
+subtitle: "Reading notes for Sessions 15 to 18 · 2300506 Industrial Science"
+author: "Soorathep Kheawhom"
+---
+
+::: {.small}
+These notes follow the slides and use the same numbers and symbols. Read a session's section before class, then again before its workshop. Each section ends with self-check questions; the answers are at the end. CellCo and all its numbers are fictional, written for teaching.
+:::
+
+## Symbols used in this module {#symbols}
+
+| Symbol | Meaning | Unit |
+|---|---|---|
+| $n$ | subgroup size (5 coupons per hour) | |
+| $\bar x$, $\bar{\bar x}$ | subgroup mean; grand mean of the subgroup means | mg/cm² |
+| $R$, $\bar R$ | subgroup range; mean range | mg/cm² |
+| $\sigma$, $\sigma_{\bar x}$ | process standard deviation; standard error of a subgroup mean, $\sigma/\sqrt n$ | mg/cm² |
+| $A_2$, $D_3$, $D_4$, $d_2$ | control chart constants for subgroup size $n$ | |
+| LSL, USL | lower and upper specification limits, 19.4 and 20.6 | mg/cm² |
+| $\lambda$, $L$ | EWMA weight and limit width | |
+| $k$, $h$ | CUSUM reference value and decision interval, in units of $\sigma_{\bar x}$ | |
+| ARL | average run length: subgroups until a signal | |
+| $\varphi$ | lag-1 autocorrelation | |
+| $C_p$, $C_{pk}$, $P_{pk}$ | process capability indices | |
+| FPY, RTY, DPMO, OEE | first-pass yield, rolled throughput yield, defects per million opportunities, overall equipment effectiveness | |
+
+::: {.mistake}
+**Letters.** In this module $R$ is a subgroup *range*, not the risk tolerance of Module 1 or the matrix block of Module 2.
+:::
+
+## Session 15 · Variation, tools and measurement {#s15}
+
+### The coating line
+
+A slot die spreads cathode slurry on aluminum foil, which dries in a long oven. The **mass loading** decides how much energy each cell stores. Target 20.0 mg/cm²; specification 19.4 to 20.6 mg/cm². Every hour, five coupons are punched across the web and weighed.
+
+### Common and special causes
+
+- **Common-cause variation** comes from many small sources that are always present: slurry viscosity, foil thickness, oven airflow. It is the system's own noise; reducing it needs a change to the system.
+- **Special-cause variation** comes from an identifiable event: a clogged die lip, a new slurry batch, a tension fault. It should be found and removed.
+
+Reacting to common-cause variation as if it were special is **tampering**, and it adds variation. In the slide's run of 50 coupons, adjusting the die by the last error after every coupon raises the standard deviation from 0.19 to 0.29 mg/cm² (in theory by a factor of $\sqrt 2$). A control chart separates the two kinds, with limits set by the process's own variation, not by the specification.
+
+### Basic tools within DMAIC
+
+| Phase | Question | Typical tools |
+|---|---|---|
+| Define | Which problem, for which customer? | Charter, flowchart |
+| Measure | How big is it, and can we measure it? | Check sheet, histogram, Gage R&R |
+| Analyze | What causes it? | Pareto chart, cause-and-effect diagram, scatter plot, stratification |
+| Improve | What change removes the cause? | Designed experiments, pilot run |
+| Control | How do we keep the gain? | Control chart, standard work |
+
+::: {.cellco}
+**Pareto of last week's 2,900 defects:** coating 1,044 (36%), slitting burrs 696, winding 435, fill weight 290, weld 232, contamination 145, other 58. Coating and burrs together make 60%. A Pareto chart counts defects, not their cost; rank by cost as well when costs differ.
+:::
+
+### Measurement system analysis (Gage R&R)
+
+Observed variance = part-to-part variance + measurement variance:
+
+$$\sigma^2_{\text{total}} = \sigma^2_{\text{part}} + \sigma^2_{\text{GRR}}, \qquad \sigma^2_{\text{GRR}} = \sigma^2_{\text{repeatability}} + \sigma^2_{\text{reproducibility}}.$$
+
+**Repeatability** is the spread when one operator measures the same part repeatedly; **reproducibility** is the difference between operators.
+
+$$\%\text{GRR} = \frac{\sigma_{\text{GRR}}}{\sigma_{\text{total}}} \times 100, \qquad \text{ndc} = 1.41\,\frac{\sigma_{\text{part}}}{\sigma_{\text{GRR}}}.$$
+
+Below 10% is acceptable, 10% to 30% marginal, above 30% unacceptable; ndc should be at least 5.
+
+::: {.cellco}
+CellCo's coating gauge: repeatability 0.012, reproducibility 0.008, parts 0.170 mg/cm². So $\sigma_{\text{GRR}} = 0.0144$, %GRR = 8.5% and ndc = 16: fit for charting. The same gauge would be useless for parts that differ much less, so a gauge is good or bad only for a given use.
+:::
+
+::: {.selfcheck}
+Self-check · Session 15
+
+1. A gauge has $\sigma_{\text{GRR}} = 0.05$ on parts with $\sigma_{\text{part}} = 0.17$. Find %GRR and ndc, and give a verdict.
+2. Why does adjusting a stable process after every reading increase its variation?
+:::
+
+## Session 16 · Control charts for small shifts {#s16}
+
+### Rational subgroups and X-bar and R charts
+
+Five coupons taken at the same moment form a **rational subgroup**: short-term noise falls within it, so changes over time show between subgroups.
+
+$$\text{X-bar: } \bar{\bar x} \pm A_2 \bar R, \qquad \text{R: from } D_3 \bar R \text{ to } D_4 \bar R, \qquad \hat\sigma = \bar R / d_2.$$
+
+For $n = 5$: $A_2 = 0.577$, $D_3 = 0$, $D_4 = 2.114$, $d_2 = 2.326$.
+
+::: {.cellco}
+From 25 subgroups, $\bar{\bar x} = 20.05$ and $\bar R = 0.40$ mg/cm². X-bar limits: $20.05 \pm 0.577 \times 0.40$ = 19.82 to 20.28. R chart: 0 to 0.85. Process $\hat\sigma = 0.40/2.326 = 0.172$ mg/cm².
+:::
+
+Read the R chart first: if the spread within subgroups is not stable, the X-bar limits, which use $\bar R$, mean nothing. **Control limits describe the process; specification limits describe the customer's need.** The X-bar limits apply to subgroup means, the specification to single coupons.
+
+For individual readings (one test per slurry batch), use an **I-MR chart** with $\hat\sigma = \overline{MR}/1.128$. **Western Electric run rules** signal on one point beyond $3\sigma$, two of three beyond $2\sigma$ on one side, four of five beyond $1\sigma$ on one side, or eight in a row on one side. More rules catch smaller shifts but raise false alarms: with all four, an in-control process gives a false alarm about every 92 subgroups instead of every 370.
+
+### Charts with memory: EWMA and CUSUM
+
+$$z_t = \lambda\,\bar x_t + (1 - \lambda)\,z_{t-1}, \qquad z_0 = \bar{\bar x}, \qquad \text{limits } \bar{\bar x} \pm L\,\sigma_{\bar x}\sqrt{\tfrac{\lambda}{2-\lambda}\big[1 - (1-\lambda)^{2t}\big]}$$
+
+$$C_t^+ = \max\!\Big(0,\; C_{t-1}^+ + \frac{\bar x_t - \bar{\bar x}}{\sigma_{\bar x}} - k\Big), \qquad \text{signal when } C_t^+ > h \text{ (and a matching } C_t^- \text{ for downward drifts)}.$$
+
+::: {.cellco}
+**Average run lengths, in subgroups, all tuned to about 370 between false alarms**
+
+| Chart | Shift $0.5\,\sigma_{\bar x}$ | Shift $1.0\,\sigma_{\bar x}$ |
+|---|---:|---:|
+| X-bar, 3σ limits | 155 | 44 |
+| CUSUM, $k = 0.5$, $h = 4.77$ | 35 | 10 |
+| EWMA, $\lambda = 0.1$, $L = 2.7$ | 25 | 7.5 |
+
+With $\sigma_{\bar x} = 0.172/\sqrt 5 = 0.077$ mg/cm², EWMA limits settle at 20.05 ± 0.048. In the drift-detectives data, a drift of +0.077 starting at subgroup 16 was flagged by EWMA at 22, CUSUM at 23, X-bar with run rules at 26, and never by X-bar with 3σ limits alone.
+:::
+
+::: {.selfcheck}
+Self-check · Session 16
+
+1. With subgroups of $n = 4$ ($A_2 = 0.729$, $d_2 = 2.059$), $\bar{\bar x} = 20.05$ and $\bar R = 0.40$, find the X-bar limits and $\hat\sigma$.
+2. Subgroups are taken every hour. About how long does an in-control process run between false alarms on a 3σ X-bar chart?
+3. Your process has frequent large jumps but rarely drifts. Which chart suits it, and why?
+:::
+
+## Session 17 · Autocorrelation, attributes and capability {#s17}
+
+### When readings remember the past
+
+A beta gauge scans the web every second, and consecutive readings are close: the data are **autocorrelated**. With lag-1 autocorrelation $\varphi = 0.7$, the moving range is small, so I-MR limits come out at about ±1.64 process standard deviations instead of ±3, and about 10% of in-control points fall outside them. The remedy: fit a time-series model, here AR(1), $x_t = \mu + \varphi(x_{t-1} - \mu) + e_t$, and chart the residuals $e_t$, which are independent if the model fits.
+
+### Charts for counts
+
+$$\text{p chart: } \bar p \pm 3\sqrt{\frac{\bar p(1 - \bar p)}{n}}, \qquad \text{c chart: } \bar c \pm 3\sqrt{\bar c}, \qquad \text{negative limits are set to 0}.$$
+
+::: {.cellco}
+Lots of 500 cells with $\bar p$ = 3.5% defective: limits 1.03% to 5.97%. Pinholes per 100 m² with $\bar c = 4$: limits 0 to 10. Attribute charts need far more data than charts of measurements to see the same shift.
+:::
+
+### Process capability
+
+$$C_p = \frac{\text{USL} - \text{LSL}}{6\sigma}, \qquad C_{pk} = \frac{\min(\text{USL} - \mu,\; \mu - \text{LSL})}{3\sigma}.$$
+
+$C_{pk}$ uses the within-subgroup $\sigma$ ($\bar R/d_2$); $P_{pk}$ uses the overall standard deviation of all readings, which also includes drift between subgroups. Capability means nothing for a process out of control, and ppm figures assume a normal distribution, so check the tails.
+
+::: {.cellco}
+**CellCo today:** $C_p = 1.2/(6 \times 0.172) = 1.16$; $C_{pk} = 0.55/0.516 = 1.07$; about 770 ppm out of specification, almost all above 20.6. Re-centering at 20.00 cuts this to about 485 ppm (−37%) with no change in variation. Reaching $C_{pk} = 1.33$ also needs $\sigma = 0.150$, 13% below today, which gives about 63 ppm.
+:::
+
+::: {.selfcheck}
+Self-check · Session 17
+
+1. Lots of 200 cells with $\bar p$ = 3.5%: find the p-chart limits.
+2. A process has mean 20.10 and $\sigma = 0.15$ mg/cm². Find $C_{pk}$.
+3. A colleague reports $C_{pk} = 1.5$ from 20 readings taken in one morning. Name two reasons to doubt it.
+:::
+
+## Session 18 · Quality metrics and course synthesis {#s18}
+
+### Four ways to count quality
+
+- **First-pass yield** (FPY): share of units passing a step the first time, without rework.
+- **Rolled throughput yield**: $\text{RTY} = \prod_{\text{steps}} \text{FPY}$, the share passing every step first time.
+- **DPMO** $= \dfrac{\text{defects}}{\text{units} \times \text{opportunities per unit}} \times 10^6$.
+- **OEE** = availability × performance × quality: run time ÷ planned time, actual output ÷ (run time × ideal rate), good first-pass output ÷ actual output.
+
+::: {.cellco}
+FPY: coating 0.972, slitting 0.981, assembly 0.967, and formation with aging test 0.874 (from Block 1: $0.95 \times 0.92$). RTY = $0.972 \times 0.981 \times 0.967 \times 0.874 = 0.806$. DPMO = $2{,}900/(37{,}260 \times 10) \times 10^6 \approx 7{,}780$.
+
+In Block 1, the formation and aging stage ended with 0.933 good after rework against 0.874 first time: the 5.9-point gap is the **hidden factory** of rework.
+
+**Coating line, last week:** planned 160 h; down 22 h (die changes 9, breakdowns 8, material 5); ideal 300 cells/h; 37,260 made; 36,216 good first time. Availability 86.3%, performance 90.0%, quality 97.2%, **OEE 75.5%**. In cells, the largest single loss is minor stops and slow running (4,140), more than die changes (2,700) or scrap and rework (1,044): the loss nobody logs.
+:::
+
+### From yield to profit
+
+Coating is CellCo's bottleneck (Session 12). Removing coating losses acts like extra coating hours, priced by the shadow price of CNY 15,000 per hour (valid up to 300 hours). Halving coating defects, FPY 0.972 → 0.986, is worth about $240 \times (0.986/0.972 - 1) \approx 3.5$ extra hours, or CNY 52,000 a week. The mass-loading work of Session 17 removes only about 700 ppm; most coating losses are streaks, pinholes and edges. The Pareto chart, not one capability index, shows where the yield is.
+
+### One company, five methods
+
+| Module | CellCo question | Key result |
+|---|---|---|
+| Decision Making | How to add 2 GWh/yr of capacity? | Staged build: mean NPV 79, P(loss) 20% |
+| Markov Analysis | How do yield and maintenance behave? | Yield from formation 0.933; PM only in Major wear |
+| Network Model | When will the storage system be ready? | 71% by 22 weeks; 19 weeks for CNY 0.425 million |
+| Linear Programming | What to make each week? | E 30, P 60 MWh; a coating hour is worth CNY 15,000 |
+| Quality Control | Is the coating in control and capable? | In control; $C_{pk}$ 1.07; 1.33 needs re-centering and $\sigma$ 0.150 |
+
+::: {.selfcheck}
+Self-check · Session 18
+
+1. A line has availability 0.90, performance 0.95 and quality 0.98. What is its OEE?
+2. Three steps have FPY 0.99, 0.98 and 0.97. What is the RTY?
+3. 50 defects are found in 1,000 units, each with 5 opportunities. What is the DPMO?
+:::
+
+## Workshops for this module {#workshops}
+
+- **W7** (Sessions 15 and 16): Gage R&R on gauge data; X-bar and R, EWMA and CUSUM charts; detection times for a planted drift.
+- **W8** (Session 17): AR(1) residual chart; p chart for 30 lots; capability and the variation reduction needed for $C_{pk}$ 1.33.
+
+## Key terms in English and Chinese {#glossary}
+
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Common-cause variation | 普通原因变异 | Special-cause variation | 特殊原因变异 |
+| DMAIC | 定义-测量-分析-改进-控制 | Pareto chart | 帕累托图 |
+| Cause-and-effect diagram | 因果图（鱼骨图） | Measurement system analysis | 测量系统分析 |
+| Repeatability, reproducibility | 重复性、再现性 | Mass loading | 面密度（涂布量） |
+| Control chart | 控制图 | Rational subgroup | 合理子组 |
+| Control limit | 控制限 | Specification limit | 规格限 |
+| Run rules | 判异准则 | Average run length (ARL) | 平均运行长度 |
+| EWMA chart | 指数加权移动平均控制图 | CUSUM chart | 累积和控制图 |
+| Autocorrelation | 自相关 | Residual chart | 残差控制图 |
+| p chart, c chart | 不合格品率图、缺陷数图 | Process capability index | 过程能力指数 |
+| Parts per million (ppm) | 百万分率 | Re-centering | 过程对中 |
+| First-pass yield | 一次合格率 | Rolled throughput yield | 流通合格率 |
+| Defects per million opportunities | 百万机会缺陷数 | Overall equipment effectiveness (OEE) | 设备综合效率 |
+| Hidden factory | 隐藏工厂 | Cost of poor quality | 劣质成本 |
+
+## Answers to the self-checks {#answers}
+
+**Session 15.**
+1. $\sigma_{\text{total}} = \sqrt{0.05^2 + 0.17^2} = 0.177$, %GRR = 28%, marginal; ndc = $1.41 \times 0.17/0.05 = 4.8$, rounded down to 4, below 5. Improve the gauge before charting.
+2. Each adjustment carries the last reading's noise into the next one, so the noise of two readings adds up.
+
+**Session 16.**
+1. $20.05 \pm 0.729 \times 0.40$ = 19.76 to 20.34; $\hat\sigma = 0.40/2.059 = 0.194$ mg/cm².
+2. About 370 subgroups, that is about 370 hours, or roughly 15 days of continuous running.
+3. A Shewhart chart (X-bar or I-MR): it reacts fastest to a single large jump, while EWMA and CUSUM are tuned for small sustained shifts.
+
+**Session 17.**
+1. $\sigma_p = \sqrt{0.035 \times 0.965/200} = 0.0130$; limits $0.035 \pm 0.039$, so 0 (the negative value is set to 0) to 7.4%.
+2. $C_{pk} = (20.6 - 20.10)/(3 \times 0.15) = 1.11$.
+3. Twenty readings give a very uncertain estimate of $\sigma$; one morning shows only short-term variation, not the drift between shifts, batches or days. Stability must also be shown before capability means anything.
+
+**Session 18.**
+1. $0.90 \times 0.95 \times 0.98 = 0.838$, about 84%.
+2. $0.99 \times 0.98 \times 0.97 = 0.941$.
+3. $50/(1{,}000 \times 5) \times 10^6 = 10{,}000$.

@@ -49,7 +49,7 @@ Every hour, five coupons are punched across the web and weighed.
 :::
 ::: {}
 ::: {.route-question}
-In Block 1, CellCo's line yield was 0.933 and coating scrap was the largest loss. Today we start to trace that scrap to its cause.
+In Block 1, 93.3% of the cells that entered formation ended good. Today we look further upstream, at the coating line, where many defects start.
 :::
 :::
 :::

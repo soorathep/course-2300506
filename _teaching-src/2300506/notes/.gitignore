@@ -1,0 +1,4 @@
+_site/
+.quarto/
+_quarto_internal_scss_error.scss
+*.html

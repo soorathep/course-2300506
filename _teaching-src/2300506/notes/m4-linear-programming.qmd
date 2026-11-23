@@ -1,0 +1,234 @@
+---
+title: "Module 4 · Linear Programming"
+subtitle: "Reading notes for Sessions 11 to 14 · 2300506 Industrial Science"
+author: "Soorathep Kheawhom"
+---
+
+::: {.small}
+These notes follow the slides and use the same numbers and symbols. Read a session's section before class, then again before its workshop. Each section ends with self-check questions; the answers are at the end. CellCo and all its numbers are fictional, written for teaching.
+:::
+
+## Symbols used in this module {#symbols}
+
+| Symbol | Meaning | Unit |
+|---|---|---|
+| $E$, $P$ | weekly output of energy-storage cells and power cells | MWh |
+| $y_1, y_2, y_3$ | dual prices of coating hours, formation hours, power-cell demand | CNY thousand per unit |
+| $x_{ij}$ | MWh shipped from plant $i$ to customer $j$ | MWh/week |
+| $x_t$, $I_t$, $y_t$ | production, stock at the end of week $t$, second shift in week $t$ (0 or 1) | MWh, MWh, binary |
+| $d_k$, $p_k$ | demand and probability of scenario $k$ | MWh, |
+| VSS, EVPI | value of the stochastic solution, expected value of perfect information | CNY thousand per week |
+
+Contributions in Sessions 11 and 12 are in **CNY thousand per week**: 3,780 means CNY 3.78 million.
+
+## Session 11 · Formulation, graphics and duality {#s11}
+
+### Three parts of every LP
+
+::: {.cellco}
+**The plant manager's email.** Energy-storage cells (E) earn CNY 30,000 per MWh, power cells (P) CNY 48,000. Coating has 240 hours a week: E needs 2 hours per MWh, P needs 3. Formation has 150 hours: E needs 1.5, P needs 1. Customers take at most 60 MWh of P a week and all the E that is made.
+:::
+
+$$
+\begin{aligned}
+\max\ & 30E + 48P \\
+\text{s.t.}\ & 2E + 3P \le 240 && \text{(coating hours)} \\
+& 1.5E + P \le 150 && \text{(formation hours)} \\
+& P \le 60 && \text{(power-cell demand)} \\
+& E, P \ge 0
+\end{aligned}
+$$
+
+Before solving, check that units agree in every line, that each constraint names a real resource, and that **linearity** (doubling output doubles hours and contribution) and **divisibility** (30.5 MWh is allowed) are reasonable. Session 13 relaxes divisibility with integer variables.
+
+### The graphical solution
+
+The **feasible region** is the set of plans that satisfy every constraint. An LP optimum, if one exists, lies at a corner of the region. Here the best corner is **E = 30, P = 60**, contribution **3,780**. Coating and power-cell demand are **binding** (used up); formation uses $1.5 \times 30 + 60 = 105$ of 150 hours, leaving 45 idle.
+
+If the margin of P fell to 45, the contribution line would run parallel to the coating constraint, and every point on that edge would be optimal.
+
+### The dual: pricing the resources
+
+$$
+\begin{aligned}
+\min\ & 240y_1 + 150y_2 + 60y_3 \\
+\text{s.t.}\ & 2y_1 + 1.5y_2 \ge 30 && (E) \\
+& 3y_1 + y_2 + y_3 \ge 48 && (P) \\
+& y_1, y_2, y_3 \ge 0
+\end{aligned}
+$$
+
+Read it as a buyer who wants all of CellCo's coating hours, formation hours and power-cell orders, and must pay at least what CellCo would earn by using them. The dual solution is $y = (15, 0, 3)$: a coating hour is worth CNY 15,000, an idle formation hour nothing, and one more MWh of power-cell demand CNY 3,000.
+
+::: {.keybox}
+**Strong duality:** $240 \times 15 + 150 \times 0 + 60 \times 3 = 3{,}780$, the primal optimum. **Complementary slackness:** a resource with slack has dual price zero, and each product made earns exactly its resource cost ($2 \times 15 = 30$ for E; $3 \times 15 + 3 = 48$ for P).
+:::
+
+::: {.selfcheck}
+Self-check · Session 11
+
+1. The pack shop makes H (CNY 3,000 per batch) and T (CNY 5,000): assembly $H + 2T \le 40$, testing $3H + 2T \le 60$, $T \le 18$. Find the best corner.
+2. What is the lowest price at which CellCo should rent out one coating hour, and why?
+:::
+
+## Session 12 · Solver and sensitivity {#s12}
+
+### Simplex and Solver
+
+The **simplex method** starts at a corner and moves along an edge to a better neighbor until none is better. For CellCo it goes (0, 0) → (0, 60) → (30, 60) in two steps. In Excel, keep data, formulas and decisions in separate cells, build the objective with `SUMPRODUCT`, and ask Solver (Simplex LP) for the **Sensitivity** report.
+
+### Reading the sensitivity report
+
+::: {.cellco}
+| Constraint | Final value | Shadow price | RHS | Allowable increase | Allowable decrease |
+|---|---:|---:|---:|---:|---:|
+| Coating hours | 240 | **15** | 240 | 60 | 60 |
+| Formation hours | 105 | 0 | 150 | no limit | 45 |
+| P demand, MWh | 60 | 3 | 60 | 20 | 36 |
+
+| Variable | Final value | Reduced cost | Coefficient | Allowable increase | Allowable decrease |
+|---|---:|---:|---:|---:|---:|
+| E, MWh | 30 | 0 | 30 | 2 | 30 |
+| P, MWh | 60 | 0 | 48 | no limit | 3 |
+:::
+
+- **Shadow price:** change in the optimal objective per unit increase of a right-hand side, all other data fixed. It holds only inside its **allowable range**: coating 180 to 300 hours. Above 300 hours formation binds and the coating price drops to zero.
+- **Reduced cost:** how much a variable's margin must improve before it enters the plan; zero for products already made.
+- **Allowable range of a coefficient:** the margins over which the current plan stays optimal; E from 0 to 32, P from 45 upward.
+
+::: {.mistake}
+**Common mistake.** A shadow price answers one change at a time, inside its range. For a change beyond the range, or several changes together, re-solve.
+:::
+
+::: {.selfcheck}
+Self-check · Session 12
+
+1. Coating overtime costs CNY 18,000 per hour. Should CellCo buy any?
+2. Power-cell orders rise by 30 MWh, to 90. What happens to contribution?
+3. The margin of E rises from 30 to 33. Does the plan change?
+:::
+
+## Session 13 · Application models and MILP {#s13}
+
+### Transportation
+
+$$\min \sum_{i,j} c_{ij} x_{ij} \quad \text{s.t.} \quad \sum_j x_{ij} \le \text{supply}_i, \qquad \sum_i x_{ij} = \text{demand}_j, \qquad x_{ij} \ge 0.$$
+
+::: {.cellco}
+Xiamen (90 MWh/week) and Quanzhou (60) supply Fuzhou (50), Shenzhen (60) and Hangzhou (40). The optimum ships Xiamen → Fuzhou 30, Xiamen → Shenzhen 60, Quanzhou → Fuzhou 20 and Quanzhou → Hangzhou 40, for CNY 432,000 a week. Choosing each customer's cheapest plant fails: Quanzhou would need to ship 90 but has 60.
+:::
+
+### Blending
+
+The fractions $a, b, c \ge 0$ of three LFP lots, with $a + b + c = 1$, must give at least 156 mAh/g and at most 450 ppm moisture at least cost. Properties blend linearly by mass. The optimum is 50% lot A and 50% lot C at CNY 44,000 per tonne; the middle lot B is not used. The capacity constraint binds with a shadow price of CNY 2,000 per tonne per mAh/g.
+
+### Crashing returns as an LP
+
+The crash plan of Session 8 is the LP: minimize crash cost subject to every path being at most 19 expected weeks. Solver returns B 1.5 and C 0.17 weeks for CNY 0.425 million.
+
+### Integer decisions: a 13-week plan
+
+One shift makes 80 MWh a week; a second shift adds 40 MWh and costs CNY 250,000 in each week it runs; stock costs CNY 3,000 per MWh per week, starts at 10 and must end at 10 or more.
+
+$$
+\min \sum_{t=1}^{13} \big(250\,y_t + 3\,I_t\big) \quad \text{s.t.} \quad I_t = I_{t-1} + x_t - d_t, \qquad x_t \le 80 + 40\,y_t, \qquad y_t \in \{0, 1\}.
+$$
+
+The constraint $x_t \le 80 + 40y_t$ **links** the binary to capacity; without it, the model would produce 120 MWh without paying for the shift.
+
+| Plan | Shift weeks | Cost, CNY thousand |
+|---|---:|---:|
+| Rule: second shift whenever demand > 80 | 7 | 1,798 |
+| MILP optimum (weeks 6, 8 and 9) | 3 | **1,011** |
+| LP relaxation ($0 \le y_t \le 1$) | 2.85 in fractions | 779 |
+
+The LP relaxation is a **lower bound**, not a plan. Excel Solver gives no sensitivity report once integer variables are added, so compare MILP cases by re-solving.
+
+::: {.mistake}
+**A model that solves is not a model that is right.** A cost below a known lower bound, a binary that never changes, or a week that ignores the opening stock are signs of a formulation error.
+:::
+
+::: {.selfcheck}
+Self-check · Session 13
+
+1. Quanzhou's capacity rises to 90 MWh/week. What is the cheapest shipping plan and its cost?
+2. Tightening the blend's capacity spec from 156 to 157 mAh/g raises the cost to about what?
+3. Why must the MILP cost be at least the LP relaxation's cost?
+:::
+
+## Session 14 · Planning under uncertainty {#s14}
+
+### Two-stage stochastic LP
+
+CellCo fixes next week's energy-storage output $x$ before demand $d_k$ is known: 20, 40 or 80 MWh with probabilities 0.3, 0.5 and 0.2 (mean 42). Each MWh sold earns CNY 30,000 over its cost; each MWh made but not sold loses its cost, CNY 30,000. With sales $s_k$ in scenario $k$:
+
+$$\max \sum_k p_k\,(60\,s_k - 30\,x) \quad \text{s.t.} \quad s_k \le x, \quad s_k \le d_k, \quad x, s_k \ge 0.$$
+
+::: {.cellco}
+| Plan | Output $x$ | If $d$ = 20 | If 40 | If 80 | Expected, CNY thousand |
+|---|---:|---:|---:|---:|---:|
+| Robust (worst case) | 20 | 600 | 600 | 600 | 600 |
+| Stochastic | 40 | 0 | 1,200 | 1,200 | **840** |
+| Mean value | 42 | −60 | 1,140 | 1,260 | 804 |
+| Perfect information | $= d$ | 600 | 1,200 | 2,400 | 1,260 |
+:::
+
+- **Value of the stochastic solution:** VSS = 840 − 804 = CNY 36,000 a week, the gain from modeling uncertainty instead of plugging in the mean.
+- **Expected value of perfect information:** EVPI = 1,260 − 840 = CNY 420,000 a week, the most that better forecasting could be worth.
+- **Robust plan:** with only the interval 20 to 80, maximizing the worst case gives $x = 20$ and CNY 600,000 guaranteed. The guarantee costs 840 − 600 = CNY 240,000 a week, the price of robustness.
+
+::: {.keybox}
+Overproducing costs more than underproducing here: the expected-profit curve falls by 18 per MWh above 40 but rises by only 12 per MWh below it. That asymmetry, not the mean, sets the best output. Judge a plan by its expected result on the same scenarios, not by one lucky or unlucky week.
+:::
+
+In the planning game, the shocks (lithium price +40%, demand −20%, a coating outage) still leave 40 MWh as the best commitment; only the demand drop alone favors a lower output (32).
+
+::: {.selfcheck}
+Self-check · Session 14
+
+1. If an unsold MWh lost only CNY 5,000 (it can be sold later at a discount), what output would maximize expected profit?
+2. Why is the mean-value plan (42) worse than the stochastic plan (40)?
+:::
+
+## Workshops for this module {#workshops}
+
+- **W5** (Sessions 11 and 12): the product-mix model in Solver, its sensitivity report and dual, and five pricing questions.
+- **W6** (Sessions 13 and 14): the 13-week plan with a binary second shift in Python (PuLP) and Excel, and the two-stage stochastic version with its VSS.
+
+## Key terms in English and Chinese {#glossary}
+
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Linear programming | 线性规划 | Decision variable | 决策变量 |
+| Objective function | 目标函数 | Constraint | 约束条件 |
+| Feasible region | 可行域 | Binding constraint | 紧约束 |
+| Dual problem | 对偶问题 | Shadow price | 影子价格 |
+| Simplex method | 单纯形法 | Reduced cost | 检验数（约简成本） |
+| Sensitivity analysis | 灵敏度分析（敏感性分析） | Allowable range | 允许变化范围 |
+| Right-hand side | 右端项 | Solver | 规划求解 |
+| Transportation problem | 运输问题 | Blending problem | 配料问题 |
+| Multi-period planning | 多周期生产计划 | Mixed-integer LP (MILP) | 混合整数线性规划 |
+| Binary variable | 0-1 变量 | LP relaxation | 线性松弛 |
+| Two-stage stochastic programming | 两阶段随机规划 | Scenario | 情景 |
+| Value of the stochastic solution (VSS) | 随机解价值 | Expected value of perfect information | 完全信息期望价值 |
+| Robust optimization | 鲁棒优化 | Worst case | 最坏情况 |
+
+## Answers to the self-checks {#answers}
+
+**Session 11.**
+1. Corners (20, 0) → 60; (10, 15) → 105; (4, 18) → 102; (0, 18) → 90. The best is H = 10, T = 15, CNY 105,000.
+2. CNY 15,000, the dual price of coating: renting out an hour loses that much contribution. It is valid while coating stays between 180 and 300 hours.
+
+**Session 12.**
+1. No: an hour adds CNY 15,000 of contribution but costs 18,000.
+2. The shadow price of 3 holds only up to 80 MWh (allowable increase 20). At 80, E falls to 0 and contribution is 3,840; above 80 the price is zero. So contribution rises by 60, not by $3 \times 30 = 90$.
+3. Yes. The allowable increase is 2, so above 32 the optimum moves to E = 84, P = 24; at 33 the contribution is 3,924.
+
+**Session 13.**
+1. Xiamen → Shenzhen 60; Quanzhou → Fuzhou 50 and → Hangzhou 40: CNY 420,000 a week.
+2. CNY 46,000 per tonne (62.5% A, 37.5% C): one more mAh/g costs CNY 2,000 per tonne, the shadow price.
+3. The relaxation allows every plan the MILP allows, and more (fractional shifts), so its best cost cannot be higher.
+
+**Session 14.**
+1. 80 MWh. Expected profit: 600 at $x = 20$, 990 at 40, 1,070 at 80. With a small loss on unsold cells, producing for the high scenario pays.
+2. Producing 2 MWh above 40 earns more only when demand is 80 (probability 0.2) but loses in the low and medium scenarios (probability 0.8). The extra units have an expected value of $0.2 \times 30 - 0.8 \times 30 = -18$ per MWh.
