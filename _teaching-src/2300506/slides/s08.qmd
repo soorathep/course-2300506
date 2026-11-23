@@ -1,0 +1,272 @@
+---
+title: "PERT, simulation and crashing"
+subtitle: "Session 8 of 18 · 120 minutes · Network Model, part 2"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[5–30]{.t} **Concepts** [PERT]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[30–45]{.t} **Concepts** [Simulation check]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[45–55]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[55–75]{.t} **Concepts** [Crashing as an LP]{.d}
+:::
+::: {.seg .act style="--w:3"}
+[75–105]{.t} **Activity** [Crash auction]{.d}
+:::
+::: {.seg .wrap style="--w:1.5"}
+[105–120]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: the grid company wants the storage system ready in 22 weeks. How likely is CellCo to make it, and what is the cheapest way to finish in 19?
+:::
+
+## Three estimates per activity {#pert}
+
+```{=html}
+<div class="formula"><p><i>t</i><sub>e</sub> = (<i>a</i> + 4<i>m</i> + <i>b</i>) / 6 &nbsp;&nbsp;&nbsp; σ² = ((<i>b</i> − <i>a</i>) / 6)²</p></div>
+<table class="wide">
+  <thead><tr><th>Activity</th><th class="num">Optimistic a</th><th class="num">Most likely m</th><th class="num">Pessimistic b</th><th class="num">t<sub>e</sub></th><th class="num">σ²</th></tr></thead>
+  <tbody>
+    <tr><td>A · Survey, permits</td><td class="num">2</td><td class="num">3</td><td class="num">6</td><td class="num">3.33</td><td class="num">0.44</td></tr>
+    <tr><td>B · Design</td><td class="num">3</td><td class="num">4</td><td class="num">8</td><td class="num">4.50</td><td class="num">0.69</td></tr>
+    <tr><td>C · Containers</td><td class="num">6</td><td class="num">8</td><td class="num">14</td><td class="num">8.67</td><td class="num hit">1.78</td></tr>
+    <tr><td>D · Civil works</td><td class="num">3</td><td class="num">5</td><td class="num">7</td><td class="num">5.00</td><td class="num">0.44</td></tr>
+    <tr><td>E · PCS, transformer</td><td class="num">5</td><td class="num">7</td><td class="num">9</td><td class="num">7.00</td><td class="num">0.44</td></tr>
+    <tr><td>F · Install containers</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">2.00</td><td class="num">0.11</td></tr>
+    <tr><td>G · Install PCS, grid</td><td class="num">2</td><td class="num">3</td><td class="num">5</td><td class="num">3.17</td><td class="num">0.25</td></tr>
+    <tr><td>H · Commission</td><td class="num">1</td><td class="num">2</td><td class="num">4</td><td class="num">2.17</td><td class="num">0.25</td></tr>
+  </tbody>
+</table>
+```
+
+[Most estimates are skewed to the right: things go wrong more often than they go unusually well, so t~e~ is above m.]{.note-line}
+
+## The PERT answer {#pert-answer}
+
+::: {.two}
+::: {}
+With expected durations, the critical path is **A-B-C-F-H, 20.67 weeks**. A-B-E-G-H follows at 20.17 weeks.
+
+PERT adds the variances along the critical path: σ² = 0.44 + 0.69 + 1.78 + 0.11 + 0.25 = 3.28, so σ = **1.81 weeks**.
+
+P(finish ≤ 22) = Φ((22 − 20.67)/1.81) = Φ(0.74) = **0.77**.
+:::
+::: {}
+::: {.route-question}
+PERT looks only at one path. But the second path is just 0.5 week shorter. In the futures where E or G runs late, it decides the finish date, and PERT ignores those futures.
+:::
+:::
+:::
+
+## Check PERT by simulation {#pert-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="px">
+  <div class="w-controls"><label class="w-slider">Deadline, weeks <strong id="px-dv">22.0</strong><input type="range" id="px-d" min="18" max="26" step="0.25" value="22"></label></div>
+  <svg id="px-svg" viewBox="0 0 1160 260" role="img" aria-label="Probability of finishing by each deadline, PERT against simulation"></svg>
+  <div class="w-readout" id="px-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('px'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  // Simulated P(finish <= deadline), 200,000 runs with beta-PERT durations, deadlines 18 to 26 by 0.25.
+  const MC = [0.0236,0.0356,0.0526,0.0741,0.1006,0.1324,0.1706,0.2151,0.264,0.3161,0.3727,0.4298,0.4884,0.5471,0.6037,0.6566,0.7055,0.75,0.7908,0.8274,0.8596,0.8869,0.9095,0.9284,0.9443,0.957,0.9672,0.9757,0.9818,0.9865,0.99,0.9928,0.995];
+  const T = 20.6667, SD = 1.8105;
+  function erf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x); return s * (1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x)); }
+  const pert = (d) => 0.5 * (1 + erf((d - T) / SD / Math.SQRT2));
+  const W = 1160, H = 260, L = 70, R = 20, T0 = 10, B = 40, X = (d) => L + (d - 18) / 8 * (W - L - R), Y = (p) => T0 + (1 - p) * (H - T0 - B);
+  function draw() {
+    const d = +document.getElementById('px-d').value; document.getElementById('px-dv').textContent = d.toFixed(2);
+    let g = '';
+    for (const p of [0, 0.25, 0.5, 0.75, 1]) g += `<line x1="${L}" x2="${W - R}" y1="${Y(p)}" y2="${Y(p)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${Y(p) + 6}" text-anchor="end" font-size="16" fill="#333F4A">${p}</text>`;
+    for (let w = 18; w <= 26; w += 1) g += `<text x="${X(w)}" y="${H - 14}" text-anchor="middle" font-size="16" fill="#333F4A">${w}</text>`;
+    let pp = '', mm = '';
+    for (let i = 0; i <= 160; i++) { const x = 18 + i * 0.05; pp += (i ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(pert(x)).toFixed(1); }
+    MC.forEach((p, i) => { mm += (i ? 'L' : 'M') + X(18 + i * 0.25).toFixed(1) + ',' + Y(p).toFixed(1); });
+    g += `<path d="${pp}" fill="none" stroke="#0F6E6B" stroke-width="3" stroke-dasharray="8 6"/><path d="${mm}" fill="none" stroke="#E29A2D" stroke-width="3.5"/>`;
+    const i = Math.round((d - 18) / 0.25), pm = MC[i], pe = pert(d);
+    g += `<line x1="${X(d)}" x2="${X(d)}" y1="${T0}" y2="${H - B}" stroke="#1C242B" stroke-width="2"/><circle cx="${X(d)}" cy="${Y(pe)}" r="6" fill="#0F6E6B"/><circle cx="${X(d)}" cy="${Y(pm)}" r="6" fill="#E29A2D"/>`;
+    g += `<text x="${X(24.2)}" y="${Y(0.62)}" font-size="17" fill="#0F6E6B" font-weight="700">PERT, one path</text><text x="${X(24.2)}" y="${Y(0.5)}" font-size="17" fill="#9a5f10" font-weight="700">Simulation, all paths</text>`;
+    document.getElementById('px-svg').innerHTML = g;
+    document.getElementById('px-out').innerHTML = `Deadline ${d.toFixed(2)} weeks: PERT gives <b>${(pe * 100).toFixed(0)}%</b>, simulation gives <span class="best">${(pm * 100).toFixed(0)}%</span>. Gap: ${((pe - pm) * 100).toFixed(0)} points.`;
+  }
+  document.getElementById('px-d').addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+[The simulation draws every duration from a beta-PERT distribution with the same a, m and b, and takes the longest path in each run.]{.hint}
+
+## Merge bias {#merge-bias}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Deadline, weeks</th><th class="num">20</th><th class="num">21</th><th class="num">22</th><th class="num">23</th><th class="num">24</th></tr></thead>
+  <tbody>
+    <tr><td>PERT, critical path only</td><td class="num">36%</td><td class="num">57%</td><td class="num">77%</td><td class="num">90%</td><td class="num">97%</td></tr>
+    <tr><td>Simulation, all paths</td><td class="num">26%</td><td class="num">49%</td><td class="num hit">71%</td><td class="num">86%</td><td class="num">94%</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+The simulated mean finish is **21.1 weeks**, not 20.7. A-B-E-G-H turns out to be the longest path in **41%** of runs. Where paths merge, the finish date is the maximum of several uncertain paths, and that maximum is later than any one path alone.
+:::
+
+[For a 90% on-time promise, PERT suggests 23.0 weeks; the simulation says 23.4.]{.note-line}
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: the grid company offers a bonus for finishing in 19 weeks. Which activities should CellCo pay to shorten?
+:::
+
+## Crashing: buying time {#crashing}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Activity</th><th class="num">A</th><th class="num">B</th><th class="num">C</th><th class="num">D</th><th class="num">E</th><th class="num">F</th><th class="num">G</th><th class="num">H</th></tr></thead>
+  <tbody>
+    <tr><td>Cost per week saved, CNY million</td><td class="num">0.40</td><td class="num">0.25</td><td class="num">0.30</td><td class="num">0.20</td><td class="num">0.35</td><td class="num">0.50</td><td class="num">0.45</td><td class="num">0.60</td></tr>
+    <tr><td>Maximum weeks saved</td><td class="num">1</td><td class="num">1.5</td><td class="num">3</td><td class="num">2</td><td class="num">2</td><td class="num">0.5</td><td class="num">1</td><td class="num">0.5</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.two}
+::: {}
+**Rules of thumb.** Crash only critical activities. Prefer the cheapest per week. An activity shared by both long paths (A, B or H) shortens both at once.
+:::
+::: {}
+**As an LP.** Choose crash weeks x~k~ to minimize Σ c~k~ x~k~, with every path's expected length minus its crashing at most 19, and 0 ≤ x~k~ ≤ max~k~. Block 2 solves LPs like this in Solver.
+:::
+:::
+
+## Plan your crash {#crash-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="kx">
+  <div class="ahp-grid" id="kx-s"></div>
+  <table class="wide" id="kx-t"></table>
+  <div class="w-readout" id="kx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('kx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const te = { A: 20 / 6, B: 4.5, C: 52 / 6, D: 5, E: 7, F: 2, G: 19 / 6, H: 13 / 6 };
+  const cost = { A: 0.40, B: 0.25, C: 0.30, D: 0.20, E: 0.35, F: 0.50, G: 0.45, H: 0.60 }, mx = { A: 1, B: 1.5, C: 3, D: 2, E: 2, F: 0.5, G: 1, H: 0.5 };
+  const paths = [['A', 'B', 'C', 'F', 'H'], ['A', 'B', 'E', 'G', 'H'], ['A', 'D', 'G', 'H'], ['A', 'D', 'F', 'H']];
+  document.getElementById('kx-s').innerHTML = Object.keys(te).map((k) => `<label class="ahp-pair"><span class="ahp-l">${k} (${cost[k].toFixed(2)})</span><input type="range" min="0" max="${mx[k]}" step="${1 / 6}" value="0" data-k="${k}"><span class="ahp-r">max ${mx[k]}</span><b data-v="${k}">0</b></label>`).join('');
+  function draw() {
+    const x = {}; root.querySelectorAll('input[data-k]').forEach((el) => { x[el.dataset.k] = +el.value; root.querySelector(`b[data-v="${el.dataset.k}"]`).textContent = (+el.value).toFixed(2); });
+    const len = paths.map((p) => p.reduce((s, k) => s + te[k] - x[k], 0)), T = Math.max(...len);
+    const c = Object.keys(x).reduce((s, k) => s + x[k] * cost[k], 0);
+    document.getElementById('kx-t').innerHTML = '<thead><tr><th>Path</th>' + paths.map((p) => `<th class="num">${p.join('-')}</th>`).join('') + '</tr></thead><tbody><tr><td>Expected length, weeks</td>' +
+      len.map((l) => `<td class="num${Math.abs(l - T) < 1e-6 ? ' hit' : ''}">${l.toFixed(2)}</td>`).join('') + '</tr></tbody>';
+    document.getElementById('kx-out').innerHTML = `Project: <b>${T.toFixed(2)} weeks</b>, crash cost <b>CNY ${c.toFixed(3)} million</b>. ` +
+      (T <= 19.001 ? `<span class="best">19-week target met</span>` : `Still ${(T - 19).toFixed(2)} weeks over the 19-week target.`);
+  }
+  root.addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+[Sliders move in steps of one sixth of a week. The number in brackets is the cost per week, in CNY million.]{.hint}
+
+## Activity · Crash auction {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 30 minutes · price list and the planner]{.act-label}
+
+::: {.prompt}
+Reach 19 expected weeks at the lowest crash cost. The cheapest valid plan wins.
+:::
+
+1. Plan on paper first, using the rules of thumb. Write your plan and its cost.
+2. Check it on the planner. Did any crash week buy nothing? Why?
+3. If every week saved also saves CNY 0.30 million of site overhead, how far should CellCo crash?
+4. Each group posts its plan and cost. Then we reveal the LP optimum.
+
+::: {.selfstudy}
+Studying alone: find a plan that meets 19 weeks for under CNY 0.5 million before you go on.
+:::
+
+## Activity · Answer {#act1-answer}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Target, weeks</th><th>LP optimal crashing</th><th class="num">Cost, CNY million</th></tr></thead>
+  <tbody>
+    <tr><td>20</td><td>B 0.67</td><td class="num">0.167</td></tr>
+    <tr><td>19</td><td>B 1.5, C 0.17</td><td class="num hit">0.425</td></tr>
+    <tr><td>18.5</td><td>A 0.17, B 1.5, C 0.5</td><td class="num">0.592</td></tr>
+    <tr><td>18</td><td>A 0.67, B 1.5, C 0.5</td><td class="num">0.792</td></tr>
+  </tbody>
+</table>
+```
+:::
+::: {}
+B is shared by both long paths and is the cheapest critical activity, so it goes first. Crashing D buys nothing: D is not critical.
+
+With overhead of CNY 0.30 million per week, crashing pays while the marginal cost is below 0.30: B (0.25) pays, C (0.30) breaks even, A (0.40) does not. So crash B fully.
+:::
+:::
+
+[These are expected durations. Crashing to 19 expected weeks still leaves a real chance of finishing later.]{.note-line}
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+PERT turns three estimates into an expected duration and a variance. For CellCo it gives a 77% chance of finishing in 22 weeks.
+:::
+::: {.tk}
+Simulation of all paths gives 71% and a mean of 21.1 weeks. Merging paths make PERT optimistic.
+:::
+::: {.tk .key}
+Crashing is an LP. Finishing in 19 expected weeks costs at least CNY 0.425 million, by crashing B, which both long paths share, and a little of C.
+:::
+:::
+
+[Session 9: what happens when two activities need the same installation crew.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| PERT | 计划评审技术 | Merge bias | 汇合偏差 |
+| Three-point estimate | 三点估算 | Crashing | 赶工（压缩工期） |
+| Optimistic, most likely, pessimistic | 乐观、最可能、悲观时间 | Time-cost trade-off | 时间-成本权衡 |
+| Beta distribution | 贝塔分布 | Crash cost | 赶工成本 |
+:::
+
+## Exit ticket · 3 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Would you promise the grid company 22 weeks? Answer in two sentences, citing one number from today.
+:::

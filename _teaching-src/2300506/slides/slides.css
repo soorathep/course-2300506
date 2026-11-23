@@ -148,3 +148,7 @@
 .reveal pre.code-slide span { display: block; padding-right: 16px; }
 .reveal pre.code-slide span::before { counter-increment: ln; content: counter(ln); display: inline-block; width: 36px; margin-right: 14px; text-align: right; color: #8C979F; }
 .reveal pre.code-slide b.c { font-weight: 400; color: #9AA6AE; }
+.reveal .w-choice { border: 1.5px solid #0F6E6B; background: #fff; color: #0F6E6B; border-radius: 4px; padding: 5px 14px; margin: 0 8px 8px 0; font: 600 1em "Source Sans 3", sans-serif; cursor: pointer; }
+.reveal .w-choice[aria-pressed="true"] { background: #0F6E6B; color: #fff; }
+.reveal .w-choice:disabled { cursor: default; }
+.reveal .w-choice:disabled:not([aria-pressed="true"]) { opacity: .55; }

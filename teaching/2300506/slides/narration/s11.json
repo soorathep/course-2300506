@@ -1,0 +1,367 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to Block two, and to session eleven: formulation, graphics and duality.",
+   "Today we turn a plant manager's email into a linear program, solve it on a graph, and price CellCo's scarce resources with the dual."
+  ],
+  "en": {
+   "audio": "narration/s11/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.78
+    ],
+    [
+     6.13,
+     15.28
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan.",
+   "First formulation and the graphical solution. After the break, duality, and then an activity in which your group formulates a new problem and bids for a coating hour."
+  ],
+  "en": {
+   "audio": "narration/s11/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.66
+    ],
+    [
+     2.01,
+     13.38
+    ]
+   ]
+  }
+ },
+ "bridge": {
+  "text": [
+   "Block one decided what CellCo should build and when it would be ready.",
+   "Block two runs the plant. Linear programming plans what to make, and statistical quality control keeps the coating line in control.",
+   "You have already solved one linear program. Crashing in session eight chose crash weeks to minimize cost, subject to every path being at most nineteen weeks long."
+  ],
+  "en": {
+   "audio": "narration/s11/bridge.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.82
+    ],
+    [
+     5.17,
+     14.34
+    ],
+    [
+     14.69,
+     25.76
+    ]
+   ]
+  }
+ },
+ "email": {
+  "text": [
+   "Here is the email from CellCo's plant manager.",
+   "Two products share one line. Energy-storage cells earn 30 thousand yuan per megawatt hour, and power cells earn 48 thousand.",
+   "Coating has 240 hours a week. Energy-storage cells need two hours per megawatt hour, and power cells need three.",
+   "Formation has 150 hours. Energy-storage cells need one and a half hours, and power cells need one. Customers take at most sixty megawatt hours of power cells a week."
+  ],
+  "en": {
+   "audio": "narration/s11/email.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.41
+    ],
+    [
+     3.76,
+     13.53
+    ],
+    [
+     13.88,
+     22.99
+    ],
+    [
+     23.34,
+     36.8
+    ]
+   ]
+  }
+ },
+ "formulation": {
+  "text": [
+   "Every linear program has three parts.",
+   "The decision variables are E and P, the weekly output of each product. The objective is to maximize contribution, 30 E plus 48 P, in thousand yuan per week.",
+   "The constraints are coating hours, formation hours, power-cell demand, and non-negativity.",
+   "Before solving, check that units agree in every line, that each constraint names a real resource, and that linearity and divisibility are reasonable."
+  ],
+  "en": {
+   "audio": "narration/s11/formulation.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.68
+    ],
+    [
+     3.03,
+     16.58
+    ],
+    [
+     16.93,
+     23.16
+    ],
+    [
+     23.51,
+     33.92
+    ]
+   ]
+  }
+ },
+ "graph": {
+  "text": [
+   "The sand-colored area is the feasible region: every plan that respects all three constraints.",
+   "The dashed amber line is the best contribution line. It touches the region at the optimal corner.",
+   "Move the sliders. Raise the coating hours and watch the corner move, until formation takes over above three hundred hours.",
+   "Then set the margin of P to 45. The contribution line becomes parallel to the coating line, and a whole edge is optimal."
+  ],
+  "en": {
+   "audio": "narration/s11/graph.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.86
+    ],
+    [
+     7.21,
+     13.87
+    ],
+    [
+     14.22,
+     22.88
+    ],
+    [
+     23.23,
+     32.32
+    ]
+   ]
+  }
+ },
+ "corner": {
+  "text": [
+   "The optimum is thirty megawatt hours of E and sixty of P, for a contribution of 3.78 million yuan a week.",
+   "Coating and power-cell demand are binding. Formation uses 105 of its 150 hours, leaving 45 idle.",
+   "An optimum, if one exists, always lies at a corner, which is why Solver only searches corners.",
+   "And adding formation capacity is worthless today. Coating decides output until it reaches three hundred hours."
+  ],
+  "en": {
+   "audio": "narration/s11/corner.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.44
+    ],
+    [
+     9.79,
+     19.52
+    ],
+    [
+     19.87,
+     26.83
+    ],
+    [
+     27.18,
+     35.56
+    ]
+   ]
+  }
+ },
+ "break": {
+  "text": [
+   "Let us take a ten-minute break.",
+   "Afterwards: a neighboring plant asks to rent one of CellCo's coating hours. What is the lowest price CellCo should accept?"
+  ],
+  "en": {
+   "audio": "narration/s11/break.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.32
+    ],
+    [
+     2.67,
+     10.93
+    ]
+   ]
+  }
+ },
+ "dual": {
+  "text": [
+   "Every linear program has a twin, called the dual.",
+   "Imagine a buyer who wants all of CellCo's coating hours, formation hours and power-cell orders. The buyer offers a price for each resource.",
+   "CellCo will sell only if the prices cover what each product would earn. For E, two coating hours plus one and a half formation hours must be worth at least thirty. For P, the resources must be worth at least 48.",
+   "The dual finds the cheapest prices that satisfy these conditions."
+  ],
+  "en": {
+   "audio": "narration/s11/dual.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.43
+    ],
+    [
+     3.78,
+     14.25
+    ],
+    [
+     14.6,
+     30.22
+    ],
+    [
+     30.57,
+     34.92
+    ]
+   ]
+  }
+ },
+ "dual-solution": {
+  "text": [
+   "The dual solution prices a coating hour at fifteen thousand yuan, a formation hour at zero, and a megawatt hour of power-cell demand at three thousand.",
+   "The dual objective is 3,780, exactly equal to the primal optimum. This is strong duality.",
+   "Complementary slackness explains the zero: formation has idle hours, so its price is zero. And each product made earns exactly its resource cost."
+  ],
+  "en": {
+   "audio": "narration/s11/dual-solution.en.mp3",
+   "cues": [
+    [
+     0.25,
+     11.32
+    ],
+    [
+     11.67,
+     20.18
+    ],
+    [
+     20.53,
+     31.84
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity, in two parts. Work in groups of four for thirty minutes.",
+   "In part one, run a relay. One member writes the variables, the next the objective, the next the constraints, and the last solves the problem graphically.",
+   "The email is from CellCo's pack shop, which makes home-storage batches and telecom batches.",
+   "In part two, return to the cell line. Write your group's minimum price for renting out one coating hour, with one sentence of reasoning, and then compare it with the dual price."
+  ],
+  "en": {
+   "audio": "narration/s11/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.77
+    ],
+    [
+     5.12,
+     15.53
+    ],
+    [
+     15.88,
+     22.22
+    ],
+    [
+     22.57,
+     34.67
+    ]
+   ]
+  }
+ },
+ "act1-answer": {
+  "text": [
+   "The pack shop problem maximizes 3 H plus 5 T, subject to assembly, testing and cell supply.",
+   "Of the four corners, ten home-storage batches and fifteen telecom batches give the most, 105 thousand yuan.",
+   "For the coating hour, renting it out loses fifteen thousand yuan of contribution. So the dual price is the minimum rent, valid while coating stays between 180 and 300 hours."
+  ],
+  "en": {
+   "audio": "narration/s11/act1-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.93
+    ],
+    [
+     8.28,
+     17.11
+    ],
+    [
+     17.46,
+     31.35
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   "Let us summarize.",
+   "A linear program has variables, an objective and constraints, and rests on linearity and divisibility.",
+   "The optimum lies at a corner. For CellCo, thirty megawatt hours of E and sixty of P earn 3.78 million yuan a week.",
+   "The dual prices scarce resources. A coating hour is worth fifteen thousand yuan, and an idle formation hour is worth nothing.",
+   "In session twelve, we solve the model in Solver and learn how far these prices can be trusted."
+  ],
+  "en": {
+   "audio": "narration/s11/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.7
+    ],
+    [
+     2.05,
+     9.37
+    ],
+    [
+     9.72,
+     19.96
+    ],
+    [
+     20.31,
+     29.4
+    ],
+    [
+     29.75,
+     36.19
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference."
+  ],
+  "en": {
+   "audio": "narration/s11/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   "For the exit ticket: a sales manager wants to push power-cell orders to seventy megawatt hours a week. Using only the dual prices, estimate the change in weekly contribution, and say what you would check before trusting it."
+  ],
+  "en": {
+   "audio": "narration/s11/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     15.91
+    ]
+   ]
+  }
+ }
+}

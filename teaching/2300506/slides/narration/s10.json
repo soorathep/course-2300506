@@ -1,0 +1,203 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to session ten, the last session of Block one.",
+   "Today is a clinic. We brief the individual research note, review each other's network plans, and close with quiz two."
+  ],
+  "en": {
+   "audio": "narration/s10/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.86
+    ],
+    [
+     4.21,
+     12.4
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan.",
+   "A short brief on the research note, then a peer review and an idea card, and then quiz two for twenty minutes."
+  ],
+  "en": {
+   "audio": "narration/s10/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.66
+    ],
+    [
+     2.01,
+     9.26
+    ]
+   ]
+  }
+ },
+ "block-map": {
+  "text": [
+   "Block one followed one company through three questions.",
+   "Decision making asked how CellCo should add capacity. The staged build gave a mean NPV of 79 million yuan and a twenty percent chance of loss.",
+   "Markov analysis described yield and maintenance over time. The line yield is 0.933, and preventive maintenance pays only in the major-wear state.",
+   "The network model asked when the storage system will be ready: a 71 percent chance by 22 weeks, and 19 weeks for 0.425 million yuan of crashing.",
+   "Your group assignment repeats this chain with your own data variant, and ends in one board memo."
+  ],
+  "en": {
+   "audio": "narration/s10/block-map.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.81
+    ],
+    [
+     4.16,
+     15.7
+    ],
+    [
+     16.05,
+     27.85
+    ],
+    [
+     28.2,
+     40.66
+    ],
+    [
+     41.01,
+     47.26
+    ]
+   ]
+  }
+ },
+ "research-note": {
+  "text": [
+   "Each of you also writes an individual research note of two pages.",
+   "Apply one Block one method to a decision or process in your own research. State the decision, the data you have or would collect, the model, the assumptions, and what the model cannot tell you.",
+   "Half of the grade is for using the method correctly, thirty percent for the quality of your assumptions, and twenty percent for clarity.",
+   "A small, correct model of a real decision scores better than a large model with unstated assumptions."
+  ],
+  "en": {
+   "audio": "narration/s10/research-note.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.99
+    ],
+    [
+     5.34,
+     18.73
+    ],
+    [
+     19.08,
+     27.57
+    ],
+    [
+     27.92,
+     35.13
+    ]
+   ]
+  }
+ },
+ "method-match": {
+  "text": [
+   "Before you choose a method, test yourself on seven cases from energy research.",
+   "Read each case, choose the method that fits best, and read the explanation. Some cases admit a second method; in your note, say why you chose yours."
+  ],
+  "en": {
+   "audio": "narration/s10/method-match.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.24
+    ],
+    [
+     5.59,
+     15.98
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity, in two parts.",
+   "In part one, for fifteen minutes, swap your draft network plan with another group and review it against the six checks on the slide.",
+   "Pay particular attention to the on-time probability. It should come from a simulation, not from PERT alone.",
+   "In part two, for ten minutes, write a three-sentence idea card for your research note: the decision, the method, and the data. Swap it with a partner, and ask one question about theirs."
+  ],
+  "en": {
+   "audio": "narration/s10/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.04
+    ],
+    [
+     2.39,
+     11.12
+    ],
+    [
+     11.47,
+     19.74
+    ],
+    [
+     20.09,
+     33.04
+    ]
+   ]
+  }
+ },
+ "quiz2": {
+  "text": [
+   "Quiz two covers Markov analysis and the network model, sessions four to nine. Work on your own, on paper, for twenty minutes."
+  ],
+  "en": {
+   "audio": "narration/s10/quiz2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.1
+    ]
+   ]
+  }
+ },
+ "to-block2": {
+  "text": [
+   "Before the sixth of February, submit the group report, the workbook or notebook, the recorded presentation, and your research note. You will receive feedback before Block two.",
+   "Block two, on the twenty-seventh and twenty-eighth of March, covers linear programming and statistical quality control, again with CellCo.",
+   "Crashing in session eight was already a linear program. Block two starts there. Thank you for your work in Block one."
+  ],
+  "en": {
+   "audio": "narration/s10/to-block2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     11.9
+    ],
+    [
+     12.25,
+     21.74
+    ],
+    [
+     22.09,
+     29.64
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference."
+  ],
+  "en": {
+   "audio": "narration/s10/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ]
+   ]
+  }
+ }
+}

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="s11_files/libs/clipboard/clipboard.min.js"></script>
+<script src="s11_files/libs/quarto-html/tabby.min.js"></script>
+<script src="s11_files/libs/quarto-html/popper.min.js"></script>
+<script src="s11_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="s11_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="s11_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="s11_files/libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.11.9">
+
+  <meta name="author" content="Soorathep Kheawhom, Ph.D., FRSC">
+  <title>Formulation, graphics and duality</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="s11_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="s11_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="s11_files/libs/revealjs/dist/theme/quarto-b334f3268ccd5e08bfe37898af6488d3.css">
+  <link rel="stylesheet" href="slides.css?v=fd7ce5f6">
+  <link href="s11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="s11_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="s11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="s11_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="robots" content="noindex">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#1C242B" class="quarto-title-block center">
+  <h1 class="title">Formulation, graphics and duality</h1>
+  <p class="subtitle">Session 11 of 18 · 120 minutes · Linear Programming, part 1</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Soorathep Kheawhom, Ph.D., FRSC
+</div>
+        <p class="quarto-title-affiliation">
+            2300506 Industrial Science · Huaqiao University and Chulalongkorn University
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="route" class="slide level2">
+<h2>Today, minute by minute</h2>
+<div class="route">
+<div class="seg wrap" style="--w:0.5">
+<p><span class="t">0–5</span> <strong>Start</strong> <span class="d"></span></p>
+</div>
+<div class="seg concept" style="--w:2.5">
+<p><span class="t">5–30</span> <strong>Concepts</strong> <span class="d">Formulation</span></p>
+</div>
+<div class="seg concept" style="--w:2">
+<p><span class="t">30–50</span> <strong>Concepts</strong> <span class="d">Graphical solution</span></p>
+</div>
+<div class="seg brk" style="--w:1">
+<p><span class="t">50–60</span> <strong>Break</strong> <span class="d"></span></p>
+</div>
+<div class="seg concept" style="--w:2.5">
+<p><span class="t">60–85</span> <strong>Concepts</strong> <span class="d">Duality</span></p>
+</div>
+<div class="seg act" style="--w:3">
+<p><span class="t">85–115</span> <strong>Activity</strong> <span class="d">Relay and resource bid</span></p>
+</div>
+<div class="seg wrap" style="--w:0.5">
+<p><span class="t">115–120</span> <strong>Wrap</strong> <span class="d"></span></p>
+</div>
+</div>
+<div class="route-question">
+<p>Question for today: CellCo now runs the capacity chosen in Block 1. What should it make each week, and what is one more hour of coating worth?</p>
+</div>
+</section>
+<section id="bridge" class="slide level2">
+<h2>From Block 1 to Block 2</h2>
+<div class="two">
+<div>
+<p><strong>Block 1</strong> decided what to build and when it would be ready.</p>
+<p><strong>Block 2</strong> runs the plant: Linear Programming plans what to make (today and Sessions 12 to 14); Statistical Quality Control keeps the coating line in control (Sessions 15 to 18).</p>
+</div>
+<div>
+<div class="route-question">
+<p>You have already solved one LP. Crashing in Session 8 chose crash weeks to minimize cost subject to every path being at most 19 weeks.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="email" class="slide level2">
+<h2>The plant manager’s email</h2>
+<div class="case">
+<p>“We make two products on the same line. <strong>Energy-storage cells (E)</strong> earn CNY 30,000 per MWh; <strong>power cells (P)</strong> earn CNY 48,000 per MWh.</p>
+<p>Coating is the problem: we have <strong>240 coating hours</strong> a week. E needs 2 hours per MWh, P needs 3.</p>
+<p>Formation has <strong>150 hours</strong> a week. E needs 1.5 hours per MWh, P needs 1.</p>
+<p>Customers will take at most <strong>60 MWh of P</strong> a week; they take all the E we make.</p>
+<p>What should we make?”</p>
+</div>
+</section>
+<section id="formulation" class="slide level2">
+<h2>Three parts of every LP</h2>
+<div class="two">
+<div>
+<p><strong>Decision variables.</strong> E and P, weekly output in MWh.</p>
+<p><strong>Objective.</strong> Maximize contribution, in CNY thousand per week:</p>
+<p>max 30E + 48P</p>
+<p><strong>Constraints.</strong></p>
+<p>2E + 3P ≤ 240 (coating hours)</p>
+<p>1.5E + P ≤ 150 (formation hours)</p>
+<p>P ≤ 60 (power-cell demand)</p>
+<p>E, P ≥ 0</p>
+</div>
+<div>
+<p><strong>Checks before solving.</strong></p>
+<ul>
+<li>Units agree within each line: hours on both sides, CNY on the objective.</li>
+<li>Each constraint names a resource someone can point to.</li>
+<li>Linearity: doubling output doubles hours and contribution. No setup times, no volume discounts.</li>
+<li>Divisibility: 30.5 MWh is allowed.</li>
+</ul>
+<p><span class="hint">If these assumptions fail, Session 13 adds integer variables.</span></p>
+</div>
+</div>
+</section>
+<section id="graph" class="slide level2" data-hold="true">
+<h2>The graphical solution</h2>
+<div class="widget" id="lpg">
+  <div class="w-controls">
+    <label class="w-slider">Coating hours <strong id="lpg-cv">240</strong><input type="range" id="lpg-c" min="150" max="360" step="10" value="240"></label>
+    <label class="w-slider">Margin of E <strong id="lpg-ev">30</strong><input type="range" id="lpg-e" min="0" max="50" step="1" value="30"></label>
+    <label class="w-slider">Margin of P <strong id="lpg-pv">48</strong><input type="range" id="lpg-p" min="20" max="70" step="1" value="48"></label>
+  </div>
+  <svg id="lpg-svg" viewbox="0 0 1160 330" role="img" aria-label="Feasible region of the CellCo product-mix LP with the optimal corner"></svg>
+  <div class="w-readout" id="lpg-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('lpg'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  window.cellcoLP = function (coat, cE, cP, form = 150, dP = 60) {
+    const L = [[2, 3, coat], [1.5, 1, form], [0, 1, dP], [-1, 0, 0], [0, -1, 0]];
+    const pts = [];
+    for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) {
+      const [a1, b1, c1] = L[i], [a2, b2, c2] = L[j], det = a1 * b2 - a2 * b1;
+      if (Math.abs(det) < 1e-9) continue;
+      const x = (c1 * b2 - c2 * b1) / det, y = (a1 * c2 - a2 * c1) / det;
+      if (L.every(([a, b, c]) => a * x + b * y <= c + 1e-7)) pts.push([x, y]);
+    }
+    const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length, cy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+    pts.sort((p, q) => Math.atan2(p[1] - cy, p[0] - cx) - Math.atan2(q[1] - cy, q[0] - cx));
+    let best = pts[0], bz = -1;
+    for (const p of pts) { const z = cE * p[0] + cP * p[1]; if (z > bz + 1e-9) { bz = z; best = p; } }
+    const bind = ['coating', 'formation', 'P demand'].filter((n, k) => Math.abs(L[k][0] * best[0] + L[k][1] * best[1] - L[k][2]) < 1e-6);
+    return { pts, best, z: bz, bind };
+  };
+  const BX = 60, BY = 300, X = (e) => BX + e * 6, Y = (p) => BY - p * 2.9;
+  function draw() {
+    const coat = +document.getElementById('lpg-c').value, cE = +document.getElementById('lpg-e').value, cP = +document.getElementById('lpg-p').value;
+    document.getElementById('lpg-cv').textContent = coat; document.getElementById('lpg-ev').textContent = cE; document.getElementById('lpg-pv').textContent = cP;
+    const r = window.cellcoLP(coat, cE, cP);
+    let g = `<line x1="${X(0)}" y1="${Y(0)}" x2="${X(110)}" y2="${Y(0)}" stroke="#333F4A"/><line x1="${X(0)}" y1="${Y(0)}" x2="${X(0)}" y2="${Y(100)}" stroke="#333F4A"/>`;
+    for (let v = 20; v <= 100; v += 20) g += `<text x="${X(v)}" y="${Y(0) + 22}" text-anchor="middle" font-size="15" fill="#333F4A">${v}</text><text x="${X(0) - 8}" y="${Y(v) + 5}" text-anchor="end" font-size="15" fill="#333F4A">${v}</text>`;
+    g += `<text x="${X(110)}" y="${Y(0) - 8}" text-anchor="end" font-size="16" fill="#333F4A">E, MWh</text><text x="${X(0) + 34}" y="${Y(100) + 12}" font-size="16" fill="#333F4A">P, MWh</text>`;
+    g += `<polygon points="${r.pts.map((p) => X(p[0]) + ',' + Y(p[1])).join(' ')}" fill="#DFC98F" opacity="0.55" stroke="none"/>`;
+    const line = (a, b, c, col, lab) => { const e1 = 0, e2 = 110; const p1 = b ? (c - a * e1) / b : null; const p2 = b ? (c - a * e2) / b : null;
+      if (b) return `<line x1="${X(e1)}" y1="${Y(p1)}" x2="${X(e2)}" y2="${Y(p2)}" stroke="${col}" stroke-width="2.5"/><text x="${X(e1) + 6}" y="${Y(Math.min(p1, 98)) - 6}" font-size="15" fill="${col}" font-weight="700">${lab}</text>`; };
+    g += `<clipPath id="lpg-clip"><rect x="${X(0)}" y="${Y(100)}" width="${X(110) - X(0)}" height="${Y(0) - Y(100)}"/></clipPath><g clip-path="url(#lpg-clip)">`;
+    g += line(2, 3, coat, '#0F6E6B', '') + line(1.5, 1, 150, '#5A91BE', '') + line(0, 1, 60, '#BE654C', '');
+    const zl = r.z; if (cP > 0) g += `<line x1="${X(0)}" y1="${Y(zl / cP)}" x2="${X(110)}" y2="${Y((zl - cE * 110) / cP)}" stroke="#E29A2D" stroke-width="2.5" stroke-dasharray="8 6"/>`;
+    g += `</g><circle cx="${X(r.best[0])}" cy="${Y(r.best[1])}" r="8" fill="#E29A2D" stroke="#1C242B" stroke-width="1.5"/>`;
+    const lx = 760; g += `<g font-size="17"><line x1="${lx}" x2="${lx + 30}" y1="40" y2="40" stroke="#0F6E6B" stroke-width="3"/><text x="${lx + 40}" y="46" fill="#1C242B">Coating: 2E + 3P ≤ ${coat}</text>
+      <line x1="${lx}" x2="${lx + 30}" y1="72" y2="72" stroke="#5A91BE" stroke-width="3"/><text x="${lx + 40}" y="78" fill="#1C242B">Formation: 1.5E + P ≤ 150</text>
+      <line x1="${lx}" x2="${lx + 30}" y1="104" y2="104" stroke="#BE654C" stroke-width="3"/><text x="${lx + 40}" y="110" fill="#1C242B">Power-cell demand: P ≤ 60</text>
+      <line x1="${lx}" x2="${lx + 30}" y1="136" y2="136" stroke="#E29A2D" stroke-width="3" stroke-dasharray="8 6"/><text x="${lx + 40}" y="142" fill="#1C242B">Best contribution line</text></g>`;
+    document.getElementById('lpg-svg').innerHTML = g;
+    document.getElementById('lpg-out').innerHTML = `Best corner: E = <b>${r.best[0].toFixed(1)}</b>, P = <b>${r.best[1].toFixed(1)}</b> MWh, contribution <span class="best">CNY ${r.z.toFixed(0)} thousand</span> a week. Binding: ${r.bind.join(', ') || 'none'}.`;
+  }
+  root.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<p><span class="hint">Try a margin of P of 45: the contribution line runs parallel to the coating line, and every point on that edge is optimal.</span></p>
+</section>
+<section id="corner" class="slide level2">
+<h2>Reading the corner</h2>
+<div class="two">
+<div>
+<p>The optimum is <strong>E = 30, P = 60 MWh</strong>, contribution <strong>CNY 3.78 million</strong> a week.</p>
+<p>Coating and power-cell demand are binding. Formation uses 1.5 × 30 + 60 = 105 of 150 hours: <strong>45 hours idle</strong>.</p>
+</div>
+<div>
+<p><strong>Two lessons from the graph.</strong></p>
+<p>An LP optimum, if one exists, is always at a corner of the feasible region. Solver only needs to search corners.</p>
+<p>Adding formation capacity is worthless today. Coating decides output until it reaches 300 hours; above that, formation becomes the limit.</p>
+</div>
+</div>
+</section>
+<section id="break" class="slide level2">
+<h2>Break · 10 minutes</h2>
+<div class="route-question">
+<p>After the break: a neighboring plant asks to rent one of CellCo’s coating hours. What is the lowest price CellCo should accept?</p>
+</div>
+</section>
+<section id="dual" class="slide level2">
+<h2>The dual: pricing the resources</h2>
+<div class="two">
+<div>
+<p><strong>Primal</strong> (the plant manager)</p>
+<p>max 30E + 48P</p>
+<p>2E + 3P ≤ 240</p>
+<p>1.5E + P ≤ 150</p>
+<p>P ≤ 60</p>
+</div>
+<div>
+<p><strong>Dual</strong> (a buyer of all resources)</p>
+<p>min 240y<sub>1</sub> + 150y<sub>2</sub> + 60y<sub>3</sub></p>
+<p>2y<sub>1</sub> + 1.5y<sub>2</sub> ≥ 30 (E)</p>
+<p>3y<sub>1</sub> + y<sub>2</sub> + y<sub>3</sub> ≥ 48 (P)</p>
+<p>y<sub>1</sub>, y<sub>2</sub>, y<sub>3</sub> ≥ 0</p>
+</div>
+</div>
+<div class="bridge">
+<p>A buyer who wants all of CellCo’s coating hours, formation hours and power-cell orders must pay at least what CellCo would earn by using them. The dual finds the cheapest such prices.</p>
+</div>
+</section>
+<section id="dual-solution" class="slide level2">
+<h2>The dual solution</h2>
+<table class="wide">
+  <thead><tr><th>Resource</th><th class="num">Dual price, CNY thousand</th><th>Reading</th></tr></thead>
+  <tbody>
+    <tr><td>Coating hour (y<sub>1</sub>)</td><td class="num hit">15</td><td>One more coating hour adds CNY 15,000 a week</td></tr>
+    <tr><td>Formation hour (y<sub>2</sub>)</td><td class="num">0</td><td>45 hours are idle, so one more is worth nothing</td></tr>
+    <tr><td>MWh of power-cell demand (y<sub>3</sub>)</td><td class="num">3</td><td>One more MWh of P orders adds CNY 3,000 a week</td></tr>
+  </tbody>
+</table>
+<div class="two">
+<div>
+<p><strong>Strong duality.</strong> 240 × 15 + 150 × 0 + 60 × 3 = <strong>3,780</strong>, equal to the primal optimum.</p>
+</div>
+<div>
+<p><strong>Complementary slackness.</strong> A resource with slack has dual price zero; a product made in positive amount earns exactly its resource cost: 2 × 15 = 30 for E, 3 × 15 + 3 = 48 for P.</p>
+</div>
+</div>
+</section>
+<section id="act1" class="slide level2 activity" data-hold="true">
+<h2>Activity · Formulation relay and resource bid</h2>
+<p><span class="act-label">Groups of 4 · 30 minutes · formulation sheet and bid</span></p>
+<div class="prompt">
+<p>Part 1 (20 minutes). One member writes the variables, the next the objective, the next the constraints, the last solves graphically.</p>
+</div>
+<div class="case">
+<p>“Our pack shop makes home-storage batches (H, CNY 3,000 each) and telecom batches (T, CNY 5,000 each). Assembly has 40 hours a week: H takes 1 hour, T takes 2. Testing has 60 hours: H takes 3, T takes 2. Cell supply allows at most 18 telecom batches.”</p>
+</div>
+<div class="prompt">
+<p>Part 2 (10 minutes). Back to the cell line. Write your group’s minimum price for renting out one coating hour, with one sentence of reasoning. Then compare it with the dual price.</p>
+</div>
+</section>
+<section id="act1-answer" class="slide level2">
+<h2>Activity · Answer</h2>
+<div class="two">
+<div>
+<p>max 3H + 5T, CNY thousand</p>
+<p>H + 2T ≤ 40 (assembly)</p>
+<p>3H + 2T ≤ 60 (testing)</p>
+<p>T ≤ 18, H, T ≥ 0</p>
+<p>Corners: (20, 0) gives 60; <strong>(10, 15) gives 105</strong>; (4, 18) gives 102; (0, 18) gives 90.</p>
+</div>
+<div>
+<p>Assembly and testing are binding. Their dual prices are 2.25 and 0.25 thousand per hour; the cell-supply limit is not binding.</p>
+<p>For the coating hour: renting it out loses CNY 15,000 of contribution, so any price below 15,000 makes CellCo worse off. The dual price is the minimum rent, valid while coating stays between 180 and 300 hours.</p>
+</div>
+</div>
+</section>
+<section id="debrief" class="slide level2">
+<h2>What we learned</h2>
+<div class="takeaways">
+<div class="tk">
+<p>An LP has variables, an objective and constraints, and rests on linearity and divisibility. Check units line by line.</p>
+</div>
+<div class="tk">
+<p>The optimum lies at a corner. For CellCo: E = 30, P = 60 MWh, CNY 3.78 million a week, with 45 formation hours idle.</p>
+</div>
+<div class="tk key">
+<p>The dual prices scarce resources. A coating hour is worth CNY 15,000; an idle formation hour is worth nothing.</p>
+</div>
+</div>
+<p><span class="note-line">Session 12: Solver, the sensitivity report, and how far these prices can be trusted.</span></p>
+</section>
+<section id="glossary" class="slide level2">
+<h2>Key terms in English and Chinese</h2>
+<div class="gloss">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>English</th>
+<th>中文</th>
+<th>English</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear programming</td>
+<td>线性规划</td>
+<td>Feasible region</td>
+<td>可行域</td>
+</tr>
+<tr class="even">
+<td>Decision variable</td>
+<td>决策变量</td>
+<td>Binding constraint</td>
+<td>紧约束</td>
+</tr>
+<tr class="odd">
+<td>Objective function</td>
+<td>目标函数</td>
+<td>Dual problem</td>
+<td>对偶问题</td>
+</tr>
+<tr class="even">
+<td>Constraint</td>
+<td>约束条件</td>
+<td>Shadow price</td>
+<td>影子价格</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="exit" class="slide level2 activity">
+<h2>Exit ticket · 3 minutes</h2>
+<p><span class="act-label">On your own · on paper · hand in at the door</span></p>
+<div class="prompt">
+<p>A sales manager wants to push P orders to 70 MWh a week. Using only the dual prices, estimate the change in weekly contribution, and say what you would check before trusting it.</p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="s11_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="s11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="s11_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="s11_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="s11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="s11_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="s11_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="s11_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="s11_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"\u003ci class=\"fas fa-gear\">\u003c/i>","content":"\u003cul class=\"slide-menu-items\">\n\u003cli class=\"slide-tool-item active\" data-item=\"0\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\">\u003ckbd>f\u003c/kbd> Fullscreen\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"1\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\">\u003ckbd>s\u003c/kbd> Speaker View\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"2\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\">\u003ckbd>o\u003c/kbd> Slide Overview\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"3\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\">\u003ckbd>e\u003c/kbd> PDF Export Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"4\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\">\u003ckbd>r\u003c/kbd> Scroll View Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"5\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\">\u003ckbd>?\u003c/kbd> Keyboard Help\u003c/a>\u003c/li>\n\u003c/ul>"}],"openButton":false,"openButtonLabel":"Slide menu"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'visible',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <!-- Click anywhere on a slide to advance.
+
+         Reveal.js has no built-in click-to-advance, so this adds it. Going back is
+         the ← key, or the arrow at the left edge of the screen
+         (controlsLayout: edges in _quarto.yml).
+
+         It deliberately does nothing when the click means something else: a link or
+         control, a double-click, a modified click, the overview (O), a drag that
+         selected text, or the click that dismisses a selection. Without those
+         guards a student trying to select a sentence would skip a slide instead.
+
+         Note the selection is checked on mousedown, not on click — the browser
+         clears the selection before the click event fires. -->
+    <script>
+    (function () {
+      var IGNORE = 'a, button, input, select, textarea, label, summary, video, audio,' +
+                   ' iframe, .controls, .slide-menu, .slide-menu-button, .progress,' +
+                   ' .speaker-controls, .pdf-page';
+      var DRAG_PX = 6;
+      var downX = 0, downY = 0, hadSelection = false;
+
+      document.addEventListener('mousedown', function (e) {
+        downX = e.clientX;
+        downY = e.clientY;
+        var s = window.getSelection();
+        hadSelection = !!(s && String(s).length > 0);
+      }, true);
+
+      function ready(fn) {
+        if (typeof Reveal !== 'undefined' && Reveal.isReady && Reveal.isReady()) return fn();
+        setTimeout(function () { ready(fn); }, 120);
+      }
+
+      ready(function () {
+        document.addEventListener('click', function (e) {
+          if (e.button !== 0) return;                        // left button only
+          if (e.detail > 1) return;                          // ignore double-clicks
+          if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+          if (e.target.closest && e.target.closest(IGNORE)) return;
+          if (Reveal.isOverview() || Reveal.isPaused()) return;
+          if (Math.abs(e.clientX - downX) > DRAG_PX ||
+              Math.abs(e.clientY - downY) > DRAG_PX) return; // that was a drag
+          if (hadSelection) { hadSelection = false; return; } // that click cleared a selection
+          Reveal.next();
+        }, false);
+      });
+    })();
+    </script>
+    <!-- Narration and captions for 2300506 decks (adapted from the 2105315 player, English only).
+         Reads the narration index built by build_narration.py: per slide, the sentences and one MP3 with
+         one cue per sentence. publish.py also inlines the index into the page (script#nr-data), so the
+         deck works when opened from a downloaded folder, where fetch() of a local file is blocked.
+         Controls at the bottom left:
+           Narration: off / on      Pause or Resume, Replay slide (while narration is on)
+           Captions:  off / on      Auto-advance: off / on
+         With narration off and captions on, the slide's full narration text is shown to read.
+         Settings are remembered in this browser (keys nr506-*). -->
+    <style>
+    .nr-bar { position: fixed; left: 12px; bottom: 10px; z-index: 40; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100vw - 120px); font: 600 14px/1 "Source Sans 3", sans-serif; }
+    .nr-bar button { border: 1.5px solid #0F6E6B; background: #fff; color: #0F6E6B; border-radius: 4px; padding: 8px 12px; cursor: pointer; font: inherit; }
+    .nr-bar button[aria-pressed="true"] { background: #0F6E6B; border-color: #0F6E6B; color: #fff; }
+    .nr-bar button:focus-visible { outline: 2px solid #E29A2D; outline-offset: 2px; }
+    /* When captions show, the slide area shrinks by --cc-band so captions never cover slide text. */
+    .reveal { height: calc(100% - var(--cc-band, 0px)) !important; }
+    .nr-caption { position: fixed; left: 50%; bottom: 56px; transform: translateX(-50%); z-index: 39; width: min(1100px, 92vw); max-height: 22vh; overflow-y: auto;
+      background: rgba(28,36,43,.92); color: #fff; border-radius: 4px; padding: 10px 16px; font: 400 21px/1.45 "Source Sans 3", sans-serif; text-align: center; }
+    .nr-caption.transcript { text-align: left; font-size: 18px; }
+    .nr-caption.transcript p { margin: 0 0 .4em; }
+    .nr-home { align-self: center; margin-left: 8px; font: 400 12px/1 "Source Sans 3", sans-serif; color: #66727C !important; text-decoration: none; }
+    .nr-home:hover { text-decoration: underline; }
+    @media (max-width: 700px) { .nr-bar { font-size: 12px; } .nr-bar button { padding: 6px 8px; } .nr-caption { font-size: 17px; bottom: 92px; } .nr-home { display: none; } }
+    @media print { .nr-bar, .nr-caption { display: none !important; } }
+    </style>
+    <div class="nr-bar" role="toolbar" aria-label="Narration and captions">
+      <button type="button" id="nr-sound" aria-pressed="false">Narration: off</button>
+      <button type="button" id="nr-pause" hidden="">Pause</button>
+      <button type="button" id="nr-replay" hidden="">Replay slide</button>
+      <button type="button" id="nr-cc" aria-pressed="false">Captions: off</button>
+      <button type="button" id="nr-auto" aria-pressed="false">Auto-advance: off</button>
+      <a class="nr-home" href="../../../index.html">2300506 course page</a>
+    </div>
+    <div class="nr-caption" id="nr-caption" aria-live="polite" hidden=""></div>
+    <script>
+    (function () {
+      const deck = location.pathname.split('/').pop().replace(/\.html$/, '') || 'index';
+      const store = { get(k, d) { try { return localStorage.getItem('nr506-' + k) ?? d; } catch { return d; } },
+                      set(k, v) { try { localStorage.setItem('nr506-' + k, v); } catch {} } };
+      const state = { sound: store.get('sound', 'off') === 'en' ? 'en' : 'off',
+                      cc: store.get('cc', 'off') === 'en' ? 'en' : 'off',
+                      auto: store.get('auto', 'off') === 'on' };
+      const audio = new Audio(); audio.preload = 'auto';
+      const box = document.getElementById('nr-caption');
+      const $ = (id) => document.getElementById(id);
+      let data = {}, slide = null, band = -1;
+
+      function setBand() {
+        const h = box.hidden ? 0 : box.offsetHeight + 64;
+        if (h === band) return;
+        band = h;
+        document.documentElement.style.setProperty('--cc-band', h + 'px');
+        if (window.Reveal && Reveal.isReady()) Reveal.layout();
+      }
+      new ResizeObserver(setBand).observe(box);
+
+      const on = () => state.sound === 'en';
+      function paintButtons() {
+        $('nr-sound').textContent = on() ? 'Narration: on' : 'Narration: off'; $('nr-sound').setAttribute('aria-pressed', on());
+        $('nr-pause').hidden = !on(); $('nr-replay').hidden = !on();
+        $('nr-pause').textContent = audio.paused && audio.currentTime > 0 && !audio.ended ? 'Resume' : 'Pause';
+        $('nr-cc').textContent = state.cc === 'en' ? 'Captions: on' : 'Captions: off'; $('nr-cc').setAttribute('aria-pressed', state.cc === 'en');
+        $('nr-auto').textContent = 'Auto-advance: ' + (state.auto ? 'on' : 'off'); $('nr-auto').setAttribute('aria-pressed', state.auto);
+      }
+      const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+      function show(html, transcript) {
+        if (state.cc === 'off' || !html) { box.hidden = true; return; }
+        box.lang = 'en'; box.classList.toggle('transcript', !!transcript); box.innerHTML = html; box.hidden = false;
+      }
+      function transcript() {
+        const text = slide?.text || [];
+        show(text.map((s) => '<p>' + esc(s || '') + '</p>').join(''), true);
+      }
+      function syncCaption() {
+        const track = slide?.en; if (!track) return;
+        const t = audio.currentTime;
+        const i = track.cues.findIndex(([a, b]) => t >= a && t < b + 0.3);
+        if (i >= 0) show(esc(slide.text[i] || ''), false);
+      }
+      function load() {
+        const id = Reveal.getCurrentSlide()?.id;
+        slide = data[id] || null;
+        audio.pause();
+        if (!slide) { box.hidden = true; return; }
+        if (on() && slide.en) {
+          audio.src = slide.en.audio; audio.currentTime = 0;
+          audio.play().catch((err) => {
+            // A newer load interrupts an older play() (AbortError): not a failure. Blocked autoplay: fall back to text.
+            if (err && err.name === 'AbortError') return;
+            state.sound = 'off'; paintButtons(); transcript();
+          });
+          box.hidden = true;
+        } else transcript();
+      }
+      audio.addEventListener('play', paintButtons);
+      audio.addEventListener('pause', paintButtons);
+      audio.addEventListener('timeupdate', () => { if (on()) syncCaption(); });
+      // Interactive slides (data-hold) wait for the teacher instead of auto-advancing.
+      audio.addEventListener('ended', () => { if (state.auto && !Reveal.isLastSlide() && !Reveal.getCurrentSlide()?.hasAttribute('data-hold')) Reveal.next(); });
+      $('nr-pause').addEventListener('click', (e) => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); e.currentTarget.blur(); });
+      $('nr-replay').addEventListener('click', (e) => { if (slide) { audio.currentTime = 0; audio.play().catch(() => {}); } e.currentTarget.blur(); });
+      $('nr-sound').addEventListener('click', (e) => { state.sound = on() ? 'off' : 'en'; store.set('sound', state.sound); paintButtons(); load(); e.currentTarget.blur(); });
+      $('nr-cc').addEventListener('click', (e) => {
+        state.cc = state.cc === 'en' ? 'off' : 'en'; store.set('cc', state.cc); paintButtons();
+        if (on() && !audio.paused) syncCaption(); else if (on()) box.hidden = true; else transcript();
+        e.currentTarget.blur();
+      });
+      $('nr-auto').addEventListener('click', (e) => { state.auto = !state.auto; store.set('auto', state.auto ? 'on' : 'off'); paintButtons(); e.currentTarget.blur(); });
+
+      function start(d) {
+        data = d || {};
+        if (!Object.keys(data).length) { document.querySelector('.nr-bar').hidden = true; return; }
+        paintButtons();
+        if (Reveal.isReady()) load(); else Reveal.on('ready', load);
+        Reveal.on('slidechanged', load);
+      }
+      paintButtons();
+      // The inlined index sits after this script in the page, so read it once the page is parsed.
+      function boot() {
+        const inline = document.getElementById('nr-data');
+        if (inline) { try { start(JSON.parse(inline.textContent)); return; } catch (e) {} }
+        fetch('narration/' + deck + '.json', { cache: 'no-cache' }).then((r) => r.ok ? r.json() : {}).then(start)
+          .catch(() => { document.querySelector('.nr-bar').hidden = true; });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+    })();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+          window.quartoDecorateExternalLinks = function (root) {
+         var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+              if (!link.classList.contains('no-external-icon')) {
+              }
+            }
+          }
+          };
+          window.quartoDecorateExternalLinks(window.document);
+        // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+        // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+        const hideOnEscAndFocusOut = {
+          name: 'hideOnEscAndFocusOut',
+          defaultValue: true,
+          fn(instance) {
+            const dismiss = () => {
+              // A show scheduled by the trigger delay would otherwise reopen it
+              instance.clearDelayTimeouts();
+              instance.hide();
+            };
+            const onKeyDown = (event) => {
+              if (event.key !== 'Escape') {
+                return;
+              }
+              // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+              // except an open reveal.js slide menu, which Esc should close too.
+              // The menu handles keys only when its keyboard option is on.
+              const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+                window.Reveal.getConfig().menu?.keyboard !== false;
+              if (!menuHandlesEsc) {
+                event.stopPropagation();
+              }
+              if (instance.popper.contains(window.document.activeElement)) {
+                // Disabled while refocusing so the focus trigger does not reopen it
+                instance.disable();
+                instance.reference.focus();
+                instance.enable();
+              }
+              dismiss();
+            };
+            const onFocusOut = (event) => {
+              const target = event.relatedTarget;
+              if (target && !instance.reference.contains(target) &&
+                  !instance.popper.contains(target)) {
+                dismiss();
+              }
+            };
+            // On the trigger too: a click trigger (code-annotations: select) has no
+            // blur handling. Attached for the instance's lifetime so leaving the
+            // trigger also cancels a show still pending on the trigger delay.
+            instance.reference.addEventListener('focusout', onFocusOut);
+            return {
+              onShow() {
+                window.document.addEventListener('keydown', onKeyDown, true);
+                instance.popper.addEventListener('focusout', onFocusOut);
+              },
+              onHide() {
+                window.document.removeEventListener('keydown', onKeyDown, true);
+                instance.popper.removeEventListener('focusout', onFocusOut);
+              },
+              onDestroy() {
+                instance.reference.removeEventListener('focusout', onFocusOut);
+              },
+            };
+          },
+        };
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+            plugins: [hideOnEscAndFocusOut],
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+<script type="application/json" id="nr-data">{"title-slide":{"text":["Welcome to Block two, and to session eleven: formulation, graphics and duality.","Today we turn a plant manager's email into a linear program, solve it on a graph, and price CellCo's scarce resources with the dual."],"en":{"audio":"narration/s11/title-slide.en.mp3","cues":[[0.25,5.78],[6.13,15.28]]}},"route":{"text":["Here is the plan.","First formulation and the graphical solution. After the break, duality, and then an activity in which your group formulates a new problem and bids for a coating hour."],"en":{"audio":"narration/s11/route.en.mp3","cues":[[0.25,1.66],[2.01,13.38]]}},"bridge":{"text":["Block one decided what CellCo should build and when it would be ready.","Block two runs the plant. Linear programming plans what to make, and statistical quality control keeps the coating line in control.","You have already solved one linear program. Crashing in session eight chose crash weeks to minimize cost, subject to every path being at most nineteen weeks long."],"en":{"audio":"narration/s11/bridge.en.mp3","cues":[[0.25,4.82],[5.17,14.34],[14.69,25.76]]}},"email":{"text":["Here is the email from CellCo's plant manager.","Two products share one line. Energy-storage cells earn 30 thousand yuan per megawatt hour, and power cells earn 48 thousand.","Coating has 240 hours a week. Energy-storage cells need two hours per megawatt hour, and power cells need three.","Formation has 150 hours. Energy-storage cells need one and a half hours, and power cells need one. Customers take at most sixty megawatt hours of power cells a week."],"en":{"audio":"narration/s11/email.en.mp3","cues":[[0.25,3.41],[3.76,13.53],[13.88,22.99],[23.34,36.8]]}},"formulation":{"text":["Every linear program has three parts.","The decision variables are E and P, the weekly output of each product. The objective is to maximize contribution, 30 E plus 48 P, in thousand yuan per week.","The constraints are coating hours, formation hours, power-cell demand, and non-negativity.","Before solving, check that units agree in every line, that each constraint names a real resource, and that linearity and divisibility are reasonable."],"en":{"audio":"narration/s11/formulation.en.mp3","cues":[[0.25,2.68],[3.03,16.58],[16.93,23.16],[23.51,33.92]]}},"graph":{"text":["The sand-colored area is the feasible region: every plan that respects all three constraints.","The dashed amber line is the best contribution line. It touches the region at the optimal corner.","Move the sliders. Raise the coating hours and watch the corner move, until formation takes over above three hundred hours.","Then set the margin of P to 45. The contribution line becomes parallel to the coating line, and a whole edge is optimal."],"en":{"audio":"narration/s11/graph.en.mp3","cues":[[0.25,6.86],[7.21,13.87],[14.22,22.88],[23.23,32.32]]}},"corner":{"text":["The optimum is thirty megawatt hours of E and sixty of P, for a contribution of 3.78 million yuan a week.","Coating and power-cell demand are binding. Formation uses 105 of its 150 hours, leaving 45 idle.","An optimum, if one exists, always lies at a corner, which is why Solver only searches corners.","And adding formation capacity is worthless today. Coating decides output until it reaches three hundred hours."],"en":{"audio":"narration/s11/corner.en.mp3","cues":[[0.25,9.44],[9.79,19.52],[19.87,26.83],[27.18,35.56]]}},"break":{"text":["Let us take a ten-minute break.","Afterwards: a neighboring plant asks to rent one of CellCo's coating hours. What is the lowest price CellCo should accept?"],"en":{"audio":"narration/s11/break.en.mp3","cues":[[0.25,2.32],[2.67,10.93]]}},"dual":{"text":["Every linear program has a twin, called the dual.","Imagine a buyer who wants all of CellCo's coating hours, formation hours and power-cell orders. The buyer offers a price for each resource.","CellCo will sell only if the prices cover what each product would earn. For E, two coating hours plus one and a half formation hours must be worth at least thirty. For P, the resources must be worth at least 48.","The dual finds the cheapest prices that satisfy these conditions."],"en":{"audio":"narration/s11/dual.en.mp3","cues":[[0.25,3.43],[3.78,14.25],[14.6,30.22],[30.57,34.92]]}},"dual-solution":{"text":["The dual solution prices a coating hour at fifteen thousand yuan, a formation hour at zero, and a megawatt hour of power-cell demand at three thousand.","The dual objective is 3,780, exactly equal to the primal optimum. This is strong duality.","Complementary slackness explains the zero: formation has idle hours, so its price is zero. And each product made earns exactly its resource cost."],"en":{"audio":"narration/s11/dual-solution.en.mp3","cues":[[0.25,11.32],[11.67,20.18],[20.53,31.84]]}},"act1":{"text":["Activity, in two parts. Work in groups of four for thirty minutes.","In part one, run a relay. One member writes the variables, the next the objective, the next the constraints, and the last solves the problem graphically.","The email is from CellCo's pack shop, which makes home-storage batches and telecom batches.","In part two, return to the cell line. Write your group's minimum price for renting out one coating hour, with one sentence of reasoning, and then compare it with the dual price."],"en":{"audio":"narration/s11/act1.en.mp3","cues":[[0.25,4.77],[5.12,15.53],[15.88,22.22],[22.57,34.67]]}},"act1-answer":{"text":["The pack shop problem maximizes 3 H plus 5 T, subject to assembly, testing and cell supply.","Of the four corners, ten home-storage batches and fifteen telecom batches give the most, 105 thousand yuan.","For the coating hour, renting it out loses fifteen thousand yuan of contribution. So the dual price is the minimum rent, valid while coating stays between 180 and 300 hours."],"en":{"audio":"narration/s11/act1-answer.en.mp3","cues":[[0.25,7.93],[8.28,17.11],[17.46,31.35]]}},"debrief":{"text":["Let us summarize.","A linear program has variables, an objective and constraints, and rests on linearity and divisibility.","The optimum lies at a corner. For CellCo, thirty megawatt hours of E and sixty of P earn 3.78 million yuan a week.","The dual prices scarce resources. A coating hour is worth fifteen thousand yuan, and an idle formation hour is worth nothing.","In session twelve, we solve the model in Solver and learn how far these prices can be trusted."],"en":{"audio":"narration/s11/debrief.en.mp3","cues":[[0.25,1.7],[2.05,9.37],[9.72,19.96],[20.31,29.4],[29.75,36.19]]}},"glossary":{"text":["This slide lists today's key terms in English and Chinese, for reference."],"en":{"audio":"narration/s11/glossary.en.mp3","cues":[[0.25,5.22]]}},"exit":{"text":["For the exit ticket: a sales manager wants to push power-cell orders to seventy megawatt hours a week. Using only the dual prices, estimate the change in weekly contribution, and say what you would check before trusting it."],"en":{"audio":"narration/s11/exit.en.mp3","cues":[[0.25,15.91]]}}}</script>
+</body></html>

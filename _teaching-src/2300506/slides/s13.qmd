@@ -1,0 +1,303 @@
+---
+title: "Application models and MILP"
+subtitle: "Session 13 of 18 · 120 minutes · Linear Programming, part 3"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[5–25]{.t} **Concepts** [Transportation]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[25–40]{.t} **Concepts** [Blending, crashing]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[40–50]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[50–75]{.t} **Concepts** [13 weeks, MILP]{.d}
+:::
+::: {.seg .act style="--w:2.5"}
+[75–100]{.t} **Activity** [Bug hunt]{.d}
+:::
+::: {.seg .act style="--w:1.5"}
+[100–115]{.t} **Workshop** [W6 part 1]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[115–120]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo's quarter has a demand peak above one shift's capacity. In which weeks should it run a second shift?
+:::
+
+## Transportation: two plants, three customers {#transport}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>CNY thousand per MWh</th><th class="num">Fuzhou</th><th class="num">Shenzhen</th><th class="num">Hangzhou</th><th class="num">Supply</th></tr></thead>
+  <tbody>
+    <tr><td>Xiamen plant</td><td class="num">2.0</td><td class="num">3.0</td><td class="num">4.5</td><td class="num">90</td></tr>
+    <tr><td>Quanzhou plant</td><td class="num">1.6</td><td class="num">3.6</td><td class="num">4.0</td><td class="num">60</td></tr>
+    <tr><td>Demand, MWh/week</td><td class="num">50</td><td class="num">60</td><td class="num">40</td><td class="num">150</td></tr>
+  </tbody>
+</table>
+```
+**Model.** x~ij~ = MWh shipped from plant i to customer j. Minimize Σ c~ij~ x~ij~ subject to Σ~j~ x~ij~ ≤ supply~i~ and Σ~i~ x~ij~ = demand~j~.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Optimal shipments</th><th class="num">Fuzhou</th><th class="num">Shenzhen</th><th class="num">Hangzhou</th></tr></thead>
+  <tbody>
+    <tr><td>Xiamen</td><td class="num">30</td><td class="num">60</td><td class="num">0</td></tr>
+    <tr><td>Quanzhou</td><td class="num">20</td><td class="num">0</td><td class="num">40</td></tr>
+  </tbody>
+</table>
+```
+Weekly cost: **CNY 432,000**.
+
+Choosing each customer's cheapest plant fails: Quanzhou would need to ship 90 MWh but has 60. The LP gives Quanzhou to Hangzhou, where its saving over Xiamen is largest, and splits Fuzhou.
+:::
+:::
+
+## Blending: least-cost cathode powder {#blend}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>LFP powder lot</th><th class="num">A</th><th class="num">B</th><th class="num">C</th><th class="num">Spec</th></tr></thead>
+  <tbody>
+    <tr><td>Cost, CNY thousand/t</td><td class="num">52</td><td class="num">45</td><td class="num">36</td><td></td></tr>
+    <tr><td>Capacity, mAh/g</td><td class="num">160</td><td class="num">155</td><td class="num">152</td><td class="num">≥ 156</td></tr>
+    <tr><td>Moisture, ppm</td><td class="num">300</td><td class="num">500</td><td class="num">550</td><td class="num">≤ 450</td></tr>
+  </tbody>
+</table>
+```
+Variables are fractions a, b, c ≥ 0 with a + b + c = 1. Capacity and moisture blend linearly by mass.
+:::
+::: {}
+**Optimal blend: 50% A, 50% C**, CNY 44,000 per tonne. Capacity is exactly 156 (binding); moisture is 425 ppm (slack).
+
+B, the "middle" lot, is not used: mixing the best and the cheapest lots beats it on both cost and capacity.
+
+The capacity shadow price is CNY 2,000 per tonne per mAh/g: tightening the spec to 157 raises the cost to 46.
+:::
+:::
+
+## Crashing returns as an LP {#crash-lp}
+
+::: {.two}
+::: {}
+From Session 8: choose crash weeks x~k~ for each activity.
+
+min 0.40x~A~ + 0.25x~B~ + 0.30x~C~ + ... + 0.60x~H~
+
+subject to, for each path, its expected length minus its crash weeks ≤ 19, for example
+
+20.67 − x~A~ − x~B~ − x~C~ − x~F~ − x~H~ ≤ 19
+
+and 0 ≤ x~k~ ≤ maximum crash.
+:::
+::: {}
+Solver returns **x~B~ = 1.5, x~C~ = 0.17**, cost CNY 0.425 million, as found in the crash auction.
+
+The shadow price of the 19-week target is 0.30: each further week costs CNY 300,000 until 18.67 weeks, where the second path also binds and A must be crashed.
+:::
+:::
+
+[Network problems are LPs with special structure. Shortest path, maximal flow, transportation and crashing can all be written this way.]{.note-line}
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: some decisions cannot be fractional. You either run a second shift in a week or you do not.
+:::
+
+## A 13-week plan with a second shift {#milp}
+
+::: {.two}
+::: {}
+Demand rises to 110 MWh in week 8. One shift makes **80 MWh** a week. A second shift adds **40 MWh** but costs **CNY 250,000** for each week it runs. Holding stock costs CNY 3,000 per MWh per week. Stock starts at 10 and must end at 10 or more.
+
+**MILP.** For weeks t = 1 to 13, with y~t~ ∈ {0, 1}:
+
+min Σ (250y~t~ + 3I~t~)
+
+I~t~ = I~t−1~ + x~t~ − d~t~
+
+x~t~ ≤ 80 + 40y~t~
+:::
+::: {}
+The last constraint **links** the binary to capacity: without it, the model would produce 120 MWh without ever paying for the shift.
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Plan</th><th class="num">Shift weeks</th><th class="num">Cost, CNY thousand</th></tr></thead>
+  <tbody>
+    <tr><td>Rule: second shift whenever demand &gt; 80</td><td class="num">7</td><td class="num">1,798</td></tr>
+    <tr><td>MILP optimum</td><td class="num">3</td><td class="num hit">1,011</td></tr>
+    <tr><td>LP relaxation (0 ≤ y ≤ 1)</td><td class="num">2.85 in fractions</td><td class="num">779</td></tr>
+  </tbody>
+</table>
+```
+[The relaxation is a lower bound, not a plan: nobody can run 0.38 of a shift.]{.hint}
+:::
+:::
+
+## Plan the second shift {#shift-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="shx">
+  <div class="w-controls" id="shx-w" role="group" aria-label="Second shift by week"></div>
+  <svg id="shx-svg" viewBox="0 0 1160 270" role="img" aria-label="Demand, production and stock for the 13-week plan"></svg>
+  <div class="w-readout" id="shx-out" aria-live="polite"></div>
+  <div class="w-controls"><button type="button" class="w-btn" id="shx-opt">Show MILP optimum</button> <button type="button" class="w-choice" id="shx-clr">Clear</button></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('shx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const d = [70, 72, 75, 80, 88, 95, 105, 110, 102, 92, 85, 78, 74], T = 13, I0 = 10, IEND = 10;
+  const y = new Array(T).fill(0);
+  document.getElementById('shx-w').innerHTML = '<span style="margin-right:.6em">Second shift in week:</span>' + d.map((_, t) => `<button type="button" class="w-choice" data-t="${t}" aria-pressed="false">${t + 1}</button>`).join('');
+  function plan() {
+    const cap = y.map((v) => 80 + 40 * v), x = new Array(T).fill(0); let need = IEND;
+    for (let t = T - 1; t >= 1; t--) { const req = d[t] + need; x[t] = Math.min(cap[t], req); need = req - x[t]; }
+    const req1 = d[0] + need; x[0] = Math.min(cap[0], Math.max(0, req1 - I0)); const short = req1 - x[0] - I0;
+    const I = []; let s = I0; for (let t = 0; t < T; t++) { s = s + x[t] - d[t]; I.push(s); }
+    return { x, I, cap, ok: short <= 1e-9, short };
+  }
+  function draw() {
+    const p = plan(), W = 1160, H = 270, L = 60, R = 20, Tp = 12, B = 34, bw = (W - L - R) / T, Y = (v) => Tp + (1 - v / 130) * (H - Tp - B);
+    let g = '';
+    for (let v = 0; v <= 120; v += 40) g += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#B9C1C6"/><text x="${L - 8}" y="${Y(v) + 5}" text-anchor="end" font-size="15" fill="#333F4A">${v}</text>`;
+    for (let t = 0; t < T; t++) {
+      const x0 = L + t * bw;
+      g += `<rect x="${x0 + bw * 0.18}" y="${Y(p.x[t])}" width="${bw * 0.64}" height="${Y(0) - Y(p.x[t])}" fill="${y[t] ? '#E29A2D' : '#0F6E6B'}" opacity="0.85"/>`;
+      g += `<line x1="${x0 + bw * 0.1}" x2="${x0 + bw * 0.9}" y1="${Y(d[t])}" y2="${Y(d[t])}" stroke="#1C242B" stroke-width="3"/>`;
+      g += `<text x="${x0 + bw / 2}" y="${H - 12}" text-anchor="middle" font-size="15" fill="#333F4A">${t + 1}</text>`;
+    }
+    let ip = ''; p.I.forEach((v, t) => { ip += (t ? 'L' : 'M') + (L + t * bw + bw / 2).toFixed(1) + ',' + Y(Math.max(v, 0)).toFixed(1); });
+    g += `<path d="${ip}" fill="none" stroke="#BE654C" stroke-width="2.5"/>`;
+    g += `<g font-size="15"><rect x="${W - 640}" y="6" width="14" height="14" fill="#E29A2D"/><text x="${W - 620}" y="18" fill="#1C242B">Production, two shifts</text><rect x="${W - 410}" y="6" width="14" height="14" fill="#0F6E6B"/><text x="${W - 390}" y="18" fill="#1C242B">One shift</text><line x1="${W - 300}" x2="${W - 280}" y1="13" y2="13" stroke="#1C242B" stroke-width="3"/><text x="${W - 274}" y="18" fill="#1C242B">Demand</text><line x1="${W - 200}" x2="${W - 180}" y1="13" y2="13" stroke="#BE654C" stroke-width="2.5"/><text x="${W - 174}" y="18" fill="#1C242B">Stock</text></g>`;
+    document.getElementById('shx-svg').innerHTML = g;
+    const n = y.reduce((s, v) => s + v, 0), hold = p.I.reduce((s, v) => s + 3 * v, 0);
+    document.getElementById('shx-out').innerHTML = p.ok
+      ? `${n} shift weeks: shifts ${250 * n}, stock ${hold.toFixed(0)}, total <span class="best">CNY ${(250 * n + hold).toFixed(0)} thousand</span>.`
+      : `Infeasible: ${p.short.toFixed(0)} MWh of demand cannot be met. Add a second shift in or before the peak.`;
+    root.querySelectorAll('[data-t]').forEach((b) => b.setAttribute('aria-pressed', y[+b.dataset.t] ? 'true' : 'false'));
+  }
+  root.querySelectorAll('[data-t]').forEach((b) => b.addEventListener('click', () => { const t = +b.dataset.t; y[t] = 1 - y[t]; draw(); }));
+  document.getElementById('shx-opt').addEventListener('click', () => { y.fill(0); [5, 7, 8].forEach((t) => (y[t] = 1)); draw(); });
+  document.getElementById('shx-clr').addEventListener('click', () => { y.fill(0); draw(); });
+  draw();
+})();
+</script>
+```
+
+[Given the shift weeks, production follows "make as late as capacity allows", which minimizes stock. Try to beat 1,011.]{.hint}
+
+## Activity · Bug hunt {#act1 .activity data-hold="true"}
+
+[Pairs · 25 minutes · corrected notebook]{.act-label}
+
+::: {.prompt}
+Your PuLP notebook solves the 13-week plan but contains three planted errors. Find and fix them, and write how you noticed each.
+:::
+
+1. One error is a **sign**.
+2. One **binary** is not linked to anything.
+3. One **inventory balance** is shifted by one period.
+
+::: {.hint}
+Debugging habits: compare the cost with the LP relaxation, check one week by hand, and print the binaries next to production.
+:::
+
+::: {.selfstudy}
+Studying alone: before opening the notebook, write down what symptom each error would produce in the output.
+:::
+
+## Activity · Answer {#act1-answer}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Error</th><th>Symptom</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>Sign</td><td>Holding cost enters with a minus sign, so the plan stockpiles and the "cost" falls as stock rises</td><td>+3I<sub>t</sub> in the objective</td></tr>
+    <tr><td>Unlinked binary</td><td>All y<sub>t</sub> = 0 yet weeks produce 120 MWh; total cost is below the LP relaxation</td><td>x<sub>t</sub> ≤ 80 + 40y<sub>t</sub></td></tr>
+    <tr><td>Shifted balance</td><td>Week 1 ignores the opening stock, or demand is met one week late</td><td>I<sub>t</sub> = I<sub>t−1</sub> + x<sub>t</sub> − d<sub>t</sub>, with I<sub>0</sub> = 10</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+A model that solves is not a model that is right. A cost below a known lower bound, or a binary that never changes, is a sign of a formulation error.
+:::
+
+[Excel Solver gives no sensitivity report once integer variables are added. Compare MILP cases by re-solving.]{.note-line}
+
+## Workshop W6 part 1 {#w6}
+
+::: {.two}
+::: {}
+**Task**
+
+1. Build the 13-week plan with stock and a binary second-shift decision in Python with PuLP.
+2. Build the same model in Excel and check that both give the same plan.
+3. Report the plan table, the cost breakdown and the shift weeks.
+:::
+::: {}
+**Extension for strong groups**
+
+Add a second line that can be opened once for the quarter at a fixed cost of CNY 1.2 million, adding 30 MWh a week. Which binary links to which capacity?
+
+[The notebook and its offline package list are on the course page.]{.hint}
+:::
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+Transportation, blending and crashing are LPs. Greedy choices, such as the cheapest route or the middle-grade lot, are often not optimal.
+:::
+::: {.tk}
+Binary variables model yes-or-no decisions. Each must be linked to the capacity or cost it controls.
+:::
+::: {.tk .key}
+For CellCo, three well-placed shift weeks cost CNY 1,011 thousand, against 1,798 for a simple rule.
+:::
+:::
+
+[Session 14: planning when demand is uncertain, and the CellCo planning game.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Transportation problem | 运输问题 | Mixed-integer LP (MILP) | 混合整数线性规划 |
+| Blending problem | 配料问题 | Binary variable | 0-1 变量 |
+| Multi-period planning | 多周期生产计划 | LP relaxation | 线性松弛 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Name one decision in your own research that should be a binary variable, and the constraint that would link it.
+:::

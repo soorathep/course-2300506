@@ -1,0 +1,291 @@
+---
+title: "Control charts for small shifts"
+subtitle: "Session 16 of 18 · 120 minutes · Statistical Quality Control, part 2"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[5–30]{.t} **Concepts** [X-bar and R]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[30–45]{.t} **Concepts** [I-MR, run rules]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[45–55]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[55–75]{.t} **Concepts** [EWMA, CUSUM]{.d}
+:::
+::: {.seg .act style="--w:2.5"}
+[75–100]{.t} **Activity** [Drift detectives]{.d}
+:::
+::: {.seg .act style="--w:1.5"}
+[100–115]{.t} **Workshop** [W7]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[115–120]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: a worn die lip makes the coating drift slowly heavier. Which chart notices first?
+:::
+
+## Rational subgroups {#subgroups}
+
+::: {.two}
+::: {}
+Each hour, five coupons are punched across the web at the same moment: one **subgroup**.
+
+Variation **within** a subgroup is short-term, common-cause noise. Variation **between** subgroups adds anything that changes over time.
+
+Control limits are built from within-subgroup variation, so a shift between hours stands out.
+:::
+::: {}
+::: {.route-question}
+A poor choice: five coupons taken over five hours as one subgroup. Hour-to-hour drift then inflates the ranges, widens the limits and hides the drift it should reveal.
+:::
+:::
+:::
+
+## X-bar and R charts for mass loading {#xbar-r}
+
+::: {.two}
+::: {}
+25 subgroups of 5 coupons: grand mean x̿ = **20.05**, mean range R̄ = **0.40** mg/cm².
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Chart</th><th>Limits</th><th class="num">mg/cm²</th></tr></thead>
+  <tbody>
+    <tr><td>X-bar</td><td>x̿ ± A<sub>2</sub>R̄ = 20.05 ± 0.577 × 0.40</td><td class="num hit">19.82 to 20.28</td></tr>
+    <tr><td>R</td><td>D<sub>3</sub>R̄ to D<sub>4</sub>R̄ = 0 to 2.114 × 0.40</td><td class="num">0 to 0.85</td></tr>
+    <tr><td>Process σ</td><td>R̄ / d<sub>2</sub> = 0.40 / 2.326</td><td class="num">0.172</td></tr>
+  </tbody>
+</table>
+```
+:::
+::: {}
+**Read the R chart first.** If within-subgroup spread is not stable, the X-bar limits, which use R̄, mean nothing.
+
+**Control limits are not specification limits.** Limits describe what the process does (19.82 to 20.28 for subgroup means); the specification describes what the customer needs (19.4 to 20.6 for single coupons).
+
+[Constants for subgroups of 5: A~2~ = 0.577, D~3~ = 0, D~4~ = 2.114, d~2~ = 2.326.]{.hint}
+:::
+:::
+
+## Individuals data and run rules {#imr-rules}
+
+::: {.two}
+::: {}
+**I-MR chart.** When one reading arrives at a time (one viscosity test per slurry batch), chart the individual values, with σ estimated from the average moving range: σ = MR̄ / 1.128.
+
+**Western Electric run rules.** Signal if:
+
+1. One point beyond 3σ.
+2. Two of three successive points beyond 2σ on the same side.
+3. Four of five beyond 1σ on the same side.
+4. Eight in a row on one side of the center line.
+:::
+::: {}
+::: {.route-question}
+Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, an in-control process gives a false alarm about every 92 subgroups instead of every 370.
+:::
+:::
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: a drift of half a standard error. How long until the X-bar chart notices?
+:::
+
+## Why Shewhart charts miss small shifts {#arl}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Average run length, subgroups</th><th class="num">In control</th><th class="num">Shift 0.5 σ<sub>x̄</sub></th><th class="num">Shift 1.0 σ<sub>x̄</sub></th></tr></thead>
+  <tbody>
+    <tr><td>X-bar chart, 3σ limits</td><td class="num">370</td><td class="num">155</td><td class="num">44</td></tr>
+    <tr><td>CUSUM, k = 0.5, h = 4.77</td><td class="num">370</td><td class="num">35</td><td class="num">10</td></tr>
+    <tr><td>EWMA, λ = 0.1, L = 2.7</td><td class="num">370</td><td class="num hit">25</td><td class="num">7.5</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+All three charts raise a false alarm about once every 370 subgroups. For a shift of half a standard error, 0.04 mg/cm², the X-bar chart needs about 155 hours, almost a week of production, to notice; EWMA needs about 25.
+:::
+
+[Run lengths from simulation, as checked for this course. σ~x̄~ = 0.172 / √5 = 0.077 mg/cm².]{.note-line}
+
+## Charts with memory {#ewma-cusum}
+
+::: {.two}
+::: {}
+**EWMA** (exponentially weighted moving average)
+
+z~t~ = λ x̄~t~ + (1 − λ) z~t−1~, starting at z~0~ = 20.05
+
+With λ = 0.1, each new subgroup gets 10% weight and older subgroups fade. Limits narrow to 20.05 ± 0.048 mg/cm².
+:::
+::: {}
+**CUSUM** (cumulative sum)
+
+C~t~ = max(0, C~t−1~ + (x̄~t~ − 20.05)/σ~x̄~ − k)
+
+Small deviations in one direction accumulate; the sum signals when it exceeds h. A matching lower CUSUM catches drifts downward.
+:::
+:::
+
+[Both charts trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side.]{.note-line}
+
+## Drift detectives {#drift-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="ddx">
+  <div class="w-controls"><button type="button" class="w-btn" id="ddx-next">Next subgroup</button> <button type="button" class="w-choice" id="ddx-all">Show all 30</button> <button type="button" class="w-choice" id="ddx-rst">Restart</button> <span id="ddx-n" style="margin-left:1em"></span></div>
+  <svg id="ddx-svg" viewBox="0 0 1160 300" role="img" aria-label="X-bar chart and EWMA chart for coating subgroups revealed so far"></svg>
+  <div class="w-readout" id="ddx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ddx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const xs = [20.179,20.043,19.994,20.128,20.014,19.973,20.132,20.115,20.123,20.115,20.100,20.081,19.962,20.114,20.128,20.217,20.076,20.129,20.033,20.131,20.054,20.207,20.169,20.013,20.164,20.139,20.153,20.112,20.080,20.074];
+  const MU = 20.05, SX = 0.172 / Math.sqrt(5), LAM = 0.1, LL = 2.7, N = xs.length;
+  const ew = [], lim = []; let z = MU;
+  xs.forEach((x, i) => { z = LAM * x + (1 - LAM) * z; ew.push(z); lim.push(LL * SX * Math.sqrt(LAM / (2 - LAM) * (1 - (1 - LAM) ** (2 * (i + 1))))); });
+  const sigX = xs.findIndex((x) => Math.abs(x - MU) > 3 * SX), sigE = ew.findIndex((v, i) => Math.abs(v - MU) > lim[i]);
+  let shown = 0;
+  function panel(y0, h, lo, hi, vals, center, ucl, lcl, sig, col, label) {
+    const L = 70, R = 20, X = (i) => L + i / (N - 1) * (1160 - L - R), Y = (v) => y0 + (1 - (v - lo) / (hi - lo)) * h;
+    let g = `<text x="${L}" y="${y0 - 6}" font-size="15" font-weight="700" fill="#1C242B">${label}</text>`;
+    g += `<line x1="${L}" x2="${1160 - R}" y1="${Y(center)}" y2="${Y(center)}" stroke="#B9C1C6"/>`;
+    let pu = '', pl = ''; for (let i = 0; i < N; i++) { pu += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(ucl(i)).toFixed(1); pl += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(lcl(i)).toFixed(1); }
+    g += `<path d="${pu}" fill="none" stroke="#BE654C" stroke-width="1.8" stroke-dasharray="6 4"/><path d="${pl}" fill="none" stroke="#BE654C" stroke-width="1.8" stroke-dasharray="6 4"/>`;
+    g += `<text x="${L - 8}" y="${Y(hi) + 12}" text-anchor="end" font-size="13" fill="#333F4A">${hi.toFixed(2)}</text><text x="${L - 8}" y="${Y(lo)}" text-anchor="end" font-size="13" fill="#333F4A">${lo.toFixed(2)}</text>`;
+    let p = ''; for (let i = 0; i < shown; i++) p += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(vals[i]).toFixed(1);
+    g += `<path d="${p}" fill="none" stroke="${col}" stroke-width="2"/>`;
+    for (let i = 0; i < shown; i++) g += `<circle cx="${X(i)}" cy="${Y(vals[i])}" r="${i === sig ? 7 : 4}" fill="${i >= sig && sig >= 0 && Math.abs(vals[i] - center) > Math.abs(ucl(i) - center) ? '#BE654C' : col}"/>`;
+    return g;
+  }
+  function draw() {
+    let g = panel(26, 110, 19.78, 20.32, xs, MU, () => MU + 3 * SX, () => MU - 3 * SX, sigX, '#0F6E6B', 'X-bar chart, limits 19.82 to 20.28');
+    g += panel(176, 100, 19.98, 20.13, ew, MU, (i) => MU + lim[i], (i) => MU - lim[i], sigE, '#E29A2D', 'EWMA chart, λ = 0.1');
+    if (shown === N) { const X = (i) => 70 + i / (N - 1) * (1160 - 90); g += `<line x1="${X(15) - 10}" x2="${X(15) - 10}" y1="20" y2="285" stroke="#1C242B" stroke-width="2" stroke-dasharray="3 3"/><text x="${X(15) - 4}" y="296" font-size="14" fill="#1C242B">drift starts</text>`; }
+    document.getElementById('ddx-svg').innerHTML = g;
+    document.getElementById('ddx-n').textContent = `Subgroup ${shown} of ${N}`;
+    const msg = [];
+    if (sigX >= 0 && shown > sigX) msg.push(`X-bar signals at subgroup ${sigX + 1}`);
+    if (sigE >= 0 && shown > sigE) msg.push(`<span class="best">EWMA signals at subgroup ${sigE + 1}</span>`);
+    document.getElementById('ddx-out').innerHTML = msg.length ? msg.join('; ') + '.' : (shown ? 'No signal yet. Would you stop the line?' : 'Press "Next subgroup" to reveal the first hour.');
+    if (shown === N) document.getElementById('ddx-out').innerHTML += ` A drift of +1 σ<sub>x̄</sub> (0.077 mg/cm²) was planted from subgroup 16.${sigX < 0 ? ' The X-bar chart never signals.' : ''}`;
+  }
+  document.getElementById('ddx-next').addEventListener('click', () => { if (shown < N) shown++; draw(); });
+  document.getElementById('ddx-all').addEventListener('click', () => { shown = N; draw(); });
+  document.getElementById('ddx-rst').addEventListener('click', () => { shown = 0; draw(); });
+  draw();
+})();
+</script>
+```
+
+## Activity · Drift detectives {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 25 minutes · detection time for each chart]{.act-label}
+
+::: {.prompt}
+Subgroup means are revealed one hour at a time. Update both charts on paper. Raise the red card at your first signal on either chart.
+:::
+
+1. Before you start: compute the X-bar limits and the EWMA limits for the first three subgroups.
+2. Plot each new mean on the X-bar chart and update z~t~ on the EWMA chart.
+3. Record the subgroup at which each chart first signals, and whether you would have stopped the line earlier on judgment alone.
+4. At the end, the drift point is revealed. How many hours of drifted coating did each chart let through?
+
+## Activity · Answer {#act1-answer}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Chart</th><th class="num">First signal</th><th class="num">Hours after drift began</th></tr></thead>
+  <tbody>
+    <tr><td>X-bar, 3σ only</td><td class="num">none in 30</td><td class="num">more than 14</td></tr>
+    <tr><td>X-bar with run rules</td><td class="num">26</td><td class="num">10</td></tr>
+    <tr><td>CUSUM</td><td class="num">23</td><td class="num">7</td></tr>
+    <tr><td>EWMA</td><td class="num hit">22</td><td class="num">6</td></tr>
+  </tbody>
+</table>
+```
+The drift of +0.077 mg/cm² started at subgroup 16.
+:::
+::: {}
+Six hours of slightly heavy coating is still well inside the specification: the coupons stay near 20.13, far from 20.6. That is the point of SPC: act on the process before the product goes out of specification.
+
+One dataset is one draw. The run-length table says what to expect on average.
+:::
+:::
+
+## Workshop W7 {#w7}
+
+::: {.two}
+::: {}
+**Task**
+
+1. Run a Gage R&R study on the supplied gauge data.
+2. Build X-bar and R, EWMA and CUSUM charts for your group's coating data.
+3. Compare how soon each chart flags the planted drift.
+:::
+::: {}
+**Hand in**
+
+The Gage R&R table, three charts and the detection comparison.
+
+[The EWMA and CUSUM charts are a few Excel columns each. The Python notebook builds them for longer data.]{.hint}
+:::
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups.
+:::
+::: {.tk}
+Read the R chart before the X-bar chart. Control limits describe the process; specifications describe the customer's need.
+:::
+::: {.tk .key}
+For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate.
+:::
+:::
+
+[Session 17: when readings are autocorrelated, attribute charts, and process capability.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Control chart | 控制图 | Run rules | 判异准则 |
+| Rational subgroup | 合理子组 | Average run length (ARL) | 平均运行长度 |
+| Control limit | 控制限 | EWMA chart | 指数加权移动平均控制图 |
+| Specification limit | 规格限 | CUSUM chart | 累积和控制图 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?
+:::

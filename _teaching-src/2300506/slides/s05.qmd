@@ -1,0 +1,288 @@
+---
+title: "Yield, rework and scrap"
+subtitle: "Session 5 of 18 · 120 minutes · Markov Analysis, part 2"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.6"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:3"}
+[5–35]{.t} **Concepts** [Absorbing chains]{.d}
+:::
+::: {.seg .act style="--w:2"}
+[35–55]{.t} **Activity 1** [N and B in Excel]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[55–65]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[65–80]{.t} **Concepts** [Which fix pays?]{.d}
+:::
+::: {.seg .act style="--w:3"}
+[80–110]{.t} **Activity 2** [Yield investment pitch]{.d}
+:::
+::: {.seg .wrap style="--w:1"}
+[110–120]{.t} **Debrief** [Exit ticket]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: what share of the cells CellCo starts ends up good, and which improvement buys the most yield per yuan?
+:::
+
+## The cell's journey {#line}
+
+::: {.two}
+::: {}
+Every cell passes **Formation (F)** and the **Aging test (A)**. A cell that fails goes to **Rework (R)** and is tested again. It ends either **Good (G)** or **Scrap (S)**.
+
+G and S are **absorbing** states: once there, a cell never leaves. F, A and R are **transient**.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>From \ To</th><th class="num">F</th><th class="num">A</th><th class="num">R</th><th class="num">G</th><th class="num">S</th></tr></thead>
+  <tbody>
+    <tr><td>F</td><td class="num">0</td><td class="num">0.95</td><td class="num">0.03</td><td class="num">0</td><td class="num">0.02</td></tr>
+    <tr><td>A</td><td class="num">0</td><td class="num">0</td><td class="num">0.05</td><td class="num">0.92</td><td class="num">0.03</td></tr>
+    <tr><td>R</td><td class="num">0</td><td class="num">0.80</td><td class="num">0</td><td class="num">0</td><td class="num">0.20</td></tr>
+    <tr><td>G</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
+    <tr><td>S</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">1</td></tr>
+  </tbody>
+</table>
+```
+:::
+:::
+
+[Rates are fictional, written for the CellCo case.]{.source}
+
+## Three matrices answer three questions {#canonical}
+
+```{=html}
+<div class="formula"><p><i>P</i> = [ <i>Q</i> &nbsp;<i>R</i> ; 0 &nbsp;<i>I</i> ] &nbsp;&nbsp;&nbsp; <i>N</i> = (<i>I</i> − <i>Q</i>)<sup>−1</sup> &nbsp;&nbsp;&nbsp; <i>B</i> = <i>N R</i> &nbsp;&nbsp;&nbsp; <i>t</i> = <i>N</i> · 1</p></div>
+```
+
+::: {.elements}
+::: {.el}
+[*Q*, transient to transient]{.label}
+The 3 × 3 block among F, A and R.
+:::
+::: {.el}
+[*N*, fundamental matrix]{.label}
+Expected number of visits to each transient state.
+:::
+::: {.el}
+[*B* = *NR*]{.label}
+Probability of ending in each absorbing state, Good or Scrap.
+:::
+::: {.el .key}
+[*t* = *N*1]{.label}
+Expected number of steps before absorption.
+:::
+:::
+
+[Why N? A cell can visit A once, twice or more. N = I + Q + Q² + ... adds up all those paths.]{.note-line}
+
+## What happens to a cell that enters formation {#results}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Starting in F</th><th class="num">Value</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>P(Good) = <i>B</i>(F, G)</td><td class="num hit">0.933</td><td>93.3% of started cells end good</td></tr>
+    <tr><td>P(Scrap) = <i>B</i>(F, S)</td><td class="num">0.067</td><td>6.7% are scrapped</td></tr>
+    <tr><td>Visits to A, <i>N</i>(F, A)</td><td class="num">1.015</td><td>101.5 aging tests per 100 started cells</td></tr>
+    <tr><td>Visits to R, <i>N</i>(F, R)</td><td class="num">0.081</td><td>8.1 reworks per 100 started cells</td></tr>
+    <tr><td>Steps to absorption, <i>t</i>(F)</td><td class="num">2.095</td><td>about two process steps per cell</td></tr>
+  </tbody>
+</table>
+```
+
+[A cell that is already in rework ends good with probability only 0.767, against 0.958 for a cell entering the aging test.]{.note-line}
+
+## In Excel {#excel}
+
+```{=html}
+<pre class="code-slide"><span><b class="c">B2:D4   Q       </b> the 3 × 3 block: rows F, A, R and columns F, A, R</span><span><b class="c">F2:G4   R       </b> the 3 × 2 block: columns Good, Scrap</span><span><b class="c">B7:D9   I − Q   </b> =IF(ROW()-ROW($B$7)=COLUMN()-COLUMN($B$7),1,0)-B2   (copy across the block)</span><span><b class="c">B12:D14 N       </b> =MINVERSE(B7:D9)</span><span><b class="c">F12:G14 B       </b> =MMULT(B12:D14, F2:G4)</span><span><b class="c">H12:H14 t       </b> =MMULT(B12:D14, {1;1;1})</span></pre>
+```
+
+[In older Excel versions, select the whole output block, type the formula and press Ctrl+Shift+Enter. In Excel 365 the result spills automatically.]{.note-line}
+
+## Activity 1 · N and B in Excel {#act1 .activity data-hold="true"}
+
+[Pairs · 20 minutes · laptop]{.act-label}
+
+::: {.prompt}
+Build Q, R, N and B for the cell line in Excel, and check the values on the previous slides.
+:::
+
+1. Which row of B gives the yield of a cell entering the aging test? Of a cell in rework?
+2. Change the rework success rate from 0.80 to 0.90. What is the new yield from F?
+3. Explain in one sentence why the yield from R is so much lower than from A.
+
+::: {.selfstudy}
+Studying alone: answer question 2, then check it with the widget after the break.
+:::
+
+## Activity 1 · Answer {#act1-answer}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>B, probability of ending</th><th class="num">Good</th><th class="num">Scrap</th></tr></thead>
+  <tbody>
+    <tr><td>from F</td><td class="num">0.933</td><td class="num">0.067</td></tr>
+    <tr><td>from A</td><td class="num">0.958</td><td class="num">0.042</td></tr>
+    <tr><td>from R</td><td class="num">0.767</td><td class="num">0.233</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+With rework success at 0.90, the yield from F rises to **0.941**. A cell in rework faces a 20% chance of scrap before it even returns to the test, so its yield is low.
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: CellCo has CNY 2 million for yield improvement. Which change should it buy?
+:::
+
+## Three ways to raise yield {#improve}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Option</th><th>Change in the matrix</th><th class="num">Cost, CNY million</th></tr></thead>
+  <tbody>
+    <tr><td>(a) Better formation control</td><td>F → S from 0.02 to 0.01 (F → A 0.96)</td><td class="num">1.2</td></tr>
+    <tr><td>(b) Rework training</td><td>R → A from 0.80 to 0.90 (R → S 0.10)</td><td class="num">0.6</td></tr>
+    <tr><td>(c) Fewer false rejects in the aging test</td><td>A → R from 0.05 to 0.03 (A → G 0.94)</td><td class="num">0.9</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+CellCo starts 6.25 million cells a year (2 GWh at 0.32 kWh per cell), and each good cell contributes CNY 25. One percentage point of yield is worth about **CNY 1.56 million a year**.
+:::
+
+## Try a change {#yield-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="yx">
+  <div class="w-controls">
+    <label class="w-slider">F → Scrap <strong id="yx-fs-v">0.02</strong><input type="range" id="yx-fs" min="0" max="0.06" step="0.005" value="0.02"></label>
+    <label class="w-slider">A → Rework <strong id="yx-ar-v">0.05</strong><input type="range" id="yx-ar" min="0" max="0.12" step="0.005" value="0.05"></label>
+    <label class="w-slider">Rework success <strong id="yx-rs-v">0.80</strong><input type="range" id="yx-rs" min="0.5" max="1" step="0.01" value="0.8"></label>
+  </div>
+  <table class="wide" id="yx-t"></table>
+  <div class="w-readout" id="yx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('yx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  function inv3(m) {
+    const [a, b, c] = m[0], [d, e, f] = m[1], [g, h, i] = m[2];
+    const A = e * i - f * h, B = -(d * i - f * g), C = d * h - e * g, det = a * A + b * B + c * C;
+    return [[A, -(b * i - c * h), b * f - c * e], [B, a * i - c * g, -(a * f - c * d)], [C, -(a * h - b * g), a * e - b * d]].map((r) => r.map((x) => x / det));
+  }
+  function model(fs, ar, rs) {
+    // F: 0.03 to rework fixed, the rest of what is not scrap goes to A. A: 0.03 scrap fixed.
+    const Q = [[0, 1 - 0.03 - fs, 0.03], [0, 0, ar], [0, rs, 0]], R = [[0, fs], [1 - ar - 0.03, 0.03], [0, 1 - rs]];
+    const I_Q = Q.map((r, i) => r.map((x, j) => (i === j ? 1 : 0) - x)), N = inv3(I_Q);
+    const B = N.map((r) => [0, 1].map((k) => r.reduce((s, x, j) => s + x * R[j][k], 0)));
+    return { N, B };
+  }
+  const base = model(0.02, 0.05, 0.8).B[0][0];
+  function draw() {
+    const fs = +document.getElementById('yx-fs').value, ar = +document.getElementById('yx-ar').value, rs = +document.getElementById('yx-rs').value;
+    document.getElementById('yx-fs-v').textContent = fs.toFixed(3); document.getElementById('yx-ar-v').textContent = ar.toFixed(3); document.getElementById('yx-rs-v').textContent = rs.toFixed(2);
+    const { N, B } = model(fs, ar, rs), y = B[0][0], gain = y - base, value = gain * 6.25e6 * 25 / 1e6;
+    document.getElementById('yx-t').innerHTML = '<thead><tr><th>Starting in F</th><th class="num">Yield</th><th class="num">Scrap</th><th class="num">Aging tests per 100 cells</th><th class="num">Reworks per 100 cells</th></tr></thead>' +
+      `<tbody><tr><td>This setting</td><td class="num hit">${y.toFixed(4)}</td><td class="num">${B[0][1].toFixed(4)}</td><td class="num">${(N[0][1] * 100).toFixed(1)}</td><td class="num">${(N[0][2] * 100).toFixed(1)}</td></tr></tbody>`;
+    document.getElementById('yx-out').innerHTML = `Change from today's 0.9334: <b>${gain >= 0 ? '+' : '−'}${Math.abs(gain * 100).toFixed(2)} points</b>, worth <span class="best">CNY ${value >= 0 ? '' : '−'}${Math.abs(value).toFixed(2)} million a year</span>.`;
+  }
+  ['yx-fs', 'yx-ar', 'yx-rs'].forEach((id) => document.getElementById(id).addEventListener('input', draw));
+  draw();
+})();
+</script>
+```
+
+[Set one slider to an option's new value, read the gain, then reset it before trying the next option.]{.hint}
+
+## Activity 2 · Yield investment pitch {#act2 .activity data-hold="true"}
+
+[Groups of 4 · 30 minutes · the widget and a calculator]{.act-label}
+
+::: {.prompt}
+Your group has CNY 2 million. Choose one or more of options (a), (b) and (c) within the budget, and pitch your choice to the board in 2 minutes.
+:::
+
+1. For each option, find the yield gain and its value per year. Which option gives the most yield per yuan?
+2. Which combination within CNY 2 million gives the largest gain? Combined effects are not simply additive: check them with the widget.
+3. State the payback time and one risk that could make your estimate wrong.
+
+::: {.selfstudy}
+Studying alone: rank the three options by gain per yuan before you go on.
+:::
+
+## Activity 2 · Answer {#act2-answer}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Choice</th><th class="num">Cost</th><th class="num">Yield</th><th class="num">Gain, points</th><th class="num">Value, CNY million/yr</th><th class="num">Points per CNY million</th></tr></thead>
+  <tbody>
+    <tr><td>(a) formation</td><td class="num">1.2</td><td class="num">0.9430</td><td class="num">0.96</td><td class="num">1.50</td><td class="num">0.80</td></tr>
+    <tr><td>(b) rework</td><td class="num">0.6</td><td class="num">0.9412</td><td class="num">0.78</td><td class="num">1.22</td><td class="num hit">1.30</td></tr>
+    <tr><td>(c) aging test</td><td class="num">0.9</td><td class="num">0.9381</td><td class="num">0.47</td><td class="num">0.73</td><td class="num">0.52</td></tr>
+    <tr><td>(a) + (b)</td><td class="num">1.8</td><td class="num">0.9508</td><td class="num hit">1.74</td><td class="num hit">2.72</td><td class="num">0.97</td></tr>
+    <tr><td>(b) + (c)</td><td class="num">1.5</td><td class="num">0.9439</td><td class="num">1.04</td><td class="num">1.63</td><td class="num">0.69</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+Buy (a) and (b): CNY 1.8 million adds 1.74 points of yield, worth CNY 2.72 million a year, so it pays back in about 8 months. Option (b) alone gives the most yield per yuan.
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+An absorbing chain splits into Q and R. N = (I − Q)^−1^ counts visits, and B = NR gives the chance of ending good or scrapped.
+:::
+::: {.tk}
+CellCo's line turns 93.3% of started cells into good cells, with 8 reworks per 100 cells.
+:::
+::: {.tk .key}
+Compare improvements on the same model and the same unit, yield per yuan. Combined changes interact, so test them together.
+:::
+:::
+
+[Next, Session 6: choosing a maintenance policy as a Markov decision process.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Absorbing state | 吸收态 | Fundamental matrix | 基本矩阵 |
+| Transient state | 瞬态（非常返态） | Absorption probability | 吸收概率 |
+| Absorbing Markov chain | 吸收马尔可夫链 | Expected number of visits | 期望访问次数 |
+| Yield | 良率 | Rework | 返工 |
+| Scrap | 报废 | Payback period | 投资回收期 |
+:::
+
+## Exit ticket · 3 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Name one more improvement CellCo could make to the cell line, say which entry of the matrix it changes, and how you would estimate its new value.
+:::

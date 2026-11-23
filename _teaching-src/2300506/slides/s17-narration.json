@@ -1,0 +1,73 @@
+{
+ "voice_en": "am_michael",
+ "slides": {
+  "title-slide": [
+   {"en": "Welcome to session seventeen: autocorrelation, attributes and capability."},
+   {"en": "Today we fix charts for data that remember the past, chart defect counts, and ask whether CellCo's coating is good enough for a demanding customer."}
+  ],
+  "route": [
+   {"en": "Here is the plan."},
+   {"en": "First autocorrelated data, then p and c charts. After the break, process capability, a negotiation between supplier and customer, and workshop eight."}
+  ],
+  "autocorr": [
+   {"en": "A beta gauge scans the web every second. Consecutive readings are close, because the oven, slurry and foil change slowly. The data are autocorrelated."},
+   {"en": "For CellCo's continuous readings, the lag-one autocorrelation is 0.7."},
+   {"en": "Standard charts assume independent points. With autocorrelation the moving range is small, so the limits come out at about plus or minus 1.64 process standard deviations instead of three."},
+   {"en": "About ten percent of in-control points then fall outside the limits. The remedy is to fit a time-series model and chart its residuals."}
+  ],
+  "ar-explorer": [
+   {"en": "This chart shows three hundred readings from a process that is in control throughout. Every red point is a false alarm."},
+   {"en": "Move the autocorrelation slider. At zero, false alarms are rare. At 0.7, about one point in ten signals."},
+   {"en": "Now switch to the residuals of the time-series model. The false alarms almost disappear."}
+  ],
+  "attributes": [
+   {"en": "When we can only count, we use attribute charts."},
+   {"en": "A p chart tracks the fraction defective. For lots of five hundred cells with an average of 3.5 percent defective, the limits are 1.03 and 5.97 percent."},
+   {"en": "A c chart tracks defects per unit, such as pinholes per hundred square meters of electrode. With an average of four, the limits are zero and ten."},
+   {"en": "Attribute charts need far more data than charts of measurements. Measure where you can, and count where you cannot."}
+  ],
+  "break": [
+   {"en": "Let us take a ten-minute break."},
+   {"en": "Afterwards: the process is in control. Is it capable?"}
+  ],
+  "capability": [
+   {"en": "In control means stable and predictable. Capable means that the predictable output fits the specification."},
+   {"en": "C p compares the specification width with six sigma. For CellCo it is 1.16."},
+   {"en": "C p k also accounts for the mean being off center. It is 1.07, and about 770 parts per million fall outside the specification, almost all above the upper limit."},
+   {"en": "C p k uses the within-subgroup sigma; P p k uses the overall sigma, which includes drift. And all parts-per-million figures assume a normal distribution, so check the tails."}
+  ],
+  "cap-explorer": [
+   {"en": "Move the mean and the standard deviation, or use the presets."},
+   {"en": "Re-centering at twenty cuts the out-of-specification rate by 37 percent, to about 485 parts per million, with no change in variation."},
+   {"en": "Reaching a C p k of 1.33 also requires sigma to fall to 0.150, thirteen percent below today."}
+  ],
+  "act1": [
+   {"en": "Activity, a specification negotiation. Paired groups work for twenty-five minutes."},
+   {"en": "One group plays CellCo, the supplier. The other plays a storage integrator, the customer, who requires a C p k of 1.33."},
+   {"en": "CellCo can re-center the die for 0.1 million yuan, or buy a new slot die with closed-loop control for 1.2 million. Each hundred parts per million costs the customer 0.15 million yuan a year."},
+   {"en": "Agree a plan and who pays what. Each side may concede only with a number that supports it."}
+  ],
+  "act1-answer": [
+   {"en": "Here are the four combinations."},
+   {"en": "Only re-centering together with the new die meets a C p k of 1.33, at 63 parts per million."},
+   {"en": "That plan saves the customer 1.06 million yuan a year against doing nothing, so the 1.3 million investment pays back in about fifteen months. That saving is the customer's reason to share the cost."},
+   {"en": "Re-centering is the obvious first step at any price, and it also saves cathode material."}
+  ],
+  "w8": [
+   {"en": "Workshop eight. Fit a time-series model to five hundred readings and chart the residuals, build a p chart for thirty lots, and compute capability and the variation reduction needed for 1.33."}
+  ],
+  "debrief": [
+   {"en": "Let us summarize."},
+   {"en": "Autocorrelated data make standard limits too narrow. Chart model residuals instead."},
+   {"en": "P and c charts monitor counts, but need more data than charts of measurements."},
+   {"en": "In control is not capable. CellCo is at a C p k of 1.07; re-centering plus a thirteen percent cut in sigma reaches 1.33."},
+   {"en": "In session eighteen: quality metrics, the cost of poor quality, and the course wrap-up."}
+  ],
+  "glossary": [
+   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+  ],
+  "exit": [
+   {"en": "For the exit ticket: a colleague reports a C p k of 1.5 from twenty readings taken in one morning. What two questions do you ask before believing it?"}
+  ]
+ }
+}

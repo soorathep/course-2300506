@@ -1,0 +1,323 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to session eighteen, the last session of the course: quality metrics and course synthesis.",
+   "Today we count quality in four ways, find CellCo's biggest loss, price a yield gain with the production plan, and close the course."
+  ],
+  "en": {
+   "audio": "narration/s18/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.44
+    ],
+    [
+     6.79,
+     16.32
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan.",
+   "First quality metrics and an activity to find the biggest loss. After the break, the pre-read discussion, a group clinic, and quiz four."
+  ],
+  "en": {
+   "audio": "narration/s18/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.66
+    ],
+    [
+     2.01,
+     11.37
+    ]
+   ]
+  }
+ },
+ "metrics": {
+  "text": [
+   "First-pass yield is the share of units that pass a step the first time, without rework.",
+   "Rolled throughput yield multiplies the first-pass yields of all steps. For CellCo it is 0.917.",
+   "Defects per million opportunities normalizes defect counts across products of different complexity. For CellCo it is about 7,780.",
+   "In Block one, the final yield after rework was 0.933. The gap from 0.917 is the hidden factory: about 1.6 percent of cells pass only after rework, which costs time and capacity that the final yield does not show."
+  ],
+  "en": {
+   "audio": "narration/s18/metrics.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.84
+    ],
+    [
+     6.19,
+     14.81
+    ],
+    [
+     15.16,
+     26.7
+    ],
+    [
+     27.05,
+     46.01
+    ]
+   ]
+  }
+ },
+ "oee": {
+  "text": [
+   "Overall equipment effectiveness multiplies three factors.",
+   "Availability is lost to breakdowns, die changes and waiting. Performance is lost to minor stops and slow running. Quality is lost to scrap and rework.",
+   "Breakdowns and scrap are usually logged, but minor stops and slow running often are not. OEE makes them visible by working back from the ideal rate."
+  ],
+  "en": {
+   "audio": "narration/s18/oee.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.39
+    ],
+    [
+     4.74,
+     16.0
+    ],
+    [
+     16.35,
+     27.32
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity, find the biggest loss. Work in groups for twenty-two minutes, then three minutes on your own.",
+   "From last week's shift log, compute availability, performance, quality and OEE.",
+   "Then express every loss in cells at the ideal rate, name the largest single loss, and propose one action against it.",
+   "In the last three minutes, write a one-minute paper on your own: which method from this course will you use in your research, and on what?"
+  ],
+  "en": {
+   "audio": "narration/s18/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.82
+    ],
+    [
+     7.17,
+     12.82
+    ],
+    [
+     13.17,
+     21.58
+    ],
+    [
+     21.93,
+     30.72
+    ]
+   ]
+  }
+ },
+ "act1-answer": {
+  "text": [
+   "Last week, availability was 86.3 percent, performance 90.0 percent, and quality 91.8 percent, for an OEE of 71.2 percent.",
+   "In cells, the largest single loss is minor stops and slow running, 4,140 cells, more than scrap and rework, and more than die changes.",
+   "It is the loss nobody logs. Move the sliders to see how the ranking changes."
+  ],
+  "en": {
+   "audio": "narration/s18/act1-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     14.22
+    ],
+    [
+     14.57,
+     26.14
+    ],
+    [
+     26.49,
+     32.25
+    ]
+   ]
+  }
+ },
+ "yield-profit": {
+  "text": [
+   "Now we link quality to the production plan.",
+   "Coating is CellCo's bottleneck. Any coating loss removed acts like extra coating hours, priced by the shadow price from session twelve, fifteen thousand yuan per hour.",
+   "Halving coating defects, from a first-pass yield of 0.962 to 0.981, is worth about 71 thousand yuan a week.",
+   "Note that the mass-loading work from session seventeen removes only about seven hundred parts per million. Most coating losses are streaks, pinholes and edges. The Pareto chart, not one capability index, shows where the yield is."
+  ],
+  "en": {
+   "audio": "narration/s18/yield-profit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.07
+    ],
+    [
+     3.42,
+     15.87
+    ],
+    [
+     16.22,
+     27.6
+    ],
+    [
+     27.95,
+     44.56
+    ]
+   ]
+  }
+ },
+ "break": {
+  "text": [
+   "Let us take a ten-minute break.",
+   "Afterwards, we discuss the pre-read paper on process control in electrode manufacturing."
+  ],
+  "en": {
+   "audio": "narration/s18/break.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.32
+    ],
+    [
+     2.67,
+     8.98
+    ]
+   ]
+  }
+ },
+ "preread": {
+  "text": [
+   "Discuss the pre-read paper in groups for twelve minutes, then as a whole class for eight.",
+   "Ask which quality characteristic the authors monitored and whether the measurement was checked; which chart or model they used and whether its assumptions were checked; and what you would change to apply it on CellCo's line or in your own lab."
+  ],
+  "en": {
+   "audio": "narration/s18/preread.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.65
+    ],
+    [
+     6.0,
+     22.36
+    ]
+   ]
+  }
+ },
+ "clinic": {
+  "text": [
+   "Group clinic, for fifteen minutes. Check your Block two report against the six points on the slide.",
+   "Pay particular attention to the last one: carry the improved yield into the production plan, and report the gain in weekly contribution.",
+   "Each of you also writes an individual research note, applying one Block two method to your own research."
+  ],
+  "en": {
+   "audio": "narration/s18/clinic.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.5
+    ],
+    [
+     6.85,
+     16.11
+    ],
+    [
+     16.46,
+     23.39
+    ]
+   ]
+  }
+ },
+ "quiz4": {
+  "text": [
+   "Quiz four covers statistical quality control, sessions fifteen to eighteen. Work on your own, on paper, for twenty minutes."
+  ],
+  "en": {
+   "audio": "narration/s18/quiz4.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.74
+    ]
+   ]
+  }
+ },
+ "synthesis": {
+  "text": [
+   "Across the course, one company met five methods.",
+   "Decision making chose a staged build. Markov analysis described yield and maintenance. The network model scheduled the storage system. Linear programming planned the weekly mix. And quality control checked the coating.",
+   "Each method answered one question well, and none answered all of them. The decisions improved where one module's output became another's input."
+  ],
+  "en": {
+   "audio": "narration/s18/synthesis.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.68
+    ],
+    [
+     4.03,
+     19.52
+    ],
+    [
+     19.87,
+     29.49
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   "Let us summarize today.",
+   "Rolled throughput yield counts first-pass quality across steps, and the gap to final yield is the hidden factory of rework.",
+   "OEE exposes unlogged losses. CellCo's largest single loss is minor stops and slow running, not scrap.",
+   "And at the bottleneck, a yield gain is a capacity gain, priced by the shadow price.",
+   "Thank you for your work in both blocks."
+  ],
+  "en": {
+   "audio": "narration/s18/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.11
+    ],
+    [
+     2.46,
+     10.65
+    ],
+    [
+     11.0,
+     19.66
+    ],
+    [
+     20.01,
+     25.9
+    ],
+    [
+     26.25,
+     28.55
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference."
+  ],
+  "en": {
+   "audio": "narration/s18/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ]
+   ]
+  }
+ }
+}

@@ -1,0 +1,170 @@
+{
+ "voice_en": "am_michael",
+ "slides": {
+  "title-slide": [
+   {
+    "en": "Welcome to session fifteen, the start of statistical quality control: variation, tools and measurement."
+   },
+   {
+    "en": "Today we separate the variation an operator should react to from the variation they should leave alone, and check whether the gauge can be trusted."
+   }
+  ],
+  "route": [
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First the two kinds of variation, then the basic quality tools within DMAIC. After the break, gauge studies, and a gauge study that you run yourselves with rulers."
+   }
+  ],
+  "coating": [
+   {
+    "en": "Our case for today is CellCo's coating line. A slot die spreads cathode slurry on aluminum foil, which then dries in a long oven."
+   },
+   {
+    "en": "The mass loading decides how much energy each cell stores. The target is 20.0 milligrams per square centimeter, and the specification runs from 19.4 to 20.6."
+   },
+   {
+    "en": "Every hour, five coupons are punched across the web and weighed."
+   },
+   {
+    "en": "In Block one, coating scrap was the largest loss on the line. Today we start to trace that scrap to its cause."
+   }
+  ],
+  "causes": [
+   {
+    "en": "Common-cause variation comes from many small sources that are always present, such as slurry viscosity, foil thickness and oven airflow. Reducing it needs a change to the system."
+   },
+   {
+    "en": "Special-cause variation comes from an identifiable event, such as a clogged die lip or a new slurry batch. It should be found and removed."
+   },
+   {
+    "en": "There are two mistakes. Reacting to common-cause variation as if it were special is called tampering, and it adds variation. Ignoring a special cause lets a fault run."
+   },
+   {
+    "en": "A control chart separates the two, with limits set by the process's own variation, not by the specification."
+   }
+  ],
+  "tampering": [
+   {
+    "en": "Both runs use exactly the same noise. Switch between the two operator rules."
+   },
+   {
+    "en": "When the operator leaves the die alone, the standard deviation is 0.19."
+   },
+   {
+    "en": "When the operator moves the die after every coupon to cancel the last error, the standard deviation rises to 0.29, because each correction carries the last coupon's noise into the next."
+   }
+  ],
+  "dmaic": [
+   {
+    "en": "Improvement projects often follow five phases: define, measure, analyze, improve and control."
+   },
+   {
+    "en": "Each phase has its typical tools. Today we use two from the measure and analyze phases: the gauge study and the Pareto chart. The control chart follows in session sixteen."
+   }
+  ],
+  "pareto": [
+   {
+    "en": "This Pareto chart ranks last week's 2,900 defects by type. The red line is the cumulative share."
+   },
+   {
+    "en": "Coating defects, such as loading errors, streaks and pinholes, are 36 percent of all defects. Together with slitting burrs, they are sixty percent."
+   },
+   {
+    "en": "A Pareto chart counts defects, not their cost. If one type is much more costly, rank by cost as well."
+   },
+   {
+    "en": "Mass loading, the key coating variable, is today's case. Before charting it, we must check the gauge."
+   }
+  ],
+  "break": [
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards: two operators weigh the same coupon and get different numbers. How much of what we see is the gauge?"
+   }
+  ],
+  "gage": [
+   {
+    "en": "Observed variation is the sum of part-to-part variation and measurement variation, when we add variances."
+   },
+   {
+    "en": "Measurement variation has two parts. Repeatability is the spread when one operator measures the same part repeatedly. Reproducibility is the difference between operators."
+   },
+   {
+    "en": "The gauge's share of the total standard deviation is called percent GRR. Below ten percent is acceptable, ten to thirty is marginal, and above thirty the gauge must be fixed first."
+   },
+   {
+    "en": "The number of distinct categories should be at least five."
+   }
+  ],
+  "gage-explorer": [
+   {
+    "en": "Set the three standard deviations and watch the verdict."
+   },
+   {
+    "en": "CellCo's coating gauge has a repeatability of 0.012, a reproducibility of 0.008, and parts that vary by 0.17. Its percent GRR is 8.5, and it separates sixteen categories, so it is fit for charting."
+   },
+   {
+    "en": "Now shrink the part-to-part spread. The same gauge becomes useless. Whether a gauge is good enough depends on what it must tell apart."
+   }
+  ],
+  "act1": [
+   {
+    "en": "Activity, a classroom gauge study, for thirty minutes."
+   },
+   {
+    "en": "Measure the ten printed line segments twice with your ruler, to one tenth of a millimeter. Cover your first readings before the second round."
+   },
+   {
+    "en": "For repeatability, average your ten differences and divide by 1.128. Enter your mean in the class sheet for reproducibility. The spread of the segment means gives the part variation."
+   },
+   {
+    "en": "Then compute percent GRR and the number of distinct categories. Is a ruler fit to tell these segments apart?"
+   }
+  ],
+  "act1-answer": [
+   {
+    "en": "Here is what to look for in the class result."
+   },
+   {
+    "en": "A ruler reads to half a millimeter or one millimeter. If the segments differ by only one or two millimeters, the resolution alone pushes the gauge toward the marginal range. The rule of ten asks for a resolution of at most one tenth of the spread you need to see."
+   },
+   {
+    "en": "Different starting points and viewing angles show up as reproducibility."
+   },
+   {
+    "en": "For CellCo, the order of work is: check the gauge, then chart the process, then compute capability."
+   }
+  ],
+  "debrief": [
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "Common-cause variation is the system's noise, and special causes are events to find. Tampering with a stable process adds variation."
+   },
+   {
+    "en": "Pareto charts aim effort. Two defect types make sixty percent of CellCo's defects, led by coating."
+   },
+   {
+    "en": "Check the gauge before charting. CellCo's coating gauge is fit for use."
+   },
+   {
+    "en": "In session sixteen, we build control charts for the coating line, including charts for small drifts."
+   }
+  ],
+  "glossary": [
+   {
+    "en": "This slide lists today's key terms in English and Chinese, for reference."
+   }
+  ],
+  "exit": [
+   {
+    "en": "For the exit ticket, name one measurement in your own lab that you have never checked with a gauge study, and say how you would check it."
+   }
+  ]
+ }
+}

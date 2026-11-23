@@ -1,0 +1,274 @@
+---
+title: "Planning under uncertainty"
+subtitle: "Session 14 of 18 · 120 minutes · Linear Programming, part 4"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[5–30]{.t} **Concepts** [Stochastic LP]{.d}
+:::
+::: {.seg .concept style="--w:1"}
+[30–40]{.t} **Concepts** [Robust plan]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[40–50]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .act style="--w:4.5"}
+[50–95]{.t} **Activity** [Planning game]{.d}
+:::
+::: {.seg .concept style="--w:1"}
+[95–105]{.t} **Debrief** [Game]{.d}
+:::
+::: {.seg .wrap style="--w:1"}
+[105–115]{.t} **Launch** [Group assignment]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[115–120]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo must fix next week's energy-storage output before it knows demand. Should it plan for average demand?
+:::
+
+## Produce first, learn demand later {#setup}
+
+::: {.two}
+::: {}
+Weekly energy-storage demand is uncertain:
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Demand, MWh</th><th class="num">20</th><th class="num">40</th><th class="num">80</th><th class="num">Mean</th></tr></thead>
+  <tbody><tr><td>Probability</td><td class="num">0.3</td><td class="num">0.5</td><td class="num">0.2</td><td class="num">42</td></tr></tbody>
+</table>
+```
+
+Each MWh sold earns CNY 30,000 over its cost. Each MWh made but not sold loses its cost of CNY 30,000.
+:::
+::: {}
+**Two-stage stochastic LP**
+
+Stage 1, now: choose output x.
+
+Stage 2, after demand d~k~ is known: sell s~k~ ≤ x and s~k~ ≤ d~k~.
+
+max Σ~k~ p~k~ (60s~k~ − 30x)
+
+[One copy of the second-stage variables per scenario. With many products and scenarios, this is an ordinary LP, only larger.]{.hint}
+:::
+:::
+
+## Three plans compared {#plans}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Plan</th><th class="num">Output x, MWh</th><th class="num">If demand 20</th><th class="num">If 40</th><th class="num">If 80</th><th class="num">Expected, CNY thousand</th></tr></thead>
+  <tbody>
+    <tr><td>Robust: protect the worst case</td><td class="num">20</td><td class="num">600</td><td class="num">600</td><td class="num">600</td><td class="num">600</td></tr>
+    <tr><td>Stochastic: maximize expected profit</td><td class="num">40</td><td class="num">0</td><td class="num">1,200</td><td class="num">1,200</td><td class="num hit">840</td></tr>
+    <tr><td>Mean value: plan for 42</td><td class="num">42</td><td class="num">−60</td><td class="num">1,140</td><td class="num">1,260</td><td class="num">804</td></tr>
+    <tr><td>Perfect information (not a plan)</td><td class="num">= d</td><td class="num">600</td><td class="num">1,200</td><td class="num">2,400</td><td class="num">1,260</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.two}
+::: {}
+**Value of the stochastic solution** = 840 − 804 = **CNY 36,000 a week**: the gain from modeling uncertainty instead of plugging in the mean.
+:::
+::: {}
+**Expected value of perfect information** = 1,260 − 840 = CNY 420,000 a week: the most that better forecasting could ever be worth.
+:::
+:::
+
+## Explore the plan {#plan-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="nvx">
+  <div class="w-controls"><span class="w-toggle" role="group" aria-label="Situation">
+    <button type="button" data-s="none" aria-pressed="true">No shock</button><button type="button" data-s="li" aria-pressed="false">Lithium +40%</button><button type="button" data-s="dem" aria-pressed="false">Demand −20%</button><button type="button" data-s="out" aria-pressed="false">Coating outage</button><button type="button" data-s="game" aria-pressed="false">Game mix</button></span>
+    <label class="w-slider">Output x <strong id="nvx-xv">40</strong><input type="range" id="nvx-x" min="0" max="80" step="1" value="40"></label></div>
+  <svg id="nvx-svg" viewBox="0 0 1160 250" role="img" aria-label="Expected weekly profit as a function of output"></svg>
+  <div class="w-readout" id="nvx-out" aria-live="polite"></div>
+  <div class="w-controls"><button type="button" class="w-btn" id="nvx-draw">Draw 10 weeks</button> <span id="nvx-sim"></span></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('nvx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const D = [[20, 0.3], [40, 0.5], [80, 0.2]], MIX = { none: 0.4, li: 0.2, dem: 0.2, out: 0.2 };
+  const prof = (x, d, s) => { const c = s === 'li' ? 36 : 30, dd = s === 'dem' ? 0.8 * d : d, made = s === 'out' ? Math.min(x, 30) : x; return 60 * Math.min(made, dd) - c * made; };
+  const E = (x, s) => s === 'game' ? Object.entries(MIX).reduce((a, [k, p]) => a + p * E(x, k), 0) : D.reduce((a, [d, p]) => a + p * prof(x, d, s), 0);
+  let sit = 'none', tot = 0, tot40 = 0, n = 0, seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  function draw() {
+    const x = +document.getElementById('nvx-x').value; document.getElementById('nvx-xv').textContent = x;
+    const W = 1160, H = 250, L = 70, R = 20, T = 12, B = 34, X = (q) => L + q / 80 * (W - L - R), Y = (v) => T + (1 - (v + 400) / 1400) * (H - T - B);
+    let g = '';
+    for (let v = -400; v <= 1000; v += 200) g += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 0 ? '#333F4A' : '#B9C1C6'}"/><text x="${L - 8}" y="${Y(v) + 5}" text-anchor="end" font-size="15" fill="#333F4A">${v}</text>`;
+    for (let q = 0; q <= 80; q += 10) g += `<text x="${X(q)}" y="${H - 12}" text-anchor="middle" font-size="15" fill="#333F4A">${q}</text>`;
+    let pth = '', bx = 0, bv = -1e9; for (let q = 0; q <= 80; q++) { const v = E(q, sit); if (v > bv + 1e-9) { bv = v; bx = q; } pth += (q ? 'L' : 'M') + X(q).toFixed(1) + ',' + Y(v).toFixed(1); }
+    g += `<path d="${pth}" fill="none" stroke="#0F6E6B" stroke-width="3.5"/>`;
+    g += `<line x1="${X(bx)}" x2="${X(bx)}" y1="${T}" y2="${H - B}" stroke="#0F6E6B" stroke-dasharray="6 4"/><text x="${X(bx) + 6}" y="${T + 16}" font-size="15" fill="#0F6E6B">best ${bx}</text>`;
+    g += `<circle cx="${X(x)}" cy="${Y(E(x, sit))}" r="8" fill="#E29A2D" stroke="#1C242B"/>`;
+    g += `<text x="${L + 8}" y="${H - B - 8}" font-size="15" fill="#333F4A">Expected weekly profit, CNY thousand</text>`;
+    document.getElementById('nvx-svg').innerHTML = g;
+    document.getElementById('nvx-out').innerHTML = `Output ${x} MWh: expected profit <b>${E(x, sit).toFixed(0)}</b>. Best output here: <span class="best">${bx} MWh, ${bv.toFixed(0)}</span>. Gap: ${(bv - E(x, sit)).toFixed(0)} a week.`;
+  }
+  function sim() {
+    const x = +document.getElementById('nvx-x').value;
+    for (let w = 0; w < 10; w++) {
+      let u = rnd(), d = u < 0.3 ? 20 : u < 0.8 ? 40 : 80, s = sit;
+      if (sit === 'game') { const v = rnd(); s = v < 0.4 ? 'none' : v < 0.6 ? 'li' : v < 0.8 ? 'dem' : 'out'; }
+      tot += prof(x, d, s); tot40 += prof(40, d, s); n++;
+    }
+    document.getElementById('nvx-sim').innerHTML = `After ${n} weeks: your plans earned <b>${tot.toFixed(0)}</b>; output 40 on the same cards earned <b>${tot40.toFixed(0)}</b>.`;
+  }
+  root.querySelectorAll('[data-s]').forEach((b) => b.addEventListener('click', () => { root.querySelectorAll('[data-s]').forEach((q) => q.setAttribute('aria-pressed', q === b)); sit = b.dataset.s; tot = tot40 = n = 0; document.getElementById('nvx-sim').textContent = ''; draw(); }));
+  document.getElementById('nvx-x').addEventListener('input', draw);
+  document.getElementById('nvx-draw').addEventListener('click', sim);
+  draw();
+})();
+</script>
+```
+
+[The curve is steeper to the right of the best output than to the left: overproducing by 10 MWh costs more than underproducing by 10.]{.hint}
+
+## Robust planning {#robust}
+
+::: {.two}
+::: {}
+A robust plan assumes only an **interval**, demand between 20 and 80, and maximizes the **worst-case** profit:
+
+max over x of the minimum over d in [20, 80] of 60 min(x, d) − 30x
+
+The answer is x = 20: CNY 600,000 a week, guaranteed.
+:::
+::: {}
+The guarantee costs 840 − 600 = **CNY 240,000 a week** in expected profit, the price of robustness.
+
+Robust planning suits cases where probabilities are unknown or a bad outcome is unacceptable, such as a safety stock for a hospital customer. Narrower intervals, or a limit on how many uncertain values can be at their worst together, reduce the price.
+:::
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: the CellCo planning game. You commit before the shock cards are turned.
+:::
+
+## Activity · Commit before the shock {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 45 minutes · scorecard]{.act-label}
+
+::: {.prompt}
+Six rounds, one week each. Commit your output x (a multiple of 5, at most 80 MWh) on the scorecard. Then a demand card and a shock card are turned.
+:::
+
+::: {.two}
+::: {}
+**Demand deck:** three 20s, five 40s, two 80s.
+
+**Shock deck:** four "no shock", two "lithium carbonate +40%" (cost per MWh 36 instead of 30), two "energy-storage demand −20%", two "coating line outage" (at most 30 MWh made this week).
+:::
+::: {}
+**Score** = 60 × MWh sold − cost × MWh made, in CNY thousand.
+
+After round 6, add a second column: what output 40 would have scored on the same cards. Explain the difference.
+:::
+:::
+
+::: {.selfstudy}
+Studying alone: choose "Game mix" on the explorer, commit an output, and draw weeks.
+:::
+
+## Game debrief {#game-debrief}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Output, MWh</th><th class="num">20</th><th class="num">30</th><th class="num">35</th><th class="num">40</th><th class="num">45</th><th class="num">50</th></tr></thead>
+  <tbody><tr><td>Expected score per round</td><td class="num">562</td><td class="num">670</td><td class="num">694</td><td class="num hit">706</td><td class="num">628</td><td class="num">550</td></tr></tbody>
+</table>
+```
+With the shocks included, the stochastic plan is still **40 MWh**, worth CNY 706,000 per round in expectation. Perfect foresight would be worth 1,069.
+:::
+::: {}
+**Why 40 survives the shocks.** Only the demand −20% card favors less (32). The lithium card raises cost but leaves 40 best; the outage caps output whatever you commit.
+
+**Luck versus skill.** Six rounds are too few to judge a plan by its score. Comparing with output 40 on the same cards removes the luck of the draw.
+:::
+:::
+
+## Group assignment launch {#assignment}
+
+::: {.two}
+::: {}
+**CellCo quarterly operations plan and quality proposal**, Block 1 groups.
+
+1. **Production plan:** 13-week MILP with sensitivity analysis, results under the three shocks, and a stochastic version with its value over the mean-demand plan.
+2. **Quality analysis** (Sunday): Gage R&R, Shewhart and EWMA or CUSUM charts, capability, a defect Pareto and one DMAIC improvement.
+3. **Integration:** re-solve the LP with the improved yield and report the gain in weekly contribution.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Criterion</th><th class="num">Weight</th></tr></thead>
+  <tbody>
+    <tr><td>Model correctness</td><td class="num">30%</td></tr>
+    <tr><td>Recommendation and insight</td><td class="num">20%</td></tr>
+    <tr><td>Integration of planning and quality</td><td class="num">15%</td></tr>
+    <tr><td>Sensitivity and scenarios</td><td class="num">15%</td></tr>
+    <tr><td>Framing and assumptions</td><td class="num">10%</td></tr>
+    <tr><td>Communication</td><td class="num">10%</td></tr>
+  </tbody>
+</table>
+```
+[Report of at most 10 pages, workbook or notebook, 10-minute recorded presentation. Deadline on the HQU platform.]{.hint}
+:::
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+When output is fixed before demand is known, plan with the scenarios, not with the mean. For CellCo, 40 MWh beats the mean of 42 by CNY 36,000 a week.
+:::
+::: {.tk}
+EVPI bounds the value of forecasting: CNY 420,000 a week here. A robust plan buys a guarantee at a price, CNY 240,000 a week here.
+:::
+::: {.tk .key}
+Judge a plan by its expected result on the same scenarios, not by one lucky or unlucky outcome.
+:::
+:::
+
+[Tomorrow, Session 15: Statistical Quality Control begins with variation and measurement.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Two-stage stochastic programming | 两阶段随机规划 | Robust optimization | 鲁棒优化 |
+| Scenario | 情景 | Worst case | 最坏情况 |
+| Value of the stochastic solution (VSS) | 随机解价值 | Expected value of perfect information | 完全信息期望值 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+If unsold cells could be sold next week at full value, how would the best output change? Explain in one sentence.
+:::

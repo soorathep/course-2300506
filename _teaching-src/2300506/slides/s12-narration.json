@@ -1,0 +1,77 @@
+{
+ "voice_en": "am_michael",
+ "slides": {
+  "title-slide": [
+   {"en": "Welcome to session twelve: Solver and sensitivity."},
+   {"en": "Today we solve CellCo's product mix in Excel Solver, and learn to answer what-if questions from the sensitivity report."}
+  ],
+  "route": [
+   {"en": "Here is the plan."},
+   {"en": "First the simplex method and Solver, then the sensitivity report. After the break, allowable ranges, the what-if hotline, and the start of workshop five."}
+  ],
+  "simplex": [
+   {"en": "The simplex method starts at a corner and moves along an edge to a better neighbor, until no neighbor is better."},
+   {"en": "From the origin, P has the larger margin, so simplex increases P until power-cell demand stops it at sixty."},
+   {"en": "At that corner, increasing E still pays, until coating stops it at thirty."},
+   {"en": "At thirty and sixty, no edge improves the contribution. The method stops after two steps."}
+  ],
+  "solver": [
+   {"en": "In Excel, put the decisions, the margins, and the hours used and available in separate cells."},
+   {"en": "The objective cell is a sum product of margins and decisions, and each constraint row compares hours used with hours available."},
+   {"en": "In the Solver dialog, choose the Simplex method, make variables non-negative, and ask for the sensitivity report."},
+   {"en": "Keep data, formulas and decisions separate. A model with numbers typed inside formulas cannot be audited or re-run with new data."}
+  ],
+  "report": [
+   {"en": "This is the sensitivity report for the product mix."},
+   {"en": "The upper table covers the decision variables: their final values, reduced costs, and the allowable changes in their margins."},
+   {"en": "The lower table covers the constraints: their final values, shadow prices, and the allowable changes in their right-hand sides."},
+   {"en": "The shadow prices, fifteen, zero and three, are exactly the dual solution from session eleven."}
+  ],
+  "reading": [
+   {"en": "A shadow price is the change in the optimal objective per unit increase in a right-hand side, holding all other data fixed."},
+   {"en": "The allowable increase and decrease give the range over which that price stays valid. For coating, from 180 to 300 hours."},
+   {"en": "A reduced cost tells how much a margin must improve before a product enters the plan. It is zero for products already made."},
+   {"en": "Inside a range, the same constraints stay binding, so the answer moves in a straight line. At the edge, a new constraint binds and the price changes."}
+  ],
+  "break": [
+   {"en": "Let us take a ten-minute break."},
+   {"en": "Afterwards: what happens to the coating shadow price beyond three hundred hours?"}
+  ],
+  "price-explorer": [
+   {"en": "This chart re-solves the model for every level of the chosen resource and plots the optimal contribution."},
+   {"en": "Each straight piece is one allowable range, and its slope is the shadow price."},
+   {"en": "For coating, the slope is fifteen between 180 and 300 hours, then drops to zero once formation binds."},
+   {"en": "Switch to formation hours. The curve is flat at today's level, because formation has idle hours."}
+  ],
+  "act1": [
+   {"en": "Activity, the what-if hotline. Work in groups of four for twenty-five minutes."},
+   {"en": "I will play the plant manager and call with five questions: coating overtime, renting out coating hours, a formation failure, more power-cell orders, and a lower margin for energy-storage cells."},
+   {"en": "Answer each question from the sensitivity report alone, and name the line you used. Then re-solve to check."}
+  ],
+  "act1-answer": [
+   {"en": "Here are the answers."},
+   {"en": "Overtime at ten thousand yuan per hour is worth buying, up to sixty hours, for a gain of 300 thousand a week."},
+   {"en": "The minimum rent for a coating hour is fifteen thousand yuan. Losing thirty formation hours changes nothing, because 45 are idle."},
+   {"en": "Ten more megawatt hours of power-cell orders add thirty thousand. And a margin of 25 for energy-storage cells keeps the plan, but lowers contribution by 150 thousand."},
+   {"en": "Remember that a shadow price answers one change at a time. For several changes together, re-solve."}
+  ],
+  "w5": [
+   {"en": "Workshop five starts now, for twenty minutes, and you finish it tonight."},
+   {"en": "Build the product-mix model in Solver, produce the sensitivity report, write the dual, and answer five pricing questions."},
+   {"en": "Quiz three, on today's material, runs online this evening."}
+  ],
+  "debrief": [
+   {"en": "Let us summarize."},
+   {"en": "Simplex walks from corner to better corner, and Solver's sensitivity report comes free with the solution."},
+   {"en": "A shadow price holds only inside its range: fifteen thousand yuan per coating hour from 180 to 300 hours, then zero."},
+   {"en": "Most what-if questions are answered by one report line, if the change is single and inside the range."},
+   {"en": "In session thirteen, we build transportation, blending and multi-period models, and add integer decisions."}
+  ],
+  "glossary": [
+   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+  ],
+  "exit": [
+   {"en": "For the exit ticket: why is the coating shadow price zero above three hundred hours? Answer in one sentence."}
+  ]
+ }
+}

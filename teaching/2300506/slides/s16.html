@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="s16_files/libs/clipboard/clipboard.min.js"></script>
+<script src="s16_files/libs/quarto-html/tabby.min.js"></script>
+<script src="s16_files/libs/quarto-html/popper.min.js"></script>
+<script src="s16_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="s16_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="s16_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="s16_files/libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.11.9">
+
+  <meta name="author" content="Soorathep Kheawhom, Ph.D., FRSC">
+  <title>Control charts for small shifts</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="s16_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="s16_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="s16_files/libs/revealjs/dist/theme/quarto-b334f3268ccd5e08bfe37898af6488d3.css">
+  <link rel="stylesheet" href="slides.css?v=fd7ce5f6">
+  <link href="s16_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="s16_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="s16_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="s16_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="robots" content="noindex">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#1C242B" class="quarto-title-block center">
+  <h1 class="title">Control charts for small shifts</h1>
+  <p class="subtitle">Session 16 of 18 · 120 minutes · Statistical Quality Control, part 2</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Soorathep Kheawhom, Ph.D., FRSC
+</div>
+        <p class="quarto-title-affiliation">
+            2300506 Industrial Science · Huaqiao University and Chulalongkorn University
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="route" class="slide level2">
+<h2>Today, minute by minute</h2>
+<div class="route">
+<div class="seg wrap" style="--w:0.5">
+<p><span class="t">0–5</span> <strong>Start</strong> <span class="d"></span></p>
+</div>
+<div class="seg concept" style="--w:2.5">
+<p><span class="t">5–30</span> <strong>Concepts</strong> <span class="d">X-bar and R</span></p>
+</div>
+<div class="seg concept" style="--w:1.5">
+<p><span class="t">30–45</span> <strong>Concepts</strong> <span class="d">I-MR, run rules</span></p>
+</div>
+<div class="seg brk" style="--w:1">
+<p><span class="t">45–55</span> <strong>Break</strong> <span class="d"></span></p>
+</div>
+<div class="seg concept" style="--w:2">
+<p><span class="t">55–75</span> <strong>Concepts</strong> <span class="d">EWMA, CUSUM</span></p>
+</div>
+<div class="seg act" style="--w:2.5">
+<p><span class="t">75–100</span> <strong>Activity</strong> <span class="d">Drift detectives</span></p>
+</div>
+<div class="seg act" style="--w:1.5">
+<p><span class="t">100–115</span> <strong>Workshop</strong> <span class="d">W7</span></p>
+</div>
+<div class="seg wrap" style="--w:0.5">
+<p><span class="t">115–120</span> <strong>Wrap</strong> <span class="d"></span></p>
+</div>
+</div>
+<div class="route-question">
+<p>Question for today: a worn die lip makes the coating drift slowly heavier. Which chart notices first?</p>
+</div>
+</section>
+<section id="subgroups" class="slide level2">
+<h2>Rational subgroups</h2>
+<div class="two">
+<div>
+<p>Each hour, five coupons are punched across the web at the same moment: one <strong>subgroup</strong>.</p>
+<p>Variation <strong>within</strong> a subgroup is short-term, common-cause noise. Variation <strong>between</strong> subgroups adds anything that changes over time.</p>
+<p>Control limits are built from within-subgroup variation, so a shift between hours stands out.</p>
+</div>
+<div>
+<div class="route-question">
+<p>A poor choice: five coupons taken over five hours as one subgroup. Hour-to-hour drift then inflates the ranges, widens the limits and hides the drift it should reveal.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="xbar-r" class="slide level2">
+<h2>X-bar and R charts for mass loading</h2>
+<div class="two">
+<div>
+<p>25 subgroups of 5 coupons: grand mean x̿ = <strong>20.05</strong>, mean range R̄ = <strong>0.40</strong> mg/cm².</p>
+<table class="wide">
+  <thead><tr><th>Chart</th><th>Limits</th><th class="num">mg/cm²</th></tr></thead>
+  <tbody>
+    <tr><td>X-bar</td><td>x̿ ± A<sub>2</sub>R̄ = 20.05 ± 0.577 × 0.40</td><td class="num hit">19.82 to 20.28</td></tr>
+    <tr><td>R</td><td>D<sub>3</sub>R̄ to D<sub>4</sub>R̄ = 0 to 2.114 × 0.40</td><td class="num">0 to 0.85</td></tr>
+    <tr><td>Process σ</td><td>R̄ / d<sub>2</sub> = 0.40 / 2.326</td><td class="num">0.172</td></tr>
+  </tbody>
+</table>
+</div>
+<div>
+<p><strong>Read the R chart first.</strong> If within-subgroup spread is not stable, the X-bar limits, which use R̄, mean nothing.</p>
+<p><strong>Control limits are not specification limits.</strong> Limits describe what the process does (19.82 to 20.28 for subgroup means); the specification describes what the customer needs (19.4 to 20.6 for single coupons).</p>
+<p><span class="hint">Constants for subgroups of 5: A<sub>2</sub> = 0.577, D<sub>3</sub> = 0, D<sub>4</sub> = 2.114, d<sub>2</sub> = 2.326.</span></p>
+</div>
+</div>
+</section>
+<section id="imr-rules" class="slide level2">
+<h2>Individuals data and run rules</h2>
+<div class="two">
+<div>
+<p><strong>I-MR chart.</strong> When one reading arrives at a time (one viscosity test per slurry batch), chart the individual values, with σ estimated from the average moving range: σ = MR̄ / 1.128.</p>
+<p><strong>Western Electric run rules.</strong> Signal if:</p>
+<ol type="1">
+<li>One point beyond 3σ.</li>
+<li>Two of three successive points beyond 2σ on the same side.</li>
+<li>Four of five beyond 1σ on the same side.</li>
+<li>Eight in a row on one side of the center line.</li>
+</ol>
+</div>
+<div>
+<div class="route-question">
+<p>Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, an in-control process gives a false alarm about every 92 subgroups instead of every 370.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="break" class="slide level2">
+<h2>Break · 10 minutes</h2>
+<div class="route-question">
+<p>After the break: a drift of half a standard error. How long until the X-bar chart notices?</p>
+</div>
+</section>
+<section id="arl" class="slide level2">
+<h2>Why Shewhart charts miss small shifts</h2>
+<table class="wide">
+  <thead><tr><th>Average run length, subgroups</th><th class="num">In control</th><th class="num">Shift 0.5 σ<sub>x̄</sub></th><th class="num">Shift 1.0 σ<sub>x̄</sub></th></tr></thead>
+  <tbody>
+    <tr><td>X-bar chart, 3σ limits</td><td class="num">370</td><td class="num">155</td><td class="num">44</td></tr>
+    <tr><td>CUSUM, k = 0.5, h = 4.77</td><td class="num">370</td><td class="num">35</td><td class="num">10</td></tr>
+    <tr><td>EWMA, λ = 0.1, L = 2.7</td><td class="num">370</td><td class="num hit">25</td><td class="num">7.5</td></tr>
+  </tbody>
+</table>
+<div class="bridge">
+<p>All three charts raise a false alarm about once every 370 subgroups. For a shift of half a standard error, 0.04 mg/cm², the X-bar chart needs about 155 hours, almost a week of production, to notice; EWMA needs about 25.</p>
+</div>
+<p><span class="note-line">Run lengths from simulation, as checked for this course. σ<sub>x̄</sub> = 0.172 / √5 = 0.077 mg/cm².</span></p>
+</section>
+<section id="ewma-cusum" class="slide level2">
+<h2>Charts with memory</h2>
+<div class="two">
+<div>
+<p><strong>EWMA</strong> (exponentially weighted moving average)</p>
+<p>z<sub>t</sub> = λ x̄<sub>t</sub> + (1 − λ) z<sub>t−1</sub>, starting at z<sub>0</sub> = 20.05</p>
+<p>With λ = 0.1, each new subgroup gets 10% weight and older subgroups fade. Limits narrow to 20.05 ± 0.048 mg/cm².</p>
+</div>
+<div>
+<p><strong>CUSUM</strong> (cumulative sum)</p>
+<p>C<sub>t</sub> = max(0, C<sub>t−1</sub> + (x̄<sub>t</sub> − 20.05)/σ<sub>x̄</sub> − k)</p>
+<p>Small deviations in one direction accumulate; the sum signals when it exceeds h. A matching lower CUSUM catches drifts downward.</p>
+</div>
+</div>
+<p><span class="note-line">Both charts trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side.</span></p>
+</section>
+<section id="drift-explorer" class="slide level2" data-hold="true">
+<h2>Drift detectives</h2>
+<div class="widget" id="ddx">
+  <div class="w-controls"><button type="button" class="w-btn" id="ddx-next">Next subgroup</button> <button type="button" class="w-choice" id="ddx-all">Show all 30</button> <button type="button" class="w-choice" id="ddx-rst">Restart</button> <span id="ddx-n" style="margin-left:1em"></span></div>
+  <svg id="ddx-svg" viewbox="0 0 1160 300" role="img" aria-label="X-bar chart and EWMA chart for coating subgroups revealed so far"></svg>
+  <div class="w-readout" id="ddx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ddx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const xs = [20.179,20.043,19.994,20.128,20.014,19.973,20.132,20.115,20.123,20.115,20.100,20.081,19.962,20.114,20.128,20.217,20.076,20.129,20.033,20.131,20.054,20.207,20.169,20.013,20.164,20.139,20.153,20.112,20.080,20.074];
+  const MU = 20.05, SX = 0.172 / Math.sqrt(5), LAM = 0.1, LL = 2.7, N = xs.length;
+  const ew = [], lim = []; let z = MU;
+  xs.forEach((x, i) => { z = LAM * x + (1 - LAM) * z; ew.push(z); lim.push(LL * SX * Math.sqrt(LAM / (2 - LAM) * (1 - (1 - LAM) ** (2 * (i + 1))))); });
+  const sigX = xs.findIndex((x) => Math.abs(x - MU) > 3 * SX), sigE = ew.findIndex((v, i) => Math.abs(v - MU) > lim[i]);
+  let shown = 0;
+  function panel(y0, h, lo, hi, vals, center, ucl, lcl, sig, col, label) {
+    const L = 70, R = 20, X = (i) => L + i / (N - 1) * (1160 - L - R), Y = (v) => y0 + (1 - (v - lo) / (hi - lo)) * h;
+    let g = `<text x="${L}" y="${y0 - 6}" font-size="15" font-weight="700" fill="#1C242B">${label}</text>`;
+    g += `<line x1="${L}" x2="${1160 - R}" y1="${Y(center)}" y2="${Y(center)}" stroke="#B9C1C6"/>`;
+    let pu = '', pl = ''; for (let i = 0; i < N; i++) { pu += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(ucl(i)).toFixed(1); pl += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(lcl(i)).toFixed(1); }
+    g += `<path d="${pu}" fill="none" stroke="#BE654C" stroke-width="1.8" stroke-dasharray="6 4"/><path d="${pl}" fill="none" stroke="#BE654C" stroke-width="1.8" stroke-dasharray="6 4"/>`;
+    g += `<text x="${L - 8}" y="${Y(hi) + 12}" text-anchor="end" font-size="13" fill="#333F4A">${hi.toFixed(2)}</text><text x="${L - 8}" y="${Y(lo)}" text-anchor="end" font-size="13" fill="#333F4A">${lo.toFixed(2)}</text>`;
+    let p = ''; for (let i = 0; i < shown; i++) p += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(vals[i]).toFixed(1);
+    g += `<path d="${p}" fill="none" stroke="${col}" stroke-width="2"/>`;
+    for (let i = 0; i < shown; i++) g += `<circle cx="${X(i)}" cy="${Y(vals[i])}" r="${i === sig ? 7 : 4}" fill="${i >= sig && sig >= 0 && Math.abs(vals[i] - center) > Math.abs(ucl(i) - center) ? '#BE654C' : col}"/>`;
+    return g;
+  }
+  function draw() {
+    let g = panel(26, 110, 19.78, 20.32, xs, MU, () => MU + 3 * SX, () => MU - 3 * SX, sigX, '#0F6E6B', 'X-bar chart, limits 19.82 to 20.28');
+    g += panel(176, 100, 19.98, 20.13, ew, MU, (i) => MU + lim[i], (i) => MU - lim[i], sigE, '#E29A2D', 'EWMA chart, λ = 0.1');
+    if (shown === N) { const X = (i) => 70 + i / (N - 1) * (1160 - 90); g += `<line x1="${X(15) - 10}" x2="${X(15) - 10}" y1="20" y2="285" stroke="#1C242B" stroke-width="2" stroke-dasharray="3 3"/><text x="${X(15) - 4}" y="296" font-size="14" fill="#1C242B">drift starts</text>`; }
+    document.getElementById('ddx-svg').innerHTML = g;
+    document.getElementById('ddx-n').textContent = `Subgroup ${shown} of ${N}`;
+    const msg = [];
+    if (sigX >= 0 && shown > sigX) msg.push(`X-bar signals at subgroup ${sigX + 1}`);
+    if (sigE >= 0 && shown > sigE) msg.push(`<span class="best">EWMA signals at subgroup ${sigE + 1}</span>`);
+    document.getElementById('ddx-out').innerHTML = msg.length ? msg.join('; ') + '.' : (shown ? 'No signal yet. Would you stop the line?' : 'Press "Next subgroup" to reveal the first hour.');
+    if (shown === N) document.getElementById('ddx-out').innerHTML += ` A drift of +1 σ<sub>x̄</sub> (0.077 mg/cm²) was planted from subgroup 16.${sigX < 0 ? ' The X-bar chart never signals.' : ''}`;
+  }
+  document.getElementById('ddx-next').addEventListener('click', () => { if (shown < N) shown++; draw(); });
+  document.getElementById('ddx-all').addEventListener('click', () => { shown = N; draw(); });
+  document.getElementById('ddx-rst').addEventListener('click', () => { shown = 0; draw(); });
+  draw();
+})();
+</script>
+</section>
+<section id="act1" class="slide level2 activity" data-hold="true">
+<h2>Activity · Drift detectives</h2>
+<p><span class="act-label">Groups of 4 · 25 minutes · detection time for each chart</span></p>
+<div class="prompt">
+<p>Subgroup means are revealed one hour at a time. Update both charts on paper. Raise the red card at your first signal on either chart.</p>
+</div>
+<ol type="1">
+<li>Before you start: compute the X-bar limits and the EWMA limits for the first three subgroups.</li>
+<li>Plot each new mean on the X-bar chart and update z<sub>t</sub> on the EWMA chart.</li>
+<li>Record the subgroup at which each chart first signals, and whether you would have stopped the line earlier on judgment alone.</li>
+<li>At the end, the drift point is revealed. How many hours of drifted coating did each chart let through?</li>
+</ol>
+</section>
+<section id="act1-answer" class="slide level2">
+<h2>Activity · Answer</h2>
+<div class="two">
+<div>
+<table class="wide">
+  <thead><tr><th>Chart</th><th class="num">First signal</th><th class="num">Hours after drift began</th></tr></thead>
+  <tbody>
+    <tr><td>X-bar, 3σ only</td><td class="num">none in 30</td><td class="num">more than 14</td></tr>
+    <tr><td>X-bar with run rules</td><td class="num">26</td><td class="num">10</td></tr>
+    <tr><td>CUSUM</td><td class="num">23</td><td class="num">7</td></tr>
+    <tr><td>EWMA</td><td class="num hit">22</td><td class="num">6</td></tr>
+  </tbody>
+</table>
+<p>The drift of +0.077 mg/cm² started at subgroup 16.</p>
+</div>
+<div>
+<p>Six hours of slightly heavy coating is still well inside the specification: the coupons stay near 20.13, far from 20.6. That is the point of SPC: act on the process before the product goes out of specification.</p>
+<p>One dataset is one draw. The run-length table says what to expect on average.</p>
+</div>
+</div>
+</section>
+<section id="w7" class="slide level2">
+<h2>Workshop W7</h2>
+<div class="two">
+<div>
+<p><strong>Task</strong></p>
+<ol type="1">
+<li>Run a Gage R&amp;R study on the supplied gauge data.</li>
+<li>Build X-bar and R, EWMA and CUSUM charts for your group’s coating data.</li>
+<li>Compare how soon each chart flags the planted drift.</li>
+</ol>
+</div>
+<div>
+<p><strong>Hand in</strong></p>
+<p>The Gage R&amp;R table, three charts and the detection comparison.</p>
+<p><span class="hint">The EWMA and CUSUM charts are a few Excel columns each. The Python notebook builds them for longer data.</span></p>
+</div>
+</div>
+</section>
+<section id="debrief" class="slide level2">
+<h2>What we learned</h2>
+<div class="takeaways">
+<div class="tk">
+<p>Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups.</p>
+</div>
+<div class="tk">
+<p>Read the R chart before the X-bar chart. Control limits describe the process; specifications describe the customer’s need.</p>
+</div>
+<div class="tk key">
+<p>For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate.</p>
+</div>
+</div>
+<p><span class="note-line">Session 17: when readings are autocorrelated, attribute charts, and process capability.</span></p>
+</section>
+<section id="glossary" class="slide level2">
+<h2>Key terms in English and Chinese</h2>
+<div class="gloss">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>English</th>
+<th>中文</th>
+<th>English</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Control chart</td>
+<td>控制图</td>
+<td>Run rules</td>
+<td>判异准则</td>
+</tr>
+<tr class="even">
+<td>Rational subgroup</td>
+<td>合理子组</td>
+<td>Average run length (ARL)</td>
+<td>平均运行长度</td>
+</tr>
+<tr class="odd">
+<td>Control limit</td>
+<td>控制限</td>
+<td>EWMA chart</td>
+<td>指数加权移动平均控制图</td>
+</tr>
+<tr class="even">
+<td>Specification limit</td>
+<td>规格限</td>
+<td>CUSUM chart</td>
+<td>累积和控制图</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="exit" class="slide level2 activity">
+<h2>Exit ticket · 2 minutes</h2>
+<p><span class="act-label">On your own · on paper · hand in at the door</span></p>
+<div class="prompt">
+<p>Your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?</p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="s16_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="s16_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="s16_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="s16_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="s16_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="s16_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="s16_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="s16_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="s16_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"\u003ci class=\"fas fa-gear\">\u003c/i>","content":"\u003cul class=\"slide-menu-items\">\n\u003cli class=\"slide-tool-item active\" data-item=\"0\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\">\u003ckbd>f\u003c/kbd> Fullscreen\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"1\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\">\u003ckbd>s\u003c/kbd> Speaker View\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"2\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\">\u003ckbd>o\u003c/kbd> Slide Overview\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"3\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\">\u003ckbd>e\u003c/kbd> PDF Export Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"4\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\">\u003ckbd>r\u003c/kbd> Scroll View Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"5\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\">\u003ckbd>?\u003c/kbd> Keyboard Help\u003c/a>\u003c/li>\n\u003c/ul>"}],"openButton":false,"openButtonLabel":"Slide menu"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'visible',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <!-- Click anywhere on a slide to advance.
+
+         Reveal.js has no built-in click-to-advance, so this adds it. Going back is
+         the ← key, or the arrow at the left edge of the screen
+         (controlsLayout: edges in _quarto.yml).
+
+         It deliberately does nothing when the click means something else: a link or
+         control, a double-click, a modified click, the overview (O), a drag that
+         selected text, or the click that dismisses a selection. Without those
+         guards a student trying to select a sentence would skip a slide instead.
+
+         Note the selection is checked on mousedown, not on click — the browser
+         clears the selection before the click event fires. -->
+    <script>
+    (function () {
+      var IGNORE = 'a, button, input, select, textarea, label, summary, video, audio,' +
+                   ' iframe, .controls, .slide-menu, .slide-menu-button, .progress,' +
+                   ' .speaker-controls, .pdf-page';
+      var DRAG_PX = 6;
+      var downX = 0, downY = 0, hadSelection = false;
+
+      document.addEventListener('mousedown', function (e) {
+        downX = e.clientX;
+        downY = e.clientY;
+        var s = window.getSelection();
+        hadSelection = !!(s && String(s).length > 0);
+      }, true);
+
+      function ready(fn) {
+        if (typeof Reveal !== 'undefined' && Reveal.isReady && Reveal.isReady()) return fn();
+        setTimeout(function () { ready(fn); }, 120);
+      }
+
+      ready(function () {
+        document.addEventListener('click', function (e) {
+          if (e.button !== 0) return;                        // left button only
+          if (e.detail > 1) return;                          // ignore double-clicks
+          if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+          if (e.target.closest && e.target.closest(IGNORE)) return;
+          if (Reveal.isOverview() || Reveal.isPaused()) return;
+          if (Math.abs(e.clientX - downX) > DRAG_PX ||
+              Math.abs(e.clientY - downY) > DRAG_PX) return; // that was a drag
+          if (hadSelection) { hadSelection = false; return; } // that click cleared a selection
+          Reveal.next();
+        }, false);
+      });
+    })();
+    </script>
+    <!-- Narration and captions for 2300506 decks (adapted from the 2105315 player, English only).
+         Reads the narration index built by build_narration.py: per slide, the sentences and one MP3 with
+         one cue per sentence. publish.py also inlines the index into the page (script#nr-data), so the
+         deck works when opened from a downloaded folder, where fetch() of a local file is blocked.
+         Controls at the bottom left:
+           Narration: off / on      Pause or Resume, Replay slide (while narration is on)
+           Captions:  off / on      Auto-advance: off / on
+         With narration off and captions on, the slide's full narration text is shown to read.
+         Settings are remembered in this browser (keys nr506-*). -->
+    <style>
+    .nr-bar { position: fixed; left: 12px; bottom: 10px; z-index: 40; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100vw - 120px); font: 600 14px/1 "Source Sans 3", sans-serif; }
+    .nr-bar button { border: 1.5px solid #0F6E6B; background: #fff; color: #0F6E6B; border-radius: 4px; padding: 8px 12px; cursor: pointer; font: inherit; }
+    .nr-bar button[aria-pressed="true"] { background: #0F6E6B; border-color: #0F6E6B; color: #fff; }
+    .nr-bar button:focus-visible { outline: 2px solid #E29A2D; outline-offset: 2px; }
+    /* When captions show, the slide area shrinks by --cc-band so captions never cover slide text. */
+    .reveal { height: calc(100% - var(--cc-band, 0px)) !important; }
+    .nr-caption { position: fixed; left: 50%; bottom: 56px; transform: translateX(-50%); z-index: 39; width: min(1100px, 92vw); max-height: 22vh; overflow-y: auto;
+      background: rgba(28,36,43,.92); color: #fff; border-radius: 4px; padding: 10px 16px; font: 400 21px/1.45 "Source Sans 3", sans-serif; text-align: center; }
+    .nr-caption.transcript { text-align: left; font-size: 18px; }
+    .nr-caption.transcript p { margin: 0 0 .4em; }
+    .nr-home { align-self: center; margin-left: 8px; font: 400 12px/1 "Source Sans 3", sans-serif; color: #66727C !important; text-decoration: none; }
+    .nr-home:hover { text-decoration: underline; }
+    @media (max-width: 700px) { .nr-bar { font-size: 12px; } .nr-bar button { padding: 6px 8px; } .nr-caption { font-size: 17px; bottom: 92px; } .nr-home { display: none; } }
+    @media print { .nr-bar, .nr-caption { display: none !important; } }
+    </style>
+    <div class="nr-bar" role="toolbar" aria-label="Narration and captions">
+      <button type="button" id="nr-sound" aria-pressed="false">Narration: off</button>
+      <button type="button" id="nr-pause" hidden="">Pause</button>
+      <button type="button" id="nr-replay" hidden="">Replay slide</button>
+      <button type="button" id="nr-cc" aria-pressed="false">Captions: off</button>
+      <button type="button" id="nr-auto" aria-pressed="false">Auto-advance: off</button>
+      <a class="nr-home" href="../../../index.html">2300506 course page</a>
+    </div>
+    <div class="nr-caption" id="nr-caption" aria-live="polite" hidden=""></div>
+    <script>
+    (function () {
+      const deck = location.pathname.split('/').pop().replace(/\.html$/, '') || 'index';
+      const store = { get(k, d) { try { return localStorage.getItem('nr506-' + k) ?? d; } catch { return d; } },
+                      set(k, v) { try { localStorage.setItem('nr506-' + k, v); } catch {} } };
+      const state = { sound: store.get('sound', 'off') === 'en' ? 'en' : 'off',
+                      cc: store.get('cc', 'off') === 'en' ? 'en' : 'off',
+                      auto: store.get('auto', 'off') === 'on' };
+      const audio = new Audio(); audio.preload = 'auto';
+      const box = document.getElementById('nr-caption');
+      const $ = (id) => document.getElementById(id);
+      let data = {}, slide = null, band = -1;
+
+      function setBand() {
+        const h = box.hidden ? 0 : box.offsetHeight + 64;
+        if (h === band) return;
+        band = h;
+        document.documentElement.style.setProperty('--cc-band', h + 'px');
+        if (window.Reveal && Reveal.isReady()) Reveal.layout();
+      }
+      new ResizeObserver(setBand).observe(box);
+
+      const on = () => state.sound === 'en';
+      function paintButtons() {
+        $('nr-sound').textContent = on() ? 'Narration: on' : 'Narration: off'; $('nr-sound').setAttribute('aria-pressed', on());
+        $('nr-pause').hidden = !on(); $('nr-replay').hidden = !on();
+        $('nr-pause').textContent = audio.paused && audio.currentTime > 0 && !audio.ended ? 'Resume' : 'Pause';
+        $('nr-cc').textContent = state.cc === 'en' ? 'Captions: on' : 'Captions: off'; $('nr-cc').setAttribute('aria-pressed', state.cc === 'en');
+        $('nr-auto').textContent = 'Auto-advance: ' + (state.auto ? 'on' : 'off'); $('nr-auto').setAttribute('aria-pressed', state.auto);
+      }
+      const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+      function show(html, transcript) {
+        if (state.cc === 'off' || !html) { box.hidden = true; return; }
+        box.lang = 'en'; box.classList.toggle('transcript', !!transcript); box.innerHTML = html; box.hidden = false;
+      }
+      function transcript() {
+        const text = slide?.text || [];
+        show(text.map((s) => '<p>' + esc(s || '') + '</p>').join(''), true);
+      }
+      function syncCaption() {
+        const track = slide?.en; if (!track) return;
+        const t = audio.currentTime;
+        const i = track.cues.findIndex(([a, b]) => t >= a && t < b + 0.3);
+        if (i >= 0) show(esc(slide.text[i] || ''), false);
+      }
+      function load() {
+        const id = Reveal.getCurrentSlide()?.id;
+        slide = data[id] || null;
+        audio.pause();
+        if (!slide) { box.hidden = true; return; }
+        if (on() && slide.en) {
+          audio.src = slide.en.audio; audio.currentTime = 0;
+          audio.play().catch((err) => {
+            // A newer load interrupts an older play() (AbortError): not a failure. Blocked autoplay: fall back to text.
+            if (err && err.name === 'AbortError') return;
+            state.sound = 'off'; paintButtons(); transcript();
+          });
+          box.hidden = true;
+        } else transcript();
+      }
+      audio.addEventListener('play', paintButtons);
+      audio.addEventListener('pause', paintButtons);
+      audio.addEventListener('timeupdate', () => { if (on()) syncCaption(); });
+      // Interactive slides (data-hold) wait for the teacher instead of auto-advancing.
+      audio.addEventListener('ended', () => { if (state.auto && !Reveal.isLastSlide() && !Reveal.getCurrentSlide()?.hasAttribute('data-hold')) Reveal.next(); });
+      $('nr-pause').addEventListener('click', (e) => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); e.currentTarget.blur(); });
+      $('nr-replay').addEventListener('click', (e) => { if (slide) { audio.currentTime = 0; audio.play().catch(() => {}); } e.currentTarget.blur(); });
+      $('nr-sound').addEventListener('click', (e) => { state.sound = on() ? 'off' : 'en'; store.set('sound', state.sound); paintButtons(); load(); e.currentTarget.blur(); });
+      $('nr-cc').addEventListener('click', (e) => {
+        state.cc = state.cc === 'en' ? 'off' : 'en'; store.set('cc', state.cc); paintButtons();
+        if (on() && !audio.paused) syncCaption(); else if (on()) box.hidden = true; else transcript();
+        e.currentTarget.blur();
+      });
+      $('nr-auto').addEventListener('click', (e) => { state.auto = !state.auto; store.set('auto', state.auto ? 'on' : 'off'); paintButtons(); e.currentTarget.blur(); });
+
+      function start(d) {
+        data = d || {};
+        if (!Object.keys(data).length) { document.querySelector('.nr-bar').hidden = true; return; }
+        paintButtons();
+        if (Reveal.isReady()) load(); else Reveal.on('ready', load);
+        Reveal.on('slidechanged', load);
+      }
+      paintButtons();
+      // The inlined index sits after this script in the page, so read it once the page is parsed.
+      function boot() {
+        const inline = document.getElementById('nr-data');
+        if (inline) { try { start(JSON.parse(inline.textContent)); return; } catch (e) {} }
+        fetch('narration/' + deck + '.json', { cache: 'no-cache' }).then((r) => r.ok ? r.json() : {}).then(start)
+          .catch(() => { document.querySelector('.nr-bar').hidden = true; });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+    })();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+          window.quartoDecorateExternalLinks = function (root) {
+         var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+              if (!link.classList.contains('no-external-icon')) {
+              }
+            }
+          }
+          };
+          window.quartoDecorateExternalLinks(window.document);
+        // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+        // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+        const hideOnEscAndFocusOut = {
+          name: 'hideOnEscAndFocusOut',
+          defaultValue: true,
+          fn(instance) {
+            const dismiss = () => {
+              // A show scheduled by the trigger delay would otherwise reopen it
+              instance.clearDelayTimeouts();
+              instance.hide();
+            };
+            const onKeyDown = (event) => {
+              if (event.key !== 'Escape') {
+                return;
+              }
+              // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+              // except an open reveal.js slide menu, which Esc should close too.
+              // The menu handles keys only when its keyboard option is on.
+              const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+                window.Reveal.getConfig().menu?.keyboard !== false;
+              if (!menuHandlesEsc) {
+                event.stopPropagation();
+              }
+              if (instance.popper.contains(window.document.activeElement)) {
+                // Disabled while refocusing so the focus trigger does not reopen it
+                instance.disable();
+                instance.reference.focus();
+                instance.enable();
+              }
+              dismiss();
+            };
+            const onFocusOut = (event) => {
+              const target = event.relatedTarget;
+              if (target && !instance.reference.contains(target) &&
+                  !instance.popper.contains(target)) {
+                dismiss();
+              }
+            };
+            // On the trigger too: a click trigger (code-annotations: select) has no
+            // blur handling. Attached for the instance's lifetime so leaving the
+            // trigger also cancels a show still pending on the trigger delay.
+            instance.reference.addEventListener('focusout', onFocusOut);
+            return {
+              onShow() {
+                window.document.addEventListener('keydown', onKeyDown, true);
+                instance.popper.addEventListener('focusout', onFocusOut);
+              },
+              onHide() {
+                window.document.removeEventListener('keydown', onKeyDown, true);
+                instance.popper.removeEventListener('focusout', onFocusOut);
+              },
+              onDestroy() {
+                instance.reference.removeEventListener('focusout', onFocusOut);
+              },
+            };
+          },
+        };
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+            plugins: [hideOnEscAndFocusOut],
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+<script type="application/json" id="nr-data">{"title-slide":{"text":["Welcome to session sixteen: control charts for small shifts.","Today we build X-bar and R charts for CellCo's coating line, and then charts with memory that catch small drifts much sooner."],"en":{"audio":"narration/s16/title-slide.en.mp3","cues":[[0.25,4.47],[4.82,13.36]]}},"route":{"text":["Here is the plan.","First X-bar and R charts, then individuals charts and run rules. After the break, EWMA and CUSUM charts, the drift detectives activity, and workshop seven."],"en":{"audio":"narration/s16/route.en.mp3","cues":[[0.25,1.66],[2.01,15.04]]}},"subgroups":{"text":["Each hour, five coupons are punched across the web at the same moment. Together they form one subgroup.","Variation within a subgroup is short-term noise. Variation between subgroups adds anything that changes over time.","Control limits are built from within-subgroup variation, so a shift between hours stands out.","Taking five coupons over five hours as one subgroup would be a poor choice. The drift would inflate the ranges, widen the limits, and hide itself."],"en":{"audio":"narration/s16/subgroups.en.mp3","cues":[[0.25,7.1],[7.45,15.77],[16.12,22.2],[22.55,32.6]]}},"xbar-r":{"text":["From 25 subgroups, the grand mean is 20.05 and the mean range is 0.40.","The X-bar limits are 19.82 to 20.28. The range chart runs from zero to 0.85. And the process standard deviation, estimated from the mean range, is 0.172.","Read the range chart first. If the spread within subgroups is not stable, the X-bar limits mean nothing.","And do not confuse control limits with specification limits. Control limits describe what the process does; the specification describes what the customer needs."],"en":{"audio":"narration/s16/xbar-r.en.mp3","cues":[[0.25,8.21],[8.56,24.79],[25.14,32.5],[32.85,44.16]]}},"imr-rules":{"text":["When readings arrive one at a time, for example one viscosity test per slurry batch, we chart individual values, and estimate sigma from the average moving range.","Run rules look for patterns as well as single points: two of three beyond two sigma, four of five beyond one sigma, or eight in a row on one side.","Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, a stable process gives a false alarm about every 92 subgroups instead of every 370."],"en":{"audio":"narration/s16/imr-rules.en.mp3","cues":[[0.25,12.24],[12.59,23.38],[23.73,39.14]]}},"break":{"text":["Let us take a ten-minute break.","Afterwards: a drift of half a standard error. How long until the X-bar chart notices?"],"en":{"audio":"narration/s16/break.en.mp3","cues":[[0.25,2.32],[2.67,8.71]]}},"arl":{"text":["The average run length is the average number of subgroups until a chart signals.","All three charts in this table are tuned to raise a false alarm about once every 370 subgroups.","For a shift of half a standard error, the X-bar chart needs about 155 subgroups to notice, almost a week of production. CUSUM needs about 35, and EWMA about 25."],"en":{"audio":"narration/s16/arl.en.mp3","cues":[[0.25,5.75],[6.1,13.78],[14.13,28.9]]}},"ewma-cusum":{"text":["The EWMA chart plots a weighted average. Each new subgroup gets ten percent weight, and older subgroups fade.","The CUSUM chart adds up small deviations in one direction, and signals when the sum exceeds a threshold.","Both trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side."],"en":{"audio":"narration/s16/ewma-cusum.en.mp3","cues":[[0.25,8.85],[9.2,16.77],[17.12,29.84]]}},"drift-explorer":{"text":["Press Next subgroup to reveal one hour at a time. The upper panel is the X-bar chart, and the lower panel is the EWMA chart.","After each point, ask yourself whether you would stop the line. When all thirty are shown, the drift point is revealed."],"en":{"audio":"narration/s16/drift-explorer.en.mp3","cues":[[0.25,9.74],[10.09,17.79]]}},"act1":{"text":["Activity, drift detectives. Work in groups of four for twenty-five minutes.","Subgroup means are revealed one hour at a time. Update both charts on paper, and raise the red card at your first signal.","Record when each chart first signals, and at the end compare with the planted drift point."],"en":{"audio":"narration/s16/act1.en.mp3","cues":[[0.25,5.18],[5.53,14.32],[14.67,20.28]]}},"act1-answer":{"text":["The drift of 0.077 milligrams per square centimeter started at subgroup sixteen.","The EWMA chart signaled at subgroup 22, six hours later. CUSUM signaled at 23. The X-bar chart with run rules signaled at 26, and with three-sigma limits alone it never signaled.","The drifted coating was still well inside the specification. That is the point of process control: act on the process before the product goes out of specification."],"en":{"audio":"narration/s16/act1-answer.en.mp3","cues":[[0.25,7.27],[7.62,23.41],[23.76,34.76]]}},"w7":{"text":["Workshop seven. Run a gauge study on the supplied data, then build X-bar and R, EWMA and CUSUM charts for your group's coating data, and compare how soon each flags the planted drift."],"en":{"audio":"narration/s16/w7.en.mp3","cues":[[0.25,14.63]]}},"debrief":{"text":["Let us summarize.","Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups.","Read the range chart before the X-bar chart. Control limits describe the process; specifications describe the customer's need.","For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate.","In session seventeen: autocorrelated readings, attribute charts, and process capability."],"en":{"audio":"narration/s16/debrief.en.mp3","cues":[[0.25,1.7],[2.05,9.18],[9.53,18.78],[19.13,28.97],[29.32,35.53]]}},"glossary":{"text":["This slide lists today's key terms in English and Chinese, for reference."],"en":{"audio":"narration/s16/glossary.en.mp3","cues":[[0.25,5.22]]}},"exit":{"text":["For the exit ticket: your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?"],"en":{"audio":"narration/s16/exit.en.mp3","cues":[[0.25,8.12]]}}}</script>
+</body></html>

@@ -1,0 +1,289 @@
+---
+title: "Variation, tools and measurement"
+subtitle: "Session 15 of 18 · 120 minutes · Statistical Quality Control, part 1"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[5–25]{.t} **Concepts** [Two kinds of variation]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[25–45]{.t} **Concepts** [Tools within DMAIC]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[45–55]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[55–80]{.t} **Concepts** [Gage R&R]{.d}
+:::
+::: {.seg .act style="--w:3"}
+[80–110]{.t} **Activity** [Classroom Gage R&R]{.d}
+:::
+::: {.seg .wrap style="--w:1"}
+[110–120]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo's cathode coating varies from coupon to coupon. Which variation should an operator react to, and can the gauge be trusted to tell?
+:::
+
+## The coating line {#coating}
+
+::: {.two}
+::: {}
+A slot die spreads cathode slurry on aluminum foil, which then dries in a long oven. The **mass loading** decides how much energy each cell stores.
+
+**Target:** 20.0 mg/cm². **Specification:** 19.4 to 20.6 mg/cm².
+
+Every hour, five coupons are punched across the web and weighed.
+:::
+::: {}
+::: {.route-question}
+In Block 1, CellCo's line yield was 0.933 and coating scrap was the largest loss. Today we start to trace that scrap to its cause.
+:::
+:::
+:::
+
+## Common and special causes {#causes}
+
+::: {.two}
+::: {}
+**Common-cause variation** comes from many small sources always present: slurry viscosity, foil thickness, oven airflow. It is the process's own noise. Reducing it needs a change to the system.
+
+**Special-cause variation** comes from an identifiable event: a clogged die lip, a new slurry batch, a tension fault. It should be found and removed.
+:::
+::: {}
+**Two mistakes**
+
+Reacting to common-cause variation as if it were special (tampering) adds variation.
+
+Ignoring a special cause lets a fault run.
+
+A control chart separates the two, with limits set by the process's own common-cause variation, not by the specification.
+:::
+:::
+
+## Tampering adds variation {#tampering data-hold="true"}
+
+```{=html}
+<div class="widget" id="tpx">
+  <div class="w-controls"><span class="w-toggle" role="group" aria-label="Operator rule">
+    <button type="button" data-m="0" aria-pressed="true">Leave the die alone</button><button type="button" data-m="1" aria-pressed="false">Adjust after every coupon</button></span></div>
+  <svg id="tpx-svg" viewBox="0 0 1160 270" role="img" aria-label="Fifty coupon mass loadings under the chosen operator rule"></svg>
+  <div class="w-readout" id="tpx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('tpx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const e = [0.351,-0.440,0.072,-0.098,-0.078,-0.037,-0.347,-0.040,-0.149,0.572,0.039,-0.061,-0.048,-0.115,-0.181,-0.067,0.083,-0.041,0.165,-0.034,0.004,0.266,0.094,-0.087,-0.031,0.093,0.333,-0.046,-0.042,0.172,-0.152,-0.050,0.152,0.100,0.016,0.115,-0.486,0.176,-0.165,-0.287,0.048,0.120,-0.077,-0.185,0.004,-0.009,0.242,0.129,0.033,0.191];
+  function series(m) { let adj = 0; return e.map((v) => { const x = 20 + adj + v; if (m) adj -= x - 20; return x; }); }
+  const sd = (a) => { const mu = a.reduce((s, v) => s + v, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - mu) ** 2, 0) / (a.length - 1)); };
+  function draw(m) {
+    const xs = series(m), W = 1160, H = 270, L = 70, R = 20, T = 10, B = 34, X = (i) => L + i / 49 * (W - L - R), Y = (v) => T + (1 - (v - 19.0) / 2.0) * (H - T - B);
+    let g = '';
+    for (const v of [19.0, 19.4, 20.0, 20.6, 21.0]) g += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 19.4 || v === 20.6 ? '#BE654C' : '#B9C1C6'}" ${v === 19.4 || v === 20.6 ? 'stroke-dasharray="7 5" stroke-width="2"' : ''}/><text x="${L - 8}" y="${Y(v) + 5}" text-anchor="end" font-size="15" fill="#333F4A">${v.toFixed(1)}</text>`;
+    let p = ''; xs.forEach((v, i) => { p += (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(v).toFixed(1); });
+    g += `<path d="${p}" fill="none" stroke="${m ? '#E29A2D' : '#0F6E6B'}" stroke-width="2"/>` + xs.map((v, i) => `<circle cx="${X(i)}" cy="${Y(v)}" r="4" fill="${m ? '#E29A2D' : '#0F6E6B'}"/>`).join('');
+    g += `<text x="${W - R}" y="${Y(20.6) - 6}" text-anchor="end" font-size="15" fill="#BE654C">Specification limits</text><text x="${L + 6}" y="${H - 8}" font-size="15" fill="#333F4A">Coupon 1 to 50</text>`;
+    const out = xs.filter((v) => v < 19.4 || v > 20.6).length;
+    document.getElementById('tpx-svg').innerHTML = g;
+    document.getElementById('tpx-out').innerHTML = `Standard deviation: <span class="best">${sd(xs).toFixed(3)} mg/cm²</span>. Coupons outside specification: ${out} of 50.` + (m ? ' The operator moves the die by the last error each time, so each correction carries the last coupon\'s noise into the next.' : '');
+  }
+  root.querySelectorAll('[data-m]').forEach((b) => b.addEventListener('click', () => { root.querySelectorAll('[data-m]').forEach((q) => q.setAttribute('aria-pressed', q === b)); draw(+b.dataset.m); }));
+  draw(0);
+})();
+</script>
+```
+
+[Same noise in both runs. Adjusting after every coupon raises the standard deviation from 0.19 to 0.29 mg/cm²; in theory by a factor of √2.]{.hint}
+
+## Basic tools within DMAIC {#dmaic}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>DMAIC phase</th><th>Question</th><th>Typical tools</th></tr></thead>
+  <tbody>
+    <tr><td>Define</td><td>Which problem, for which customer?</td><td>Project charter, process flowchart</td></tr>
+    <tr><td>Measure</td><td>How big is it, and can we measure it?</td><td>Check sheet, histogram, <b>Gage R&amp;R</b></td></tr>
+    <tr><td>Analyze</td><td>What causes it?</td><td><b>Pareto chart</b>, cause-and-effect diagram, scatter plot, stratification</td></tr>
+    <tr><td>Improve</td><td>What change removes the cause?</td><td>Designed experiments, pilot run</td></tr>
+    <tr><td>Control</td><td>How do we keep the gain?</td><td><b>Control chart</b>, standard work</td></tr>
+  </tbody>
+</table>
+```
+
+[The seven basic tools: check sheet, histogram, Pareto chart, cause-and-effect diagram, scatter plot, stratification, control chart.]{.note-line}
+
+## Pareto of CellCo's defect log {#pareto}
+
+::: {.two}
+::: {}
+```{=html}
+<svg viewBox="0 0 620 330" role="img" aria-label="Pareto chart of 2,900 defects last week. Coating 1,044, slitting burrs 696, winding misalignment 435, fill weight 290, weld defects 232, contamination 145, other 58.">
+  <g font-family="Source Sans 3, sans-serif" font-size="15">
+    <line x1="50" y1="280" x2="600" y2="280" stroke="#333F4A"/>
+    <g fill="#0F6E6B">
+      <rect x="62" y="80" width="62" height="200" fill="#E29A2D"/><rect x="138" y="146" width="62" height="134"/><rect x="214" y="197" width="62" height="83"/>
+      <rect x="290" y="224" width="62" height="56"/><rect x="366" y="236" width="62" height="44"/><rect x="442" y="252" width="62" height="28"/><rect x="518" y="269" width="62" height="11"/>
+    </g>
+    <polyline points="93,190 169,130 245,92 321,68 397,48 473,35 549,30" fill="none" stroke="#BE654C" stroke-width="2.5"/>
+    <g fill="#BE654C"><circle cx="93" cy="190" r="4"/><circle cx="169" cy="130" r="4"/><circle cx="245" cy="92" r="4"/><circle cx="321" cy="68" r="4"/><circle cx="397" cy="48" r="4"/><circle cx="473" cy="35" r="4"/><circle cx="549" cy="30" r="4"/></g>
+    <g fill="#fff" text-anchor="middle" font-weight="700"><text x="93" y="104">1,044</text><text x="169" y="170">696</text><text x="245" y="220">435</text></g><g fill="#1C242B" text-anchor="middle"><text x="321" y="216">290</text><text x="397" y="228">232</text><text x="473" y="244">145</text><text x="549" y="261">58</text></g>
+    <g fill="#333F4A" text-anchor="middle" font-size="14"><text x="93" y="298">Coating</text><text x="169" y="298">Burrs</text><text x="245" y="298">Winding</text><text x="321" y="298">Fill</text><text x="397" y="298">Weld</text><text x="473" y="298">Contam.</text><text x="549" y="298">Other</text></g>
+    <g fill="#BE654C" font-size="14"><text x="178" y="126">60%</text><text x="254" y="88">75%</text></g>
+    <text x="50" y="322" fill="#333F4A">2,900 defects last week; line shows the cumulative share</text>
+  </g>
+</svg>
+```
+:::
+::: {}
+Coating defects (loading, streaks, pinholes, edges) are **36%** of all defects; with slitting burrs, **60%**.
+
+A Pareto chart ranks problems so that effort goes to the few that matter. It counts defects, not their cost: if a weld defect costs ten times a burr, rank by cost as well.
+
+[Mass loading, the key coating variable, is today's case. Before charting it, we must check the gauge.]{.hint}
+:::
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: two operators weigh the same coupon and get different numbers. How much of what we see is the gauge?
+:::
+
+## Measurement system analysis {#gage}
+
+::: {.two}
+::: {}
+Observed variation = part-to-part variation + measurement variation.
+
+σ²~total~ = σ²~part~ + σ²~GRR~, with σ²~GRR~ = σ²~repeatability~ + σ²~reproducibility~
+
+**Repeatability:** one operator, same part, same gauge, repeated readings.
+
+**Reproducibility:** different operators measuring the same parts.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>%GRR</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td>Below 10%</td><td>Acceptable</td></tr>
+    <tr><td>10% to 30%</td><td>Marginal: depends on use and cost</td></tr>
+    <tr><td>Above 30%</td><td>Unacceptable: fix the gauge first</td></tr>
+  </tbody>
+</table>
+```
+%GRR = σ~GRR~ / σ~total~. Number of distinct categories, ndc = 1.41 σ~part~ / σ~GRR~, should be at least 5.
+:::
+:::
+
+## Explore a gauge study {#gage-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="grx">
+  <div class="w-controls">
+    <label class="w-slider">Repeatability σ <strong id="grx-ev">0.012</strong><input type="range" id="grx-e" min="0.002" max="0.08" step="0.002" value="0.012"></label>
+    <label class="w-slider">Reproducibility σ <strong id="grx-ov">0.008</strong><input type="range" id="grx-o" min="0" max="0.08" step="0.002" value="0.008"></label>
+    <label class="w-slider">Part-to-part σ <strong id="grx-pv">0.170</strong><input type="range" id="grx-p" min="0.02" max="0.3" step="0.005" value="0.17"></label>
+  </div>
+  <svg id="grx-svg" viewBox="0 0 1160 150" role="img" aria-label="Share of total variation from the gauge and from the parts"></svg>
+  <div class="w-readout" id="grx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('grx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  function draw() {
+    const e = +document.getElementById('grx-e').value, o = +document.getElementById('grx-o').value, p = +document.getElementById('grx-p').value;
+    document.getElementById('grx-ev').textContent = e.toFixed(3); document.getElementById('grx-ov').textContent = o.toFixed(3); document.getElementById('grx-pv').textContent = p.toFixed(3);
+    const grr = Math.hypot(e, o), tot = Math.hypot(grr, p), pct = 100 * grr / tot, ndc = Math.floor(1.41 * p / grr);
+    const verdict = pct < 10 ? 'acceptable' : pct <= 30 ? 'marginal' : 'unacceptable', col = pct < 10 ? '#0F6E6B' : pct <= 30 ? '#E29A2D' : '#BE654C';
+    const W = 1100, L = 30, X = (v) => L + v / 100 * W;
+    let g = `<rect x="${L}" y="30" width="${W}" height="40" fill="#B9C1C6" opacity="0.5"/><rect x="${L}" y="30" width="${X(pct) - L}" height="40" fill="${col}"/>`;
+    for (const v of [10, 30]) g += `<line x1="${X(v)}" x2="${X(v)}" y1="22" y2="78" stroke="#1C242B" stroke-width="2" stroke-dasharray="5 4"/><text x="${X(v)}" y="16" text-anchor="middle" font-size="15" fill="#333F4A">${v}%</text>`;
+    g += `<text x="${L}" y="104" font-size="16" fill="#1C242B">%GRR (share of total standard deviation due to the gauge)</text>`;
+    document.getElementById('grx-svg').innerHTML = g;
+    document.getElementById('grx-out').innerHTML = `σ<sub>GRR</sub> = ${grr.toFixed(4)}, %GRR = <span class="best">${pct.toFixed(1)}%</span>, ${verdict}; ndc = ${ndc}${ndc < 5 ? ' (too few to separate parts)' : ''}.`;
+  }
+  root.addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+[CellCo's coating gauge: repeatability 0.012, reproducibility 0.008, parts 0.170 mg/cm². %GRR 8.5%, ndc 16: fit for charting. Now shrink the part-to-part spread: the same gauge becomes useless.]{.hint}
+
+## Activity · Classroom Gage R&R {#act1 .activity data-hold="true"}
+
+[Individual, then whole class · 30 minutes · measurements and the measurement share]{.act-label}
+
+::: {.prompt}
+Measure the 10 printed line segments twice with your ruler, in millimeters to one decimal. Cover your first readings before the second round.
+:::
+
+1. **Repeatability:** for each segment, take the difference between your two readings. Average the 10 differences, then divide by 1.128.
+2. **Reproducibility:** enter your mean of all 20 readings in the class sheet. The standard deviation of the class means estimates it.
+3. **Parts:** the standard deviation of the 10 segment means over the whole class.
+4. Compute %GRR and ndc. Is a ruler fit to tell these segments apart?
+
+## Activity · What to look for {#act1-answer}
+
+::: {.two}
+::: {}
+**Resolution.** A ruler reads to 0.5 or 1 mm. If the segments differ by only 1 to 2 mm, the ruler's resolution alone pushes %GRR toward the marginal range. Rule of ten: resolution at most one tenth of the spread you need to see.
+
+**Reproducibility.** Different starting points (zero mark or ruler edge) and viewing angles show up as differences between students' means.
+:::
+::: {}
+**What it means for CellCo.** A coating chart built on a poor gauge shows gauge noise as process variation: limits too wide, real shifts hidden.
+
+**Order of work.** Check the gauge, then chart the process, then compute capability. Session 16 charts the coating data; Session 17 computes capability.
+:::
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+Common-cause variation is the system's noise; special causes are events to find. Tampering with a stable process adds variation.
+:::
+::: {.tk}
+Pareto charts aim effort: two defect types make 60% of CellCo's defects, led by coating.
+:::
+::: {.tk .key}
+Check the gauge before charting. CellCo's coating gauge has %GRR 8.5% and ndc 16: fit for use.
+:::
+:::
+
+[Session 16: control charts for the coating line, including charts for small drifts.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Common-cause variation | 普通原因变异 | Pareto chart | 帕累托图 |
+| Special-cause variation | 特殊原因变异 | Cause-and-effect diagram | 因果图（鱼骨图） |
+| Measurement system analysis | 测量系统分析 | Repeatability, reproducibility | 重复性、再现性 |
+| DMAIC | 定义-测量-分析-改进-控制 | Mass loading | 面密度（涂布量） |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Name one measurement in your own lab that you have never checked with a gauge study, and say how you would check it.
+:::

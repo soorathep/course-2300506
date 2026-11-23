@@ -1,0 +1,185 @@
+---
+title: "Group clinic and Quiz 2"
+subtitle: "Session 10 of 18 · 60 minutes · end of Block 1"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.4"}
+[0–3]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:1.2"}
+[3–13]{.t} **Brief** [Research note]{.d}
+:::
+::: {.seg .act style="--w:2.5"}
+[13–38]{.t} **Activity** [Peer review, idea card]{.d}
+:::
+::: {.seg .brk style="--w:2"}
+[38–58]{.t} **Quiz 2** [20 minutes]{.d}
+:::
+::: {.seg .wrap style="--w:0.4"}
+[58–60]{.t} **Close** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: which Block 1 method fits a decision in your own research, and what data would it need?
+:::
+
+## One company, three questions {#block-map}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Module</th><th>CellCo question</th><th>Method</th><th>Result we found</th></tr></thead>
+  <tbody>
+    <tr><td>Decision Making</td><td>How should it add 2 GWh/yr of capacity?</td><td>Trees, EVSI, AHP, Monte Carlo, real options</td><td>Staged build: mean NPV 79, P(loss) 20%</td></tr>
+    <tr><td>Markov Analysis</td><td>How do yield and maintenance behave over time?</td><td>Markov chains, absorbing chains, MDP</td><td>Yield 0.933; PM only in Major</td></tr>
+    <tr><td>Network Model</td><td>When will the storage system be ready?</td><td>CPM, PERT, simulation, crashing</td><td>71% by 22 weeks; 19 weeks for CNY 0.425 million</td></tr>
+  </tbody>
+</table>
+```
+
+[NPV in CNY million. Your group assignment repeats this chain with your own data variant and ends in one board memo.]{.note-line}
+
+## The individual research note {#research-note}
+
+::: {.two}
+::: {}
+**Task.** Two pages applying one Block 1 method to a decision or process in **your own research**.
+
+State the decision or process, the data you have or would collect, the model, the assumptions, and what the model cannot tell you.
+
+**Due** with the group report, proposed 6 February 2027.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Criterion</th><th class="num">Weight</th></tr></thead>
+  <tbody>
+    <tr><td>Correct use of the method</td><td class="num">50%</td></tr>
+    <tr><td>Quality of assumptions</td><td class="num">30%</td></tr>
+    <tr><td>Clarity</td><td class="num">20%</td></tr>
+  </tbody>
+</table>
+```
+[A small, correct model of a real decision scores better than a large model with unstated assumptions.]{.hint}
+:::
+:::
+
+## Which method fits? {#method-match data-hold="true"}
+
+```{=html}
+<div class="widget" id="mm">
+  <p id="mm-q" style="font-size:1.05em;margin:0 0 .5em"></p>
+  <div class="w-controls" id="mm-b" role="group" aria-label="Methods"></div>
+  <div class="w-readout" id="mm-out" aria-live="polite"></div>
+  <div class="w-controls"><button type="button" class="w-btn" id="mm-next">Next case</button><span id="mm-n" style="margin-left:1em"></span></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('mm'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const M = ['Decision tree, EVSI', 'AHP', 'Monte Carlo', 'Markov chain', 'MDP', 'PERT, simulation', 'Maximal flow'];
+  const C = [
+    ['Your lab must decide whether to buy a second glovebox now or wait three months for a grant result.', 0, 'A decision now, an uncertain event, then a second decision: a tree. The value of waiting is the value of information.'],
+    ['You log each coin cell every 50 cycles as good, fading or failed. Failed cells stay failed.', 3, 'States observed at fixed steps with an absorbing state: an absorbing Markov chain gives the expected life and the failure probabilities.'],
+    ['You must pick one of three electrolyte suppliers on cost, purity, delivery time and safety documents.', 1, 'Several criteria, some without a common unit, weighed by judgment: AHP, with a consistency check.'],
+    ['Your thesis has twelve tasks with dependencies and uncertain durations, and the defense date is fixed.', 5, 'Precedence plus uncertain durations: a network, and simulation for the on-time probability, because parallel paths merge.'],
+    ['Each week you see how far the potentiostat has drifted and must decide whether to recalibrate it.', 4, 'An observed state, an action that changes the next state, and a cost per step: a Markov decision process.'],
+    ['The NPV of a pilot electrolyzer depends on uncertain efficiency, electricity price and stack lifetime.', 2, 'One output driven by several uncertain inputs: Monte Carlo gives the whole distribution, not only the mean.'],
+    ['The shared XRD facility receives samples from five groups through two preparation rooms and three instruments.', 6, 'Capacities on links between stages: maximal flow finds the throughput and the minimum cut finds the bottleneck.']
+  ];
+  let i = 0, right = 0, done = 0;
+  document.getElementById('mm-b').innerHTML = M.map((m, k) => `<button type="button" class="w-choice" data-k="${k}">${m}</button>`).join('');
+  function show() {
+    document.getElementById('mm-q').innerHTML = `<b>Case ${i + 1} of ${C.length}.</b> ${C[i][0]}`;
+    document.getElementById('mm-out').innerHTML = 'Choose the method that fits best.';
+    root.querySelectorAll('[data-k]').forEach((b) => { b.disabled = false; b.removeAttribute('aria-pressed'); });
+    document.getElementById('mm-n').textContent = done ? `Score: ${right} of ${done}` : '';
+  }
+  root.querySelectorAll('[data-k]').forEach((b) => b.addEventListener('click', () => {
+    const k = +b.dataset.k, ok = k === C[i][1];
+    done++; if (ok) right++;
+    root.querySelectorAll('[data-k]').forEach((x) => { x.disabled = true; if (+x.dataset.k === C[i][1]) x.setAttribute('aria-pressed', 'true'); });
+    document.getElementById('mm-out').innerHTML = (ok ? '<span class="best">Yes.</span> ' : `Not quite: the better fit is <b>${M[C[i][1]]}</b>. `) + C[i][2];
+    document.getElementById('mm-n').textContent = `Score: ${right} of ${done}`;
+  }));
+  document.getElementById('mm-next').addEventListener('click', () => { i = (i + 1) % C.length; if (i === 0) { right = 0; done = 0; } show(); });
+  show();
+})();
+</script>
+```
+
+[Some cases admit a second method. In your note, say why you chose yours.]{.hint}
+
+## Activity · Peer review and idea card {#act1 .activity data-hold="true"}
+
+[Groups, then pairs · 25 minutes · review checklist and idea card]{.act-label}
+
+::: {.prompt}
+Part 1 (15 minutes). Swap your draft network plan with another group and review it against the checklist.
+:::
+
+::: {.two}
+::: {}
+1. Every activity and precedence is listed.
+2. Durations have three estimates and a source.
+3. The critical path and slack are correct.
+:::
+::: {}
+4. The on-time probability comes from simulation, not PERT alone.
+5. The crash decision states its cost.
+6. Shared crews or equipment are checked.
+:::
+:::
+
+::: {.prompt}
+Part 2 (10 minutes). Write a three-sentence idea card for your research note: the decision, the method, the data. Swap with a partner and ask one question about their card.
+:::
+
+## Quiz 2 · 20 minutes {#quiz2 .activity}
+
+[On your own · on paper]{.act-label}
+
+::: {.prompt}
+Quiz 2 covers Markov Analysis and Network Model, Sessions 4 to 9.
+:::
+
+[Quiz 1, on Decision Making, ran online on the evening of Day 1. The two quizzes together are proposed at 15% of the Block 1 grade.]{.note-line}
+
+## Block 1 and Block 2 {#to-block2}
+
+::: {.two}
+::: {}
+**Before 6 February 2027**
+
+- Group report, workbook or notebook, and 10-minute recorded presentation.
+- Individual research note.
+- Feedback returns before Block 2.
+:::
+::: {}
+**27 and 28 March 2027**
+
+- Linear Programming: CellCo's production mix, Solver, sensitivity, and planning under uncertainty.
+- Statistical Quality Control: electrode coating, control charts, and capability.
+:::
+:::
+
+::: {.bridge}
+Crashing in Session 8 was already a linear program. Block 2 starts there.
+:::
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Research note | 研究短文 | Assumption | 假设 |
+| Peer review | 同行评审 | Limitation | 局限性 |
+| Board memo | 董事会备忘录 | Sensitivity analysis | 敏感性分析 |
+:::

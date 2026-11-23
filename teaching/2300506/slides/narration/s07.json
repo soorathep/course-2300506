@@ -1,0 +1,261 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to session seven, the first session on network models.",
+   "In one hour, we plan the installation of CellCo's storage system as a project network and find its critical path."
+  ],
+  "en": {
+   "audio": "narration/s07/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.32
+    ],
+    [
+     4.67,
+     12.8
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan.",
+   "First, activity-on-node networks and the forward and backward passes. Then your group builds the network from cards. We finish with slack and the critical path."
+  ],
+  "en": {
+   "audio": "narration/s07/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.66
+    ],
+    [
+     2.01,
+     12.74
+    ]
+   ]
+  }
+ },
+ "project": {
+  "text": [
+   "CellCo will install a ten megawatt hour storage system at its plant. The project has eight activities.",
+   "It starts with the site survey and permits. Then come the detailed design, the procurement of battery containers and of the power conversion system, and the civil works.",
+   "Installation and commissioning follow. The table lists each activity's predecessors and its most likely duration in weeks."
+  ],
+  "en": {
+   "audio": "narration/s07/project.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.7
+    ],
+    [
+     8.05,
+     18.88
+    ],
+    [
+     19.23,
+     27.81
+    ]
+   ]
+  }
+ },
+ "aon": {
+  "text": [
+   "In an activity-on-node network, each box is an activity, and each arrow says that one activity must finish before the next can start.",
+   "For example, installing the containers needs both the containers and the foundations, so F has two arrows coming in, from C and from D.",
+   "The boxes and arrows in amber lie on a critical path. We will see how to find it on the next slide."
+  ],
+  "en": {
+   "audio": "narration/s07/aon.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.64
+    ],
+    [
+     9.99,
+     19.61
+    ],
+    [
+     19.96,
+     26.78
+    ]
+   ]
+  }
+ },
+ "passes": {
+  "text": [
+   "The forward pass finds the earliest times. An activity can start when its last predecessor finishes, so its earliest start is the largest earliest finish of its predecessors.",
+   "The backward pass starts from the project end and finds the latest times. An activity must finish before its first successor has to start.",
+   "Total slack is the latest start minus the earliest start. Activities with zero slack are critical: any delay to them delays the whole project.",
+   "Here, every activity except D has zero slack. D, the civil works, has six weeks of slack."
+  ],
+  "en": {
+   "audio": "narration/s07/passes.en.mp3",
+   "cues": [
+    [
+     0.25,
+     12.3
+    ],
+    [
+     12.65,
+     22.02
+    ],
+    [
+     22.37,
+     32.12
+    ],
+    [
+     32.47,
+     39.06
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity. Work in groups of four for twenty minutes.",
+   "Your group receives the eight activity cards in random order. Build the network on the sheet, with every arrow pointing from a predecessor to its successor.",
+   "Then write the earliest and latest times on each card, and find the project duration and the critical activities.",
+   "Finish with a gallery walk: check another group's network, and correct one error if you find one."
+  ],
+  "en": {
+   "audio": "narration/s07/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.6
+    ],
+    [
+     3.95,
+     13.95
+    ],
+    [
+     14.3,
+     21.54
+    ],
+    [
+     21.89,
+     28.14
+    ]
+   ]
+  }
+ },
+ "act1-answer": {
+  "text": [
+   "The project takes nineteen weeks.",
+   "There are two critical paths, both nineteen weeks long: A, B, C, F, H, and A, B, E, G, H.",
+   "Only the civil works have slack. They can start up to six weeks late without delaying the project.",
+   "Two critical paths make the plan fragile. A delay to either the containers or the power conversion system delays commissioning, and shortening only one of them gains nothing."
+  ],
+  "en": {
+   "audio": "narration/s07/act1-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.38
+    ],
+    [
+     2.73,
+     9.9
+    ],
+    [
+     10.25,
+     16.4
+    ],
+    [
+     16.75,
+     28.48
+    ]
+   ]
+  }
+ },
+ "cpm-explorer": {
+  "text": [
+   "Choose an activity and change its duration. The network recomputes the earliest and latest times and highlights the critical activities.",
+   "Try shortening the containers, activity C, from eight weeks to six. The project still takes nineteen weeks, because the other critical path does not change.",
+   "Then try lengthening the civil works beyond their slack, and watch them become critical."
+  ],
+  "en": {
+   "audio": "narration/s07/cpm-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.42
+    ],
+    [
+     9.77,
+     20.91
+    ],
+    [
+     21.26,
+     26.7
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   "Let us summarize.",
+   "An activity-on-node network shows the order of the work. The forward pass gives the earliest times, and the backward pass the latest.",
+   "CellCo's installation takes nineteen weeks, with two critical paths. Only the civil works have slack.",
+   "With parallel critical paths, shortening one activity alone does not shorten the project.",
+   "After lunch, in session eight, we add uncertain durations, estimate the chance of finishing on time, and decide what to pay to finish earlier."
+  ],
+  "en": {
+   "audio": "narration/s07/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.7
+    ],
+    [
+     2.05,
+     11.01
+    ],
+    [
+     11.36,
+     18.51
+    ],
+    [
+     18.86,
+     24.77
+    ],
+    [
+     25.12,
+     35.06
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference."
+  ],
+  "en": {
+   "audio": "narration/s07/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   "For the exit ticket: the civil works team asks to start four weeks late. Can the plant manager agree without delaying commissioning? Write down the number that decides it."
+  ],
+  "en": {
+   "audio": "narration/s07/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     11.39
+    ]
+   ]
+  }
+ }
+}

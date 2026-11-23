@@ -1,0 +1,309 @@
+---
+title: "Formulation, graphics and duality"
+subtitle: "Session 11 of 18 · 120 minutes · Linear Programming, part 1"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[5–30]{.t} **Concepts** [Formulation]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[30–50]{.t} **Concepts** [Graphical solution]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[50–60]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[60–85]{.t} **Concepts** [Duality]{.d}
+:::
+::: {.seg .act style="--w:3"}
+[85–115]{.t} **Activity** [Relay and resource bid]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[115–120]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo now runs the capacity chosen in Block 1. What should it make each week, and what is one more hour of coating worth?
+:::
+
+## From Block 1 to Block 2 {#bridge}
+
+::: {.two}
+::: {}
+**Block 1** decided what to build and when it would be ready.
+
+**Block 2** runs the plant: Linear Programming plans what to make (today and Sessions 12 to 14); Statistical Quality Control keeps the coating line in control (Sessions 15 to 18).
+:::
+::: {}
+::: {.route-question}
+You have already solved one LP. Crashing in Session 8 chose crash weeks to minimize cost subject to every path being at most 19 weeks.
+:::
+:::
+:::
+
+## The plant manager's email {#email}
+
+::: {.case}
+"We make two products on the same line. **Energy-storage cells (E)** earn CNY 30,000 per MWh; **power cells (P)** earn CNY 48,000 per MWh.
+
+Coating is the problem: we have **240 coating hours** a week. E needs 2 hours per MWh, P needs 3.
+
+Formation has **150 hours** a week. E needs 1.5 hours per MWh, P needs 1.
+
+Customers will take at most **60 MWh of P** a week; they take all the E we make.
+
+What should we make?"
+:::
+
+## Three parts of every LP {#formulation}
+
+::: {.two}
+::: {}
+**Decision variables.** E and P, weekly output in MWh.
+
+**Objective.** Maximize contribution, in CNY thousand per week:
+
+max 30E + 48P
+
+**Constraints.**
+
+2E + 3P ≤ 240 (coating hours)
+
+1.5E + P ≤ 150 (formation hours)
+
+P ≤ 60 (power-cell demand)
+
+E, P ≥ 0
+:::
+::: {}
+**Checks before solving.**
+
+- Units agree within each line: hours on both sides, CNY on the objective.
+- Each constraint names a resource someone can point to.
+- Linearity: doubling output doubles hours and contribution. No setup times, no volume discounts.
+- Divisibility: 30.5 MWh is allowed.
+
+[If these assumptions fail, Session 13 adds integer variables.]{.hint}
+:::
+:::
+
+## The graphical solution {#graph data-hold="true"}
+
+```{=html}
+<div class="widget" id="lpg">
+  <div class="w-controls">
+    <label class="w-slider">Coating hours <strong id="lpg-cv">240</strong><input type="range" id="lpg-c" min="150" max="360" step="10" value="240"></label>
+    <label class="w-slider">Margin of E <strong id="lpg-ev">30</strong><input type="range" id="lpg-e" min="0" max="50" step="1" value="30"></label>
+    <label class="w-slider">Margin of P <strong id="lpg-pv">48</strong><input type="range" id="lpg-p" min="20" max="70" step="1" value="48"></label>
+  </div>
+  <svg id="lpg-svg" viewBox="0 0 1160 330" role="img" aria-label="Feasible region of the CellCo product-mix LP with the optimal corner"></svg>
+  <div class="w-readout" id="lpg-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('lpg'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  window.cellcoLP = function (coat, cE, cP, form = 150, dP = 60) {
+    const L = [[2, 3, coat], [1.5, 1, form], [0, 1, dP], [-1, 0, 0], [0, -1, 0]];
+    const pts = [];
+    for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) {
+      const [a1, b1, c1] = L[i], [a2, b2, c2] = L[j], det = a1 * b2 - a2 * b1;
+      if (Math.abs(det) < 1e-9) continue;
+      const x = (c1 * b2 - c2 * b1) / det, y = (a1 * c2 - a2 * c1) / det;
+      if (L.every(([a, b, c]) => a * x + b * y <= c + 1e-7)) pts.push([x, y]);
+    }
+    const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length, cy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+    pts.sort((p, q) => Math.atan2(p[1] - cy, p[0] - cx) - Math.atan2(q[1] - cy, q[0] - cx));
+    let best = pts[0], bz = -1;
+    for (const p of pts) { const z = cE * p[0] + cP * p[1]; if (z > bz + 1e-9) { bz = z; best = p; } }
+    const bind = ['coating', 'formation', 'P demand'].filter((n, k) => Math.abs(L[k][0] * best[0] + L[k][1] * best[1] - L[k][2]) < 1e-6);
+    return { pts, best, z: bz, bind };
+  };
+  const BX = 60, BY = 300, X = (e) => BX + e * 6, Y = (p) => BY - p * 2.9;
+  function draw() {
+    const coat = +document.getElementById('lpg-c').value, cE = +document.getElementById('lpg-e').value, cP = +document.getElementById('lpg-p').value;
+    document.getElementById('lpg-cv').textContent = coat; document.getElementById('lpg-ev').textContent = cE; document.getElementById('lpg-pv').textContent = cP;
+    const r = window.cellcoLP(coat, cE, cP);
+    let g = `<line x1="${X(0)}" y1="${Y(0)}" x2="${X(110)}" y2="${Y(0)}" stroke="#333F4A"/><line x1="${X(0)}" y1="${Y(0)}" x2="${X(0)}" y2="${Y(100)}" stroke="#333F4A"/>`;
+    for (let v = 20; v <= 100; v += 20) g += `<text x="${X(v)}" y="${Y(0) + 22}" text-anchor="middle" font-size="15" fill="#333F4A">${v}</text><text x="${X(0) - 8}" y="${Y(v) + 5}" text-anchor="end" font-size="15" fill="#333F4A">${v}</text>`;
+    g += `<text x="${X(110)}" y="${Y(0) - 8}" text-anchor="end" font-size="16" fill="#333F4A">E, MWh</text><text x="${X(0) + 34}" y="${Y(100) + 12}" font-size="16" fill="#333F4A">P, MWh</text>`;
+    g += `<polygon points="${r.pts.map((p) => X(p[0]) + ',' + Y(p[1])).join(' ')}" fill="#DFC98F" opacity="0.55" stroke="none"/>`;
+    const line = (a, b, c, col, lab) => { const e1 = 0, e2 = 110; const p1 = b ? (c - a * e1) / b : null; const p2 = b ? (c - a * e2) / b : null;
+      if (b) return `<line x1="${X(e1)}" y1="${Y(p1)}" x2="${X(e2)}" y2="${Y(p2)}" stroke="${col}" stroke-width="2.5"/><text x="${X(e1) + 6}" y="${Y(Math.min(p1, 98)) - 6}" font-size="15" fill="${col}" font-weight="700">${lab}</text>`; };
+    g += `<clipPath id="lpg-clip"><rect x="${X(0)}" y="${Y(100)}" width="${X(110) - X(0)}" height="${Y(0) - Y(100)}"/></clipPath><g clip-path="url(#lpg-clip)">`;
+    g += line(2, 3, coat, '#0F6E6B', '') + line(1.5, 1, 150, '#5A91BE', '') + line(0, 1, 60, '#BE654C', '');
+    const zl = r.z; if (cP > 0) g += `<line x1="${X(0)}" y1="${Y(zl / cP)}" x2="${X(110)}" y2="${Y((zl - cE * 110) / cP)}" stroke="#E29A2D" stroke-width="2.5" stroke-dasharray="8 6"/>`;
+    g += `</g><circle cx="${X(r.best[0])}" cy="${Y(r.best[1])}" r="8" fill="#E29A2D" stroke="#1C242B" stroke-width="1.5"/>`;
+    const lx = 760; g += `<g font-size="17"><line x1="${lx}" x2="${lx + 30}" y1="40" y2="40" stroke="#0F6E6B" stroke-width="3"/><text x="${lx + 40}" y="46" fill="#1C242B">Coating: 2E + 3P ≤ ${coat}</text>
+      <line x1="${lx}" x2="${lx + 30}" y1="72" y2="72" stroke="#5A91BE" stroke-width="3"/><text x="${lx + 40}" y="78" fill="#1C242B">Formation: 1.5E + P ≤ 150</text>
+      <line x1="${lx}" x2="${lx + 30}" y1="104" y2="104" stroke="#BE654C" stroke-width="3"/><text x="${lx + 40}" y="110" fill="#1C242B">Power-cell demand: P ≤ 60</text>
+      <line x1="${lx}" x2="${lx + 30}" y1="136" y2="136" stroke="#E29A2D" stroke-width="3" stroke-dasharray="8 6"/><text x="${lx + 40}" y="142" fill="#1C242B">Best contribution line</text></g>`;
+    document.getElementById('lpg-svg').innerHTML = g;
+    document.getElementById('lpg-out').innerHTML = `Best corner: E = <b>${r.best[0].toFixed(1)}</b>, P = <b>${r.best[1].toFixed(1)}</b> MWh, contribution <span class="best">CNY ${r.z.toFixed(0)} thousand</span> a week. Binding: ${r.bind.join(', ') || 'none'}.`;
+  }
+  root.addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+[Try a margin of P of 45: the contribution line runs parallel to the coating line, and every point on that edge is optimal.]{.hint}
+
+## Reading the corner {#corner}
+
+::: {.two}
+::: {}
+The optimum is **E = 30, P = 60 MWh**, contribution **CNY 3.78 million** a week.
+
+Coating and power-cell demand are binding. Formation uses 1.5 × 30 + 60 = 105 of 150 hours: **45 hours idle**.
+:::
+::: {}
+**Two lessons from the graph.**
+
+An LP optimum, if one exists, is always at a corner of the feasible region. Solver only needs to search corners.
+
+Adding formation capacity is worthless today. Coating decides output until it reaches 300 hours; above that, formation becomes the limit.
+:::
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: a neighboring plant asks to rent one of CellCo's coating hours. What is the lowest price CellCo should accept?
+:::
+
+## The dual: pricing the resources {#dual}
+
+::: {.two}
+::: {}
+**Primal** (the plant manager)
+
+max 30E + 48P
+
+2E + 3P ≤ 240
+
+1.5E + P ≤ 150
+
+P ≤ 60
+:::
+::: {}
+**Dual** (a buyer of all resources)
+
+min 240y~1~ + 150y~2~ + 60y~3~
+
+2y~1~ + 1.5y~2~ ≥ 30 (E)
+
+3y~1~ + y~2~ + y~3~ ≥ 48 (P)
+
+y~1~, y~2~, y~3~ ≥ 0
+:::
+:::
+
+::: {.bridge}
+A buyer who wants all of CellCo's coating hours, formation hours and power-cell orders must pay at least what CellCo would earn by using them. The dual finds the cheapest such prices.
+:::
+
+## The dual solution {#dual-solution}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Resource</th><th class="num">Dual price, CNY thousand</th><th>Reading</th></tr></thead>
+  <tbody>
+    <tr><td>Coating hour (y<sub>1</sub>)</td><td class="num hit">15</td><td>One more coating hour adds CNY 15,000 a week</td></tr>
+    <tr><td>Formation hour (y<sub>2</sub>)</td><td class="num">0</td><td>45 hours are idle, so one more is worth nothing</td></tr>
+    <tr><td>MWh of power-cell demand (y<sub>3</sub>)</td><td class="num">3</td><td>One more MWh of P orders adds CNY 3,000 a week</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.two}
+::: {}
+**Strong duality.** 240 × 15 + 150 × 0 + 60 × 3 = **3,780**, equal to the primal optimum.
+:::
+::: {}
+**Complementary slackness.** A resource with slack has dual price zero; a product made in positive amount earns exactly its resource cost: 2 × 15 = 30 for E, 3 × 15 + 3 = 48 for P.
+:::
+:::
+
+## Activity · Formulation relay and resource bid {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 30 minutes · formulation sheet and bid]{.act-label}
+
+::: {.prompt}
+Part 1 (20 minutes). One member writes the variables, the next the objective, the next the constraints, the last solves graphically.
+:::
+
+::: {.case}
+"Our pack shop makes home-storage batches (H, CNY 3,000 each) and telecom batches (T, CNY 5,000 each). Assembly has 40 hours a week: H takes 1 hour, T takes 2. Testing has 60 hours: H takes 3, T takes 2. Cell supply allows at most 18 telecom batches."
+:::
+
+::: {.prompt}
+Part 2 (10 minutes). Back to the cell line. Write your group's minimum price for renting out one coating hour, with one sentence of reasoning. Then compare it with the dual price.
+:::
+
+## Activity · Answer {#act1-answer}
+
+::: {.two}
+::: {}
+max 3H + 5T, CNY thousand
+
+H + 2T ≤ 40 (assembly)
+
+3H + 2T ≤ 60 (testing)
+
+T ≤ 18, H, T ≥ 0
+
+Corners: (20, 0) gives 60; **(10, 15) gives 105**; (4, 18) gives 102; (0, 18) gives 90.
+:::
+::: {}
+Assembly and testing are binding. Their dual prices are 2.25 and 0.25 thousand per hour; the cell-supply limit is not binding.
+
+For the coating hour: renting it out loses CNY 15,000 of contribution, so any price below 15,000 makes CellCo worse off. The dual price is the minimum rent, valid while coating stays between 180 and 300 hours.
+:::
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+An LP has variables, an objective and constraints, and rests on linearity and divisibility. Check units line by line.
+:::
+::: {.tk}
+The optimum lies at a corner. For CellCo: E = 30, P = 60 MWh, CNY 3.78 million a week, with 45 formation hours idle.
+:::
+::: {.tk .key}
+The dual prices scarce resources. A coating hour is worth CNY 15,000; an idle formation hour is worth nothing.
+:::
+:::
+
+[Session 12: Solver, the sensitivity report, and how far these prices can be trusted.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Linear programming | 线性规划 | Feasible region | 可行域 |
+| Decision variable | 决策变量 | Binding constraint | 紧约束 |
+| Objective function | 目标函数 | Dual problem | 对偶问题 |
+| Constraint | 约束条件 | Shadow price | 影子价格 |
+:::
+
+## Exit ticket · 3 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+A sales manager wants to push P orders to 70 MWh a week. Using only the dual prices, estimate the change in weekly contribution, and say what you would check before trusting it.
+:::

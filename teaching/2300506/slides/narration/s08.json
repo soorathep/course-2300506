@@ -1,0 +1,338 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to session eight: PERT, simulation and crashing.",
+   "Today we estimate the chance that CellCo's storage project finishes on time, check that estimate by simulation, and find the cheapest way to finish earlier."
+  ],
+  "en": {
+   "audio": "narration/s08/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.9
+    ],
+    [
+     5.25,
+     16.0
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan.",
+   "First, PERT and its probability of finishing on time, then a simulation check. After the break, crashing as a linear program, and a crash auction between groups."
+  ],
+  "en": {
+   "audio": "narration/s08/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.66
+    ],
+    [
+     2.01,
+     14.19
+    ]
+   ]
+  }
+ },
+ "pert": {
+  "text": [
+   "PERT asks for three estimates of each duration: optimistic, most likely, and pessimistic.",
+   "The expected duration is a plus four m plus b, divided by six. The variance is the range divided by six, squared.",
+   "Most estimates are skewed to the right, because things go wrong more often than they go unusually well. So the expected duration is above the most likely one.",
+   "The containers, activity C, have the widest range, from six to fourteen weeks, and the largest variance."
+  ],
+  "en": {
+   "audio": "narration/s08/pert.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.8
+    ],
+    [
+     8.15,
+     17.43
+    ],
+    [
+     17.78,
+     28.75
+    ],
+    [
+     29.1,
+     36.31
+    ]
+   ]
+  }
+ },
+ "pert-answer": {
+  "text": [
+   "With expected durations, the critical path is A, B, C, F, H, at 20.67 weeks. The path through E and G follows at 20.17 weeks.",
+   "PERT adds the variances along the critical path, 3.28 in total, so the standard deviation is 1.81 weeks.",
+   "The probability of finishing within 22 weeks is the normal probability of 0.74 standard deviations, which is 0.77.",
+   "But PERT looks at only one path. The second path is just half a week shorter, and in the futures where E or G runs late, it decides the finish date."
+  ],
+  "en": {
+   "audio": "narration/s08/pert-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     13.18
+    ],
+    [
+     13.53,
+     24.13
+    ],
+    [
+     24.48,
+     35.36
+    ],
+    [
+     35.71,
+     47.49
+    ]
+   ]
+  }
+ },
+ "pert-explorer": {
+  "text": [
+   "Move the deadline slider. The dashed teal line is the PERT probability of finishing by that deadline. The amber line is the simulation, which draws every duration and takes the longest path in each run.",
+   "At 22 weeks, PERT gives 77 percent, and the simulation gives 71 percent.",
+   "The simulation curve lies to the right of PERT at every deadline."
+  ],
+  "en": {
+   "audio": "narration/s08/pert-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     15.35
+    ],
+    [
+     15.7,
+     23.38
+    ],
+    [
+     23.73,
+     28.92
+    ]
+   ]
+  }
+ },
+ "merge-bias": {
+  "text": [
+   "The table compares the two methods at five deadlines. PERT is more optimistic at every one.",
+   "The simulated mean finish is 21.1 weeks, not 20.7, and the path through E and G is the longest path in 41 percent of runs.",
+   "This is merge bias. Where paths merge, the finish date is the maximum of several uncertain paths, and that maximum is later than any one path alone.",
+   "For a 90 percent on-time promise, PERT suggests 23.0 weeks, but the simulation says 23.4."
+  ],
+  "en": {
+   "audio": "narration/s08/merge-bias.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.52
+    ],
+    [
+     7.87,
+     19.39
+    ],
+    [
+     19.74,
+     30.8
+    ],
+    [
+     31.15,
+     41.11
+    ]
+   ]
+  }
+ },
+ "break": {
+  "text": [
+   "Let us take a ten-minute break.",
+   "Afterwards: the grid company offers a bonus for finishing in nineteen weeks. Which activities should CellCo pay to shorten?"
+  ],
+  "en": {
+   "audio": "narration/s08/break.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.32
+    ],
+    [
+     2.67,
+     11.16
+    ]
+   ]
+  }
+ },
+ "crashing": {
+  "text": [
+   "Crashing means paying to shorten an activity, for example with overtime, extra crews, or air freight.",
+   "The table gives the cost of each week saved and the maximum that can be saved for each activity.",
+   "Three rules of thumb help. Crash only critical activities. Prefer the cheapest per week. And an activity shared by both long paths shortens both at once.",
+   "The exact answer comes from a linear program: minimize the total crash cost, subject to every path being at most nineteen weeks long. Block two solves programs like this in Solver."
+  ],
+  "en": {
+   "audio": "narration/s08/crashing.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.48
+    ],
+    [
+     7.83,
+     14.1
+    ],
+    [
+     14.45,
+     25.55
+    ],
+    [
+     25.9,
+     39.21
+    ]
+   ]
+  }
+ },
+ "crash-explorer": {
+  "text": [
+   "Each slider buys crash weeks for one activity, in steps of one sixth of a week. The number in brackets is the cost per week.",
+   "The table shows the expected length of each path, with the longest highlighted, and the readout shows the project length and the total crash cost."
+  ],
+  "en": {
+   "audio": "narration/s08/crash-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     9.32
+    ],
+    [
+     9.67,
+     19.05
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity, the crash auction. Work in groups of four for thirty minutes.",
+   "Your goal is to reach nineteen expected weeks at the lowest crash cost. Plan on paper first, using the rules of thumb, then check your plan on the planner.",
+   "Look for crash weeks that bought nothing, and explain why.",
+   "Then consider site overhead of 0.3 million yuan per week saved: how far should CellCo crash? Each group posts its plan and cost before we reveal the optimum."
+  ],
+  "en": {
+   "audio": "narration/s08/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.75
+    ],
+    [
+     5.1,
+     16.17
+    ],
+    [
+     16.52,
+     20.24
+    ],
+    [
+     20.59,
+     32.7
+    ]
+   ]
+  }
+ },
+ "act1-answer": {
+  "text": [
+   "Here is the linear-programming optimum.",
+   "To reach nineteen weeks, crash B by 1.5 weeks and C by one sixth of a week, for 0.425 million yuan.",
+   "B goes first because both long paths share it and it is the cheapest critical activity. Crashing D buys nothing, because D is not critical.",
+   "With overhead of 0.3 million per week, crashing pays while its cost is below 0.3. B pays, C breaks even, and A does not, so CellCo should crash B fully."
+  ],
+  "en": {
+   "audio": "narration/s08/act1-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.81
+    ],
+    [
+     3.16,
+     12.95
+    ],
+    [
+     13.3,
+     23.2
+    ],
+    [
+     23.55,
+     37.74
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   "Let us summarize.",
+   "PERT turns three estimates into an expected duration and a variance. For CellCo, it gives a 77 percent chance of finishing in 22 weeks.",
+   "Simulation of all paths gives 71 percent and a mean of 21.1 weeks. Merging paths make PERT optimistic.",
+   "Crashing is a linear program. Finishing in nineteen expected weeks costs at least 0.425 million yuan.",
+   "In session nine, we see what happens when two activities need the same installation crew."
+  ],
+  "en": {
+   "audio": "narration/s08/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.7
+    ],
+    [
+     2.05,
+     14.19
+    ],
+    [
+     14.54,
+     24.74
+    ],
+    [
+     25.09,
+     33.66
+    ],
+    [
+     34.01,
+     39.92
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference."
+  ],
+  "en": {
+   "audio": "narration/s08/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   "For the exit ticket: would you promise the grid company twenty-two weeks? Answer in two sentences, citing one number from today."
+  ],
+  "en": {
+   "audio": "narration/s08/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     8.98
+    ]
+   ]
+  }
+ }
+}

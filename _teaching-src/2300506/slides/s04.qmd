@@ -1,0 +1,328 @@
+---
+title: "Markov chains from data"
+subtitle: "Session 4 of 18 · 120 minutes · Markov Analysis, part 1"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.6"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[5–30]{.t} **Concepts** [States, matrices, steady state]{.d}
+:::
+::: {.seg .act style="--w:2.5"}
+[30–55]{.t} **Activity 1** [Dice Markov chain]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[55–65]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2.5"}
+[65–90]{.t} **Concepts** [Estimating and testing]{.d}
+:::
+::: {.seg .act style="--w:1.5"}
+[90–105]{.t} **Activity 2** [Day or night?]{.d}
+:::
+::: {.seg .wrap style="--w:1.5"}
+[105–120]{.t} **Assignment** [Launch, wrap-up]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo's cell line is running, slow or down in every shift. How much of the time will it run, and is the night shift really worse?
+:::
+
+## A line that changes state {#states}
+
+::: {.two}
+::: {}
+Every shift, CellCo records the state of the cell line: **Running (R)**, **Slow (S)** or **Down (D)**.
+
+A **Markov chain** assumes the next state depends only on the current state, not on the history before it.
+
+The transition matrix *P* holds the probability of moving from each state (row) to each state (column). Each row sums to 1.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>From \ To</th><th class="num">R</th><th class="num">S</th><th class="num">D</th></tr></thead>
+  <tbody>
+    <tr><td>Running</td><td class="num">4/6</td><td class="num">1/6</td><td class="num">1/6</td></tr>
+    <tr><td>Slow</td><td class="num">3/6</td><td class="num">2/6</td><td class="num">1/6</td></tr>
+    <tr><td>Down</td><td class="num">3/6</td><td class="num">1/6</td><td class="num">2/6</td></tr>
+  </tbody>
+</table>
+```
+[The probabilities are sixths so that a die can play the line in Activity 1.]{.hint}
+:::
+:::
+
+## Where will the line be in *n* shifts? {#n-step}
+
+```{=html}
+<div class="formula"><p>π<sub><i>n</i></sub> = π<sub>0</sub> · <i>P</i><sup><i>n</i></sup> &nbsp;&nbsp;&nbsp; steady state: π = π<i>P</i>, Σ π<sub><i>i</i></sub> = 1</p></div>
+<table class="wide">
+  <thead><tr><th>Start in Down</th><th class="num">P(R)</th><th class="num">P(S)</th><th class="num">P(D)</th></tr></thead>
+  <tbody>
+    <tr><td>After 1 shift</td><td class="num">0.500</td><td class="num">0.167</td><td class="num">0.333</td></tr>
+    <tr><td>After 2 shifts</td><td class="num">0.583</td><td class="num">0.194</td><td class="num">0.222</td></tr>
+    <tr><td>After 4 shifts</td><td class="num">0.600</td><td class="num">0.200</td><td class="num">0.201</td></tr>
+    <tr><td>Steady state π</td><td class="num hit">0.600</td><td class="num">0.200</td><td class="num">0.200</td></tr>
+  </tbody>
+</table>
+```
+
+[After about four shifts the line forgets where it started. In the long run it runs 60% of shifts. If a slow shift makes half the cells, throughput is 0.6 + 0.5 × 0.2 = 70% of capacity.]{.note-line}
+
+## Watch the chain forget {#n-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="nx">
+  <div class="w-controls">
+    <span class="w-toggle" role="group" aria-label="Start state"><button type="button" data-st="0" aria-pressed="false">Start Running</button><button type="button" data-st="1" aria-pressed="false">Start Slow</button><button type="button" data-st="2" aria-pressed="true">Start Down</button></span>
+    <label class="w-slider">Shifts <i>n</i> <strong id="nx-nv">1</strong><input type="range" id="nx-n" min="0" max="10" step="1" value="1"></label>
+  </div>
+  <svg id="nx-svg" viewBox="0 0 1160 230" role="img" aria-label="Probability of each state after n shifts, compared with the steady state"></svg>
+  <div class="w-readout" id="nx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('nx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const P = [[4/6, 1/6, 1/6], [3/6, 2/6, 1/6], [3/6, 1/6, 2/6]], pi = [0.6, 0.2, 0.2];
+  const names = ['Running', 'Slow', 'Down'], cols = ['#0F6E6B', '#E29A2D', '#BE654C'];
+  let st = 2;
+  function draw() {
+    const n = +document.getElementById('nx-n').value; document.getElementById('nx-nv').textContent = n;
+    let v = [0, 0, 0]; v[st] = 1;
+    for (let k = 0; k < n; k++) v = [0, 1, 2].map((j) => v.reduce((s, x, i) => s + x * P[i][j], 0));
+    const L = 200, W = 1160, X = (p) => L + p * (W - L - 120);
+    let g = '';
+    for (const p of [0, 0.25, 0.5, 0.75, 1]) g += `<line x1="${X(p)}" x2="${X(p)}" y1="6" y2="200" stroke="#B9C1C6"/><text x="${X(p)}" y="222" text-anchor="middle" font-size="16" fill="#333F4A">${p}</text>`;
+    names.forEach((nm, i) => {
+      const y = 14 + i * 64;
+      g += `<text x="${L - 14}" y="${y + 30}" text-anchor="end" font-size="20" fill="#1C242B">${nm}</text>`;
+      g += `<rect x="${X(0)}" y="${y + 8}" width="${X(v[i]) - X(0)}" height="34" fill="${cols[i]}" opacity=".85"/>`;
+      g += `<line x1="${X(pi[i])}" x2="${X(pi[i])}" y1="${y}" y2="${y + 50}" stroke="#1C242B" stroke-width="2.5" stroke-dasharray="5 4"/>`;
+      g += `<text x="${X(v[i]) + 8}" y="${y + 31}" font-size="18" fill="#1C242B">${v[i].toFixed(3)}</text>`;
+    });
+    document.getElementById('nx-svg').innerHTML = g;
+    const gap = Math.max(...v.map((x, i) => Math.abs(x - pi[i])));
+    document.getElementById('nx-out').innerHTML = `After ${n} shift${n === 1 ? '' : 's'}: largest distance from the steady state (dashed lines) is <b>${gap.toFixed(3)}</b>.`;
+  }
+  root.querySelectorAll('[data-st]').forEach((b) => b.addEventListener('click', () => { st = +b.dataset.st; root.querySelectorAll('[data-st]').forEach((x) => x.setAttribute('aria-pressed', x === b)); draw(); }));
+  document.getElementById('nx-n').addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+## Two quick readings of π {#readings}
+
+::: {.takeaways}
+::: {.tk}
+**Mean recurrence time.** The line returns to Down every 1/π~D~ = 1/0.2 = **5 shifts** on average.
+:::
+::: {.tk}
+**Mean run length.** Once running, it stays running for 1/(1 − 4/6) = **3 shifts** on average.
+:::
+::: {.tk .key}
+**Capacity planning.** At 70% effective throughput, a line rated 2 GWh/yr delivers about 1.4 GWh/yr. This links directly to the demand numbers in Sessions 1 to 3.
+:::
+:::
+
+## Activity 1 · Dice Markov chain {#act1 .activity data-hold="true"}
+
+[Whole class, then pairs · 25 minutes · one die each]{.act-label}
+
+::: {.prompt}
+You are the cell line. Start in Running and roll your die ten times, writing down your state after each roll.
+:::
+
+1. From R: 1 to 4 → R, 5 → S, 6 → D. From S: 1 to 3 → R, 4 and 5 → S, 6 → D. From D: 1 to 3 → R, 4 → S, 5 and 6 → D.
+2. Count your transitions (R→R, R→S, ...) and add them to the table on the board.
+3. In pairs, estimate each transition probability from the class total. How close is it to the true sixths?
+4. What share of all recorded shifts was Running? Compare with 0.6.
+
+::: {.selfstudy}
+Studying alone: roll 30 times and estimate the Running row.
+:::
+
+## Estimating *P* from a log {#estimate}
+
+```{=html}
+<div class="formula"><p>p̂<sub><i>ij</i></sub> = <i>n</i><sub><i>ij</i></sub> / <i>n</i><sub><i>i</i></sub> &nbsp;&nbsp;&nbsp; SE = √( p̂<sub><i>ij</i></sub>(1 − p̂<sub><i>ij</i></sub>) / <i>n</i><sub><i>i</i></sub> ) &nbsp;&nbsp;&nbsp; 95% interval ≈ p̂ ± 1.96 SE</p></div>
+```
+
+::: {.two}
+::: {}
+Count the moves out of each state, then divide by the row total. This is the maximum-likelihood estimate.
+
+The day shift's log has 635 moves out of Running, 448 of them to Running: p̂~RR~ = 0.706, SE 0.018, so the 95% interval is **0.67 to 0.74**.
+:::
+::: {}
+::: {.route-question}
+A row with few visits has a wide interval. Down was visited only 189 times by day, so its row has an SE of about 0.035, twice that of the Running row.
+:::
+:::
+:::
+
+## How much data do you need? {#sample-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="sx">
+  <div class="w-controls">
+    <label class="w-slider">Shifts logged <strong id="sx-nv">300</strong><input type="range" id="sx-n" min="0" max="6" step="1" value="2"></label>
+    <button type="button" class="w-btn" id="sx-go">Draw a new log</button>
+  </div>
+  <table class="wide" id="sx-t"></table>
+  <div class="w-readout" id="sx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('sx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const P = [[4/6, 1/6, 1/6], [3/6, 2/6, 1/6], [3/6, 1/6, 2/6]], Ns = [30, 100, 300, 1000, 3000, 10000, 30000], nm = ['R', 'S', 'D'];
+  let seed = 3;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  function draw() {
+    const N = Ns[+document.getElementById('sx-n').value]; document.getElementById('sx-nv').textContent = N.toLocaleString('en-US');
+    const C = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]; let s = 0;
+    for (let k = 0; k < N; k++) { const u = rnd(); let t = 0, c = P[s][0]; while (u > c && t < 2) { t++; c += P[s][t]; } C[s][t]++; s = t; }
+    let rows = '', worst = 0;
+    C.forEach((r, i) => {
+      const n = r[0] + r[1] + r[2];
+      rows += `<tr><td>From ${nm[i]} (n = ${n})</td>` + r.map((x, j) => {
+        const p = n ? x / n : 0, h = n ? 1.96 * Math.sqrt(p * (1 - p) / n) : 1; worst = Math.max(worst, h);
+        return `<td class="num">${p.toFixed(3)} ± ${h.toFixed(3)}</td>`; }).join('') + `<td class="num">${P[i].map((x) => (x * 6).toFixed(0) + '/6').join(', ')}</td></tr>`;
+    });
+    document.getElementById('sx-t').innerHTML = '<thead><tr><th>Estimated row</th><th class="num">to R</th><th class="num">to S</th><th class="num">to D</th><th class="num">True</th></tr></thead><tbody>' + rows + '</tbody>';
+    document.getElementById('sx-out').innerHTML = `Widest 95% half-width: <b>±${worst.toFixed(3)}</b>. Ten times more data makes the interval about √10 ≈ 3.2 times narrower.`;
+  }
+  document.getElementById('sx-n').addEventListener('input', draw);
+  document.getElementById('sx-go').addEventListener('click', draw);
+  draw();
+})();
+</script>
+```
+
+## Is the night shift different? {#homogeneity}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>1,000 shifts each</th><th class="num">R→R</th><th class="num">R→S</th><th class="num">R→D</th><th class="num">S→R</th><th class="num">S→S</th><th class="num">S→D</th><th class="num">D→R</th><th class="num">D→S</th><th class="num">D→D</th></tr></thead>
+  <tbody>
+    <tr><td>Day</td><td class="num">448</td><td class="num">92</td><td class="num">95</td><td class="num">88</td><td class="num">60</td><td class="num">28</td><td class="num">99</td><td class="num">24</td><td class="num">66</td></tr>
+    <tr><td>Night</td><td class="num">315</td><td class="num">91</td><td class="num hit">122</td><td class="num">92</td><td class="num">73</td><td class="num">41</td><td class="num">121</td><td class="num">42</td><td class="num">103</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.two}
+::: {}
+For each row, a chi-square test compares day and night (2 × 3 table, 2 degrees of freedom). The three tests add up:
+
+χ² = 16.85 + 1.46 + 2.24 = **20.55**, df = 6, p = **0.002**.
+:::
+::: {}
+::: {.route-question}
+One matrix does not fit both shifts. The difference sits in the Running row: by night, a running line breaks down in 23% of shifts, against 15% by day.
+:::
+:::
+:::
+
+## Activity 2 · Day or night? {#act2 .activity data-hold="true"}
+
+[Pairs · 15 minutes · calculator]{.act-label}
+
+::: {.prompt}
+Use the day and night counts on the previous slide.
+:::
+
+1. Estimate p̂~RD~ for day and for night, with 95% intervals. Do the intervals overlap?
+2. If the night line behaved like the day line, how many more shifts per 1,000 would it run? Use the steady state of each matrix.
+3. Write one sentence for the plant manager: what should the night shift investigate first?
+
+[Night Running row: 315, 91, 122 out of 528. Day Running row: 448, 92, 95 out of 635.]{.hint}
+
+::: {.selfstudy}
+Studying alone: answer question 1, then check it on the next slide.
+:::
+
+## Activity 2 · Answer {#act2-answer}
+
+::: {.two}
+::: {}
+Day: p̂~RD~ = 95/635 = 0.150 ± 0.028. Night: 122/528 = 0.231 ± 0.036. The intervals do not overlap.
+
+Steady-state share of Running: day matrix **0.635**, night matrix **0.528**. Matching the day shift would add about **107 running shifts per 1,000**.
+:::
+::: {}
+::: {.route-question}
+Investigate why running night shifts break down: maintenance handover, staffing, or the start-up after a planned stop. The Slow and Down rows do not differ significantly.
+:::
+:::
+:::
+
+## Group assignment launch {#assignment}
+
+::: {.two}
+::: {}
+**Board memo for CellCo**, groups of 4 to 5, due **21 February 2027**:
+
+1. Decision analysis: payoff table, survey tree, Monte Carlo risk profile, recommendation.
+2. Markov analysis: transition matrix from your group's log, yield and scrap, one improvement.
+3. Network plan for the chosen option: critical path, on-time probability, crash decision.
+:::
+::: {}
+Report of at most 10 pages, an Excel workbook or Python notebook, and a 10-minute recorded presentation.
+
+Each group receives its own data file today. Each student also writes a 2-page research note applying one Block 1 method to their own research.
+:::
+:::
+
+[Rubric: model correctness 35%, recommendation 20%, framing 15%, uncertainty and sensitivity 15%, communication 15%.]{.note-line}
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+A Markov chain is a transition matrix. π~n~ = π~0~P^n^, and the steady state solves π = πP. CellCo's line runs 60% of shifts in the long run.
+:::
+::: {.tk}
+Estimate each row as counts divided by visits, and report its interval. Rarely visited states have the widest intervals.
+:::
+::: {.tk .key}
+Test whether one matrix fits all conditions before you use it. CellCo's night shift breaks down more often, χ² = 20.6 with p = 0.002.
+:::
+:::
+
+[Tomorrow, Session 5: absorbing chains for yield, rework and scrap on the cell line.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Markov chain | 马尔可夫链 | Maximum-likelihood estimate | 最大似然估计 |
+| State | 状态 | Standard error | 标准误差 |
+| Transition matrix | 转移矩阵 | Confidence interval | 置信区间 |
+| Transition probability | 转移概率 | Chi-square test | 卡方检验 |
+| n-step transition | n步转移 | Homogeneity | 同质性 |
+| Steady state (stationary distribution) | 稳态分布 | Mean recurrence time | 平均返回时间 |
+:::
+
+## Exit ticket · 3 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+In one sentence, explain to a production engineer why 200 logged shifts are not enough to estimate the Down row precisely.
+:::
+
+[Quiz 1 opens online this evening and covers Sessions 1 to 3.]{.hint}

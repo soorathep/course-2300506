@@ -1,0 +1,225 @@
+---
+title: "Project networks"
+subtitle: "Session 7 of 18 · 60 minutes · Network Model, part 1"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[5–25]{.t} **Concepts** [Networks and passes]{.d}
+:::
+::: {.seg .act style="--w:2"}
+[25–45]{.t} **Activity** [Card network]{.d}
+:::
+::: {.seg .concept style="--w:1"}
+[45–55]{.t} **Concepts** [Slack, critical path]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[55–60]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo will install a 10 MWh storage system at its plant. How long will the project take, and which activities can no one afford to delay?
+:::
+
+## The installation project {#project}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Activity</th><th>Description</th><th>Predecessors</th><th class="num">Duration, weeks</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>Site survey and permits</td><td>none</td><td class="num">3</td></tr>
+    <tr><td>B</td><td>Detailed design</td><td>A</td><td class="num">4</td></tr>
+    <tr><td>C</td><td>Procure battery containers</td><td>B</td><td class="num">8</td></tr>
+    <tr><td>D</td><td>Civil works and foundations</td><td>A</td><td class="num">5</td></tr>
+    <tr><td>E</td><td>Procure power conversion system and transformer</td><td>B</td><td class="num">7</td></tr>
+    <tr><td>F</td><td>Install containers</td><td>C, D</td><td class="num">2</td></tr>
+    <tr><td>G</td><td>Install power conversion and grid connection</td><td>D, E</td><td class="num">3</td></tr>
+    <tr><td>H</td><td>Commissioning and testing</td><td>F, G</td><td class="num">2</td></tr>
+  </tbody>
+</table>
+```
+
+[Durations are the most likely values. In Session 8 we add their uncertainty.]{.note-line}
+
+## Activity on node {#aon}
+
+```{=html}
+<figure class="widget"><svg id="aon-svg" viewBox="0 0 1160 380" role="img" aria-label="Activity-on-node network: A leads to B and D; B leads to C and E; C and D lead to F; D and E lead to G; F and G lead to H."></svg></figure>
+<script>
+window.cellcoCPM = (function () {
+  const acts = { A: [3, []], B: [4, ['A']], C: [8, ['B']], D: [5, ['A']], E: [7, ['B']], F: [2, ['C', 'D']], G: [3, ['D', 'E']], H: [2, ['F', 'G']] };
+  const pos = { A: [90, 190], B: [300, 100], D: [300, 290], C: [530, 50], E: [530, 190], F: [770, 100], G: [770, 290], H: [1000, 190] };
+  const names = { A: 'Survey, permits', B: 'Design', C: 'Containers', D: 'Civil works', E: 'PCS, transformer', F: 'Install containers', G: 'Install PCS, grid', H: 'Commission' };
+  function compute(dur) {
+    const K = Object.keys(acts), ES = {}, EF = {}, LS = {}, LF = {};
+    K.forEach((k) => { ES[k] = Math.max(0, ...acts[k][1].map((p) => EF[p])); EF[k] = ES[k] + dur[k]; });
+    const T = Math.max(...K.map((k) => EF[k]));
+    [...K].reverse().forEach((k) => { const succ = K.filter((s) => acts[s][1].includes(k)); LF[k] = succ.length ? Math.min(...succ.map((s) => LS[s])) : T; LS[k] = LF[k] - dur[k]; });
+    return { K, ES, EF, LS, LF, T };
+  }
+  function draw(svg, dur, hl) {
+    const r = compute(dur), crit = (k) => Math.abs(r.LS[k] - r.ES[k]) < 1e-9;
+    let g = '<defs><marker id="ar-' + svg.id + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333F4A"/></marker></defs>';
+    r.K.forEach((k) => acts[k][1].forEach((p) => {
+      const [x1, y1] = pos[p], [x2, y2] = pos[k], c = crit(k) && crit(p) && Math.abs(r.EF[p] - r.ES[k]) < 1e-9;
+      g += `<line x1="${x1 + 70}" y1="${y1}" x2="${x2 - 74}" y2="${y2}" stroke="${c ? '#E29A2D' : '#333F4A'}" stroke-width="${c ? 4 : 2}" marker-end="url(#ar-${svg.id})"/>`;
+    }));
+    r.K.forEach((k) => {
+      const [x, y] = pos[k], c = crit(k);
+      g += `<rect x="${x - 70}" y="${y - 36}" width="140" height="72" rx="6" fill="${c ? '#FBF0DE' : '#F3F0EB'}" stroke="${c ? '#E29A2D' : '#0F6E6B'}" stroke-width="${k === hl ? 4 : 2}"/>`;
+      g += `<text x="${x}" y="${y - 12}" text-anchor="middle" font-size="20" font-weight="700" fill="#1C242B">${k} · ${+dur[k].toFixed(2)} wk</text>`;
+      g += `<text x="${x}" y="${y + 10}" text-anchor="middle" font-size="14" fill="#333F4A">${names[k]}</text>`;
+      g += `<text x="${x}" y="${y + 29}" text-anchor="middle" font-size="14" fill="#66727C">ES ${+r.ES[k].toFixed(2)} · LS ${+r.LS[k].toFixed(2)}</text>`;
+    });
+    svg.innerHTML = g; return r;
+  }
+  const base = Object.fromEntries(Object.entries(acts).map(([k, v]) => [k, v[0]]));
+  return { compute, draw, base, names };
+})();
+cellcoCPM.draw(document.getElementById('aon-svg'), cellcoCPM.base);
+</script>
+```
+
+[Each box is an activity, each arrow a precedence. Boxes and arrows in amber lie on a critical path.]{.note-line}
+
+## Forward and backward pass {#passes}
+
+::: {.two}
+::: {}
+**Forward pass** (earliest times): ES = largest EF of the predecessors, EF = ES + duration.
+
+**Backward pass** (latest times): LF = smallest LS of the successors, LS = LF − duration.
+
+**Total slack** = LS − ES. Activities with zero slack are **critical**: any delay delays the project.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Act.</th><th class="num">ES</th><th class="num">EF</th><th class="num">LS</th><th class="num">LF</th><th class="num">Slack</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td class="num">0</td><td class="num">3</td><td class="num">0</td><td class="num">3</td><td class="num">0</td></tr>
+    <tr><td>B</td><td class="num">3</td><td class="num">7</td><td class="num">3</td><td class="num">7</td><td class="num">0</td></tr>
+    <tr><td>C</td><td class="num">7</td><td class="num">15</td><td class="num">7</td><td class="num">15</td><td class="num">0</td></tr>
+    <tr><td>D</td><td class="num">3</td><td class="num">8</td><td class="num">9</td><td class="num">14</td><td class="num hit">6</td></tr>
+    <tr><td>E</td><td class="num">7</td><td class="num">14</td><td class="num">7</td><td class="num">14</td><td class="num">0</td></tr>
+    <tr><td>F</td><td class="num">15</td><td class="num">17</td><td class="num">15</td><td class="num">17</td><td class="num">0</td></tr>
+    <tr><td>G</td><td class="num">14</td><td class="num">17</td><td class="num">14</td><td class="num">17</td><td class="num">0</td></tr>
+    <tr><td>H</td><td class="num">17</td><td class="num">19</td><td class="num">17</td><td class="num">19</td><td class="num">0</td></tr>
+  </tbody>
+</table>
+```
+:::
+:::
+
+## Activity · Card network {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 20 minutes · activity cards and a large sheet]{.act-label}
+
+::: {.prompt}
+Your group receives the eight activity cards in random order. Build the network on the sheet, then run the passes by hand.
+:::
+
+1. Place the cards so that every arrow points from a predecessor to its successor.
+2. Write ES and EF on each card (forward pass), then LS and LF (backward pass).
+3. How long does the project take? Which activities are critical? Which one can slip, and by how much?
+4. Gallery walk: check another group's network and correct one error if you find it.
+
+::: {.selfstudy}
+Studying alone: do the two passes on paper with the table on the project slide, then compare.
+:::
+
+## Activity · Answer {#act1-answer}
+
+::: {.two}
+::: {}
+The project takes **19 weeks**.
+
+There are **two critical paths**, both 19 weeks long: A-B-C-F-H and A-B-E-G-H.
+
+Only D, civil works, has slack: it can start up to **6 weeks late** without delaying the project.
+:::
+::: {}
+::: {.route-question}
+Two critical paths make the plan fragile: a delay on either the containers (C) or the power conversion system (E) delays commissioning. Shortening only one of them gains nothing.
+:::
+:::
+:::
+
+## Change a duration {#cpm-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="cx">
+  <div class="w-controls">
+    <label class="w-slider">Activity <select id="cx-a" style="font-size:1em"></select></label>
+    <label class="w-slider">Duration, weeks <strong id="cx-dv">8</strong><input type="range" id="cx-d" min="0" max="14" step="1" value="8"></label>
+    <button type="button" class="w-btn" id="cx-reset">Reset all</button>
+  </div>
+  <svg id="cx-svg" viewBox="0 0 1160 380" role="img" aria-label="Project network recomputed with the chosen duration"></svg>
+  <div class="w-readout" id="cx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('cx'); if (!root || !window.cellcoCPM) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const C = window.cellcoCPM, dur = { ...C.base }, sel = document.getElementById('cx-a'), sl = document.getElementById('cx-d');
+  sel.innerHTML = Object.keys(dur).map((k) => `<option value="${k}">${k} · ${C.names[k]}</option>`).join(''); sel.value = 'C';
+  function draw() {
+    const k = sel.value; dur[k] = +sl.value; document.getElementById('cx-dv').textContent = sl.value;
+    const r = C.draw(document.getElementById('cx-svg'), dur, k);
+    const crit = r.K.filter((a) => Math.abs(r.LS[a] - r.ES[a]) < 1e-9);
+    document.getElementById('cx-out').innerHTML = `Project duration: <span class="best">${r.T} weeks</span> (base 19). Critical activities: <b>${crit.join(', ')}</b>. Slack of ${k}: <b>${+(r.LS[k] - r.ES[k]).toFixed(2)} weeks</b>.`;
+  }
+  sel.addEventListener('change', () => { sl.value = dur[sel.value]; draw(); });
+  sl.addEventListener('input', draw);
+  document.getElementById('cx-reset').addEventListener('click', () => { Object.assign(dur, C.base); sl.value = dur[sel.value]; draw(); });
+  draw();
+})();
+</script>
+```
+
+[Try shortening C from 8 to 6 weeks: the project is still 19 weeks, because A-B-E-G-H stays critical.]{.hint}
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+An activity-on-node network shows precedence. The forward pass gives the earliest times, the backward pass the latest.
+:::
+::: {.tk}
+CellCo's installation takes 19 weeks, with two critical paths. Only civil works has slack, 6 weeks.
+:::
+::: {.tk .key}
+With parallel critical paths, shortening one activity alone does not shorten the project.
+:::
+:::
+
+[After lunch, Session 8: uncertain durations, the chance of finishing on time, and paying to finish earlier.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Activity on node (AON) | 节点式网络图（单代号网络图） | Latest start (LS) | 最迟开始时间 |
+| Precedence | 紧前关系 | Total slack (float) | 总时差 |
+| Critical path method (CPM) | 关键路径法 | Critical path | 关键路径 |
+| Earliest start (ES) | 最早开始时间 | Forward and backward pass | 正向与逆向计算 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+The civil works team asks to start 4 weeks late. Can the plant manager agree without delaying commissioning? Give the number that decides it.
+:::

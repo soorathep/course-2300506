@@ -1,0 +1,276 @@
+---
+title: "Solver and sensitivity"
+subtitle: "Session 12 of 18 · 120 minutes · Linear Programming, part 2"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[5–25]{.t} **Concepts** [Simplex, Solver]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[25–45]{.t} **Concepts** [Sensitivity report]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[45–55]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[55–70]{.t} **Concepts** [Ranges]{.d}
+:::
+::: {.seg .act style="--w:2.5"}
+[70–95]{.t} **Activity** [What-if hotline]{.d}
+:::
+::: {.seg .act style="--w:2"}
+[95–115]{.t} **Workshop** [W5]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[115–120]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: the plant manager will call with what-if questions. How many can you answer from one Solver report, without solving again?
+:::
+
+## Simplex: walking along corners {#simplex}
+
+::: {.two}
+::: {}
+```{=html}
+<svg viewBox="0 0 520 330" role="img" aria-label="Simplex path on the CellCo feasible region: from the origin to (0, 60) to (30, 60)">
+  <defs><marker id="sx-a" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E29A2D"/></marker></defs>
+  <g font-family="Source Sans 3, sans-serif" font-size="18">
+    <polygon points="60,310 60,70 180,70 396,214 460,310" fill="#DFC98F" opacity="0.55"/>
+    <line x1="60" y1="310" x2="500" y2="310" stroke="#333F4A"/><line x1="60" y1="310" x2="60" y2="20" stroke="#333F4A"/>
+    <g stroke="#E29A2D" stroke-width="4" fill="none" marker-end="url(#sx-a)"><path d="M60,302 L60,84"/><path d="M68,70 L166,70"/></g>
+    <circle cx="60" cy="310" r="7" fill="#0F6E6B"/><circle cx="60" cy="70" r="7" fill="#0F6E6B"/><circle cx="180" cy="70" r="9" fill="#E29A2D" stroke="#1C242B"/>
+    <text x="74" y="298" fill="#1C242B">(0, 0): 0</text><text x="72" y="54" fill="#1C242B">(0, 60): 2,880</text><text x="196" y="100" fill="#1C242B" font-weight="700">(30, 60): 3,780</text>
+    <text x="496" y="300" text-anchor="end" fill="#333F4A">E</text><text x="44" y="30" fill="#333F4A">P</text>
+  </g>
+</svg>
+```
+:::
+::: {}
+The simplex method starts at a corner and moves along an edge to a better neighbor until no neighbor is better.
+
+1. Start at (0, 0). P has the larger margin, so increase P until power-cell demand stops it at 60.
+2. At (0, 60), increasing E still pays. Coating stops it at E = 30.
+3. At (30, 60), no edge improves contribution: optimal after **two steps**.
+:::
+:::
+
+[Real LPs have thousands of corners; simplex visits only a few. Interior-point methods, used by large solvers, cut through the middle instead.]{.note-line}
+
+## Setting up Solver {#solver}
+
+::: {.two}
+::: {}
+**Layout in Excel.** Decision cells for E and P; objective =SUMPRODUCT(margins, decisions); one row per constraint with hours used next to hours available.
+
+**Solver dialog.** Maximize the objective by changing the decision cells, subject to used ≤ available, with variables non-negative. Method: Simplex LP. Ask for the **Sensitivity** report.
+:::
+::: {}
+::: {.route-question}
+Keep data, formulas and decisions in separate cells. A model with numbers typed inside formulas cannot be audited or re-run with new data.
+:::
+[WPS Office has a compatible solver if Excel is not available. Python users can reproduce the model in PuLP.]{.hint}
+:::
+:::
+
+## The sensitivity report {#report}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Variable cells</th><th class="num">Final value</th><th class="num">Reduced cost</th><th class="num">Objective coefficient</th><th class="num">Allowable increase</th><th class="num">Allowable decrease</th></tr></thead>
+  <tbody>
+    <tr><td>E, MWh</td><td class="num">30</td><td class="num">0</td><td class="num">30</td><td class="num">2</td><td class="num">30</td></tr>
+    <tr><td>P, MWh</td><td class="num">60</td><td class="num">0</td><td class="num">48</td><td class="num">1E+30</td><td class="num">3</td></tr>
+  </tbody>
+</table>
+<table class="wide">
+  <thead><tr><th>Constraints</th><th class="num">Final value</th><th class="num">Shadow price</th><th class="num">Right-hand side</th><th class="num">Allowable increase</th><th class="num">Allowable decrease</th></tr></thead>
+  <tbody>
+    <tr><td>Coating hours</td><td class="num">240</td><td class="num hit">15</td><td class="num">240</td><td class="num">60</td><td class="num">60</td></tr>
+    <tr><td>Formation hours</td><td class="num">105</td><td class="num">0</td><td class="num">150</td><td class="num">1E+30</td><td class="num">45</td></tr>
+    <tr><td>P demand, MWh</td><td class="num">60</td><td class="num">3</td><td class="num">60</td><td class="num">20</td><td class="num">36</td></tr>
+  </tbody>
+</table>
+```
+
+[Contribution in CNY thousand. 1E+30 is Excel's way of writing "no limit". The shadow prices are the dual solution from Session 11.]{.note-line}
+
+## How to read each line {#reading}
+
+::: {.two}
+::: {}
+**Shadow price.** Change in the optimal objective per unit increase in a right-hand side, **holding all other data fixed**.
+
+**Allowable increase and decrease** of a right-hand side: the range over which the shadow price stays valid. Coating: 180 to 300 hours.
+:::
+::: {}
+**Reduced cost** of a variable: how much its margin must improve before it enters the plan. Zero for products already made.
+
+**Allowable range of a coefficient**: the margins over which the current plan stays optimal. E: 0 to 32. P: 45 or more.
+:::
+:::
+
+::: {.bridge}
+Inside a range, the plan's mix of binding constraints stays the same, so the answer moves in a straight line. At the edge, a new constraint binds and the price changes.
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: what happens to the coating shadow price beyond 300 hours?
+:::
+
+## Where shadow prices come from {#price-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="spx">
+  <div class="w-controls"><span class="w-toggle" role="group" aria-label="Resource">
+    <button type="button" data-r="0" aria-pressed="true">Coating hours</button><button type="button" data-r="1" aria-pressed="false">Formation hours</button><button type="button" data-r="2" aria-pressed="false">P demand</button></span>
+    <label class="w-slider">Level <strong id="spx-v">240</strong><input type="range" id="spx-s" min="100" max="360" step="5" value="240"></label></div>
+  <svg id="spx-svg" viewBox="0 0 1160 280" role="img" aria-label="Optimal contribution as a function of the chosen resource"></svg>
+  <div class="w-readout" id="spx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('spx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  function lp(rhs) {
+    const L = [[2, 3, rhs[0]], [1.5, 1, rhs[1]], [0, 1, rhs[2]], [-1, 0, 0], [0, -1, 0]]; let best = null, bz = -1;
+    for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) {
+      const [a1, b1, c1] = L[i], [a2, b2, c2] = L[j], det = a1 * b2 - a2 * b1; if (Math.abs(det) < 1e-9) continue;
+      const x = (c1 * b2 - c2 * b1) / det, y = (a1 * c2 - a2 * c1) / det;
+      if (L.every(([a, b, c]) => a * x + b * y <= c + 1e-7)) { const z = 30 * x + 48 * y; if (z > bz + 1e-9) { bz = z; best = [x, y]; } }
+    }
+    return { z: bz, x: best };
+  }
+  const R = [{ n: 'coating hours', min: 100, max: 360, base: 240, u: 'hour' }, { n: 'formation hours', min: 60, max: 200, base: 150, u: 'hour' }, { n: 'P demand', min: 0, max: 100, base: 60, u: 'MWh' }];
+  let r = 0;
+  const s = document.getElementById('spx-s');
+  function draw() {
+    const cfg = R[r], v = +s.value; document.getElementById('spx-v').textContent = v;
+    const at = (lev) => { const rhs = [240, 150, 60]; rhs[r] = lev; return lp(rhs); };
+    const W = 1160, H = 280, L = 80, Rm = 30, T = 14, B = 44, X = (q) => L + (q - cfg.min) / (cfg.max - cfg.min) * (W - L - Rm), Y = (z) => T + (1 - (z - 1500) / 3500) * (H - T - B);
+    let g = '';
+    for (let z = 2000; z <= 5000; z += 1000) g += `<line x1="${L}" x2="${W - Rm}" y1="${Y(z)}" y2="${Y(z)}" stroke="#B9C1C6"/><text x="${L - 10}" y="${Y(z) + 6}" text-anchor="end" font-size="16" fill="#333F4A">${z.toLocaleString('en-US')}</text>`;
+    const step = [20, 20, 10][r]; for (let q = cfg.min; q <= cfg.max + 1e-9; q += step) g += `<text x="${X(q)}" y="${H - 16}" text-anchor="middle" font-size="16" fill="#333F4A">${Math.round(q)}</text>`;
+    let d = ''; for (let k = 0; k <= 200; k++) { const q = cfg.min + k * (cfg.max - cfg.min) / 200, z = at(q).z; d += (k ? 'L' : 'M') + X(q).toFixed(1) + ',' + Y(Math.max(z, 1500)).toFixed(1); }
+    g += `<path d="${d}" fill="none" stroke="#0F6E6B" stroke-width="3.5"/>`;
+    const z0 = at(v), zp = at(v + 0.5), zm = at(v - 0.5), slope = (zp.z - zm.z) / 1;
+    g += `<line x1="${X(cfg.base)}" x2="${X(cfg.base)}" y1="${T}" y2="${H - B}" stroke="#B9C1C6" stroke-dasharray="5 4"/><circle cx="${X(v)}" cy="${Y(z0.z)}" r="8" fill="#E29A2D" stroke="#1C242B"/>`;
+    g += `<text x="${L + 8}" y="${T + 18}" font-size="16" fill="#333F4A">Optimal weekly contribution, CNY thousand</text>`;
+    document.getElementById('spx-svg').innerHTML = g;
+    document.getElementById('spx-out').innerHTML = `At ${v} ${cfg.n}: plan E = ${z0.x[0].toFixed(1)}, P = ${z0.x[1].toFixed(1)} MWh, contribution ${z0.z.toFixed(0)}. Slope here = shadow price = <span class="best">${slope.toFixed(1)}</span> per ${cfg.u}.`;
+  }
+  root.querySelectorAll('[data-r]').forEach((b) => b.addEventListener('click', () => {
+    root.querySelectorAll('[data-r]').forEach((x) => x.setAttribute('aria-pressed', x === b)); r = +b.dataset.r;
+    s.min = R[r].min; s.max = R[r].max; s.value = R[r].base; draw(); }));
+  s.addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+[Each straight piece is one allowable range. The slope of the piece is the shadow price; where the slope changes, a different constraint has started to bind.]{.hint}
+
+## Activity · What-if hotline {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 25 minutes · answers with the report line used]{.act-label}
+
+::: {.prompt}
+The plant manager calls with five questions. Answer each from the sensitivity report alone, naming the line you used. Then re-solve to check.
+:::
+
+1. Coating overtime costs CNY 10,000 per extra hour. How many hours should we buy, and what do we gain each week?
+2. A neighbor wants to rent 20 of our coating hours. What is our minimum price?
+3. A formation chamber fails and we lose 30 formation hours this week. What happens?
+4. Power-cell orders rise by 10 MWh. What happens to contribution?
+5. Lithium prices cut the margin of E from 30 to 25. Should the plan change?
+
+::: {.selfstudy}
+Studying alone: write all five answers before you go on.
+:::
+
+## Activity · Answer {#act1-answer}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Question</th><th>Report line</th><th>Answer</th></tr></thead>
+  <tbody>
+    <tr><td>1 · Overtime at 10</td><td>Coating: price 15, increase 60</td><td>Buy 60 hours; gain (15 − 10) × 60 = <b>CNY 300,000</b> a week</td></tr>
+    <tr><td>2 · Rent 20 hours</td><td>Coating: price 15, decrease 60</td><td>At least <b>CNY 15,000 per hour</b>, CNY 300,000 in total</td></tr>
+    <tr><td>3 · Lose 30 formation hours</td><td>Formation: slack 45, price 0</td><td>No change to plan or contribution</td></tr>
+    <tr><td>4 · P orders +10</td><td>P demand: price 3, increase 20</td><td>Contribution rises by <b>CNY 30,000</b>; E falls to 15 to free coating</td></tr>
+    <tr><td>5 · Margin of E to 25</td><td>E: decrease 30</td><td>Plan stays; contribution falls by 5 × 30 = CNY 150,000</td></tr>
+  </tbody>
+</table>
+```
+
+[A shadow price answers one change at a time. For several simultaneous changes, re-solve.]{.note-line}
+
+## Workshop W5 · 20 minutes now, finish tonight {#w5}
+
+::: {.two}
+::: {}
+**Task**
+
+1. Build the product-mix model in Solver from the template.
+2. Produce the sensitivity report.
+3. Write the dual and check that its prices match the shadow prices.
+4. Answer five pricing questions on overtime, new orders and demand changes.
+:::
+::: {}
+**Hand in**
+
+The Solver model, the dual, and the annotated sensitivity report.
+
+::: {.route-question}
+Quiz 3, on today's material, runs online this evening.
+:::
+:::
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+Simplex walks from corner to better corner. Solver's sensitivity report comes free with the solution.
+:::
+::: {.tk}
+A shadow price holds only inside its range: CNY 15,000 per coating hour from 180 to 300 hours, then zero.
+:::
+::: {.tk .key}
+Most what-if questions are answered by one report line, if the change is single and inside the range.
+:::
+:::
+
+[Session 13: transportation, blending, multi-period planning, and integer decisions.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Simplex method | 单纯形法 | Reduced cost | 检验数（约简成本） |
+| Sensitivity analysis | 灵敏度分析 | Allowable range | 允许变化范围 |
+| Right-hand side | 右端项 | Solver | 规划求解 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Why is the coating shadow price zero above 300 hours? Answer in one sentence.
+:::

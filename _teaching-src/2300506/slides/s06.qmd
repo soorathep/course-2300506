@@ -1,0 +1,220 @@
+---
+title: "Maintenance as a Markov decision process"
+subtitle: "Session 6 of 18 · 60 minutes · Markov Analysis, part 3"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[5–25]{.t} **Concepts** [States, actions, policies]{.d}
+:::
+::: {.seg .act style="--w:2"}
+[25–45]{.t} **Activity** [Beat the optimizer]{.d}
+:::
+::: {.seg .concept style="--w:1"}
+[45–55]{.t} **Concepts** [Policy iteration]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[55–60]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CellCo's coating machine wears out. When should it be maintained, and what does the right policy save?
+:::
+
+## From a chain to a decision {#mdp}
+
+::: {.two}
+::: {}
+A **Markov decision process** adds choices to a Markov chain. In each state the planner picks an **action**, which sets both the cost and the transition probabilities.
+
+A **policy** names one action for every state. Each policy is an ordinary Markov chain, so its steady state gives its long-run cost per shift.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>State</th><th>If continued: next state (G, Mi, Ma, F)</th><th class="num">Cost, CNY</th></tr></thead>
+  <tbody>
+    <tr><td>Good (G)</td><td>0.80, 0.15, 0.04, 0.01</td><td class="num">0</td></tr>
+    <tr><td>Minor wear (Mi)</td><td>0, 0.85, 0.12, 0.03</td><td class="num">500</td></tr>
+    <tr><td>Major wear (Ma)</td><td>0, 0, 0.60, 0.40</td><td class="num">3,000</td></tr>
+    <tr><td>Failed (F)</td><td>repair to Good</td><td class="num">20,000</td></tr>
+  </tbody>
+</table>
+```
+[In Minor or Major wear, preventive maintenance (PM) restores Good before the next shift for CNY 6,000.]{.hint}
+:::
+:::
+
+## Four policies, four costs {#policies}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Policy (action in Minor, in Major)</th><th class="num">Steady state G, Mi, Ma, F</th><th class="num">Cost per shift, CNY</th></tr></thead>
+  <tbody>
+    <tr><td>Run to failure (continue, continue)</td><td class="num">0.385, 0.385, 0.154, 0.077</td><td class="num">2,192</td></tr>
+    <tr><td>PM in Minor only (PM, continue)</td><td class="num">0.769, 0.115, 0.077, 0.038</td><td class="num">1,692</td></tr>
+    <tr><td>PM at any wear (PM, PM)</td><td class="num">0.833, 0.125, 0.033, 0.008</td><td class="num">1,117</td></tr>
+    <tr><td>PM in Major only (continue, PM)</td><td class="num">0.455, 0.455, 0.073, 0.018</td><td class="num hit">1,027</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+Cost per shift = Σ π~i~ × cost of the chosen action in state i. Maintaining only at major wear is cheapest, **53% below** running to failure, and 8% below maintaining at any sign of wear.
+:::
+
+## Activity · Beat the optimizer {#act1 .activity data-hold="true"}
+
+[Groups of 4 · 20 minutes · the widget on the next slide]{.act-label}
+
+::: {.prompt}
+Before any calculation, each group writes down the maintenance policy it believes is best, and why.
+:::
+
+1. Enter your policy on the next slide and read its cost. Was your intuition right?
+2. Move the PM cost. At what price does "PM at any wear" become the best policy? At what price is it best never to do PM?
+3. Write one sentence for the maintenance manager: which number should they track to know when the policy must change?
+
+::: {.selfstudy}
+Studying alone: write your intuitive policy before you open the next slide.
+:::
+
+## Try a policy {#mdp-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="mdx">
+  <div class="w-controls">
+    <span>In Minor wear:</span><span class="w-toggle" data-s="1"><button type="button" data-a="C" aria-pressed="true">Continue</button><button type="button" data-a="PM" aria-pressed="false">PM</button></span>
+    <span>In Major wear:</span><span class="w-toggle" data-s="2"><button type="button" data-a="C" aria-pressed="true">Continue</button><button type="button" data-a="PM" aria-pressed="false">PM</button></span>
+    <label class="w-slider">PM cost, CNY <strong id="mdx-pm-v">6,000</strong><input type="range" id="mdx-pm" min="1000" max="30000" step="500" value="6000"></label>
+  </div>
+  <table class="wide" id="mdx-t"></table>
+  <div class="w-readout" id="mdx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('mdx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const PC = [[0.80, 0.15, 0.04, 0.01], [0, 0.85, 0.12, 0.03], [0, 0, 0.60, 0.40], [1, 0, 0, 0]], CC = [0, 500, 3000, 20000];
+  const pol = ['C', 'C', 'C', 'C'];
+  function steady(P) {
+    // power iteration on the chain
+    let v = [0.25, 0.25, 0.25, 0.25];
+    for (let k = 0; k < 2000; k++) v = [0, 1, 2, 3].map((j) => v.reduce((s, x, i) => s + x * P[i][j], 0));
+    return v;
+  }
+  function cost(a1, a2, pm) {
+    const acts = ['C', a1, a2, 'C'];
+    const P = PC.map((r, i) => (acts[i] === 'PM' ? [1, 0, 0, 0] : r)), c = CC.map((x, i) => (acts[i] === 'PM' ? pm : x));
+    const pi = steady(P); return [pi, pi.reduce((s, x, i) => s + x * c[i], 0)];
+  }
+  const fmt = (x) => Math.round(x).toLocaleString('en-US');
+  function draw() {
+    const pm = +document.getElementById('mdx-pm').value; document.getElementById('mdx-pm-v').textContent = fmt(pm);
+    const all = [['C', 'C', 'Run to failure'], ['PM', 'C', 'PM in Minor only'], ['PM', 'PM', 'PM at any wear'], ['C', 'PM', 'PM in Major only']].map(([a, b, n]) => [a, b, n, ...cost(a, b, pm)]);
+    const best = all.reduce((m, x) => (x[4] < m[4] ? x : m));
+    const mine = all.find((x) => x[0] === pol[1] && x[1] === pol[2]);
+    document.getElementById('mdx-t').innerHTML = '<thead><tr><th>Policy</th><th class="num">Steady state G, Mi, Ma, F</th><th class="num">Cost per shift, CNY</th></tr></thead><tbody>' +
+      all.map((x) => `<tr><td>${x[2]}${x === mine ? ' (yours)' : ''}</td><td class="num">${x[3].map((p) => p.toFixed(3)).join(', ')}</td><td class="num${x === best ? ' hit' : ''}">${fmt(x[4])}</td></tr>`).join('') + '</tbody>';
+    document.getElementById('mdx-out').innerHTML = `Your policy costs <b>CNY ${fmt(mine[4])}</b> per shift. Best at this PM cost: <span class="best">${best[2]}, CNY ${fmt(best[4])}</span>` +
+      (mine === best ? '. You found it.' : `, which saves CNY ${fmt(mine[4] - best[4])} per shift.`);
+  }
+  root.querySelectorAll('.w-toggle[data-s]').forEach((g) => g.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+    pol[+g.dataset.s] = b.dataset.a; g.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); draw(); })));
+  document.getElementById('mdx-pm').addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+## Activity · Answer {#act1-answer}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>PM cost, CNY</th><th>Best policy</th></tr></thead>
+  <tbody>
+    <tr><td>below 4,960</td><td>PM at any wear</td></tr>
+    <tr><td>4,960 to 22,020</td><td class="hit">PM in Major only</td></tr>
+    <tr><td>above 22,020</td><td>Run to failure</td></tr>
+  </tbody>
+</table>
+```
+:::
+::: {}
+At today's CNY 6,000, PM in Major only is best, but the margin over PM at any wear is only CNY 90 per shift.
+
+The number to track is the PM cost relative to the cost of a failure. If a PM contract falls below about CNY 5,000, the policy should change.
+:::
+:::
+
+## Policy iteration {#policy-iteration}
+
+::: {.two}
+::: {}
+1. **Evaluate** the current policy: solve g + h~i~ = c~i~ + Σ~j~ p~ij~ h~j~ with h~G~ = 0. Here g is the cost per shift and h~i~ the extra cost of starting in state i.
+2. **Improve**: in each state, pick the action with the smallest c + Σ p h.
+3. Repeat until no action changes.
+:::
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Iteration</th><th>Policy (Minor, Major)</th><th class="num">g, CNY/shift</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>continue, continue</td><td class="num">2,192</td></tr>
+    <tr><td>1</td><td>PM, PM</td><td class="num">1,117</td></tr>
+    <tr><td>2</td><td>continue, PM</td><td class="num hit">1,027</td></tr>
+    <tr><td>3</td><td>no change: optimal</td><td class="num">1,027</td></tr>
+  </tbody>
+</table>
+```
+:::
+:::
+
+[With four policies we can list them all. A real plant with ten wear levels and three actions has 3^10^ = 59,049 policies; policy iteration still finds the best in a few steps.]{.note-line}
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+An MDP is a Markov chain whose transitions and costs depend on the action chosen in each state. Every policy has a steady state and a cost per shift.
+:::
+::: {.tk}
+For CellCo's coating machine, PM only at major wear costs CNY 1,027 per shift, 53% less than running to failure.
+:::
+::: {.tk .key}
+The best policy depends on prices. Below a PM cost of about CNY 5,000, maintaining at any wear becomes best.
+:::
+:::
+
+[Next, Session 7: project networks for installing CellCo's storage system.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Markov decision process (MDP) | 马尔可夫决策过程 | Policy iteration | 策略迭代 |
+| Action | 行动（决策） | Average cost per period | 单位时间平均成本 |
+| Policy | 策略 | Preventive maintenance | 预防性维护 |
+| Value function | 价值函数 | Run to failure | 故障后维修 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+A new sensor detects minor wear one shift earlier. In one sentence, say how you would decide whether it is worth buying.
+:::

@@ -1,0 +1,223 @@
+---
+title: "Limited resources and other networks"
+subtitle: "Session 9 of 18 · 60 minutes · Network Model, part 3"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[5–20]{.t} **Concepts** [One crew, two jobs]{.d}
+:::
+::: {.seg .act style="--w:2"}
+[20–40]{.t} **Activity** [Sequence the crew]{.d}
+:::
+::: {.seg .concept style="--w:1.5"}
+[40–55]{.t} **Concepts** [Shortest path, maximal flow]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[55–60]{.t} **Wrap** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: CPM assumes unlimited crews. What happens to CellCo's 20.67-week plan when one installation crew must do both F and G?
+:::
+
+## When resources are limited {#resources}
+
+::: {.two}
+::: {}
+F (install containers, 2.0 weeks) and G (install power conversion, 3.17 weeks) both need CellCo's only specialist installation crew.
+
+In the CPM schedule they overlap: G runs from week 14.83 to 18.00, F from 16.50 to 18.50. With one crew, one must wait for the other.
+:::
+::: {}
+```{=html}
+<table class="wide" style="white-space:nowrap">
+  <thead><tr><th>Schedule, weeks</th><th class="num">G</th><th class="num">F</th><th class="num">Finish</th></tr></thead>
+  <tbody>
+    <tr><td>Unlimited crews (CPM)</td><td class="num">14.83–18.00</td><td class="num">16.50–18.50</td><td class="num">20.67</td></tr>
+    <tr><td>One crew, G first</td><td class="num">14.83–18.00</td><td class="num">18.00–20.00</td><td class="num hit">22.17</td></tr>
+    <tr><td>One crew, F first</td><td class="num">18.50–21.67</td><td class="num">16.50–18.50</td><td class="num">23.83</td></tr>
+  </tbody>
+</table>
+```
+:::
+:::
+
+::: {.bridge}
+Even the better sequence adds **1.5 weeks** that the CPM schedule does not show. A resource conflict can create a new critical path.
+:::
+
+## See the schedule {#gantt-explorer data-hold="true"}
+
+```{=html}
+<div class="widget" id="gx">
+  <div class="w-controls"><span class="w-toggle" role="group" aria-label="Schedule">
+    <button type="button" data-m="cpm" aria-pressed="true">Unlimited crews</button><button type="button" data-m="gf" aria-pressed="false">One crew, G first</button><button type="button" data-m="fg" aria-pressed="false">One crew, F first</button></span></div>
+  <svg id="gx-svg" viewBox="0 0 1160 330" role="img" aria-label="Gantt chart of the installation project under the chosen schedule"></svg>
+  <div class="w-readout" id="gx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('gx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  const te = { A: 20 / 6, B: 4.5, C: 52 / 6, D: 5, E: 7, F: 2, G: 19 / 6, H: 13 / 6 };
+  const pred = { A: [], B: ['A'], C: ['B'], D: ['A'], E: ['B'], F: ['C', 'D'], G: ['D', 'E'], H: ['F', 'G'] };
+  function sched(m) {
+    const pr = JSON.parse(JSON.stringify(pred));
+    if (m === 'gf') pr.F.push('G');
+    if (m === 'fg') pr.G.push('F');
+    const ES = {}, EF = {}, keys = Object.keys(te);
+    while (Object.keys(EF).length < keys.length) {
+      for (const k of keys) {
+        if (k in EF || !pr[k].every((q) => q in EF)) continue;
+        ES[k] = Math.max(0, ...pr[k].map((q) => EF[q])); EF[k] = ES[k] + te[k];
+      }
+    }
+    return { ES, EF };
+  }
+  function draw(m) {
+    const { ES, EF } = sched(m), W = 1160, L = 60, R = 20, X = (t) => L + t / 25 * (W - L - R);
+    let g = '';
+    for (let t = 0; t <= 25; t += 5) g += `<line x1="${X(t)}" x2="${X(t)}" y1="0" y2="300" stroke="#B9C1C6"/><text x="${X(t)}" y="322" text-anchor="middle" font-size="16" fill="#333F4A">${t}</text>`;
+    Object.keys(te).forEach((k, i) => {
+      const y = 6 + i * 36, crew = k === 'F' || k === 'G';
+      g += `<text x="${L - 12}" y="${y + 22}" text-anchor="end" font-size="18" font-weight="700" fill="#1C242B">${k}</text>`;
+      g += `<rect x="${X(ES[k])}" y="${y + 4}" width="${X(EF[k]) - X(ES[k])}" height="26" rx="3" fill="${crew ? '#E29A2D' : '#0F6E6B'}" opacity="${crew ? 1 : 0.8}"/>`;
+      g += `<text x="${X(EF[k]) + 6}" y="${y + 22}" font-size="15" fill="#333F4A">${ES[k].toFixed(2)}–${EF[k].toFixed(2)}</text>`;
+    });
+    g += `<line x1="${X(EF.H)}" x2="${X(EF.H)}" y1="0" y2="300" stroke="#BE654C" stroke-width="2.5" stroke-dasharray="6 4"/>`;
+    document.getElementById('gx-svg').innerHTML = g;
+    document.getElementById('gx-out').innerHTML = `Finish: <span class="best">${EF.H.toFixed(2)} weeks</span>${m === 'cpm' ? '' : `, ${(EF.H - 20.6667).toFixed(2)} weeks later than CPM`}. Amber bars use the shared crew.`;
+  }
+  root.querySelectorAll('[data-m]').forEach((b) => b.addEventListener('click', () => { root.querySelectorAll('[data-m]').forEach((x) => x.setAttribute('aria-pressed', x === b)); draw(b.dataset.m); }));
+  draw('cpm');
+})();
+</script>
+```
+
+## Activity · Sequence the crew {#act1 .activity data-hold="true"}
+
+[Pairs · 20 minutes · squared paper]{.act-label}
+
+::: {.prompt}
+Draw the Gantt chart for one crew by hand, then check it on the previous slide.
+:::
+
+1. Which activity is ready for the crew first, F or G? When is the other one ready?
+2. Draw both sequences. Which finishes earlier, and by how much?
+3. CellCo can hire a second crew for G only, for CNY 0.6 million. The grid bonus pays CNY 0.5 million per week saved. Should it hire?
+
+::: {.selfstudy}
+Studying alone: answer question 3 before you go on.
+:::
+
+## Activity · Answer {#act1-answer}
+
+::: {.two}
+::: {}
+G is ready first, at week 14.83 (after E). F is ready at 16.50 (after C).
+
+"G first" finishes at **22.17 weeks**; "F first" at 23.83. Starting whichever job is ready first wins here by 1.67 weeks.
+:::
+::: {}
+::: {.route-question}
+A second crew restores the 20.67-week CPM plan, 1.5 weeks earlier than 22.17. That is worth 1.5 × 0.5 = CNY 0.75 million against a cost of 0.6, so hire it.
+:::
+:::
+:::
+
+## Shortest path: routing a delivery {#shortest-path}
+
+::: {.two}
+::: {}
+```{=html}
+<svg viewBox="0 0 560 300" role="img" aria-label="Road network from port P to plant T through junctions a, b, c and d with travel times in minutes. The shortest route is P, a, c, T, 95 minutes.">
+  <g font-family="Source Sans 3, sans-serif" font-size="18">
+    <g stroke="#B9C1C6" stroke-width="3">
+      <line x1="50" y1="150" x2="200" y2="60"/><line x1="50" y1="150" x2="200" y2="240"/><line x1="200" y1="60" x2="360" y2="60"/><line x1="200" y1="240" x2="360" y2="60"/>
+      <line x1="200" y1="240" x2="360" y2="240"/><line x1="200" y1="60" x2="360" y2="240"/><line x1="360" y1="60" x2="510" y2="150"/><line x1="360" y1="240" x2="510" y2="150"/>
+    </g>
+    <g stroke="#E29A2D" stroke-width="6"><line x1="50" y1="150" x2="200" y2="60"/><line x1="200" y1="60" x2="360" y2="60"/><line x1="360" y1="60" x2="510" y2="150"/></g>
+    <g fill="#333F4A"><text x="105" y="92">40</text><text x="105" y="222">25</text><text x="272" y="50">25</text><text x="262" y="200">50</text><text x="272" y="262">30</text><text x="262" y="116">15</text><text x="445" y="92">30</text><text x="445" y="222">45</text></g>
+    <g fill="#F3F0EB" stroke="#0F6E6B" stroke-width="2.5"><circle cx="50" cy="150" r="22"/><circle cx="200" cy="60" r="22"/><circle cx="200" cy="240" r="22"/><circle cx="360" cy="60" r="22"/><circle cx="360" cy="240" r="22"/><circle cx="510" cy="150" r="22"/></g>
+    <g text-anchor="middle" font-weight="700" fill="#1C242B"><text x="50" y="156">P</text><text x="200" y="66">a</text><text x="200" y="246">b</text><text x="360" y="66">c</text><text x="360" y="246">d</text><text x="510" y="156">T</text></g>
+  </g>
+</svg>
+```
+:::
+::: {}
+Dijkstra's algorithm labels each node with its shortest known time from P, always fixing the unvisited node with the smallest label next.
+
+The shortest route is **P-a-c-T, 95 minutes**. Going to the nearest junction first (b, 25 minutes) leads to at best 100 minutes: nearest-first is not shortest.
+:::
+:::
+
+## Maximal flow: the line's bottleneck {#max-flow}
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Link</th><th class="num">Capacity, cells/h</th></tr></thead>
+  <tbody>
+    <tr><td>Source → formation F1, F2</td><td class="num">900, 600</td></tr>
+    <tr><td>F1 → aging A1, A2</td><td class="num">500, 400</td></tr>
+    <tr><td>F2 → aging A1, A2</td><td class="num">300, 300</td></tr>
+    <tr><td>A1 → packing, A2 → packing</td><td class="num hit">700, 600</td></tr>
+    <tr><td>Packing → shipping</td><td class="num">1,400</td></tr>
+  </tbody>
+</table>
+```
+:::
+::: {}
+The maximal flow is **1,300 cells/h**. It equals the capacity of the minimum cut, the two links from aging to packing: 700 + 600.
+
+Adding formation capacity buys nothing: raising F1's supply to 1,200 still gives 1,300. Raising A2 → packing to 800 lifts the flow to 1,400, where packing becomes the limit.
+:::
+:::
+
+[Max-flow min-cut theorem: the largest flow through a network equals the smallest total capacity of links whose removal disconnects source from sink.]{.note-line}
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+A shared resource can lengthen a project beyond its critical path. With one crew, CellCo's plan grows from 20.67 to 22.17 weeks.
+:::
+::: {.tk}
+Dijkstra's algorithm finds shortest routes; going to the nearest node first can miss them.
+:::
+::: {.tk .key}
+The maximal flow equals the minimum cut. Invest in the links of the cut, not elsewhere.
+:::
+:::
+
+[Session 10: group clinic, research note brief, and Quiz 2.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| Resource-constrained scheduling | 资源受限项目调度 | Dijkstra's algorithm | 迪杰斯特拉算法 |
+| Gantt chart | 甘特图 | Maximal flow | 最大流 |
+| Shortest path | 最短路径 | Minimum cut | 最小割 |
+:::
+
+## Exit ticket · 2 minutes {#exit .activity}
+
+[On your own · on paper · hand in at the door]{.act-label}
+
+::: {.prompt}
+Name one other resource in the installation project that could be shared, and say which two activities it could delay.
+:::

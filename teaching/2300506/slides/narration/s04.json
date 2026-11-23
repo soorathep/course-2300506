@@ -1,0 +1,416 @@
+{
+ "title-slide": {
+  "text": [
+   "Welcome to session four, the first session on Markov analysis.",
+   "Today we model CellCo's cell line as a Markov chain, estimate its transition matrix from data, and test whether the night shift behaves like the day shift."
+  ],
+  "en": {
+   "audio": "narration/s04/title-slide.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.69
+    ],
+    [
+     5.04,
+     15.98
+    ]
+   ]
+  }
+ },
+ "route": {
+  "text": [
+   "Here is the plan for the next two hours.",
+   "First, states, transition matrices and the steady state, followed by a dice activity in which you play the cell line.",
+   "After the break, we estimate a transition matrix from a log, put intervals on it, and test the night shift. The session ends with the launch of the group assignment."
+  ],
+  "en": {
+   "audio": "narration/s04/route.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.81
+    ],
+    [
+     3.16,
+     11.22
+    ],
+    [
+     11.57,
+     22.65
+    ]
+   ]
+  }
+ },
+ "states": {
+  "text": [
+   "In every shift, CellCo records the state of its cell line: running, slow or down.",
+   "A Markov chain assumes that the next state depends only on the current state, not on the history before it.",
+   "The transition matrix holds the probability of moving from each state, in the row, to each state, in the column. Each row adds up to one.",
+   "For example, a running line stays running in four shifts out of six, and breaks down in one out of six. The values are sixths so that a die can play the line in the first activity."
+  ],
+  "en": {
+   "audio": "narration/s04/states.en.mp3",
+   "cues": [
+    [
+     0.25,
+     6.03
+    ],
+    [
+     6.38,
+     13.7
+    ],
+    [
+     14.05,
+     23.93
+    ],
+    [
+     24.28,
+     37.1
+    ]
+   ]
+  }
+ },
+ "n-step": {
+  "text": [
+   "To find where the line will be after n shifts, multiply the starting distribution by the matrix n times.",
+   "Starting from down, the chance of running is 0.5 after one shift, 0.58 after two, and 0.60 after four.",
+   "After about four shifts, the line forgets where it started. The long-run distribution is the steady state, which solves pi equals pi times P.",
+   "Here the line runs 60 percent of shifts in the long run. If a slow shift makes half the cells, throughput is 70 percent of capacity."
+  ],
+  "en": {
+   "audio": "narration/s04/n-step.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.61
+    ],
+    [
+     7.96,
+     19.07
+    ],
+    [
+     19.42,
+     29.92
+    ],
+    [
+     30.27,
+     39.7
+    ]
+   ]
+  }
+ },
+ "n-explorer": {
+  "text": [
+   "Choose a starting state and move the slider to change the number of shifts.",
+   "The bars show the probability of each state, and the dashed lines show the steady state.",
+   "Whatever the starting state, the bars reach the dashed lines within a few shifts."
+  ],
+  "en": {
+   "audio": "narration/s04/n-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.82
+    ],
+    [
+     5.17,
+     10.65
+    ],
+    [
+     11.0,
+     16.05
+    ]
+   ]
+  }
+ },
+ "readings": {
+  "text": [
+   "The steady state answers practical questions.",
+   "The line returns to down every five shifts on average, which is one over 0.2.",
+   "Once it is running, it stays running for three shifts on average, which is one over one minus four sixths.",
+   "And at 70 percent effective throughput, a line rated at 2 gigawatt hours per year delivers about 1.4. That links directly to the demand numbers we used in sessions one to three."
+  ],
+  "en": {
+   "audio": "narration/s04/readings.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.11
+    ],
+    [
+     3.46,
+     9.69
+    ],
+    [
+     10.04,
+     17.23
+    ],
+    [
+     17.58,
+     31.64
+    ]
+   ]
+  }
+ },
+ "act1": {
+  "text": [
+   "Activity one. You are the cell line.",
+   "Start in running and roll your die ten times. The rules on the slide tell you the next state for each roll. Write down your state after every roll.",
+   "Count your transitions and add them to the table on the board.",
+   "Then, in pairs, estimate each transition probability from the class total, and compare it with the true sixths. Finally, check what share of all shifts was running, and compare it with 0.6."
+  ],
+  "en": {
+   "audio": "narration/s04/act1.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.81
+    ],
+    [
+     3.16,
+     13.04
+    ],
+    [
+     13.39,
+     17.21
+    ],
+    [
+     17.56,
+     31.42
+    ]
+   ]
+  }
+ },
+ "estimate": {
+  "text": [
+   "To estimate a transition matrix from a log, count the moves out of each state and divide by the number of visits to that state. This is the maximum-likelihood estimate.",
+   "Each estimate has a standard error, and an approximate 95 percent interval is the estimate plus or minus 1.96 standard errors.",
+   "In the day shift's log, the line left running 635 times and stayed running 448 times. So the estimate is 0.706, with an interval from 0.67 to 0.74.",
+   "Rows that are visited rarely have wide intervals. The down row was visited only 189 times, and its standard error is about twice that of the running row."
+  ],
+  "en": {
+   "audio": "narration/s04/estimate.en.mp3",
+   "cues": [
+    [
+     0.25,
+     11.94
+    ],
+    [
+     12.29,
+     22.83
+    ],
+    [
+     23.18,
+     40.25
+    ],
+    [
+     40.6,
+     52.48
+    ]
+   ]
+  }
+ },
+ "sample-explorer": {
+  "text": [
+   "This widget simulates a log of the chosen length and estimates every row with its 95 percent interval.",
+   "Move the slider from thirty shifts to thirty thousand, and draw new logs to see how much the estimates move.",
+   "Ten times more data makes the interval about three times narrower, because the standard error falls with the square root of the number of visits."
+  ],
+  "en": {
+   "audio": "narration/s04/sample-explorer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     7.57
+    ],
+    [
+     7.92,
+     15.15
+    ],
+    [
+     15.5,
+     24.74
+    ]
+   ]
+  }
+ },
+ "homogeneity": {
+  "text": [
+   "Is the night shift different? Here are a thousand logged shifts from each.",
+   "For each starting state, a chi-square test compares the day and night counts. The three test statistics add up to 20.55, with 6 degrees of freedom, and a p-value of 0.002.",
+   "So one matrix does not fit both shifts.",
+   "The difference sits in the running row. By night, a running line breaks down in 23 percent of shifts, against 15 percent by day."
+  ],
+  "en": {
+   "audio": "narration/s04/homogeneity.en.mp3",
+   "cues": [
+    [
+     0.25,
+     4.75
+    ],
+    [
+     5.1,
+     20.1
+    ],
+    [
+     20.45,
+     23.31
+    ],
+    [
+     23.66,
+     32.98
+    ]
+   ]
+  }
+ },
+ "act2": {
+  "text": [
+   "Activity two. Work in pairs for fifteen minutes.",
+   "Estimate the probability that a running line breaks down, separately for the day and the night shift, with 95 percent intervals.",
+   "Then compare the steady states of the two matrices, and estimate how many more shifts per thousand the night line would run if it behaved like the day line.",
+   "Finish with one sentence for the plant manager on what the night shift should investigate first."
+  ],
+  "en": {
+   "audio": "narration/s04/act2.en.mp3",
+   "cues": [
+    [
+     0.25,
+     3.86
+    ],
+    [
+     4.21,
+     13.12
+    ],
+    [
+     13.47,
+     23.46
+    ],
+    [
+     23.81,
+     29.76
+    ]
+   ]
+  }
+ },
+ "act2-answer": {
+  "text": [
+   "By day, the breakdown probability from running is 0.150, plus or minus 0.028. By night it is 0.231, plus or minus 0.036. The intervals do not overlap.",
+   "The day matrix runs 63.5 percent of shifts in the long run, the night matrix 52.8 percent. Matching the day shift would add about 107 running shifts per thousand.",
+   "The night shift should investigate why running shifts break down: the maintenance handover, staffing, or start-up after a planned stop."
+  ],
+  "en": {
+   "audio": "narration/s04/act2-answer.en.mp3",
+   "cues": [
+    [
+     0.25,
+     18.06
+    ],
+    [
+     18.41,
+     32.37
+    ],
+    [
+     32.72,
+     41.76
+    ]
+   ]
+  }
+ },
+ "assignment": {
+  "text": [
+   "Now the group assignment for block one.",
+   "Groups of four to five write a board memo for CellCo, due on the twenty-first of February 2027.",
+   "It has three parts: a decision analysis, a Markov analysis of your group's own log, and a network plan for the chosen option.",
+   "You hand in a report of at most ten pages, a workbook or notebook, and a ten-minute recorded presentation. Each student also writes a two-page research note applying one method to their own research."
+  ],
+  "en": {
+   "audio": "narration/s04/assignment.en.mp3",
+   "cues": [
+    [
+     0.25,
+     2.92
+    ],
+    [
+     3.27,
+     11.5
+    ],
+    [
+     11.85,
+     21.13
+    ],
+    [
+     21.48,
+     35.67
+    ]
+   ]
+  }
+ },
+ "debrief": {
+  "text": [
+   "Let us summarize.",
+   "A Markov chain is a transition matrix. The steady state solves pi equals pi times P, and CellCo's line runs 60 percent of shifts in the long run.",
+   "Estimate each row as counts divided by visits, and report its interval. Rarely visited states have the widest intervals.",
+   "And test whether one matrix fits all conditions before you use it. CellCo's night shift breaks down more often.",
+   "Tomorrow, session five uses absorbing chains to compute yield, rework and scrap on the cell line."
+  ],
+  "en": {
+   "audio": "narration/s04/debrief.en.mp3",
+   "cues": [
+    [
+     0.25,
+     1.7
+    ],
+    [
+     2.05,
+     13.29
+    ],
+    [
+     13.64,
+     22.58
+    ],
+    [
+     22.93,
+     30.76
+    ],
+    [
+     31.11,
+     38.19
+    ]
+   ]
+  }
+ },
+ "glossary": {
+  "text": [
+   "This slide lists today's key terms in English and Chinese, for reference."
+  ],
+  "en": {
+   "audio": "narration/s04/glossary.en.mp3",
+   "cues": [
+    [
+     0.25,
+     5.22
+    ]
+   ]
+  }
+ },
+ "exit": {
+  "text": [
+   "For the exit ticket, explain in one sentence to a production engineer why two hundred logged shifts are not enough to estimate the down row precisely.",
+   "Remember that quiz one opens online this evening."
+  ],
+  "en": {
+   "audio": "narration/s04/exit.en.mp3",
+   "cues": [
+    [
+     0.25,
+     10.4
+    ],
+    [
+     10.75,
+     13.98
+    ]
+   ]
+  }
+ }
+}

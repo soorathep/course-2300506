@@ -1,0 +1,269 @@
+---
+title: "Quality metrics and course synthesis"
+subtitle: "Session 18 of 18 · 120 minutes · Statistical Quality Control, part 4"
+author: "Soorathep Kheawhom, Ph.D., FRSC"
+institute: "2300506 Industrial Science · Huaqiao University and Chulalongkorn University"
+title-slide-attributes:
+  data-background-color: "#1C242B"
+---
+
+## Today, minute by minute {#route}
+
+::: {.route}
+::: {.seg .wrap style="--w:0.5"}
+[0–5]{.t} **Start** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[5–25]{.t} **Concepts** [Quality metrics]{.d}
+:::
+::: {.seg .act style="--w:2.5"}
+[25–50]{.t} **Activity** [Find the biggest loss]{.d}
+:::
+::: {.seg .brk style="--w:1"}
+[50–60]{.t} **Break** [ ]{.d}
+:::
+::: {.seg .concept style="--w:2"}
+[60–80]{.t} **Discussion** [Pre-read]{.d}
+:::
+::: {.seg .act style="--w:1.5"}
+[80–95]{.t} **Clinic** [Group work]{.d}
+:::
+::: {.seg .brk style="--w:2"}
+[95–115]{.t} **Quiz 4** [20 minutes]{.d}
+:::
+::: {.seg .wrap style="--w:0.5"}
+[115–120]{.t} **Close** [ ]{.d}
+:::
+:::
+
+::: {.route-question}
+Question for today: where does CellCo lose most of its output, and what is fixing it worth in the production plan?
+:::
+
+## Four ways to count quality {#metrics}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Metric</th><th>Definition</th><th>CellCo, one week</th></tr></thead>
+  <tbody>
+    <tr><td>First-pass yield (FPY)</td><td>Share of units passing a step the first time, without rework</td><td>Coating 0.962, slitting 0.985, assembly 0.978, formation 0.990</td></tr>
+    <tr><td>Rolled throughput yield (RTY)</td><td>Product of the FPYs: share passing every step first time</td><td class="hit">0.962 × 0.985 × 0.978 × 0.990 = 0.917</td></tr>
+    <tr><td>Defects per million opportunities (DPMO)</td><td>Defects ÷ (units × opportunities per unit) × 10<sup>6</sup></td><td>2,900 ÷ (37,260 × 10) × 10<sup>6</sup> = 7,780</td></tr>
+    <tr><td>Overall equipment effectiveness (OEE)</td><td>Availability × performance × quality</td><td>Computed in the activity</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+Block 1 found a final line yield of **0.933**, after rework. RTY is **0.917**. The gap is the hidden factory: about 1.6% of all cells pass only after rework, which costs time and capacity that the final yield does not show.
+:::
+
+## OEE: one number, three losses {#oee}
+
+::: {.two}
+::: {}
+**Availability** = run time ÷ planned time. Lost to breakdowns, die changes, waiting for material.
+
+**Performance** = actual output ÷ (run time × ideal rate). Lost to minor stops and reduced speed.
+
+**Quality** = good first-pass output ÷ actual output. Lost to scrap and rework.
+:::
+::: {}
+::: {.route-question}
+Breakdowns and scrap are logged; minor stops and slow running often are not. OEE makes the unlogged losses visible by working back from the ideal rate.
+:::
+[World-class OEE is often quoted near 85%. Compare a line with its own history rather than with that figure.]{.hint}
+:::
+:::
+
+## Activity · Find the biggest loss {#act1 .activity data-hold="true"}
+
+[Groups, then individual · 25 minutes · loss breakdown and one-minute paper]{.act-label}
+
+::: {.prompt}
+From last week's shift log, compute availability, performance, quality and OEE. Then express every loss in cells and name the largest.
+:::
+
+::: {.two}
+::: {}
+```{=html}
+<table class="wide">
+  <thead><tr><th>Shift log, one week</th><th class="num">Value</th></tr></thead>
+  <tbody>
+    <tr><td>Planned production time</td><td class="num">160 h</td></tr>
+    <tr><td>Die changes</td><td class="num">9 h</td></tr>
+    <tr><td>Breakdowns</td><td class="num">8 h</td></tr>
+    <tr><td>Waiting for material</td><td class="num">5 h</td></tr>
+    <tr><td>Ideal rate</td><td class="num">300 cells/h</td></tr>
+    <tr><td>Cells made</td><td class="num">37,260</td></tr>
+    <tr><td>Good first time</td><td class="num">34,190</td></tr>
+  </tbody>
+</table>
+```
+:::
+::: {}
+1. Groups: compute the three factors and OEE.
+2. Convert each loss into cells at the ideal rate.
+3. Name the largest single loss and one action against it.
+4. On your own (last 3 minutes): a one-minute paper. Which method from this course will you use in your own research, and on what?
+:::
+:::
+
+## Activity · Answer {#act1-answer data-hold="true"}
+
+```{=html}
+<div class="widget" id="oex">
+  <div class="w-controls">
+    <label class="w-slider">Die changes, h <strong id="oex-dv">9</strong><input type="range" id="oex-d" min="0" max="20" step="1" value="9"></label>
+    <label class="w-slider">Cells made <strong id="oex-mv">37,260</strong><input type="range" id="oex-m" min="30000" max="45000" step="60" value="37260"></label>
+    <label class="w-slider">Good first time, % <strong id="oex-qv">91.8</strong><input type="range" id="oex-q" min="85" max="99.5" step="0.01" value="91.76"></label>
+  </div>
+  <svg id="oex-svg" viewBox="0 0 1160 230" role="img" aria-label="Weekly losses in cells, largest first"></svg>
+  <div class="w-readout" id="oex-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('oex'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  function draw() {
+    const die = +document.getElementById('oex-d').value, run = 160 - die - 8 - 5;
+    const made = Math.min(+document.getElementById('oex-m').value, Math.floor(run * 300)), q = +document.getElementById('oex-q').value / 100, good = Math.round(made * q);
+    document.getElementById('oex-dv').textContent = die; document.getElementById('oex-mv').textContent = made.toLocaleString('en-US'); document.getElementById('oex-qv').textContent = (100 * q).toFixed(1);
+    const A = run / 160, P = made / (run * 300), Q = good / made;
+    const loss = [['Minor stops and slow running', run * 300 - made], ['Scrap and rework', made - good], ['Die changes', die * 300], ['Breakdowns', 8 * 300], ['Waiting for material', 5 * 300]].sort((a, b) => b[1] - a[1]);
+    const W = 1160, L = 300, R = 120, mx = Math.max(6000, loss[0][1]), X = (v) => L + v / mx * (W - L - R);
+    let g = '';
+    loss.forEach(([n, v], i) => { const y = 14 + i * 42; g += `<text x="${L - 12}" y="${y + 22}" text-anchor="end" font-size="17" fill="#1C242B">${n}</text><rect x="${L}" y="${y}" width="${X(v) - L}" height="30" fill="${i === 0 ? '#E29A2D' : '#0F6E6B'}"/><text x="${X(v) + 8}" y="${y + 22}" font-size="17" fill="#333F4A">${Math.round(v).toLocaleString('en-US')} cells</text>`; });
+    document.getElementById('oex-svg').innerHTML = g;
+    document.getElementById('oex-out').innerHTML = `Availability ${(100 * A).toFixed(1)}%, performance ${(100 * P).toFixed(1)}%, quality ${(100 * Q).toFixed(1)}%: <span class="best">OEE ${(100 * A * P * Q).toFixed(1)}%</span>. Largest single loss: ${loss[0][0].toLowerCase()}.`;
+  }
+  root.addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+[Last week: availability 86.3%, performance 90.0%, quality 91.8%, OEE 71.2%. The largest single loss, 4,140 cells, is the one nobody logs: minor stops and slow running.]{.hint}
+
+## From yield to profit {#yield-profit data-hold="true"}
+
+```{=html}
+<div class="widget" id="ypx">
+  <div class="w-controls"><label class="w-slider">Coating first-pass yield <strong id="ypx-v">0.962</strong><input type="range" id="ypx-y" min="0.962" max="0.995" step="0.001" value="0.981"></label></div>
+  <div class="w-readout" id="ypx-out" aria-live="polite"></div>
+</div>
+<script>
+(function () {
+  const root = document.getElementById('ypx'); if (!root) return;
+  root.addEventListener('click', (e) => e.stopPropagation());
+  function draw() {
+    const y = +document.getElementById('ypx-y').value; document.getElementById('ypx-v').textContent = y.toFixed(3);
+    const hrs = 240 * (y / 0.962 - 1), eff = 240 + hrs, gain = 15 * Math.min(hrs, 60), rty = 0.917 * y / 0.962;
+    document.getElementById('ypx-out').innerHTML = `RTY rises from 0.917 to <b>${rty.toFixed(3)}</b>. The same 240 coating hours now make as much good output as <b>${eff.toFixed(1)} hours</b> did before: ${hrs.toFixed(1)} extra effective hours, worth <span class="best">CNY ${gain.toFixed(0)} thousand a week</span>, about CNY ${(gain * 52 / 1000).toFixed(1)} million a year, at the shadow price of 15 per hour${hrs > 60 ? ' (capped: above 300 hours formation binds)' : ''}.`;
+  }
+  document.getElementById('ypx-y').addEventListener('input', draw);
+  draw();
+})();
+</script>
+```
+
+::: {.two}
+::: {}
+**The link to the LP.** Coating is CellCo's bottleneck. Any coating loss removed acts like extra coating hours, priced by the shadow price from Session 12: CNY 15,000 per hour up to 300 hours.
+:::
+::: {}
+**Where the yield is.** Halving coating defects (FPY 0.962 to 0.981) is worth about CNY 71,000 a week. The mass-loading work in Session 17 removes only about 700 ppm; most coating losses are streaks, pinholes and edges. The Pareto, not one capability index, shows where the yield is.
+:::
+:::
+
+## Break · 10 minutes {#break}
+
+::: {.route-question}
+After the break: the pre-read paper on process control in electrode manufacturing.
+:::
+
+## Pre-read discussion · 20 minutes {#preread .activity}
+
+[Groups of 4 · 12 minutes in groups, 8 minutes whole class]{.act-label}
+
+::: {.prompt}
+Discuss the pre-read paper with three questions.
+:::
+
+1. Which quality characteristic did the authors monitor, how was it measured, and was the measurement system checked?
+2. Which chart or model did they use? Were its assumptions (rational subgroups, independence, normality) checked or defended?
+3. What would you change to apply the method on CellCo's coating line, or to repeated measurements in your own lab?
+
+## Group clinic · 15 minutes {#clinic}
+
+::: {.two}
+::: {}
+**Check your Block 2 report against these points**
+
+1. The 13-week MILP links every binary to its capacity, and is checked against a hand calculation.
+2. Shadow prices and the three shocks test the plan.
+3. The stochastic version reports its value over the mean-demand plan.
+:::
+::: {}
+4. The gauge is checked before the charts.
+5. Capability uses a stable process and states its σ.
+6. The improved yield is carried into the LP, and the gain in weekly contribution is reported.
+:::
+:::
+
+[Individual research note: two pages applying one Block 2 method to your own research, for example an optimization of an experimental plan or a control chart on repeated lab measurements.]{.note-line}
+
+## Quiz 4 · 20 minutes {#quiz4 .activity}
+
+[On your own · on paper]{.act-label}
+
+::: {.prompt}
+Quiz 4 covers Statistical Quality Control, Sessions 15 to 18.
+:::
+
+[Quiz 3, on Linear Programming, ran online yesterday evening. The two quizzes together are proposed at 15% of the Block 2 grade.]{.note-line}
+
+## One company, five methods {#synthesis}
+
+```{=html}
+<table class="wide">
+  <thead><tr><th>Module</th><th>CellCo question</th><th>Key number</th></tr></thead>
+  <tbody>
+    <tr><td>Decision Making</td><td>How to add 2 GWh/yr of capacity?</td><td>Staged build: mean NPV CNY 79 million, P(loss) 20%</td></tr>
+    <tr><td>Markov Analysis</td><td>How do yield and maintenance behave?</td><td>Final yield 0.933; preventive maintenance only in Major wear</td></tr>
+    <tr><td>Network Model</td><td>When will the storage system be ready?</td><td>71% by 22 weeks; 19 weeks for CNY 0.425 million</td></tr>
+    <tr><td>Linear Programming</td><td>What to make each week?</td><td>E 30, P 60 MWh; a coating hour is worth CNY 15,000</td></tr>
+    <tr><td>Quality Control</td><td>Is the coating in control and capable?</td><td>In control; C<sub>pk</sub> 1.07, 1.33 needs re-centering and σ 0.150</td></tr>
+  </tbody>
+</table>
+```
+
+::: {.bridge}
+Each method answered one question well and none answered all of them. The decisions improved where one module's output became another's input: the yield fed the LP, the shadow price priced the quality project.
+:::
+
+## What we learned {#debrief}
+
+::: {.takeaways}
+::: {.tk}
+RTY counts first-pass quality across steps; the gap to final yield is the hidden factory of rework.
+:::
+::: {.tk}
+OEE exposes unlogged losses. CellCo's largest single loss is minor stops and slow running, not scrap.
+:::
+::: {.tk .key}
+At the bottleneck, a yield gain is a capacity gain, priced by the LP's shadow price.
+:::
+:::
+
+[Thank you for your work in both blocks. Questions about the assignment or the research note go through the HQU platform.]{.note-line}
+
+## Key terms in English and Chinese {#glossary}
+
+::: {.gloss}
+| English | 中文 | English | 中文 |
+|---|---|---|---|
+| First-pass yield | 一次合格率 | Overall equipment effectiveness (OEE) | 设备综合效率 |
+| Rolled throughput yield | 流通合格率 | Hidden factory | 隐藏工厂 |
+| Defects per million opportunities | 百万机会缺陷数 | Cost of poor quality | 劣质成本 |
+:::
