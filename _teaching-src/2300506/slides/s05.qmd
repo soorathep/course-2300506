@@ -267,21 +267,9 @@ Compare improvements on the same model and the same unit, yield per yuan. Combin
 
 [Next, Session 6: choosing a maintenance policy as a Markov decision process.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Absorbing state | 吸收态 | Fundamental matrix | 基本矩阵 |
-| Transient state | 瞬态（非常返态） | Absorption probability | 吸收概率 |
-| Absorbing Markov chain | 吸收马尔可夫链 | Expected number of visits | 期望访问次数 |
-| Yield | 良率 | Rework | 返工 |
-| Scrap | 报废 | Payback period | 投资回收期 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Name one more improvement CellCo could make to the cell line, say which entry of the matrix it changes, and how you would estimate its new value.

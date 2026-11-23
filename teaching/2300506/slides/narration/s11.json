@@ -336,20 +336,6 @@
    ]
   }
  },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s11/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
-    ]
-   ]
-  }
- },
  "exit": {
   "text": [
    "For the exit ticket: a sales manager wants to push power-cell orders to seventy megawatt hours a week. Using only the dual prices, estimate the change in weekly contribution, and say what you would check before trusting it."

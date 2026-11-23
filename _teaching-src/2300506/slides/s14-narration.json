@@ -2,72 +2,151 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session fourteen: planning under uncertainty."},
-   {"en": "Today we plan when demand is unknown, compare stochastic and robust plans, play the CellCo planning game, and launch the Block two group assignment."}
+   {
+    "en": "Welcome to session fourteen: planning under uncertainty."
+   },
+   {
+    "en": "Today we plan when demand is unknown, compare stochastic and robust plans, play the CellCo planning game, and launch the Block two group assignment."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First the two-stage stochastic program and a robust alternative. After the break, the planning game for 45 minutes, its debrief, and the assignment launch."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First the two-stage stochastic program and a robust alternative. After the break, the planning game for 45 minutes, its debrief, and the assignment launch."
+   }
   ],
   "setup": [
-   {"en": "CellCo must fix next week's energy-storage output before it knows demand."},
-   {"en": "Demand is twenty, forty or eighty megawatt hours, with probabilities 0.3, 0.5 and 0.2. The mean is 42."},
-   {"en": "Each megawatt hour sold earns thirty thousand yuan over its cost, and each one made but not sold loses its cost of thirty thousand."},
-   {"en": "In a two-stage stochastic program, the output is chosen now, and sales are chosen for each scenario after demand is known. With many products and scenarios, this is still an ordinary linear program, only larger."}
+   {
+    "en": "CellCo must fix next week's energy-storage output before it knows demand."
+   },
+   {
+    "en": "Demand is twenty, forty or eighty megawatt hours, with probabilities 0.3, 0.5 and 0.2. The mean is 42."
+   },
+   {
+    "en": "Each megawatt hour sold earns thirty thousand yuan over its cost, and each one made but not sold loses its cost of thirty thousand."
+   },
+   {
+    "en": "In a two-stage stochastic program, the output is chosen now, and sales are chosen for each scenario after demand is known. With many products and scenarios, this is still an ordinary linear program, only larger."
+   }
   ],
   "plans": [
-   {"en": "The table compares three plans."},
-   {"en": "The robust plan makes twenty, and earns six hundred thousand yuan whatever happens."},
-   {"en": "The stochastic plan makes forty, and earns 840 thousand in expectation."},
-   {"en": "The mean-value plan makes 42, and earns only 804. The difference, 36 thousand yuan a week, is the value of the stochastic solution."},
-   {"en": "With perfect information, CellCo would earn 1,260. The difference from 840, 420 thousand a week, is the most that better forecasting could ever be worth."}
+   {
+    "en": "The table compares three plans."
+   },
+   {
+    "en": "The robust plan makes twenty, and earns six hundred thousand yuan whatever happens."
+   },
+   {
+    "en": "The stochastic plan makes forty, and earns 840 thousand in expectation."
+   },
+   {
+    "en": "The mean-value plan makes 42, and earns only 804. The difference, 36 thousand yuan a week, is the value of the stochastic solution."
+   },
+   {
+    "en": "With perfect information, CellCo would earn 1,260. The difference from 840, 420 thousand a week, is the most that better forecasting could ever be worth."
+   }
   ],
   "plan-explorer": [
-   {"en": "The curve shows expected weekly profit for each output. Move the slider and compare with the best output."},
-   {"en": "The curve is steeper to the right of the best output than to the left. Overproducing costs more than underproducing."},
-   {"en": "Try the shocks. Only the demand drop moves the best output down, to 32."},
-   {"en": "Then press Draw ten weeks, and compare your plan with an output of forty on the same cards."}
+   {
+    "en": "The curve shows expected weekly profit for each output. Move the slider and compare with the best output."
+   },
+   {
+    "en": "The curve is steeper to the right of the best output than to the left. Overproducing costs more than underproducing."
+   },
+   {
+    "en": "Try the shocks. Only the demand drop moves the best output down, to 32."
+   },
+   {
+    "en": "Then press Draw ten weeks, and compare your plan with an output of forty on the same cards."
+   }
   ],
   "robust": [
-   {"en": "A robust plan assumes only an interval for demand, between twenty and eighty, and maximizes the worst-case profit."},
-   {"en": "The answer is twenty megawatt hours, which guarantees six hundred thousand yuan a week."},
-   {"en": "The guarantee costs 240 thousand a week in expected profit. This is the price of robustness."},
-   {"en": "Robust planning suits cases where probabilities are unknown or a bad outcome is unacceptable."}
+   {
+    "en": "A robust plan assumes only an interval for demand, between twenty and eighty, and maximizes the worst-case profit."
+   },
+   {
+    "en": "The answer is twenty megawatt hours, which guarantees six hundred thousand yuan a week."
+   },
+   {
+    "en": "The guarantee costs 240 thousand a week in expected profit. This is the price of robustness."
+   },
+   {
+    "en": "Robust planning suits cases where probabilities are unknown or a bad outcome is unacceptable."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards, the CellCo planning game. You commit before the shock cards are turned."}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards, the CellCo planning game. You commit before the shock cards are turned."
+   }
   ],
   "act1": [
-   {"en": "Activity, commit before the shock. Work in groups of four for 45 minutes."},
-   {"en": "There are six rounds of one week each. In each round, commit your output on the scorecard, in multiples of five, up to eighty megawatt hours."},
-   {"en": "Then two cards are turned: a demand card, and a shock card. The shocks are a forty percent rise in lithium carbonate prices, a twenty percent drop in energy-storage demand, and a coating line outage."},
-   {"en": "Your score is sixty times the megawatt hours sold, minus the cost of the megawatt hours made. After round six, compute what an output of forty would have scored on the same cards."}
+   {
+    "en": "Activity, commit before the shock. Work in groups of four for 45 minutes."
+   },
+   {
+    "en": "There are six rounds of one week each. In each round, commit your output on the scorecard, in multiples of five, up to eighty megawatt hours."
+   },
+   {
+    "en": "Then two cards are turned: a demand card, and a shock card. The shocks are a forty percent rise in lithium carbonate prices, a twenty percent drop in energy-storage demand, and a coating line outage."
+   },
+   {
+    "en": "Your score is sixty times the megawatt hours sold, minus the cost of the megawatt hours made. After round six, compute what an output of forty would have scored on the same cards."
+   }
   ],
   "game-debrief": [
-   {"en": "Here is the expected score per round for each output."},
-   {"en": "With the shocks included, the stochastic plan is still forty megawatt hours, worth 706 thousand yuan per round in expectation."},
-   {"en": "Only the demand drop favors a lower output. The lithium shock raises cost but leaves forty best, and the outage caps output whatever you commit."},
-   {"en": "Six rounds are too few to judge a plan by its score. Comparing with an output of forty on the same cards removes the luck of the draw."}
+   {
+    "en": "Here is the expected score per round for each output."
+   },
+   {
+    "en": "With the shocks included, the stochastic plan is still forty megawatt hours, worth 706 thousand yuan per round in expectation."
+   },
+   {
+    "en": "Only the demand drop favors a lower output. The lithium shock raises cost but leaves forty best, and the outage caps output whatever you commit."
+   },
+   {
+    "en": "Six rounds are too few to judge a plan by its score. Comparing with an output of forty on the same cards removes the luck of the draw."
+   }
   ],
   "assignment": [
-   {"en": "Now the Block two group assignment, in your Block one groups."},
-   {"en": "You write CellCo's quarterly operations plan and a quality improvement proposal: a thirteen-week mixed-integer plan with sensitivity and shocks, a stochastic version, and tomorrow's quality analysis."},
-   {"en": "The two parts are linked. Re-solve the plan with the improved yield, and report the gain in weekly contribution."},
-   {"en": "The rubric weights are on the slide. The format is the same as in Block one."}
+   {
+    "en": "Now the Block two group assignment, in your Block one groups."
+   },
+   {
+    "en": "You write CellCo's quarterly operations plan and a quality improvement proposal: a thirteen-week mixed-integer plan with sensitivity and shocks, a stochastic version, and tomorrow's quality analysis."
+   },
+   {
+    "en": "The two parts are linked. Re-solve the plan with the improved yield, and report the gain in weekly contribution."
+   },
+   {
+    "en": "The rubric weights are on the slide. The format is the same as in Block one."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "When output is fixed before demand is known, plan with the scenarios, not with the mean. For CellCo, forty megawatt hours beats the mean of 42 by 36 thousand yuan a week."},
-   {"en": "The expected value of perfect information bounds the value of forecasting, and a robust plan buys a guarantee at a price."},
-   {"en": "Judge a plan by its expected result on the same scenarios, not by one lucky or unlucky outcome."},
-   {"en": "Tomorrow, statistical quality control begins with variation and measurement."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "When output is fixed before demand is known, plan with the scenarios, not with the mean. For CellCo, forty megawatt hours beats the mean of 42 by 36 thousand yuan a week."
+   },
+   {
+    "en": "The expected value of perfect information bounds the value of forecasting, and a robust plan buys a guarantee at a price."
+   },
+   {
+    "en": "Judge a plan by its expected result on the same scenarios, not by one lucky or unlucky outcome."
+   },
+   {
+    "en": "Tomorrow, statistical quality control begins with variation and measurement."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket: if unsold cells could be sold next week at full value, how would the best output change? Explain in one sentence."}
+   {
+    "en": "For the exit ticket: if unsold cells could be sold next week at full value, how would the best output change? Explain in one sentence."
+   }
   ]
  }
 }

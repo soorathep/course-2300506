@@ -304,22 +304,9 @@ Test whether one matrix fits all conditions before you use it. CellCo's night sh
 
 [Tomorrow, Session 5: absorbing chains for yield, rework and scrap on the cell line.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Markov chain | 马尔可夫链 | Maximum-likelihood estimate | 最大似然估计 |
-| State | 状态 | Standard error | 标准误差 |
-| Transition matrix | 转移矩阵 | Confidence interval | 置信区间 |
-| Transition probability | 转移概率 | Chi-square test | 卡方检验 |
-| n-step transition | n步转移 | Homogeneity | 同质性 |
-| Steady state (stationary distribution) | 稳态分布 | Mean recurrence time | 平均返回时间 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 In one sentence, explain to a production engineer why 200 logged shifts are not enough to estimate the Down row precisely.

@@ -2,167 +2,386 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to Industrial Science, course 2300506.", "say": "Welcome to Industrial Science, course two three zero zero, five zero six."},
-   {"en": "This first session is about choosing under uncertainty: how to make a decision before you know what will happen."},
-   {"en": "We will use one company, CellCo, for the whole course."}
+   {
+    "en": "Welcome to Industrial Science, course 2300506.",
+    "say": "Welcome to Industrial Science, course two three zero zero, five zero six."
+   },
+   {
+    "en": "This first session is about choosing under uncertainty: how to make a decision before you know what will happen."
+   },
+   {
+    "en": "We will use one company, CellCo, for the whole course."
+   }
   ],
   "course-map": [
-   {"en": "The course has eighteen sessions in two blocks."},
-   {"en": "Block one, in January, covers decision making, Markov analysis and network models."},
-   {"en": "Block two, in March, covers linear programming and statistical quality control."},
-   {"en": "We are here, in session one, at the start of decision making."},
-   {"en": "Every module returns to the same case, a battery cell maker called CellCo, and each session adds one decision it has to make."}
+   {
+    "en": "The course has eighteen sessions in two blocks."
+   },
+   {
+    "en": "Block one, in January, covers decision making, Markov analysis and network models."
+   },
+   {
+    "en": "Block two, in March, covers linear programming and statistical quality control."
+   },
+   {
+    "en": "We are here, in session one, at the start of decision making."
+   },
+   {
+    "en": "Every module returns to the same case, a battery cell maker called CellCo, and each session adds one decision it has to make."
+   }
   ],
   "controls": [
-   {"en": "These slides can be used in class or on your own."},
-   {"en": "The narration button turns this voice on or off, and the pause and replay buttons appear while it is on."},
-   {"en": "The captions button shows English captions in time with the voice. With the voice off, it shows the full text of each slide."},
-   {"en": "Auto-advance moves to the next slide when the narration ends, but interactive slides wait until you move on."},
-   {"en": "Click on a slide or press the right arrow key to go forward, and press the left arrow key to go back."}
+   {
+    "en": "These slides can be used in class or on your own."
+   },
+   {
+    "en": "The narration button turns this voice on or off, and the pause and replay buttons appear while it is on."
+   },
+   {
+    "en": "The captions button shows English captions in time with the voice. With the voice off, it shows the full text of each slide."
+   },
+   {
+    "en": "Auto-advance moves to the next slide when the narration ends, but interactive slides wait until you move on."
+   },
+   {
+    "en": "Click on a slide or press the right arrow key to go forward, and press the left arrow key to go back."
+   }
   ],
   "route": [
-   {"en": "Here is the plan for the next two hours."},
-   {"en": "We spend the first part on the payoff table and five decision criteria, followed by a short activity in pairs."},
-   {"en": "After a ten-minute break, we add probabilities and calculate expected value and the value of information."},
-   {"en": "Then you will measure your own attitude to risk in the second activity."},
-   {"en": "Keep today's question in mind: CellCo must add capacity before it knows the demand. Which option should it choose, and what does the answer depend on?"}
+   {
+    "en": "Here is the plan for the next two hours."
+   },
+   {
+    "en": "We spend the first part on the payoff table and five decision criteria, followed by a short activity in pairs."
+   },
+   {
+    "en": "After a ten-minute break, we add probabilities and calculate expected value and the value of information."
+   },
+   {
+    "en": "Then you will measure your own attitude to risk in the second activity."
+   },
+   {
+    "en": "Keep today's question in mind: CellCo must add capacity before it knows the demand. Which option should it choose, and what does the answer depend on?"
+   }
   ],
   "cellco": [
-   {"en": "CellCo makes LFP battery cells for energy storage and electric vehicles."},
-   {"en": "Its board wants two more gigawatt hours of capacity per year."},
-   {"en": "Demand three years from now may be low, medium or high, and the board has to commit before it knows which."},
-   {"en": "There are four options: a new LFP line, a sodium-ion retrofit of an existing line, a tolling contract with a partner plant, or doing nothing."},
-   {"en": "Each option is scored by its net present value over ten years, in millions of yuan."},
-   {"en": "The company and its numbers are fictional, written for teaching."}
+   {
+    "en": "CellCo makes LFP battery cells for energy storage and electric vehicles."
+   },
+   {
+    "en": "Its board wants two more gigawatt hours of capacity per year."
+   },
+   {
+    "en": "Demand three years from now may be low, medium or high, and the board has to commit before it knows which."
+   },
+   {
+    "en": "There are four options: a new LFP line, a sodium-ion retrofit of an existing line, a tolling contract with a partner plant, or doing nothing."
+   },
+   {
+    "en": "Each option is scored by its net present value over ten years, in millions of yuan."
+   },
+   {
+    "en": "The company and its numbers are fictional, written for teaching."
+   }
   ],
   "elements": [
-   {"en": "Every decision problem has four elements."},
-   {"en": "Alternatives are what you can choose. States of nature are what happens that you cannot control. Payoffs are the result of each alternative in each state."},
-   {"en": "The fourth element is the criterion, the rule that turns a table of payoffs into a choice."},
-   {"en": "The first three come from the problem. The criterion is chosen by the decision maker, and as we will see, it can change the answer."}
+   {
+    "en": "Every decision problem has four elements."
+   },
+   {
+    "en": "Alternatives are what you can choose. States of nature are what happens that you cannot control. Payoffs are the result of each alternative in each state."
+   },
+   {
+    "en": "The fourth element is the criterion, the rule that turns a table of payoffs into a choice."
+   },
+   {
+    "en": "The first three come from the problem. The criterion is chosen by the decision maker, and as we will see, it can change the answer."
+   }
   ],
   "payoff": [
-   {"en": "This is CellCo's payoff table."},
-   {"en": "The new LFP line gains 260 million if demand is high, but loses 120 million if demand is low."},
-   {"en": "The tolling contract never loses money, but it never gains more than 70 million."},
-   {"en": "No option is best in every state, so the table alone does not tell us what to do."},
-   {"en": "Before the next slide, write down the option you would choose and one reason."}
+   {
+    "en": "This is CellCo's payoff table."
+   },
+   {
+    "en": "The new LFP line gains 260 million if demand is high, but loses 120 million if demand is low."
+   },
+   {
+    "en": "The tolling contract never loses money, but it never gains more than 70 million."
+   },
+   {
+    "en": "No option is best in every state, so the table alone does not tell us what to do."
+   },
+   {
+    "en": "Before the next slide, write down the option you would choose and one reason."
+   }
   ],
   "criteria": [
-   {"en": "Here are five criteria that do not need probabilities."},
-   {"en": "Maximax takes the best case of each option and picks A, with 260. Maximin takes the worst case and picks C, the only option that never loses."},
-   {"en": "Hurwicz mixes the two with an optimism weight, alpha. With alpha equal to 0.6, it picks A."},
-   {"en": "Laplace treats the three states as equally likely, averages them, and also picks A."},
-   {"en": "Minimax regret picks B. We will build its regret table in two slides."},
-   {"en": "The data did not change. Only the rule changed, and with it the choice."}
+   {
+    "en": "Here are five criteria that do not need probabilities."
+   },
+   {
+    "en": "Maximax takes the best case of each option and picks A, with 260. Maximin takes the worst case and picks C, the only option that never loses."
+   },
+   {
+    "en": "Hurwicz mixes the two with an optimism weight, alpha. With alpha equal to 0.6, it picks A."
+   },
+   {
+    "en": "Laplace treats the three states as equally likely, averages them, and also picks A."
+   },
+   {
+    "en": "Minimax regret picks B. We will build its regret table in two slides."
+   },
+   {
+    "en": "The data did not change. Only the rule changed, and with it the choice."
+   }
   ],
   "hurwicz": [
-   {"en": "Move the slider to change alpha, the board's optimism."},
-   {"en": "At alpha equal to zero, Hurwicz is the same as maximin and picks C. At alpha equal to one, it is maximax and picks A."},
-   {"en": "The colored strip shows which option wins at each alpha. C wins below about 0.39, B wins only in a narrow band up to about 0.42, and A wins above that."},
-   {"en": "So the choice can change with a small change in optimism, which is a weakness of this criterion."}
+   {
+    "en": "Move the slider to change alpha, the board's optimism."
+   },
+   {
+    "en": "At alpha equal to zero, Hurwicz is the same as maximin and picks C. At alpha equal to one, it is maximax and picks A."
+   },
+   {
+    "en": "The colored strip shows which option wins at each alpha. C wins below about 0.39, B wins only in a narrow band up to about 0.42, and A wins above that."
+   },
+   {
+    "en": "So the choice can change with a small change in optimism, which is a weakness of this criterion."
+   }
   ],
   "regret": [
-   {"en": "Regret is the payoff you missed by not choosing the best option for the state that happened."},
-   {"en": "For each column, subtract each payoff from the best payoff in that column."},
-   {"en": "If demand is low, the best option is C with 10, so the regret of A is 10 minus negative 120, which is 130."},
-   {"en": "Then take each option's largest regret, and choose the option whose largest regret is smallest."},
-   {"en": "That is B, with a maximum regret of 110. B is never the best in any state, but it is never far from the best."}
+   {
+    "en": "Regret is the payoff you missed by not choosing the best option for the state that happened."
+   },
+   {
+    "en": "For each column, subtract each payoff from the best payoff in that column."
+   },
+   {
+    "en": "If demand is low, the best option is C with 10, so the regret of A is 10 minus negative 120, which is 130."
+   },
+   {
+    "en": "Then take each option's largest regret, and choose the option whose largest regret is smallest."
+   },
+   {
+    "en": "That is B, with a maximum regret of 110. B is never the best in any state, but it is never far from the best."
+   }
   ],
   "act1": [
-   {"en": "Activity one. Work in pairs for ten minutes."},
-   {"en": "A consultant proposes a fifth option, E, a three gigawatt hour mega-line, with payoffs of minus 200, 20 and 300."},
-   {"en": "Redo the regret table with E included, and answer the three questions on the slide."},
-   {"en": "Hint: only one column gets a new best payoff."},
-   {"en": "If you are studying alone, write your three answers before you move on."}
+   {
+    "en": "Activity one. Work in pairs for ten minutes."
+   },
+   {
+    "en": "A consultant proposes a fifth option, E, a three gigawatt hour mega-line, with payoffs of minus 200, 20 and 300."
+   },
+   {
+    "en": "Redo the regret table with E included, and answer the three questions on the slide."
+   },
+   {
+    "en": "Hint: only one column gets a new best payoff."
+   },
+   {
+    "en": "If you are studying alone, write your three answers before you move on."
+   }
   ],
   "act1-answer": [
-   {"en": "With E included, the best payoff under high demand is now 300, from E."},
-   {"en": "That raises the regret in the high-demand column for every other option."},
-   {"en": "The maximum regrets become 130 for A, 150 for B, 230 for C, 300 for D and 210 for E."},
-   {"en": "So minimax regret now picks A. E is not chosen, but adding it moved the choice from B to A."},
-   {"en": "In a board meeting, this means a proposal that everyone will reject can still change the decision. Criteria that score each option on its own do not have this problem."}
+   {
+    "en": "With E included, the best payoff under high demand is now 300, from E."
+   },
+   {
+    "en": "That raises the regret in the high-demand column for every other option."
+   },
+   {
+    "en": "The maximum regrets become 130 for A, 150 for B, 230 for C, 300 for D and 210 for E."
+   },
+   {
+    "en": "So minimax regret now picks A. E is not chosen, but adding it moved the choice from B to A."
+   },
+   {
+    "en": "In a board meeting, this means a proposal that everyone will reject can still change the decision. Criteria that score each option on its own do not have this problem."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "When we come back, we will add probabilities from a market study: 0.3 for low demand, 0.5 for medium and 0.2 for high."}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "When we come back, we will add probabilities from a market study: 0.3 for low demand, 0.5 for medium and 0.2 for high."
+   }
   ],
   "emv": [
-   {"en": "With probabilities, we can compute the expected monetary value, or EMV, of each option."},
-   {"en": "Multiply each payoff by the probability of its state and add them up."},
-   {"en": "For A, that is 0.3 times minus 120, plus 0.5 times 80, plus 0.2 times 260, which gives 56 million yuan."},
-   {"en": "B gives 48, C gives 37, and doing nothing gives zero, so EMV picks A."},
-   {"en": "EMV assumes the board is risk-neutral: a loss of 120 million weighs exactly as much as a gain of 120 million."}
+   {
+    "en": "With probabilities, we can compute the expected monetary value, or EMV, of each option."
+   },
+   {
+    "en": "Multiply each payoff by the probability of its state and add them up."
+   },
+   {
+    "en": "For A, that is 0.3 times minus 120, plus 0.5 times 80, plus 0.2 times 260, which gives 56 million yuan."
+   },
+   {
+    "en": "B gives 48, C gives 37, and doing nothing gives zero, so EMV picks A."
+   },
+   {
+    "en": "EMV assumes the board is risk-neutral: a loss of 120 million weighs exactly as much as a gain of 120 million."
+   }
   ],
   "eol": [
-   {"en": "Expected opportunity loss, or EOL, is the expected regret."},
-   {"en": "Weight each regret by the probability of its state. For A, only the low-demand regret of 130 counts, so its EOL is 0.3 times 130, which is 39."},
-   {"en": "For every option, EMV plus EOL equals 95."},
-   {"en": "So minimizing expected regret and maximizing expected value always give the same choice."}
+   {
+    "en": "Expected opportunity loss, or EOL, is the expected regret."
+   },
+   {
+    "en": "Weight each regret by the probability of its state. For A, only the low-demand regret of 130 counts, so its EOL is 0.3 times 130, which is 39."
+   },
+   {
+    "en": "For every option, EMV plus EOL equals 95."
+   },
+   {
+    "en": "So minimizing expected regret and maximizing expected value always give the same choice."
+   }
   ],
   "evpi": [
-   {"en": "Now suppose a perfect forecast told CellCo the demand before it decides."},
-   {"en": "It would choose C if demand is low, and A if demand is medium or high."},
-   {"en": "The expected value with perfect information is 0.3 times 10, plus 0.5 times 80, plus 0.2 times 260, which is 95 million yuan."},
-   {"en": "The expected value of perfect information, or EVPI, is 95 minus 56, which is 39 million yuan. It equals the smallest EOL."},
-   {"en": "This is an upper limit. No market study, however good, is worth more than 39 million yuan for this decision. In session two we will price a real, imperfect survey."}
+   {
+    "en": "Now suppose a perfect forecast told CellCo the demand before it decides."
+   },
+   {
+    "en": "It would choose C if demand is low, and A if demand is medium or high."
+   },
+   {
+    "en": "The expected value with perfect information is 0.3 times 10, plus 0.5 times 80, plus 0.2 times 260, which is 95 million yuan."
+   },
+   {
+    "en": "The expected value of perfect information, or EVPI, is 95 minus 56, which is 39 million yuan. It equals the smallest EOL."
+   },
+   {
+    "en": "This is an upper limit. No market study, however good, is worth more than 39 million yuan for this decision. In session two we will price a real, imperfect survey."
+   }
   ],
   "emv-explorer": [
-   {"en": "Use the two sliders to change the probabilities of low and high demand. The probability of medium demand is what remains."},
-   {"en": "The bars show the EMV of each option, and the readout shows the best option and the EVPI."},
-   {"en": "Try to find the probability of low demand at which A stops being the best choice."},
-   {"en": "With the probability of high demand held at 0.2, A stays the best until the probability of low demand reaches 0.38, and then B takes over."},
-   {"en": "The choice is sensitive to the chance of low demand, which is why better information has value."}
+   {
+    "en": "Use the two sliders to change the probabilities of low and high demand. The probability of medium demand is what remains."
+   },
+   {
+    "en": "The bars show the EMV of each option, and the readout shows the best option and the EVPI."
+   },
+   {
+    "en": "Try to find the probability of low demand at which A stops being the best choice."
+   },
+   {
+    "en": "With the probability of high demand held at 0.2, A stays the best until the probability of low demand reaches 0.38, and then B takes over."
+   },
+   {
+    "en": "The choice is sensitive to the chance of low demand, which is why better information has value."
+   }
   ],
   "act2": [
-   {"en": "Activity two. Work on your own for five minutes."},
-   {"en": "Imagine you are CellCo's chief executive. Each line is a fair coin toss for the company: you either win the first amount or lose half of it."},
-   {"en": "Decide whether you would accept each gamble, and write your answers on paper before you click."},
-   {"en": "Then enter your answers. The slide estimates your risk tolerance, R, as the largest gamble you accept."},
-   {"en": "Keep your value of R. We will use it in a few minutes."}
+   {
+    "en": "Activity two. Work on your own for five minutes."
+   },
+   {
+    "en": "Imagine you are CellCo's chief executive. Each line is a fair coin toss for the company: you either win the first amount or lose half of it."
+   },
+   {
+    "en": "Decide whether you would accept each gamble, and write your answers on paper before you click."
+   },
+   {
+    "en": "Then enter your answers. The slide estimates your risk tolerance, R, as the largest gamble you accept."
+   },
+   {
+    "en": "Keep your value of R. We will use it in a few minutes."
+   }
   ],
   "utility": [
-   {"en": "Utility turns a risk attitude into numbers."},
-   {"en": "With exponential utility, U of x equals one minus e to the power of minus x over R, where R is the risk tolerance."},
-   {"en": "The certainty equivalent is the sure amount that has the same utility as the gamble. It is the amount you would accept instead of taking the risk."},
-   {"en": "The dashed straight line is a risk-neutral decision maker, who uses EMV. The curves bend more as R gets smaller."},
-   {"en": "With a small R, the loss of 120 million under low demand weighs more than the gain of 260 million under high demand."}
+   {
+    "en": "Utility turns a risk attitude into numbers."
+   },
+   {
+    "en": "With exponential utility, U of x equals one minus e to the power of minus x over R, where R is the risk tolerance."
+   },
+   {
+    "en": "The certainty equivalent is the sure amount that has the same utility as the gamble. It is the amount you would accept instead of taking the risk."
+   },
+   {
+    "en": "The dashed straight line is a risk-neutral decision maker, who uses EMV. The curves bend more as R gets smaller."
+   },
+   {
+    "en": "With a small R, the loss of 120 million under low demand weighs more than the gain of 260 million under high demand."
+   }
   ],
   "ce-explorer": [
-   {"en": "Move the slider to change the risk tolerance R, in millions of yuan, on a log scale."},
-   {"en": "Each line is the certainty equivalent of one option. The vertical line marks your R, and the readout names the preferred option."},
-   {"en": "Below an R of about 180 million, the tolling contract C is preferred. Between 180 and 835 million, the sodium-ion retrofit B is preferred."},
-   {"en": "Only above 835 million does the new LFP line A come first, which is the choice that EMV made."},
-   {"en": "As R becomes very large, each certainty equivalent approaches its EMV."}
+   {
+    "en": "Move the slider to change the risk tolerance R, in millions of yuan, on a log scale."
+   },
+   {
+    "en": "Each line is the certainty equivalent of one option. The vertical line marks your R, and the readout names the preferred option."
+   },
+   {
+    "en": "Below an R of about 180 million, the tolling contract C is preferred. Between 180 and 835 million, the sodium-ion retrofit B is preferred."
+   },
+   {
+    "en": "Only above 835 million does the new LFP line A come first, which is the choice that EMV made."
+   },
+   {
+    "en": "As R becomes very large, each certainty equivalent approaches its EMV."
+   }
   ],
   "act2-pairs": [
-   {"en": "Now work in pairs for fifteen minutes."},
-   {"en": "Use your own R from the four gambles, and compute the certainty equivalents of A, B and C by hand with the formula."},
-   {"en": "Then check your answers on the previous slide."},
-   {"en": "Compare with your partner. If your choices differ, find the value of R at which you would agree."},
-   {"en": "At the end, we will count how many of you chose A, B and C. If you are studying alone, use R equal to 100 and R equal to 400."}
+   {
+    "en": "Now work in pairs for fifteen minutes."
+   },
+   {
+    "en": "Use your own R from the four gambles, and compute the certainty equivalents of A, B and C by hand with the formula."
+   },
+   {
+    "en": "Then check your answers on the previous slide."
+   },
+   {
+    "en": "Compare with your partner. If your choices differ, find the value of R at which you would agree."
+   },
+   {
+    "en": "At the end, we will count how many of you chose A, B and C. If you are studying alone, use R equal to 100 and R equal to 400."
+   }
   ],
   "act2-answer": [
-   {"en": "Here are reference values to check your work."},
-   {"en": "At an R of 100 million, the certainty equivalents are minus 21.2 for A, 26.6 for B and 34.8 for C, so C is preferred."},
-   {"en": "At 400 million, B is preferred, and only at 1,000 million does A come first."},
-   {"en": "So the EMV choice, A, holds only for a board that is close to risk-neutral."}
+   {
+    "en": "Here are reference values to check your work."
+   },
+   {
+    "en": "At an R of 100 million, the certainty equivalents are minus 21.2 for A, 26.6 for B and 34.8 for C, so C is preferred."
+   },
+   {
+    "en": "At 400 million, B is preferred, and only at 1,000 million does A come first."
+   },
+   {
+    "en": "So the EMV choice, A, holds only for a board that is close to risk-neutral."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "Without probabilities, the criterion decides: maximin picks C, minimax regret picks B, and maximax picks A from the same table."},
-   {"en": "With probabilities, EMV picks A at 56 million yuan, and the value of perfect information caps what any forecast is worth at 39 million."},
-   {"en": "Utility makes the board's risk attitude explicit. CellCo's choice moves from A to B to C as its risk tolerance falls."},
-   {"en": "In session two, we will use a decision tree to price an imperfect market survey, and AHP to choose CellCo's storage technology."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."},
-   {"en": "Use the English terms in your assignments and quizzes."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "Without probabilities, the criterion decides: maximin picks C, minimax regret picks B, and maximax picks A from the same table."
+   },
+   {
+    "en": "With probabilities, EMV picks A at 56 million yuan, and the value of perfect information caps what any forecast is worth at 39 million."
+   },
+   {
+    "en": "Utility makes the board's risk attitude explicit. CellCo's choice moves from A to B to C as its risk tolerance falls."
+   },
+   {
+    "en": "In session two, we will use a decision tree to price an imperfect market survey, and AHP to choose CellCo's storage technology."
+   }
   ],
   "exit": [
-   {"en": "To finish, take three minutes for the exit ticket."},
-   {"en": "On paper, write two sentences for CellCo's board: which option you recommend, and which number from today supports it."},
-   {"en": "Hand it in at the door. Quiz one opens online this evening."}
+   {
+    "en": "To finish, take three minutes for the exit ticket."
+   },
+   {
+    "en": "On paper, write two sentences for CellCo's board: which option you recommend, and which number from today supports it."
+   },
+   {
+    "en": "Quiz one opens online this evening."
+   }
   ]
  }
 }

@@ -255,19 +255,9 @@ Judge a plan by its expected result on the same scenarios, not by one lucky or u
 
 [Tomorrow, Session 15: Statistical Quality Control begins with variation and measurement.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Two-stage stochastic programming | 两阶段随机规划 | Robust optimization | 鲁棒优化 |
-| Scenario | 情景 | Worst case | 最坏情况 |
-| Value of the stochastic solution (VSS) | 随机解价值 | Expected value of perfect information | 完全信息期望价值 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 If unsold cells could be sold next week at full value, how would the best output change? Explain in one sentence.

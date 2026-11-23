@@ -594,30 +594,10 @@
    ]
   }
  },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference.",
-   "Use the English terms in your assignments and quizzes."
-  ],
-  "en": {
-   "audio": "narration/s02/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
-    ],
-    [
-     5.57,
-     8.83
-    ]
-   ]
-  }
- },
  "exit": {
   "text": [
    "To finish, take three minutes for the exit ticket.",
-   "Name one piece of information CellCo could buy before choosing its storage technology, and explain in one sentence how you would decide the most it should pay.",
-   "Hand it in at the door."
+   "Name one piece of information CellCo could buy before choosing its storage technology, and explain in one sentence how you would decide the most it should pay."
   ],
   "en": {
    "audio": "narration/s02/exit.en.mp3",
@@ -629,10 +609,6 @@
     [
      3.54,
      14.59
-    ],
-    [
-     14.94,
-     16.74
     ]
    ]
   }

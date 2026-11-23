@@ -317,20 +317,6 @@
    ]
   }
  },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s13/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
-    ]
-   ]
-  }
- },
  "exit": {
   "text": [
    "For the exit ticket, name one decision in your own research that should be a binary variable, and the constraint that would link it."

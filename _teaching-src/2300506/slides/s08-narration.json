@@ -2,74 +2,153 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session eight: PERT, simulation and crashing."},
-   {"en": "Today we estimate the chance that CellCo's storage project finishes on time, check that estimate by simulation, and find the cheapest way to finish earlier."}
+   {
+    "en": "Welcome to session eight: PERT, simulation and crashing."
+   },
+   {
+    "en": "Today we estimate the chance that CellCo's storage project finishes on time, check that estimate by simulation, and find the cheapest way to finish earlier."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First, PERT and its probability of finishing on time, then a simulation check. After the break, crashing as a linear program, and a crash auction between groups."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First, PERT and its probability of finishing on time, then a simulation check. After the break, crashing as a linear program, and a crash auction between groups."
+   }
   ],
   "pert": [
-   {"en": "PERT asks for three estimates of each duration: optimistic, most likely, and pessimistic."},
-   {"en": "The expected duration is a plus four m plus b, divided by six. The variance is the range divided by six, squared."},
-   {"en": "Most estimates are skewed to the right, because things go wrong more often than they go unusually well. So the expected duration is above the most likely one."},
-   {"en": "The containers, activity C, have the widest range, from six to fourteen weeks, and the largest variance."}
+   {
+    "en": "PERT asks for three estimates of each duration: optimistic, most likely, and pessimistic."
+   },
+   {
+    "en": "The expected duration is a plus four m plus b, divided by six. The variance is the range divided by six, squared."
+   },
+   {
+    "en": "Most estimates are skewed to the right, because things go wrong more often than they go unusually well. So the expected duration is above the most likely one."
+   },
+   {
+    "en": "The containers, activity C, have the widest range, from six to fourteen weeks, and the largest variance."
+   }
   ],
   "pert-answer": [
-   {"en": "With expected durations, the critical path is A, B, C, F, H, at 20.67 weeks. The path through E and G follows at 20.17 weeks."},
-   {"en": "PERT adds the variances along the critical path, 3.28 in total, so the standard deviation is 1.81 weeks."},
-   {"en": "The probability of finishing within 22 weeks is the normal probability of 0.74 standard deviations, which is 0.77."},
-   {"en": "But PERT looks at only one path. The second path is just half a week shorter, and in the futures where E or G runs late, it decides the finish date."}
+   {
+    "en": "With expected durations, the critical path is A, B, C, F, H, at 20.67 weeks. The path through E and G follows at 20.17 weeks."
+   },
+   {
+    "en": "PERT adds the variances along the critical path, 3.28 in total, so the standard deviation is 1.81 weeks."
+   },
+   {
+    "en": "The probability of finishing within 22 weeks is the normal probability of 0.74 standard deviations, which is 0.77."
+   },
+   {
+    "en": "But PERT looks at only one path. The second path is just half a week shorter, and in the futures where E or G runs late, it decides the finish date."
+   }
   ],
   "pert-explorer": [
-   {"en": "Move the deadline slider. The dashed teal line is the PERT probability of finishing by that deadline. The amber line is the simulation, which draws every duration and takes the longest path in each run."},
-   {"en": "At 22 weeks, PERT gives 77 percent, and the simulation gives 71 percent."},
-   {"en": "The simulation curve lies to the right of PERT at every deadline."}
+   {
+    "en": "Move the deadline slider. The dashed teal line is the PERT probability of finishing by that deadline. The amber line is the simulation, which draws every duration and takes the longest path in each run."
+   },
+   {
+    "en": "At 22 weeks, PERT gives 77 percent, and the simulation gives 71 percent."
+   },
+   {
+    "en": "The simulation curve lies to the right of PERT at every deadline."
+   }
   ],
   "merge-bias": [
-   {"en": "The table compares the two methods at five deadlines. PERT is more optimistic at every one."},
-   {"en": "The simulated mean finish is 21.1 weeks, not 20.7, and the path through E and G is the longest path in 41 percent of runs."},
-   {"en": "This is merge bias. Where paths merge, the finish date is the maximum of several uncertain paths, and that maximum is later than any one path alone."},
-   {"en": "For a 90 percent on-time promise, PERT suggests 23.0 weeks, but the simulation says 23.4."}
+   {
+    "en": "The table compares the two methods at five deadlines. PERT is more optimistic at every one."
+   },
+   {
+    "en": "The simulated mean finish is 21.1 weeks, not 20.7, and the path through E and G is the longest path in 41 percent of runs."
+   },
+   {
+    "en": "This is merge bias. Where paths merge, the finish date is the maximum of several uncertain paths, and that maximum is later than any one path alone."
+   },
+   {
+    "en": "For a 90 percent on-time promise, PERT suggests 23.0 weeks, but the simulation says 23.4."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards: the grid company offers a bonus for finishing in nineteen weeks. Which activities should CellCo pay to shorten?"}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards: the grid company offers a bonus for finishing in nineteen weeks. Which activities should CellCo pay to shorten?"
+   }
   ],
   "crashing": [
-   {"en": "Crashing means paying to shorten an activity, for example with overtime, extra crews, or air freight."},
-   {"en": "The table gives the cost of each week saved and the maximum that can be saved for each activity."},
-   {"en": "Three rules of thumb help. Crash only critical activities. Prefer the cheapest per week. And an activity shared by both long paths shortens both at once."},
-   {"en": "The exact answer comes from a linear program: minimize the total crash cost, subject to every path being at most nineteen weeks long. Block two solves programs like this in Solver."}
+   {
+    "en": "Crashing means paying to shorten an activity, for example with overtime, extra crews, or air freight."
+   },
+   {
+    "en": "The table gives the cost of each week saved and the maximum that can be saved for each activity."
+   },
+   {
+    "en": "Three rules of thumb help. Crash only critical activities. Prefer the cheapest per week. And an activity shared by both long paths shortens both at once."
+   },
+   {
+    "en": "The exact answer comes from a linear program: minimize the total crash cost, subject to every path being at most nineteen weeks long. Block two solves programs like this in Solver."
+   }
   ],
   "crash-explorer": [
-   {"en": "Each slider buys crash weeks for one activity, in steps of one sixth of a week. The number in brackets is the cost per week."},
-   {"en": "The table shows the expected length of each path, with the longest highlighted, and the readout shows the project length and the total crash cost."}
+   {
+    "en": "Each slider buys crash weeks for one activity, in steps of one sixth of a week. The number in brackets is the cost per week."
+   },
+   {
+    "en": "The table shows the expected length of each path, with the longest highlighted, and the readout shows the project length and the total crash cost."
+   }
   ],
   "act1": [
-   {"en": "Activity, the crash auction. Work in groups of four for thirty minutes."},
-   {"en": "Your goal is to reach nineteen expected weeks at the lowest crash cost. Plan on paper first, using the rules of thumb, then check your plan on the planner."},
-   {"en": "Look for crash weeks that bought nothing, and explain why."},
-   {"en": "Then consider site overhead of 0.3 million yuan per week saved: how far should CellCo crash? Each group posts its plan and cost before we reveal the optimum."}
+   {
+    "en": "Activity, the crash auction. Work in groups of four for thirty minutes."
+   },
+   {
+    "en": "Your goal is to reach nineteen expected weeks at the lowest crash cost. Plan on paper first, using the rules of thumb, then check your plan on the planner."
+   },
+   {
+    "en": "Look for crash weeks that bought nothing, and explain why."
+   },
+   {
+    "en": "Then consider site overhead of 0.3 million yuan per week saved: how far should CellCo crash? Each group posts its plan and cost before we reveal the optimum."
+   }
   ],
   "act1-answer": [
-   {"en": "Here is the linear-programming optimum."},
-   {"en": "To reach nineteen weeks, crash B by 1.5 weeks and C by one sixth of a week, for 0.425 million yuan."},
-   {"en": "B goes first because both long paths share it and it is the cheapest critical activity. Crashing D buys nothing, because D is not critical."},
-   {"en": "With overhead of 0.3 million per week, crashing pays while its cost is below 0.3. B pays, C breaks even, and A does not, so CellCo should crash B fully."}
+   {
+    "en": "Here is the linear-programming optimum."
+   },
+   {
+    "en": "To reach nineteen weeks, crash B by 1.5 weeks and C by one sixth of a week, for 0.425 million yuan."
+   },
+   {
+    "en": "B goes first because both long paths share it and it is the cheapest critical activity. Crashing D buys nothing, because D is not critical."
+   },
+   {
+    "en": "With overhead of 0.3 million per week, crashing pays while its cost is below 0.3. B pays, C breaks even, and A does not, so CellCo should crash B fully."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "PERT turns three estimates into an expected duration and a variance. For CellCo, it gives a 77 percent chance of finishing in 22 weeks."},
-   {"en": "Simulation of all paths gives 71 percent and a mean of 21.1 weeks. Merging paths make PERT optimistic."},
-   {"en": "Crashing is a linear program. Finishing in nineteen expected weeks costs at least 0.425 million yuan."},
-   {"en": "In session nine, we see what happens when two activities need the same installation crew."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "PERT turns three estimates into an expected duration and a variance. For CellCo, it gives a 77 percent chance of finishing in 22 weeks."
+   },
+   {
+    "en": "Simulation of all paths gives 71 percent and a mean of 21.1 weeks. Merging paths make PERT optimistic."
+   },
+   {
+    "en": "Crashing is a linear program. Finishing in nineteen expected weeks costs at least 0.425 million yuan."
+   },
+   {
+    "en": "In session nine, we see what happens when two activities need the same installation crew."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket: would you promise the grid company twenty-two weeks? Answer in two sentences, citing one number from today."}
+   {
+    "en": "For the exit ticket: would you promise the grid company twenty-two weeks? Answer in two sentences, citing one number from today."
+   }
   ]
  }
 }

@@ -164,7 +164,7 @@
  },
  "to-block2": {
   "text": [
-   "By the twenty-first of February, submit the group report, the workbook or notebook, the recorded presentation, and your research note. You will receive feedback before Block two.",
+   "The group report, the workbook or notebook, the recorded presentation, and your research note are due on the twenty-first of February. You will receive feedback before Block two.",
    "Block two, on the twenty-seventh and twenty-eighth of March, covers linear programming and statistical quality control, again with CellCo.",
    "Crashing in session eight was already a linear program. Block two starts there. Thank you for your work in Block one."
   ],
@@ -173,29 +173,15 @@
    "cues": [
     [
      0.25,
-     12.13
+     11.94
     ],
     [
-     12.48,
-     21.98
+     12.29,
+     21.78
     ],
     [
-     22.33,
-     29.88
-    ]
-   ]
-  }
- },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s10/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
+     22.13,
+     29.69
     ]
    ]
   }

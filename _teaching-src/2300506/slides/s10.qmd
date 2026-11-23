@@ -173,13 +173,3 @@ Quiz 2 covers Markov Analysis and Network Model, Sessions 4 to 9.
 ::: {.bridge}
 Crashing in Session 8 was already a linear program. Block 2 starts there.
 :::
-
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Research note | 研究短文 | Assumption | 假设 |
-| Peer review | 同行评审 | Limitation | 局限性 |
-| Board memo | 董事会备忘录 | Sensitivity analysis | 敏感性分析 |
-:::

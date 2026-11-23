@@ -2,57 +2,114 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session nine: limited resources and other networks."},
-   {"en": "In one hour, we see how a shared crew changes the project plan, and meet two more network models: the shortest path and the maximal flow."}
+   {
+    "en": "Welcome to session nine: limited resources and other networks."
+   },
+   {
+    "en": "In one hour, we see how a shared crew changes the project plan, and meet two more network models: the shortest path and the maximal flow."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First, one crew for two jobs, followed by an activity in which you sequence the crew by hand. Then shortest paths and maximal flows."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First, one crew for two jobs, followed by an activity in which you sequence the crew by hand. Then shortest paths and maximal flows."
+   }
   ],
   "resources": [
-   {"en": "The critical path method assumes that every activity has the crew it needs. Often that is not true."},
-   {"en": "Installing the containers, F, and installing the power conversion system, G, both need CellCo's only specialist installation crew. In the CPM schedule they overlap."},
-   {"en": "With one crew, one job must wait. If G goes first, the project finishes at 22.17 weeks. If F goes first, it finishes at 23.83."},
-   {"en": "Even the better sequence adds one and a half weeks that the CPM schedule does not show."}
+   {
+    "en": "The critical path method assumes that every activity has the crew it needs. Often that is not true."
+   },
+   {
+    "en": "Installing the containers, F, and installing the power conversion system, G, both need CellCo's only specialist installation crew. In the CPM schedule they overlap."
+   },
+   {
+    "en": "With one crew, one job must wait. If G goes first, the project finishes at 22.17 weeks. If F goes first, it finishes at 23.83."
+   },
+   {
+    "en": "Even the better sequence adds one and a half weeks that the CPM schedule does not show."
+   }
   ],
   "gantt-explorer": [
-   {"en": "Switch between the three schedules. The amber bars use the shared crew, and the dashed red line marks the finish."},
-   {"en": "Notice how the shared crew pushes commissioning later."}
+   {
+    "en": "Switch between the three schedules. The amber bars use the shared crew, and the dashed red line marks the finish."
+   },
+   {
+    "en": "Notice how the shared crew pushes commissioning later."
+   }
   ],
   "act1": [
-   {"en": "Activity. Work in pairs for twenty minutes."},
-   {"en": "Draw the Gantt chart for one crew by hand. First find which activity is ready for the crew first, and when the other becomes ready. Then draw both sequences and compare their finish times."},
-   {"en": "Finally, CellCo can hire a second crew for G only, for 0.6 million yuan, and the grid bonus pays 0.5 million per week saved. Should it hire the crew?"}
+   {
+    "en": "Activity. Work in pairs for twenty minutes."
+   },
+   {
+    "en": "Draw the Gantt chart for one crew by hand. First find which activity is ready for the crew first, and when the other becomes ready. Then draw both sequences and compare their finish times."
+   },
+   {
+    "en": "Finally, CellCo can hire a second crew for G only, for 0.6 million yuan, and the grid bonus pays 0.5 million per week saved. Should it hire the crew?"
+   }
   ],
   "act1-answer": [
-   {"en": "G is ready first, at week 14.83, after E. F is ready at 16.5, after C."},
-   {"en": "G first finishes at 22.17 weeks, and F first at 23.83. Starting whichever job is ready first wins here."},
-   {"en": "A second crew restores the 20.67-week plan, one and a half weeks earlier. That is worth 0.75 million yuan against a cost of 0.6, so CellCo should hire the crew."}
+   {
+    "en": "G is ready first, at week 14.83, after E. F is ready at 16.5, after C."
+   },
+   {
+    "en": "G first finishes at 22.17 weeks, and F first at 23.83. Starting whichever job is ready first wins here."
+   },
+   {
+    "en": "A second crew restores the 20.67-week plan, one and a half weeks earlier. That is worth 0.75 million yuan against a cost of 0.6, so CellCo should hire the crew."
+   }
   ],
   "shortest-path": [
-   {"en": "A different network problem: the fastest route for delivering the containers from the port to the plant."},
-   {"en": "Dijkstra's algorithm labels each node with the shortest known time from the port, and always fixes the unvisited node with the smallest label next."},
-   {"en": "The shortest route is P, a, c, T, at 95 minutes."},
-   {"en": "Going first to the nearest junction, b, at 25 minutes, leads to at best 100 minutes. Nearest-first is not shortest."}
+   {
+    "en": "A different network problem: the fastest route for delivering the containers from the port to the plant."
+   },
+   {
+    "en": "Dijkstra's algorithm labels each node with the shortest known time from the port, and always fixes the unvisited node with the smallest label next."
+   },
+   {
+    "en": "The shortest route is P, a, c, T, at 95 minutes."
+   },
+   {
+    "en": "Going first to the nearest junction, b, at 25 minutes, leads to at best 100 minutes. Nearest-first is not shortest."
+   }
   ],
   "max-flow": [
-   {"en": "Another network question: how many cells per hour can the line deliver?"},
-   {"en": "Each link has a capacity. The maximal flow through this network is 1,300 cells per hour."},
-   {"en": "It equals the capacity of the minimum cut: the two links from the aging rooms to packing, 700 plus 600."},
-   {"en": "So adding formation capacity buys nothing. Raising the link from A2 to packing to 800 lifts the flow to 1,400, where packing becomes the limit."}
+   {
+    "en": "Another network question: how many cells per hour can the line deliver?"
+   },
+   {
+    "en": "Each link has a capacity. The maximal flow through this network is 1,300 cells per hour."
+   },
+   {
+    "en": "It equals the capacity of the minimum cut: the two links from the aging rooms to packing, 700 plus 600."
+   },
+   {
+    "en": "So adding formation capacity buys nothing. Raising the link from A2 to packing to 800 lifts the flow to 1,400, where packing becomes the limit."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "A shared resource can lengthen a project beyond its critical path. With one crew, CellCo's plan grows from 20.67 to 22.17 weeks."},
-   {"en": "Dijkstra's algorithm finds shortest routes, and going to the nearest node first can miss them."},
-   {"en": "The maximal flow equals the minimum cut, so invest in the links of the cut."},
-   {"en": "Session ten is the group clinic, with the research note brief and quiz two."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "A shared resource can lengthen a project beyond its critical path. With one crew, CellCo's plan grows from 20.67 to 22.17 weeks."
+   },
+   {
+    "en": "Dijkstra's algorithm finds shortest routes, and going to the nearest node first can miss them."
+   },
+   {
+    "en": "The maximal flow equals the minimum cut, so invest in the links of the cut."
+   },
+   {
+    "en": "Session ten is the group clinic, with the research note brief and quiz two."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket, name one other resource in the installation project that could be shared, and say which two activities it could delay."}
+   {
+    "en": "For the exit ticket, name one other resource in the installation project that could be shared, and say which two activities it could delay."
+   }
   ]
  }
 }

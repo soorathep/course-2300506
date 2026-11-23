@@ -230,20 +230,6 @@
    ]
   }
  },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s06/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
-    ]
-   ]
-  }
- },
  "exit": {
   "text": [
    "For the exit ticket: a new sensor detects minor wear one shift earlier. In one sentence, say how you would decide whether it is worth buying."

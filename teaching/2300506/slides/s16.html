@@ -370,7 +370,7 @@ Soorathep Kheawhom, Ph.D., FRSC
 </ol>
 </div>
 <div>
-<p><strong>Hand in</strong></p>
+<p><strong>Deliverables</strong></p>
 <p>The Gage R&amp;R table, three charts and the detection comparison.</p>
 <p><span class="hint">The EWMA and CUSUM charts are a few Excel columns each. The Python notebook builds them for longer data.</span></p>
 </div>
@@ -391,56 +391,9 @@ Soorathep Kheawhom, Ph.D., FRSC
 </div>
 <p><span class="note-line">Session 17: when readings are autocorrelated, attribute charts, and process capability.</span></p>
 </section>
-<section id="glossary" class="slide level2">
-<h2>Key terms in English and Chinese</h2>
-<div class="gloss">
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>English</th>
-<th>中文</th>
-<th>English</th>
-<th>中文</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Control chart</td>
-<td>控制图</td>
-<td>Run rules</td>
-<td>判异准则</td>
-</tr>
-<tr class="even">
-<td>Rational subgroup</td>
-<td>合理子组</td>
-<td>Average run length (ARL)</td>
-<td>平均运行长度</td>
-</tr>
-<tr class="odd">
-<td>Control limit</td>
-<td>控制限</td>
-<td>EWMA chart</td>
-<td>指数加权移动平均控制图</td>
-</tr>
-<tr class="even">
-<td>Specification limit</td>
-<td>规格限</td>
-<td>CUSUM chart</td>
-<td>累积和控制图</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="exit" class="slide level2 activity">
 <h2>Exit ticket · 2 minutes</h2>
-<p><span class="act-label">On your own · on paper · hand in at the door</span></p>
+<p><span class="act-label">On your own · on paper</span></p>
 <div class="prompt">
 <p>Your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?</p>
 </div>
@@ -1050,5 +1003,5 @@ Soorathep Kheawhom, Ph.D., FRSC
       </script>
     
 
-<script type="application/json" id="nr-data">{"title-slide":{"text":["Welcome to session sixteen: control charts for small shifts.","Today we build X-bar and R charts for CellCo's coating line, and then charts with memory that catch small drifts much sooner."],"en":{"audio":"narration/s16/title-slide.en.mp3","cues":[[0.25,4.47],[4.82,13.36]]}},"route":{"text":["Here is the plan.","First X-bar and R charts, then individuals charts and run rules. After the break, EWMA and CUSUM charts, the drift detectives activity, and workshop seven."],"en":{"audio":"narration/s16/route.en.mp3","cues":[[0.25,1.66],[2.01,15.04]]}},"subgroups":{"text":["Each hour, five coupons are punched across the web at the same moment. Together they form one subgroup.","Variation within a subgroup is short-term noise. Variation between subgroups adds anything that changes over time.","Control limits are built from within-subgroup variation, so a shift between hours stands out.","Taking five coupons over five hours as one subgroup would be a poor choice. The drift would inflate the ranges, widen the limits, and hide itself."],"en":{"audio":"narration/s16/subgroups.en.mp3","cues":[[0.25,7.1],[7.45,15.77],[16.12,22.2],[22.55,32.6]]}},"xbar-r":{"text":["From 25 subgroups, the grand mean is 20.05 and the mean range is 0.40.","The X-bar limits are 19.82 to 20.28. The range chart runs from zero to 0.85. And the process standard deviation, estimated from the mean range, is 0.172.","Read the range chart first. If the spread within subgroups is not stable, the X-bar limits mean nothing.","And do not confuse control limits with specification limits. Control limits describe what the process does; the specification describes what the customer needs."],"en":{"audio":"narration/s16/xbar-r.en.mp3","cues":[[0.25,8.21],[8.56,24.79],[25.14,32.5],[32.85,44.16]]}},"imr-rules":{"text":["When readings arrive one at a time, for example one viscosity test per slurry batch, we chart individual values, and estimate sigma from the average moving range.","Run rules look for patterns as well as single points: two of three beyond two sigma, four of five beyond one sigma, or eight in a row on one side.","Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, a stable process gives a false alarm about every 92 subgroups instead of every 370."],"en":{"audio":"narration/s16/imr-rules.en.mp3","cues":[[0.25,12.24],[12.59,23.38],[23.73,39.14]]}},"break":{"text":["Let us take a ten-minute break.","Afterwards: a drift of half a standard error. How long until the X-bar chart notices?"],"en":{"audio":"narration/s16/break.en.mp3","cues":[[0.25,2.32],[2.67,8.71]]}},"arl":{"text":["The average run length is the average number of subgroups until a chart signals.","All three charts in this table are tuned to raise a false alarm about once every 370 subgroups.","For a shift of half a standard error, the X-bar chart needs about 155 subgroups to notice, almost a week of production. CUSUM needs about 35, and EWMA about 25."],"en":{"audio":"narration/s16/arl.en.mp3","cues":[[0.25,5.75],[6.1,13.78],[14.13,28.9]]}},"ewma-cusum":{"text":["The EWMA chart plots a weighted average. Each new subgroup gets ten percent weight, and older subgroups fade.","The CUSUM chart adds up small deviations in one direction, and signals when the sum exceeds a threshold.","Both trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side."],"en":{"audio":"narration/s16/ewma-cusum.en.mp3","cues":[[0.25,8.85],[9.2,16.77],[17.12,29.84]]}},"drift-explorer":{"text":["Press Next subgroup to reveal one hour at a time. The upper panel is the X-bar chart, and the lower panel is the EWMA chart.","After each point, ask yourself whether you would stop the line. When all thirty are shown, the drift point is revealed."],"en":{"audio":"narration/s16/drift-explorer.en.mp3","cues":[[0.25,9.74],[10.09,17.79]]}},"act1":{"text":["Activity, drift detectives. Work in groups of four for twenty-five minutes.","Subgroup means are revealed one hour at a time. Update both charts on paper, and raise the red card at your first signal.","Record when each chart first signals, and at the end compare with the planted drift point."],"en":{"audio":"narration/s16/act1.en.mp3","cues":[[0.25,5.18],[5.53,14.32],[14.67,20.28]]}},"act1-answer":{"text":["The drift of 0.077 milligrams per square centimeter started at subgroup sixteen.","The EWMA chart signaled at subgroup 22, six hours later. CUSUM signaled at 23. The X-bar chart with run rules signaled at 26, and with three-sigma limits alone it never signaled.","The drifted coating was still well inside the specification. That is the point of process control: act on the process before the product goes out of specification."],"en":{"audio":"narration/s16/act1-answer.en.mp3","cues":[[0.25,7.27],[7.62,23.41],[23.76,34.76]]}},"w7":{"text":["Workshop seven. Run a gauge study on the supplied data, then build X-bar and R, EWMA and CUSUM charts for your group's coating data, and compare how soon each flags the planted drift."],"en":{"audio":"narration/s16/w7.en.mp3","cues":[[0.25,14.63]]}},"debrief":{"text":["Let us summarize.","Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups.","Read the range chart before the X-bar chart. Control limits describe the process; specifications describe the customer's need.","For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate.","In session seventeen: autocorrelated readings, attribute charts, and process capability."],"en":{"audio":"narration/s16/debrief.en.mp3","cues":[[0.25,1.7],[2.05,9.18],[9.53,18.78],[19.13,28.97],[29.32,35.53]]}},"glossary":{"text":["This slide lists today's key terms in English and Chinese, for reference."],"en":{"audio":"narration/s16/glossary.en.mp3","cues":[[0.25,5.22]]}},"exit":{"text":["For the exit ticket: your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?"],"en":{"audio":"narration/s16/exit.en.mp3","cues":[[0.25,8.12]]}}}</script>
+<script type="application/json" id="nr-data">{"title-slide":{"text":["Welcome to session sixteen: control charts for small shifts.","Today we build X-bar and R charts for CellCo's coating line, and then charts with memory that catch small drifts much sooner."],"en":{"audio":"narration/s16/title-slide.en.mp3","cues":[[0.25,4.47],[4.82,13.36]]}},"route":{"text":["Here is the plan.","First X-bar and R charts, then individuals charts and run rules. After the break, EWMA and CUSUM charts, the drift detectives activity, and workshop seven."],"en":{"audio":"narration/s16/route.en.mp3","cues":[[0.25,1.66],[2.01,15.04]]}},"subgroups":{"text":["Each hour, five coupons are punched across the web at the same moment. Together they form one subgroup.","Variation within a subgroup is short-term noise. Variation between subgroups adds anything that changes over time.","Control limits are built from within-subgroup variation, so a shift between hours stands out.","Taking five coupons over five hours as one subgroup would be a poor choice. The drift would inflate the ranges, widen the limits, and hide itself."],"en":{"audio":"narration/s16/subgroups.en.mp3","cues":[[0.25,7.1],[7.45,15.77],[16.12,22.2],[22.55,32.6]]}},"xbar-r":{"text":["From 25 subgroups, the grand mean is 20.05 and the mean range is 0.40.","The X-bar limits are 19.82 to 20.28. The range chart runs from zero to 0.85. And the process standard deviation, estimated from the mean range, is 0.172.","Read the range chart first. If the spread within subgroups is not stable, the X-bar limits mean nothing.","And do not confuse control limits with specification limits. Control limits describe what the process does; the specification describes what the customer needs."],"en":{"audio":"narration/s16/xbar-r.en.mp3","cues":[[0.25,8.21],[8.56,24.79],[25.14,32.5],[32.85,44.16]]}},"imr-rules":{"text":["When readings arrive one at a time, for example one viscosity test per slurry batch, we chart individual values, and estimate sigma from the average moving range.","Run rules look for patterns as well as single points: two of three beyond two sigma, four of five beyond one sigma, or eight in a row on one side.","Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, a stable process gives a false alarm about every 92 subgroups instead of every 370."],"en":{"audio":"narration/s16/imr-rules.en.mp3","cues":[[0.25,12.24],[12.59,23.38],[23.73,39.14]]}},"break":{"text":["Let us take a ten-minute break.","Afterwards: a drift of half a standard error. How long until the X-bar chart notices?"],"en":{"audio":"narration/s16/break.en.mp3","cues":[[0.25,2.32],[2.67,8.71]]}},"arl":{"text":["The average run length is the average number of subgroups until a chart signals.","All three charts in this table are tuned to raise a false alarm about once every 370 subgroups.","For a shift of half a standard error, the X-bar chart needs about 155 subgroups to notice, almost a week of production. CUSUM needs about 35, and EWMA about 25."],"en":{"audio":"narration/s16/arl.en.mp3","cues":[[0.25,5.75],[6.1,13.78],[14.13,28.9]]}},"ewma-cusum":{"text":["The EWMA chart plots a weighted average. Each new subgroup gets ten percent weight, and older subgroups fade.","The CUSUM chart adds up small deviations in one direction, and signals when the sum exceeds a threshold.","Both trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side."],"en":{"audio":"narration/s16/ewma-cusum.en.mp3","cues":[[0.25,8.85],[9.2,16.77],[17.12,29.84]]}},"drift-explorer":{"text":["Press Next subgroup to reveal one hour at a time. The upper panel is the X-bar chart, and the lower panel is the EWMA chart.","After each point, ask yourself whether you would stop the line. When all thirty are shown, the drift point is revealed."],"en":{"audio":"narration/s16/drift-explorer.en.mp3","cues":[[0.25,9.74],[10.09,17.79]]}},"act1":{"text":["Activity, drift detectives. Work in groups of four for twenty-five minutes.","Subgroup means are revealed one hour at a time. Update both charts on paper, and raise the red card at your first signal.","Record when each chart first signals, and at the end compare with the planted drift point."],"en":{"audio":"narration/s16/act1.en.mp3","cues":[[0.25,5.18],[5.53,14.32],[14.67,20.28]]}},"act1-answer":{"text":["The drift of 0.077 milligrams per square centimeter started at subgroup sixteen.","The EWMA chart signaled at subgroup 22, six hours later. CUSUM signaled at 23. The X-bar chart with run rules signaled at 26, and with three-sigma limits alone it never signaled.","The drifted coating was still well inside the specification. That is the point of process control: act on the process before the product goes out of specification."],"en":{"audio":"narration/s16/act1-answer.en.mp3","cues":[[0.25,7.27],[7.62,23.41],[23.76,34.76]]}},"w7":{"text":["Workshop seven. Run a gauge study on the supplied data, then build X-bar and R, EWMA and CUSUM charts for your group's coating data, and compare how soon each flags the planted drift."],"en":{"audio":"narration/s16/w7.en.mp3","cues":[[0.25,14.63]]}},"debrief":{"text":["Let us summarize.","Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups.","Read the range chart before the X-bar chart. Control limits describe the process; specifications describe the customer's need.","For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate.","In session seventeen: autocorrelated readings, attribute charts, and process capability."],"en":{"audio":"narration/s16/debrief.en.mp3","cues":[[0.25,1.7],[2.05,9.18],[9.53,18.78],[19.13,28.97],[29.32,35.53]]}},"exit":{"text":["For the exit ticket: your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?"],"en":{"audio":"narration/s16/exit.en.mp3","cues":[[0.25,8.12]]}}}</script>
 </body></html>

@@ -331,20 +331,6 @@
    ]
   }
  },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s15/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
-    ]
-   ]
-  }
- },
  "exit": {
   "text": [
    "For the exit ticket, name one measurement in your own lab that you have never checked with a gauge study, and say how you would check it."

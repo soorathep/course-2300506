@@ -22,8 +22,8 @@ title-slide-attributes:
 ::: {.seg .brk style="--w:1"}
 [50–60]{.t} **Break** [ ]{.d}
 :::
-::: {.seg .concept style="--w:2"}
-[60–80]{.t} **Discussion** [Pre-read]{.d}
+::: {.seg .act style="--w:2"}
+[60–80]{.t} **Activity** [Research note draft]{.d}
 :::
 ::: {.seg .act style="--w:1.5"}
 [80–95]{.t} **Clinic** [Group work]{.d}
@@ -179,20 +179,24 @@ From last week's coating-line log (output counted in cell equivalents), compute 
 ## Break · 10 minutes {#break}
 
 ::: {.route-question}
-After the break: the pre-read paper on process control in electrode manufacturing.
+After the break: a 20-minute draft of your Block 2 research note.
 :::
 
-## Pre-read discussion · 20 minutes {#preread .activity}
+## Activity · Research note draft {#note-draft .activity data-hold="true"}
 
-[Groups of 4 · 12 minutes in groups, 8 minutes whole class]{.act-label}
+[On your own, then pairs · 20 minutes · one-page outline]{.act-label}
 
 ::: {.prompt}
-Discuss the pre-read paper with three questions.
+Outline your Block 2 research note: one Linear Programming or Quality Control method applied to a decision or process in your own research.
 :::
 
-1. Which quality characteristic did the authors monitor, how was it measured, and was the measurement system checked?
-2. Which chart or model did they use? Were its assumptions (rational subgroups, independence, normality) checked or defended?
-3. What would you change to apply the method on CellCo's coating line, or to repeated measurements in your own lab?
+1. **On your own, 8 minutes.** Write the decision or process, the method, the data you have or would collect, and the two assumptions that matter most.
+2. **In pairs, 8 minutes.** Read your partner's outline. Does the method fit the question? Is each assumption stated, and could it be checked? Name one limitation.
+3. **On your own, 4 minutes.** Revise one point after the feedback.
+
+::: {.selfstudy}
+Studying alone: use the method table in Session 10 as a checklist, and write the outline before you go on.
+:::
 
 ## Group clinic · 15 minutes {#clinic}
 
@@ -256,14 +260,4 @@ At the bottleneck, a yield gain is a capacity gain, priced by the LP's shadow pr
 :::
 :::
 
-[Thank you for your work in both blocks. Send questions about the assignment or the research note to the instructor by email.]{.note-line}
-
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| First-pass yield | 一次合格率 | Overall equipment effectiveness (OEE) | 设备综合效率 |
-| Rolled throughput yield | 流通合格率 | Hidden factory | 隐藏工厂 |
-| Defects per million opportunities | 百万机会缺陷数 | Cost of poor quality | 劣质成本 |
-:::
+[Thank you for your work in both blocks.]{.note-line}

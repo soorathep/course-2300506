@@ -21,7 +21,7 @@
  "route": {
   "text": [
    "Here is the plan.",
-   "First quality metrics and an activity to find the biggest loss. After the break, the pre-read discussion, a group clinic, and quiz four."
+   "First quality metrics and an activity to find the biggest loss. After the break, a draft of your research note, a group clinic, and quiz four."
   ],
   "en": {
    "audio": "narration/s18/route.en.mp3",
@@ -32,7 +32,7 @@
     ],
     [
      2.01,
-     11.37
+     11.71
     ]
    ]
   }
@@ -175,7 +175,7 @@
  "break": {
   "text": [
    "Let us take a ten-minute break.",
-   "Afterwards, we discuss the pre-read paper on process control in electrode manufacturing."
+   "Afterwards, you draft the outline of your Block two research note."
   ],
   "en": {
    "audio": "narration/s18/break.en.mp3",
@@ -186,26 +186,41 @@
     ],
     [
      2.67,
-     8.98
+     6.72
     ]
    ]
   }
  },
- "preread": {
+ "note-draft": {
   "text": [
-   "Discuss the pre-read paper in groups for twelve minutes, then as a whole class for eight.",
-   "Ask which quality characteristic the authors monitored and whether the measurement was checked; which chart or model they used and whether its assumptions were checked; and what you would change to apply it on CellCo's line or in your own lab."
+   "Activity, a research note draft, for twenty minutes.",
+   "Outline your Block two research note: one linear programming or quality control method applied to a decision or process in your own research.",
+   "For eight minutes on your own, write the decision or process, the method, the data you have or would collect, and the two assumptions that matter most.",
+   "For eight minutes in pairs, read your partner's outline. Does the method fit the question? Is each assumption stated, and could it be checked? Name one limitation.",
+   "In the last four minutes, revise one point after the feedback."
   ],
   "en": {
-   "audio": "narration/s18/preread.en.mp3",
+   "audio": "narration/s18/note-draft.en.mp3",
    "cues": [
     [
      0.25,
-     5.65
+     3.73
     ],
     [
-     6.0,
-     22.36
+     4.08,
+     14.25
+    ],
+    [
+     14.6,
+     24.44
+    ],
+    [
+     24.79,
+     35.43
+    ],
+    [
+     35.78,
+     39.96
     ]
    ]
   }
@@ -302,20 +317,6 @@
     [
      26.25,
      28.55
-    ]
-   ]
-  }
- },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s18/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
     ]
    ]
   }

@@ -297,20 +297,6 @@
    ]
   }
  },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s17/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
-    ]
-   ]
-  }
- },
  "exit": {
   "text": [
    "For the exit ticket: a colleague reports a C p k of 1.5 from twenty readings taken in one morning. What two questions do you ask before believing it?"

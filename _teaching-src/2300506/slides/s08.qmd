@@ -252,20 +252,9 @@ Crashing is an LP. Finishing in 19 expected weeks costs at least CNY 0.425 milli
 
 [Session 9: what happens when two activities need the same installation crew.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| PERT | 计划评审技术 | Merge bias | 汇合偏差 |
-| Three-point estimate | 三点估算 | Crashing | 赶工（压缩工期） |
-| Optimistic, most likely, pessimistic | 乐观、最可能、悲观时间 | Time-cost trade-off | 时间-成本权衡 |
-| Beta distribution | 贝塔分布 | Crash cost | 赶工成本 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Would you promise the grid company 22 weeks? Answer in two sentences, citing one number from today.

@@ -329,56 +329,9 @@ Soorathep Kheawhom, Ph.D., FRSC
 </div>
 <p><span class="note-line">Next, Session 7: project networks for installing CellCo’s storage system.</span></p>
 </section>
-<section id="glossary" class="slide level2">
-<h2>Key terms in English and Chinese</h2>
-<div class="gloss">
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>English</th>
-<th>中文</th>
-<th>English</th>
-<th>中文</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Markov decision process (MDP)</td>
-<td>马尔可夫决策过程</td>
-<td>Policy iteration</td>
-<td>策略迭代</td>
-</tr>
-<tr class="even">
-<td>Action</td>
-<td>行动（决策）</td>
-<td>Average cost per period</td>
-<td>单位时间平均成本</td>
-</tr>
-<tr class="odd">
-<td>Policy</td>
-<td>策略</td>
-<td>Preventive maintenance</td>
-<td>预防性维护</td>
-</tr>
-<tr class="even">
-<td>Value function</td>
-<td>价值函数</td>
-<td>Run to failure</td>
-<td>故障后维修</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="exit" class="slide level2 activity">
 <h2>Exit ticket · 2 minutes</h2>
-<p><span class="act-label">On your own · on paper · hand in at the door</span></p>
+<p><span class="act-label">On your own · on paper</span></p>
 <div class="prompt">
 <p>A new sensor detects minor wear one shift earlier. In one sentence, say how you would decide whether it is worth buying.</p>
 </div>
@@ -988,5 +941,5 @@ Soorathep Kheawhom, Ph.D., FRSC
       </script>
     
 
-<script type="application/json" id="nr-data">{"title-slide":{"text":["Welcome to session six: maintenance as a Markov decision process.","In one hour, we turn a Markov chain into a decision, and find the maintenance policy that costs CellCo least."],"en":{"audio":"narration/s06/title-slide.en.mp3","cues":[[0.25,5.18],[5.53,13.42]]}},"route":{"text":["Here is the plan.","First, states, actions and policies. Then your group will try to beat the optimizer. We end with policy iteration, the method that finds the best policy."],"en":{"audio":"narration/s06/route.en.mp3","cues":[[0.25,1.66],[2.01,13.27]]}},"mdp":{"text":["A Markov decision process adds choices to a Markov chain. In each state, the planner picks an action, and the action sets both the cost and the transition probabilities.","CellCo's coating machine is good, in minor wear, in major wear, or failed in each shift. If it keeps running, it moves between these states with the probabilities shown, and wear costs money in scrap.","In minor or major wear, preventive maintenance restores the machine to good before the next shift, for six thousand yuan. A failure costs twenty thousand.","A policy names one action for every state. Each policy is an ordinary Markov chain, so its steady state gives its long-run cost per shift."],"en":{"audio":"narration/s06/mdp.en.mp3","cues":[[0.25,12.52],[12.87,26.67],[27.02,37.84],[38.19,48.68]]}},"policies":{"text":["There are four policies, because there is a choice in two states.","The cost per shift is the steady-state probability of each state times the cost of the action chosen there, added up.","Running to failure costs 2,192 yuan per shift. Maintaining at any sign of wear costs 1,117.","Maintaining only at major wear is cheapest, at 1,027 yuan per shift. That is 53 percent below running to failure, and 8 percent below maintaining at any wear."],"en":{"audio":"narration/s06/policies.en.mp3","cues":[[0.25,4.3],[4.65,12.5],[12.85,23.16],[23.51,36.61]]}},"act1":{"text":["Activity. Work in groups of four for twenty minutes.","Before any calculation, write down the policy your group believes is best, and why.","Then enter it on the next slide and read its cost. Move the cost of preventive maintenance, and find the prices at which the best policy changes.","Finish with one sentence for the maintenance manager on which number to track."],"en":{"audio":"narration/s06/act1.en.mp3","cues":[[0.25,3.6],[3.95,9.62],[9.97,19.79],[20.14,25.09]]}},"mdp-explorer":{"text":["Choose an action for minor wear and for major wear. The table shows the steady state and the cost per shift of all four policies, with your policy marked.","The slider changes the cost of preventive maintenance. Watch where the cheapest policy moves."],"en":{"audio":"narration/s06/mdp-explorer.en.mp3","cues":[[0.25,10.83],[11.18,17.33]]}},"act1-answer":{"text":["Here is the answer.","Below a maintenance cost of about 4,960 yuan, maintaining at any wear is best. Between 4,960 and 22,020, maintaining only at major wear is best. Above 22,020, it is cheaper never to do preventive maintenance.","At today's price of six thousand, the best policy wins by only 90 yuan per shift. So the manager should track the price of maintenance against the cost of a failure."],"en":{"audio":"narration/s06/act1-answer.en.mp3","cues":[[0.25,1.74],[2.09,23.34],[23.69,35.28]]}},"policy-iteration":{"text":["With only four policies we can list them all, but real problems have far too many. Policy iteration finds the best one in a few steps.","First, evaluate the current policy by solving a small system of equations for its cost per shift, g, and the relative cost of starting in each state, h.","Second, in each state, pick the action with the smallest immediate cost plus expected relative cost of the next state.","Starting from run to failure, the first improvement switches to maintaining at any wear, and the second keeps maintenance only at major wear. The third step changes nothing, so that policy is optimal."],"en":{"audio":"narration/s06/policy-iteration.en.mp3","cues":[[0.25,10.34],[10.69,21.98],[22.33,30.11],[30.46,44.14]]}},"debrief":{"text":["Let us summarize.","A Markov decision process is a Markov chain whose transitions and costs depend on the action chosen in each state.","For CellCo's coating machine, maintaining only at major wear costs 1,027 yuan per shift, 53 percent less than running to failure.","And the best policy depends on prices. Below a maintenance cost of about five thousand yuan, maintaining at any wear becomes best.","Next, in session seven, we plan the installation of CellCo's storage system as a project network."],"en":{"audio":"narration/s06/debrief.en.mp3","cues":[[0.25,1.7],[2.05,10.41],[10.76,21.73],[22.08,31.42],[31.77,38.98]]}},"glossary":{"text":["This slide lists today's key terms in English and Chinese, for reference."],"en":{"audio":"narration/s06/glossary.en.mp3","cues":[[0.25,5.22]]}},"exit":{"text":["For the exit ticket: a new sensor detects minor wear one shift earlier. In one sentence, say how you would decide whether it is worth buying."],"en":{"audio":"narration/s06/exit.en.mp3","cues":[[0.25,9.91]]}}}</script>
+<script type="application/json" id="nr-data">{"title-slide":{"text":["Welcome to session six: maintenance as a Markov decision process.","In one hour, we turn a Markov chain into a decision, and find the maintenance policy that costs CellCo least."],"en":{"audio":"narration/s06/title-slide.en.mp3","cues":[[0.25,5.18],[5.53,13.42]]}},"route":{"text":["Here is the plan.","First, states, actions and policies. Then your group will try to beat the optimizer. We end with policy iteration, the method that finds the best policy."],"en":{"audio":"narration/s06/route.en.mp3","cues":[[0.25,1.66],[2.01,13.27]]}},"mdp":{"text":["A Markov decision process adds choices to a Markov chain. In each state, the planner picks an action, and the action sets both the cost and the transition probabilities.","CellCo's coating machine is good, in minor wear, in major wear, or failed in each shift. If it keeps running, it moves between these states with the probabilities shown, and wear costs money in scrap.","In minor or major wear, preventive maintenance restores the machine to good before the next shift, for six thousand yuan. A failure costs twenty thousand.","A policy names one action for every state. Each policy is an ordinary Markov chain, so its steady state gives its long-run cost per shift."],"en":{"audio":"narration/s06/mdp.en.mp3","cues":[[0.25,12.52],[12.87,26.67],[27.02,37.84],[38.19,48.68]]}},"policies":{"text":["There are four policies, because there is a choice in two states.","The cost per shift is the steady-state probability of each state times the cost of the action chosen there, added up.","Running to failure costs 2,192 yuan per shift. Maintaining at any sign of wear costs 1,117.","Maintaining only at major wear is cheapest, at 1,027 yuan per shift. That is 53 percent below running to failure, and 8 percent below maintaining at any wear."],"en":{"audio":"narration/s06/policies.en.mp3","cues":[[0.25,4.3],[4.65,12.5],[12.85,23.16],[23.51,36.61]]}},"act1":{"text":["Activity. Work in groups of four for twenty minutes.","Before any calculation, write down the policy your group believes is best, and why.","Then enter it on the next slide and read its cost. Move the cost of preventive maintenance, and find the prices at which the best policy changes.","Finish with one sentence for the maintenance manager on which number to track."],"en":{"audio":"narration/s06/act1.en.mp3","cues":[[0.25,3.6],[3.95,9.62],[9.97,19.79],[20.14,25.09]]}},"mdp-explorer":{"text":["Choose an action for minor wear and for major wear. The table shows the steady state and the cost per shift of all four policies, with your policy marked.","The slider changes the cost of preventive maintenance. Watch where the cheapest policy moves."],"en":{"audio":"narration/s06/mdp-explorer.en.mp3","cues":[[0.25,10.83],[11.18,17.33]]}},"act1-answer":{"text":["Here is the answer.","Below a maintenance cost of about 4,960 yuan, maintaining at any wear is best. Between 4,960 and 22,020, maintaining only at major wear is best. Above 22,020, it is cheaper never to do preventive maintenance.","At today's price of six thousand, the best policy wins by only 90 yuan per shift. So the manager should track the price of maintenance against the cost of a failure."],"en":{"audio":"narration/s06/act1-answer.en.mp3","cues":[[0.25,1.74],[2.09,23.34],[23.69,35.28]]}},"policy-iteration":{"text":["With only four policies we can list them all, but real problems have far too many. Policy iteration finds the best one in a few steps.","First, evaluate the current policy by solving a small system of equations for its cost per shift, g, and the relative cost of starting in each state, h.","Second, in each state, pick the action with the smallest immediate cost plus expected relative cost of the next state.","Starting from run to failure, the first improvement switches to maintaining at any wear, and the second keeps maintenance only at major wear. The third step changes nothing, so that policy is optimal."],"en":{"audio":"narration/s06/policy-iteration.en.mp3","cues":[[0.25,10.34],[10.69,21.98],[22.33,30.11],[30.46,44.14]]}},"debrief":{"text":["Let us summarize.","A Markov decision process is a Markov chain whose transitions and costs depend on the action chosen in each state.","For CellCo's coating machine, maintaining only at major wear costs 1,027 yuan per shift, 53 percent less than running to failure.","And the best policy depends on prices. Below a maintenance cost of about five thousand yuan, maintaining at any wear becomes best.","Next, in session seven, we plan the installation of CellCo's storage system as a project network."],"en":{"audio":"narration/s06/debrief.en.mp3","cues":[[0.25,1.7],[2.05,10.41],[10.76,21.73],[22.08,31.42],[31.77,38.98]]}},"exit":{"text":["For the exit ticket: a new sensor detects minor wear one shift earlier. In one sentence, say how you would decide whether it is worth buying."],"en":{"audio":"narration/s06/exit.en.mp3","cues":[[0.25,9.91]]}}}</script>
 </body></html>

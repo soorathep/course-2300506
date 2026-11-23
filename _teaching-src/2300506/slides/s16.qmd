@@ -247,7 +247,7 @@ One dataset is one draw. The run-length table says what to expect on average.
 3. Compare how soon each chart flags the planted drift.
 :::
 ::: {}
-**Hand in**
+**Deliverables**
 
 The Gage R&R table, three charts and the detection comparison.
 
@@ -271,20 +271,9 @@ For small sustained drifts, EWMA and CUSUM signal several times faster than an X
 
 [Session 17: when readings are autocorrelated, attribute charts, and process capability.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Control chart | 控制图 | Run rules | 判异准则 |
-| Rational subgroup | 合理子组 | Average run length (ARL) | 平均运行长度 |
-| Control limit | 控制限 | EWMA chart | 指数加权移动平均控制图 |
-| Specification limit | 规格限 | CUSUM chart | 累积和控制图 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?

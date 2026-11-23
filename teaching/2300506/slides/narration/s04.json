@@ -322,7 +322,7 @@
    "Now the group assignment for block one.",
    "Groups of four to five write a board memo for CellCo, due on the twenty-first of February 2027.",
    "It has three parts: a decision analysis, a Markov analysis of your group's own log, and a network plan for the chosen option.",
-   "You hand in a report of at most ten pages, a workbook or notebook, and a ten-minute recorded presentation. Each student also writes a two-page research note applying one method to their own research."
+   "The deliverables are a report of at most ten pages, a workbook or notebook, and a ten-minute recorded presentation. Each student also writes a two-page research note applying one method to their own research."
   ],
   "en": {
    "audio": "narration/s04/assignment.en.mp3",
@@ -341,7 +341,7 @@
     ],
     [
      21.48,
-     35.67
+     36.18
     ]
    ]
   }
@@ -376,20 +376,6 @@
     [
      31.11,
      38.19
-    ]
-   ]
-  }
- },
- "glossary": {
-  "text": [
-   "This slide lists today's key terms in English and Chinese, for reference."
-  ],
-  "en": {
-   "audio": "narration/s04/glossary.en.mp3",
-   "cues": [
-    [
-     0.25,
-     5.22
     ]
    ]
   }

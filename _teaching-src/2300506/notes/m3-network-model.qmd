@@ -201,24 +201,6 @@ Session 10 brings the block together. Each method answers one kind of question:
 
 - **W4** (Sessions 7 to 9): CPM with most likely durations; PERT; a 1,000-run simulation; crashing with Solver; and one crew for F and G.
 
-## Key terms in English and Chinese {#glossary}
-
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Activity on node (AON) | 节点式网络图（单代号网络图） | Precedence | 紧前关系 |
-| Critical path method (CPM) | 关键路径法 | Critical path | 关键路径 |
-| Earliest start (ES) | 最早开始时间 | Latest start (LS) | 最迟开始时间 |
-| Total slack (float) | 总时差 | Forward and backward pass | 正向与逆向计算 |
-| PERT | 计划评审技术 | Three-point estimate | 三点估算 |
-| Optimistic, most likely, pessimistic | 乐观、最可能、悲观时间 | Beta distribution | 贝塔分布 |
-| Merge bias | 汇合偏差 | Crashing | 赶工（压缩工期） |
-| Time-cost trade-off | 时间-成本权衡 | Crash cost | 赶工成本 |
-| Resource-constrained scheduling | 资源受限项目调度 | Gantt chart | 甘特图 |
-| Shortest path | 最短路径 | Dijkstra's algorithm | 迪杰斯特拉算法 |
-| Maximal flow | 最大流 | Minimum cut | 最小割 |
-| Research note | 研究短文 | Peer review | 同行评审 |
-| Assumption | 假设 | Limitation | 局限性 |
-
 ## Answers to the self-checks {#answers}
 
 **Session 7.**

@@ -2,46 +2,89 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session ten, the last session of Block one."},
-   {"en": "Today is a clinic. We brief the individual research note, review each other's network plans, and close with quiz two."}
+   {
+    "en": "Welcome to session ten, the last session of Block one."
+   },
+   {
+    "en": "Today is a clinic. We brief the individual research note, review each other's network plans, and close with quiz two."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "A short brief on the research note, then a peer review and an idea card, and then quiz two for twenty minutes."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "A short brief on the research note, then a peer review and an idea card, and then quiz two for twenty minutes."
+   }
   ],
   "block-map": [
-   {"en": "Block one followed one company through three questions."},
-   {"en": "Decision making asked how CellCo should add capacity. The staged build gave a mean NPV of 79 million yuan and a twenty percent chance of loss."},
-   {"en": "Markov analysis described yield and maintenance over time. The line yield is 0.933, and preventive maintenance pays only in the major-wear state."},
-   {"en": "The network model asked when the storage system will be ready: a 71 percent chance by 22 weeks, and 19 weeks for 0.425 million yuan of crashing."},
-   {"en": "Your group assignment repeats this chain with your own data variant, and ends in one board memo."}
+   {
+    "en": "Block one followed one company through three questions."
+   },
+   {
+    "en": "Decision making asked how CellCo should add capacity. The staged build gave a mean NPV of 79 million yuan and a twenty percent chance of loss."
+   },
+   {
+    "en": "Markov analysis described yield and maintenance over time. The line yield is 0.933, and preventive maintenance pays only in the major-wear state."
+   },
+   {
+    "en": "The network model asked when the storage system will be ready: a 71 percent chance by 22 weeks, and 19 weeks for 0.425 million yuan of crashing."
+   },
+   {
+    "en": "Your group assignment repeats this chain with your own data variant, and ends in one board memo."
+   }
   ],
   "research-note": [
-   {"en": "Each of you also writes an individual research note of two pages."},
-   {"en": "Apply one Block one method to a decision or process in your own research. State the decision, the data you have or would collect, the model, the assumptions, and what the model cannot tell you."},
-   {"en": "Half of the grade is for using the method correctly, thirty percent for the quality of your assumptions, and twenty percent for clarity."},
-   {"en": "A small, correct model of a real decision scores better than a large model with unstated assumptions."}
+   {
+    "en": "Each of you also writes an individual research note of two pages."
+   },
+   {
+    "en": "Apply one Block one method to a decision or process in your own research. State the decision, the data you have or would collect, the model, the assumptions, and what the model cannot tell you."
+   },
+   {
+    "en": "Half of the grade is for using the method correctly, thirty percent for the quality of your assumptions, and twenty percent for clarity."
+   },
+   {
+    "en": "A small, correct model of a real decision scores better than a large model with unstated assumptions."
+   }
   ],
   "method-match": [
-   {"en": "Before you choose a method, test yourself on seven cases from energy research."},
-   {"en": "Read each case, choose the method that fits best, and read the explanation. Some cases admit a second method; in your note, say why you chose yours."}
+   {
+    "en": "Before you choose a method, test yourself on seven cases from energy research."
+   },
+   {
+    "en": "Read each case, choose the method that fits best, and read the explanation. Some cases admit a second method; in your note, say why you chose yours."
+   }
   ],
   "act1": [
-   {"en": "Activity, in two parts."},
-   {"en": "In part one, for fifteen minutes, swap your draft network plan with another group and review it against the six checks on the slide."},
-   {"en": "Pay particular attention to the on-time probability. It should come from a simulation, not from PERT alone."},
-   {"en": "In part two, for ten minutes, write a three-sentence idea card for your research note: the decision, the method, and the data. Swap it with a partner, and ask one question about theirs."}
+   {
+    "en": "Activity, in two parts."
+   },
+   {
+    "en": "In part one, for fifteen minutes, swap your draft network plan with another group and review it against the six checks on the slide."
+   },
+   {
+    "en": "Pay particular attention to the on-time probability. It should come from a simulation, not from PERT alone."
+   },
+   {
+    "en": "In part two, for ten minutes, write a three-sentence idea card for your research note: the decision, the method, and the data. Swap it with a partner, and ask one question about theirs."
+   }
   ],
   "quiz2": [
-   {"en": "Quiz two covers Markov analysis and the network model, sessions four to nine. Work on your own, on paper, for twenty minutes."}
+   {
+    "en": "Quiz two covers Markov analysis and the network model, sessions four to nine. Work on your own, on paper, for twenty minutes."
+   }
   ],
   "to-block2": [
-   {"en": "By the twenty-first of February, submit the group report, the workbook or notebook, the recorded presentation, and your research note. You will receive feedback before Block two."},
-   {"en": "Block two, on the twenty-seventh and twenty-eighth of March, covers linear programming and statistical quality control, again with CellCo."},
-   {"en": "Crashing in session eight was already a linear program. Block two starts there. Thank you for your work in Block one."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "The group report, the workbook or notebook, the recorded presentation, and your research note are due on the twenty-first of February. You will receive feedback before Block two."
+   },
+   {
+    "en": "Block two, on the twenty-seventh and twenty-eighth of March, covers linear programming and statistical quality control, again with CellCo."
+   },
+   {
+    "en": "Crashing in session eight was already a linear program. Block two starts there. Thank you for your work in Block one."
+   }
   ]
  }
 }

@@ -204,19 +204,9 @@ The maximal flow equals the minimum cut. Invest in the links of the cut, not els
 
 [Session 10: group clinic, research note brief, and Quiz 2.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Resource-constrained scheduling | 资源受限项目调度 | Dijkstra's algorithm | 迪杰斯特拉算法 |
-| Gantt chart | 甘特图 | Maximal flow | 最大流 |
-| Shortest path | 最短路径 | Minimum cut | 最小割 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Name one other resource in the installation project that could be shared, and say which two activities it could delay.

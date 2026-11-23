@@ -200,20 +200,9 @@ The best policy depends on prices. Below a PM cost of about CNY 5,000, maintaini
 
 [Next, Session 7: project networks for installing CellCo's storage system.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Markov decision process (MDP) | 马尔可夫决策过程 | Policy iteration | 策略迭代 |
-| Action | 行动（决策） | Average cost per period | 单位时间平均成本 |
-| Policy | 策略 | Preventive maintenance | 预防性维护 |
-| Value function | 价值函数 | Run to failure | 故障后维修 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 A new sensor detects minor wear one shift earlier. In one sentence, say how you would decide whether it is worth buying.

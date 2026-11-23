@@ -269,20 +269,9 @@ Check the gauge before charting. CellCo's coating gauge has %GRR 8.5% and ndc 16
 
 [Session 16: control charts for the coating line, including charts for small drifts.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Common-cause variation | 普通原因变异 | Pareto chart | 帕累托图 |
-| Special-cause variation | 特殊原因变异 | Cause-and-effect diagram | 因果图（鱼骨图） |
-| Measurement system analysis | 测量系统分析 | Repeatability, reproducibility | 重复性、再现性 |
-| DMAIC | 定义-测量-分析-改进-控制 | Mass loading | 面密度（涂布量） |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Name one measurement in your own lab that you have never checked with a gauge study, and say how you would check it.

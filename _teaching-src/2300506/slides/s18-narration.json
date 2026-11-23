@@ -14,7 +14,7 @@
     "en": "Here is the plan."
    },
    {
-    "en": "First quality metrics and an activity to find the biggest loss. After the break, the pre-read discussion, a group clinic, and quiz four."
+    "en": "First quality metrics and an activity to find the biggest loss. After the break, a draft of your research note, a group clinic, and quiz four."
    }
   ],
   "metrics": [
@@ -86,15 +86,24 @@
     "en": "Let us take a ten-minute break."
    },
    {
-    "en": "Afterwards, we discuss the pre-read paper on process control in electrode manufacturing."
+    "en": "Afterwards, you draft the outline of your Block two research note."
    }
   ],
-  "preread": [
+  "note-draft": [
    {
-    "en": "Discuss the pre-read paper in groups for twelve minutes, then as a whole class for eight."
+    "en": "Activity, a research note draft, for twenty minutes."
    },
    {
-    "en": "Ask which quality characteristic the authors monitored and whether the measurement was checked; which chart or model they used and whether its assumptions were checked; and what you would change to apply it on CellCo's line or in your own lab."
+    "en": "Outline your Block two research note: one linear programming or quality control method applied to a decision or process in your own research."
+   },
+   {
+    "en": "For eight minutes on your own, write the decision or process, the method, the data you have or would collect, and the two assumptions that matter most."
+   },
+   {
+    "en": "For eight minutes in pairs, read your partner's outline. Does the method fit the question? Is each assumption stated, and could it be checked? Name one limitation."
+   },
+   {
+    "en": "In the last four minutes, revise one point after the feedback."
    }
   ],
   "clinic": [
@@ -139,11 +148,6 @@
    },
    {
     "en": "Thank you for your work in both blocks."
-   }
-  ],
-  "glossary": [
-   {
-    "en": "This slide lists today's key terms in English and Chinese, for reference."
    }
   ]
  }

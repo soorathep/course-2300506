@@ -195,24 +195,6 @@ Self-check · Session 14
 - **W5** (Sessions 11 and 12): the product-mix model in Solver, its sensitivity report and dual, and five pricing questions.
 - **W6** (Sessions 13 and 14): the 13-week plan with a binary second shift in Python (PuLP) and Excel, and the two-stage stochastic version with its VSS.
 
-## Key terms in English and Chinese {#glossary}
-
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Linear programming | 线性规划 | Decision variable | 决策变量 |
-| Objective function | 目标函数 | Constraint | 约束条件 |
-| Feasible region | 可行域 | Binding constraint | 紧约束 |
-| Dual problem | 对偶问题 | Shadow price | 影子价格 |
-| Simplex method | 单纯形法 | Reduced cost | 检验数（约简成本） |
-| Sensitivity analysis | 灵敏度分析（敏感性分析） | Allowable range | 允许变化范围 |
-| Right-hand side | 右端项 | Solver | 规划求解 |
-| Transportation problem | 运输问题 | Blending problem | 配料问题 |
-| Multi-period planning | 多周期生产计划 | Mixed-integer LP (MILP) | 混合整数线性规划 |
-| Binary variable | 0-1 变量 | LP relaxation | 线性松弛 |
-| Two-stage stochastic programming | 两阶段随机规划 | Scenario | 情景 |
-| Value of the stochastic solution (VSS) | 随机解价值 | Expected value of perfect information | 完全信息期望价值 |
-| Robust optimization | 鲁棒优化 | Worst case | 最坏情况 |
-
 ## Answers to the self-checks {#answers}
 
 **Session 11.**

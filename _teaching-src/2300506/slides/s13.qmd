@@ -284,19 +284,9 @@ For CellCo, three well-placed shift weeks cost CNY 1,011 thousand, against 1,798
 
 [Session 14: planning when demand is uncertain, and the CellCo planning game.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Transportation problem | 运输问题 | Mixed-integer LP (MILP) | 混合整数线性规划 |
-| Blending problem | 配料问题 | Binary variable | 0-1 变量 |
-| Multi-period planning | 多周期生产计划 | LP relaxation | 线性松弛 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Name one decision in your own research that should be a binary variable, and the constraint that would link it.

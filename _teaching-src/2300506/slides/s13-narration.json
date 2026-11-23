@@ -2,76 +2,159 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session thirteen: application models and mixed-integer programming."},
-   {"en": "Today we build four classic models, transportation, blending, crashing and multi-period planning, and add yes-or-no decisions."}
+   {
+    "en": "Welcome to session thirteen: application models and mixed-integer programming."
+   },
+   {
+    "en": "Today we build four classic models, transportation, blending, crashing and multi-period planning, and add yes-or-no decisions."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First transportation, then blending and crashing. After the break, a thirteen-week plan with a binary second-shift decision, a bug hunt in a Python notebook, and the start of workshop six."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First transportation, then blending and crashing. After the break, a thirteen-week plan with a binary second-shift decision, a bug hunt in a Python notebook, and the start of workshop six."
+   }
   ],
   "transport": [
-   {"en": "CellCo now ships from two plants, in Xiamen and Quanzhou, to customers in Fuzhou, Shenzhen and Hangzhou."},
-   {"en": "The variables are the megawatt hours shipped on each route. We minimize total shipping cost, subject to plant supply and customer demand."},
-   {"en": "The optimum costs 432 thousand yuan a week."},
-   {"en": "Choosing each customer's cheapest plant fails, because Quanzhou would need to ship ninety megawatt hours and has only sixty. The model gives Quanzhou to Hangzhou, where its saving is largest, and splits Fuzhou."}
+   {
+    "en": "CellCo now ships from two plants, in Xiamen and Quanzhou, to customers in Fuzhou, Shenzhen and Hangzhou."
+   },
+   {
+    "en": "The variables are the megawatt hours shipped on each route. We minimize total shipping cost, subject to plant supply and customer demand."
+   },
+   {
+    "en": "The optimum costs 432 thousand yuan a week."
+   },
+   {
+    "en": "Choosing each customer's cheapest plant fails, because Quanzhou would need to ship ninety megawatt hours and has only sixty. The model gives Quanzhou to Hangzhou, where its saving is largest, and splits Fuzhou."
+   }
   ],
   "blend": [
-   {"en": "Blending: CellCo mixes three lots of LFP powder to meet a capacity of at least 156 milliamp hours per gram and a moisture limit of 450 parts per million, at least cost."},
-   {"en": "The variables are the mass fractions of each lot, and both properties blend linearly by mass."},
-   {"en": "The best blend is half A and half C, at 44 thousand yuan per tonne. Capacity is binding; moisture is not."},
-   {"en": "The middle lot, B, is not used. Mixing the best and the cheapest lots beats it on both cost and capacity."}
+   {
+    "en": "Blending: CellCo mixes three lots of LFP powder to meet a capacity of at least 156 milliamp hours per gram and a moisture limit of 450 parts per million, at least cost."
+   },
+   {
+    "en": "The variables are the mass fractions of each lot, and both properties blend linearly by mass."
+   },
+   {
+    "en": "The best blend is half A and half C, at 44 thousand yuan per tonne. Capacity is binding; moisture is not."
+   },
+   {
+    "en": "The middle lot, B, is not used. Mixing the best and the cheapest lots beats it on both cost and capacity."
+   }
   ],
   "crash-lp": [
-   {"en": "Crashing from session eight returns as a linear program."},
-   {"en": "The variables are the crash weeks of each activity. We minimize crash cost, subject to every path being at most nineteen weeks after crashing, and to the crash limits."},
-   {"en": "Solver returns the plan found in the crash auction: B by one and a half weeks and C by one sixth, for 0.425 million yuan."},
-   {"en": "The shadow price of the target is 0.3 million yuan per week, until the second path also binds."}
+   {
+    "en": "Crashing from session eight returns as a linear program."
+   },
+   {
+    "en": "The variables are the crash weeks of each activity. We minimize crash cost, subject to every path being at most nineteen weeks after crashing, and to the crash limits."
+   },
+   {
+    "en": "Solver returns the plan found in the crash auction: B by one and a half weeks and C by one sixth, for 0.425 million yuan."
+   },
+   {
+    "en": "The shadow price of the target is 0.3 million yuan per week, until the second path also binds."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards: some decisions cannot be fractional. You either run a second shift in a week, or you do not."}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards: some decisions cannot be fractional. You either run a second shift in a week, or you do not."
+   }
   ],
   "milp": [
-   {"en": "Demand over the quarter peaks at 110 megawatt hours in week eight. One shift makes eighty. A second shift adds forty, but costs 250 thousand yuan for each week it runs, and holding stock costs three thousand yuan per megawatt hour per week."},
-   {"en": "We add a binary variable for each week: one if the second shift runs, zero if not."},
-   {"en": "The key constraint links the binary to capacity. Without it, the model would produce 120 megawatt hours without ever paying for the shift."},
-   {"en": "The optimum uses three shift weeks, for 1,011 thousand yuan. A simple rule, running the second shift whenever demand exceeds eighty, costs 1,798."},
-   {"en": "The relaxation, which allows fractions of a shift, gives a lower bound of 779, but it is not a plan anyone can run."}
+   {
+    "en": "Demand over the quarter peaks at 110 megawatt hours in week eight. One shift makes eighty. A second shift adds forty, but costs 250 thousand yuan for each week it runs, and holding stock costs three thousand yuan per megawatt hour per week."
+   },
+   {
+    "en": "We add a binary variable for each week: one if the second shift runs, zero if not."
+   },
+   {
+    "en": "The key constraint links the binary to capacity. Without it, the model would produce 120 megawatt hours without ever paying for the shift."
+   },
+   {
+    "en": "The optimum uses three shift weeks, for 1,011 thousand yuan. A simple rule, running the second shift whenever demand exceeds eighty, costs 1,798."
+   },
+   {
+    "en": "The relaxation, which allows fractions of a shift, gives a lower bound of 779, but it is not a plan anyone can run."
+   }
   ],
   "shift-explorer": [
-   {"en": "Click the week numbers to switch the second shift on or off."},
-   {"en": "Production follows a simple rule: make as late as capacity allows, which keeps stock as low as possible."},
-   {"en": "The readout shows the shift cost, the stock cost and the total. Try to beat 1,011, then show the optimum."}
+   {
+    "en": "Click the week numbers to switch the second shift on or off."
+   },
+   {
+    "en": "Production follows a simple rule: make as late as capacity allows, which keeps stock as low as possible."
+   },
+   {
+    "en": "The readout shows the shift cost, the stock cost and the total. Try to beat 1,011, then show the optimum."
+   }
   ],
   "act1": [
-   {"en": "Activity, the bug hunt. Work in pairs for twenty-five minutes."},
-   {"en": "Your notebook solves the thirteen-week plan, but it contains three planted errors: a sign error, a binary that is not linked, and an inventory balance shifted by one period."},
-   {"en": "Find and fix them, and write down how you noticed each one."},
-   {"en": "Useful habits: compare the cost with the relaxation, check one week by hand, and print the binaries next to production."}
+   {
+    "en": "Activity, the bug hunt. Work in pairs for twenty-five minutes."
+   },
+   {
+    "en": "Your notebook solves the thirteen-week plan, but it contains three planted errors: a sign error, a binary that is not linked, and an inventory balance shifted by one period."
+   },
+   {
+    "en": "Find and fix them, and write down how you noticed each one."
+   },
+   {
+    "en": "Useful habits: compare the cost with the relaxation, check one week by hand, and print the binaries next to production."
+   }
   ],
   "act1-answer": [
-   {"en": "Here are the three errors and their symptoms."},
-   {"en": "With a minus sign on holding cost, the plan stockpiles, and the cost falls as stock rises."},
-   {"en": "With an unlinked binary, every shift variable is zero, yet some weeks produce 120, and the cost is below the lower bound."},
-   {"en": "With a shifted balance, week one ignores the opening stock, or demand is met one week late."},
-   {"en": "A model that solves is not a model that is right. Note also that Excel Solver gives no sensitivity report once integers are added, so compare cases by re-solving."}
+   {
+    "en": "Here are the three errors and their symptoms."
+   },
+   {
+    "en": "With a minus sign on holding cost, the plan stockpiles, and the cost falls as stock rises."
+   },
+   {
+    "en": "With an unlinked binary, every shift variable is zero, yet some weeks produce 120, and the cost is below the lower bound."
+   },
+   {
+    "en": "With a shifted balance, week one ignores the opening stock, or demand is met one week late."
+   },
+   {
+    "en": "A model that solves is not a model that is right. Note also that Excel Solver gives no sensitivity report once integers are added, so compare cases by re-solving."
+   }
   ],
   "w6": [
-   {"en": "Workshop six, part one. Build the thirteen-week plan in Python with PuLP, build the same model in Excel, and check that both give the same plan."},
-   {"en": "Strong groups can add a second line that can be opened once for the quarter at a fixed cost. Decide which binary links to which capacity."}
+   {
+    "en": "Workshop six, part one. Build the thirteen-week plan in Python with PuLP, build the same model in Excel, and check that both give the same plan."
+   },
+   {
+    "en": "Strong groups can add a second line that can be opened once for the quarter at a fixed cost. Decide which binary links to which capacity."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "Transportation, blending and crashing are linear programs. Greedy choices are often not optimal."},
-   {"en": "Binary variables model yes-or-no decisions, and each must be linked to the capacity or cost it controls."},
-   {"en": "For CellCo, three well-placed shift weeks cost 1,011 thousand yuan, against 1,798 for a simple rule."},
-   {"en": "In session fourteen, we plan when demand is uncertain, and play the CellCo planning game."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "Transportation, blending and crashing are linear programs. Greedy choices are often not optimal."
+   },
+   {
+    "en": "Binary variables model yes-or-no decisions, and each must be linked to the capacity or cost it controls."
+   },
+   {
+    "en": "For CellCo, three well-placed shift weeks cost 1,011 thousand yuan, against 1,798 for a simple rule."
+   },
+   {
+    "en": "In session fourteen, we plan when demand is uncertain, and play the CellCo planning game."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket, name one decision in your own research that should be a binary variable, and the constraint that would link it."}
+   {
+    "en": "For the exit ticket, name one decision in your own research that should be a binary variable, and the constraint that would link it."
+   }
   ]
  }
 }

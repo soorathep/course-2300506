@@ -205,20 +205,9 @@ With parallel critical paths, shortening one activity alone does not shorten the
 
 [After lunch, Session 8: uncertain durations, the chance of finishing on time, and paying to finish earlier.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Activity on node (AON) | 节点式网络图（单代号网络图） | Latest start (LS) | 最迟开始时间 |
-| Precedence | 紧前关系 | Total slack (float) | 总时差 |
-| Critical path method (CPM) | 关键路径法 | Critical path | 关键路径 |
-| Earliest start (ES) | 最早开始时间 | Forward and backward pass | 正向与逆向计算 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 The civil works team asks to start 4 weeks late. Can the plant manager agree without delaying commissioning? Give the number that decides it.

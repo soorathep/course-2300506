@@ -231,7 +231,7 @@ Studying alone: write all five answers before you go on.
 4. Answer five pricing questions on overtime, new orders and demand changes.
 :::
 ::: {}
-**Hand in**
+**Deliverables**
 
 The Solver model, the dual, and the annotated sensitivity report.
 
@@ -257,19 +257,9 @@ Most what-if questions are answered by one report line, if the change is single 
 
 [Session 13: transportation, blending, multi-period planning, and integer decisions.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Simplex method | 单纯形法 | Reduced cost | 检验数（约简成本） |
-| Sensitivity analysis | 灵敏度分析（敏感性分析） | Allowable range | 允许变化范围 |
-| Right-hand side | 右端项 | Solver | 规划求解 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Why is the coating shadow price zero above 300 hours? Answer in one sentence.

@@ -252,7 +252,7 @@ Only "both" meets C~pk~ 1.33. It saves the customer CNY 1.06 million a year agai
 3. Compute C~p~, C~pk~ and ppm, and size the variation reduction needed for C~pk~ 1.33.
 :::
 ::: {}
-**Hand in**
+**Deliverables**
 
 The residual chart, p chart, capability table and improvement target.
 
@@ -276,19 +276,9 @@ In control is not capable. CellCo is at C~pk~ 1.07 and 770 ppm; re-centering plu
 
 [Session 18: quality metrics, the cost of poor quality, and the course wrap-up.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Autocorrelation | 自相关 | Process capability index | 过程能力指数 |
-| Residual chart | 残差控制图 | Parts per million (ppm) | 百万分率 |
-| p chart, c chart | 不合格品率图、缺陷数图 | Re-centering | 过程对中 |
-:::
-
 ## Exit ticket · 2 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 A colleague reports C~pk~ 1.5 from 20 readings taken in one morning. What two questions do you ask before believing it?

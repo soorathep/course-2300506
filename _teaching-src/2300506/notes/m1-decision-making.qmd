@@ -243,32 +243,6 @@ Self-check · Session 3
 
 Your group's data differ from the slides; the methods are the same.
 
-## Key terms in English and Chinese {#glossary}
-
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Decision alternative | 决策方案 | State of nature | 自然状态 |
-| Payoff table | 收益表 | Regret | 后悔值 |
-| Maximax criterion | 乐观准则（大中取大） | Maximin criterion | 悲观准则（小中取大） |
-| Hurwicz criterion | 折中准则 | Laplace criterion | 等可能性准则 |
-| Minimax regret criterion | 最小最大后悔值准则 | Expected monetary value (EMV) | 期望货币价值 |
-| Expected opportunity loss (EOL) | 期望机会损失 | Expected value of perfect information (EVPI) | 完全信息期望价值 |
-| Utility function | 效用函数 | Certainty equivalent (CE) | 确定性等价 |
-| Risk tolerance | 风险容忍度 | Risk aversion | 风险规避 |
-| Decision tree | 决策树 | Decision node, chance node | 决策节点、机会节点 |
-| Fold back (roll back) | 逆推求解 | Bayes' theorem | 贝叶斯定理 |
-| Prior, posterior probability | 先验概率、后验概率 | Expected value of sample information (EVSI) | 样本信息期望价值 |
-| Efficiency of sample information | 样本信息效率 | Analytic hierarchy process (AHP) | 层次分析法 |
-| Pairwise comparison | 两两比较 | Criterion weight | 准则权重 |
-| Consistency ratio (CR) | 一致性比率 | Pugh matrix | Pugh 矩阵 |
-| Levelized cost of storage (LCOS) | 平准化储能成本 | Sensitivity analysis | 敏感性分析（灵敏度分析） |
-| Monte Carlo simulation | 蒙特卡洛模拟 | Probability distribution | 概率分布 |
-| Triangular, normal, lognormal distribution | 三角分布、正态分布、对数正态分布 | Percentile (P10, P90) | 百分位数 |
-| Probability of loss | 亏损概率 | Standard error | 标准误差 |
-| Net present value (NPV) | 净现值 | Annuity factor | 年金系数 |
-| Real option | 实物期权 | Value of flexibility | 灵活性价值 |
-| Correlation | 相关性 | Sampling error | 抽样误差 |
-
 ## Answers to the self-checks {#answers}
 
 **Session 1.**

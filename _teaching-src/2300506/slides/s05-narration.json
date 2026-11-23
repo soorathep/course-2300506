@@ -2,84 +2,175 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session five: yield, rework and scrap."},
-   {"en": "Today we follow each battery cell through CellCo's line with an absorbing Markov chain, and use it to choose which improvement to buy."}
+   {
+    "en": "Welcome to session five: yield, rework and scrap."
+   },
+   {
+    "en": "Today we follow each battery cell through CellCo's line with an absorbing Markov chain, and use it to choose which improvement to buy."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First, absorbing chains and the fundamental matrix, which you will then compute in Excel."},
-   {"en": "After the break, we compare three improvements, and your group will pitch an investment to the board."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First, absorbing chains and the fundamental matrix, which you will then compute in Excel."
+   },
+   {
+    "en": "After the break, we compare three improvements, and your group will pitch an investment to the board."
+   }
   ],
   "line": [
-   {"en": "Every cell passes formation and then the aging test. A cell that fails the test goes to rework and is tested again."},
-   {"en": "In the end, each cell is either good or scrapped. These two are absorbing states: once there, a cell never leaves. Formation, aging test and rework are transient states."},
-   {"en": "The table gives the transition probabilities. For example, after formation, 95 percent of cells go to the aging test, 3 percent to rework, and 2 percent are scrapped."}
+   {
+    "en": "Every cell passes formation and then the aging test. A cell that fails the test goes to rework and is tested again."
+   },
+   {
+    "en": "In the end, each cell is either good or scrapped. These two are absorbing states: once there, a cell never leaves. Formation, aging test and rework are transient states."
+   },
+   {
+    "en": "The table gives the transition probabilities. For example, after formation, 95 percent of cells go to the aging test, 3 percent to rework, and 2 percent are scrapped."
+   }
   ],
   "canonical": [
-   {"en": "We split the matrix into blocks. Q holds the moves among the transient states, and R the moves from transient to absorbing states."},
-   {"en": "The fundamental matrix N is the inverse of I minus Q. Each entry is the expected number of visits to a transient state."},
-   {"en": "B equals N times R, and gives the probability of ending in each absorbing state. And N times a column of ones gives the expected number of steps before absorption."},
-   {"en": "Why the inverse? A cell can visit the aging test once, twice or more. N adds up all those paths: I, plus Q, plus Q squared, and so on."}
+   {
+    "en": "We split the matrix into blocks. Q holds the moves among the transient states, and R the moves from transient to absorbing states."
+   },
+   {
+    "en": "The fundamental matrix N is the inverse of I minus Q. Each entry is the expected number of visits to a transient state."
+   },
+   {
+    "en": "B equals N times R, and gives the probability of ending in each absorbing state. And N times a column of ones gives the expected number of steps before absorption."
+   },
+   {
+    "en": "Why the inverse? A cell can visit the aging test once, twice or more. N adds up all those paths: I, plus Q, plus Q squared, and so on."
+   }
   ],
   "results": [
-   {"en": "Here are the results for a cell that enters formation."},
-   {"en": "It ends good with probability 0.933 and is scrapped with probability 0.067."},
-   {"en": "On average it visits the aging test 1.015 times, so there are about 101 tests per 100 started cells, and 8 reworks per 100 cells."},
-   {"en": "A cell that is already in rework ends good with probability only 0.767."}
+   {
+    "en": "Here are the results for a cell that enters formation."
+   },
+   {
+    "en": "It ends good with probability 0.933 and is scrapped with probability 0.067."
+   },
+   {
+    "en": "On average it visits the aging test 1.015 times, so there are about 101 tests per 100 started cells, and 8 reworks per 100 cells."
+   },
+   {
+    "en": "A cell that is already in rework ends good with probability only 0.767."
+   }
   ],
   "excel": [
-   {"en": "In Excel, put Q and R in two blocks, then build I minus Q."},
-   {"en": "MINVERSE gives N, and MMULT of N and R gives B. MMULT of N and a column of ones gives the expected number of steps."},
-   {"en": "In older versions of Excel, select the output block, type the formula, and press control, shift and enter."}
+   {
+    "en": "In Excel, put Q and R in two blocks, then build I minus Q."
+   },
+   {
+    "en": "MINVERSE gives N, and MMULT of N and R gives B. MMULT of N and a column of ones gives the expected number of steps."
+   },
+   {
+    "en": "In older versions of Excel, select the output block, type the formula, and press control, shift and enter."
+   }
   ],
   "act1": [
-   {"en": "Activity one. Work in pairs for twenty minutes."},
-   {"en": "Build Q, R, N and B in Excel, and check your values against the previous slides."},
-   {"en": "Then change the rework success rate from 0.80 to 0.90 and find the new yield, and explain why the yield from rework is so much lower than from the aging test."}
+   {
+    "en": "Activity one. Work in pairs for twenty minutes."
+   },
+   {
+    "en": "Build Q, R, N and B in Excel, and check your values against the previous slides."
+   },
+   {
+    "en": "Then change the rework success rate from 0.80 to 0.90 and find the new yield, and explain why the yield from rework is so much lower than from the aging test."
+   }
   ],
   "act1-answer": [
-   {"en": "Here are the three rows of B. From formation, the yield is 0.933. From the aging test it is 0.958, and from rework it is 0.767."},
-   {"en": "With rework success at 0.90, the yield from formation rises to 0.941."},
-   {"en": "A cell in rework faces a 20 percent chance of scrap before it even returns to the test, so its yield is low."}
+   {
+    "en": "Here are the three rows of B. From formation, the yield is 0.933. From the aging test it is 0.958, and from rework it is 0.767."
+   },
+   {
+    "en": "With rework success at 0.90, the yield from formation rises to 0.941."
+   },
+   {
+    "en": "A cell in rework faces a 20 percent chance of scrap before it even returns to the test, so its yield is low."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards: CellCo has two million yuan for yield improvement. Which change should it buy?"}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards: CellCo has two million yuan for yield improvement. Which change should it buy?"
+   }
   ],
   "improve": [
-   {"en": "There are three options."},
-   {"en": "Option a improves formation control and halves formation scrap, for 1.2 million yuan. Option b trains the rework team and raises rework success to 90 percent, for 0.6 million. Option c reduces false rejects in the aging test, for 0.9 million."},
-   {"en": "To compare them in money, note that CellCo starts 6.25 million cells a year, and each good cell contributes 25 yuan."},
-   {"en": "So one percentage point of yield is worth about 1.56 million yuan a year."}
+   {
+    "en": "There are three options."
+   },
+   {
+    "en": "Option a improves formation control and halves formation scrap, for 1.2 million yuan. Option b trains the rework team and raises rework success to 90 percent, for 0.6 million. Option c reduces false rejects in the aging test, for 0.9 million."
+   },
+   {
+    "en": "To compare them in money, note that CellCo starts 6.25 million cells a year, and each good cell contributes 25 yuan."
+   },
+   {
+    "en": "So one percentage point of yield is worth about 1.56 million yuan a year."
+   }
   ],
   "yield-explorer": [
-   {"en": "This widget recomputes the absorbing chain as you move the sliders."},
-   {"en": "Set one slider to an option's new value, read the yield gain and its value per year, and reset it before you try the next option."},
-   {"en": "You can also combine options to see how they interact."}
+   {
+    "en": "This widget recomputes the absorbing chain as you move the sliders."
+   },
+   {
+    "en": "Set one slider to an option's new value, read the yield gain and its value per year, and reset it before you try the next option."
+   },
+   {
+    "en": "You can also combine options to see how they interact."
+   }
   ],
   "act2": [
-   {"en": "Activity two, the yield investment pitch. Work in groups of four for thirty minutes."},
-   {"en": "Your group has two million yuan. Find the yield gain and the yearly value of each option, and the gain per yuan."},
-   {"en": "Then choose the best combination within the budget, checking combinations with the widget, because the effects do not simply add up."},
-   {"en": "Pitch your choice to the board in two minutes, with its payback time and one risk that could make your estimate wrong."}
+   {
+    "en": "Activity two, the yield investment pitch. Work in groups of four for thirty minutes."
+   },
+   {
+    "en": "Your group has two million yuan. Find the yield gain and the yearly value of each option, and the gain per yuan."
+   },
+   {
+    "en": "Then choose the best combination within the budget, checking combinations with the widget, because the effects do not simply add up."
+   },
+   {
+    "en": "Pitch your choice to the board in two minutes, with its payback time and one risk that could make your estimate wrong."
+   }
   ],
   "act2-answer": [
-   {"en": "Here are the results."},
-   {"en": "Option b gives the most yield per yuan: 1.3 points per million. Option a gives the largest single gain, almost one point."},
-   {"en": "Within the budget, the best choice is a plus b. For 1.8 million yuan, yield rises by 1.74 points, worth 2.72 million a year, so it pays back in about eight months."}
+   {
+    "en": "Here are the results."
+   },
+   {
+    "en": "Option b gives the most yield per yuan: 1.3 points per million. Option a gives the largest single gain, almost one point."
+   },
+   {
+    "en": "Within the budget, the best choice is a plus b. For 1.8 million yuan, yield rises by 1.74 points, worth 2.72 million a year, so it pays back in about eight months."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "An absorbing chain splits into Q and R. The fundamental matrix counts visits, and B gives the chance of ending good or scrapped."},
-   {"en": "CellCo's line turns 93.3 percent of started cells into good cells, with 8 reworks per 100 cells."},
-   {"en": "Compare improvements on the same model and in the same unit, such as yield per yuan, and test combined changes together."},
-   {"en": "Next, in session six, we choose a maintenance policy as a Markov decision process."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "An absorbing chain splits into Q and R. The fundamental matrix counts visits, and B gives the chance of ending good or scrapped."
+   },
+   {
+    "en": "CellCo's line turns 93.3 percent of started cells into good cells, with 8 reworks per 100 cells."
+   },
+   {
+    "en": "Compare improvements on the same model and in the same unit, such as yield per yuan, and test combined changes together."
+   },
+   {
+    "en": "Next, in session six, we choose a maintenance policy as a Markov decision process."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket, name one more improvement CellCo could make, say which entry of the matrix it changes, and how you would estimate its new value."}
+   {
+    "en": "For the exit ticket, name one more improvement CellCo could make, say which entry of the matrix it changes, and how you would estimate its new value."
+   }
   ]
  }
 }

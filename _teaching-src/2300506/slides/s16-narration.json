@@ -2,73 +2,146 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session sixteen: control charts for small shifts."},
-   {"en": "Today we build X-bar and R charts for CellCo's coating line, and then charts with memory that catch small drifts much sooner."}
+   {
+    "en": "Welcome to session sixteen: control charts for small shifts."
+   },
+   {
+    "en": "Today we build X-bar and R charts for CellCo's coating line, and then charts with memory that catch small drifts much sooner."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First X-bar and R charts, then individuals charts and run rules. After the break, EWMA and CUSUM charts, the drift detectives activity, and workshop seven."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First X-bar and R charts, then individuals charts and run rules. After the break, EWMA and CUSUM charts, the drift detectives activity, and workshop seven."
+   }
   ],
   "subgroups": [
-   {"en": "Each hour, five coupons are punched across the web at the same moment. Together they form one subgroup."},
-   {"en": "Variation within a subgroup is short-term noise. Variation between subgroups adds anything that changes over time."},
-   {"en": "Control limits are built from within-subgroup variation, so a shift between hours stands out."},
-   {"en": "Taking five coupons over five hours as one subgroup would be a poor choice. The drift would inflate the ranges, widen the limits, and hide itself."}
+   {
+    "en": "Each hour, five coupons are punched across the web at the same moment. Together they form one subgroup."
+   },
+   {
+    "en": "Variation within a subgroup is short-term noise. Variation between subgroups adds anything that changes over time."
+   },
+   {
+    "en": "Control limits are built from within-subgroup variation, so a shift between hours stands out."
+   },
+   {
+    "en": "Taking five coupons over five hours as one subgroup would be a poor choice. The drift would inflate the ranges, widen the limits, and hide itself."
+   }
   ],
   "xbar-r": [
-   {"en": "From 25 subgroups, the grand mean is 20.05 and the mean range is 0.40."},
-   {"en": "The X-bar limits are 19.82 to 20.28. The range chart runs from zero to 0.85. And the process standard deviation, estimated from the mean range, is 0.172."},
-   {"en": "Read the range chart first. If the spread within subgroups is not stable, the X-bar limits mean nothing."},
-   {"en": "And do not confuse control limits with specification limits. Control limits describe what the process does; the specification describes what the customer needs."}
+   {
+    "en": "From 25 subgroups, the grand mean is 20.05 and the mean range is 0.40."
+   },
+   {
+    "en": "The X-bar limits are 19.82 to 20.28. The range chart runs from zero to 0.85. And the process standard deviation, estimated from the mean range, is 0.172."
+   },
+   {
+    "en": "Read the range chart first. If the spread within subgroups is not stable, the X-bar limits mean nothing."
+   },
+   {
+    "en": "And do not confuse control limits with specification limits. Control limits describe what the process does; the specification describes what the customer needs."
+   }
   ],
   "imr-rules": [
-   {"en": "When readings arrive one at a time, for example one viscosity test per slurry batch, we chart individual values, and estimate sigma from the average moving range."},
-   {"en": "Run rules look for patterns as well as single points: two of three beyond two sigma, four of five beyond one sigma, or eight in a row on one side."},
-   {"en": "Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, a stable process gives a false alarm about every 92 subgroups instead of every 370."}
+   {
+    "en": "When readings arrive one at a time, for example one viscosity test per slurry batch, we chart individual values, and estimate sigma from the average moving range."
+   },
+   {
+    "en": "Run rules look for patterns as well as single points: two of three beyond two sigma, four of five beyond one sigma, or eight in a row on one side."
+   },
+   {
+    "en": "Each rule added catches smaller shifts sooner, but also raises false alarms. With all four rules, a stable process gives a false alarm about every 92 subgroups instead of every 370."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards: a drift of half a standard error. How long until the X-bar chart notices?"}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards: a drift of half a standard error. How long until the X-bar chart notices?"
+   }
   ],
   "arl": [
-   {"en": "The average run length is the average number of subgroups until a chart signals."},
-   {"en": "All three charts in this table are tuned to raise a false alarm about once every 370 subgroups."},
-   {"en": "For a shift of half a standard error, the X-bar chart needs about 155 subgroups to notice, almost a week of production. CUSUM needs about 35, and EWMA about 25."}
+   {
+    "en": "The average run length is the average number of subgroups until a chart signals."
+   },
+   {
+    "en": "All three charts in this table are tuned to raise a false alarm about once every 370 subgroups."
+   },
+   {
+    "en": "For a shift of half a standard error, the X-bar chart needs about 155 subgroups to notice, almost a week of production. CUSUM needs about 35, and EWMA about 25."
+   }
   ],
   "ewma-cusum": [
-   {"en": "The EWMA chart plots a weighted average. Each new subgroup gets ten percent weight, and older subgroups fade."},
-   {"en": "The CUSUM chart adds up small deviations in one direction, and signals when the sum exceeds a threshold."},
-   {"en": "Both trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side."}
+   {
+    "en": "The EWMA chart plots a weighted average. Each new subgroup gets ten percent weight, and older subgroups fade."
+   },
+   {
+    "en": "The CUSUM chart adds up small deviations in one direction, and signals when the sum exceeds a threshold."
+   },
+   {
+    "en": "Both trade a slower response to one large jump for a much faster response to small sustained shifts. Many lines run a Shewhart chart and an EWMA side by side."
+   }
   ],
   "drift-explorer": [
-   {"en": "Press Next subgroup to reveal one hour at a time. The upper panel is the X-bar chart, and the lower panel is the EWMA chart."},
-   {"en": "After each point, ask yourself whether you would stop the line. When all thirty are shown, the drift point is revealed."}
+   {
+    "en": "Press Next subgroup to reveal one hour at a time. The upper panel is the X-bar chart, and the lower panel is the EWMA chart."
+   },
+   {
+    "en": "After each point, ask yourself whether you would stop the line. When all thirty are shown, the drift point is revealed."
+   }
   ],
   "act1": [
-   {"en": "Activity, drift detectives. Work in groups of four for twenty-five minutes."},
-   {"en": "Subgroup means are revealed one hour at a time. Update both charts on paper, and raise the red card at your first signal."},
-   {"en": "Record when each chart first signals, and at the end compare with the planted drift point."}
+   {
+    "en": "Activity, drift detectives. Work in groups of four for twenty-five minutes."
+   },
+   {
+    "en": "Subgroup means are revealed one hour at a time. Update both charts on paper, and raise the red card at your first signal."
+   },
+   {
+    "en": "Record when each chart first signals, and at the end compare with the planted drift point."
+   }
   ],
   "act1-answer": [
-   {"en": "The drift of 0.077 milligrams per square centimeter started at subgroup sixteen."},
-   {"en": "The EWMA chart signaled at subgroup 22, six hours later. CUSUM signaled at 23. The X-bar chart with run rules signaled at 26, and with three-sigma limits alone it never signaled."},
-   {"en": "The drifted coating was still well inside the specification. That is the point of process control: act on the process before the product goes out of specification."}
+   {
+    "en": "The drift of 0.077 milligrams per square centimeter started at subgroup sixteen."
+   },
+   {
+    "en": "The EWMA chart signaled at subgroup 22, six hours later. CUSUM signaled at 23. The X-bar chart with run rules signaled at 26, and with three-sigma limits alone it never signaled."
+   },
+   {
+    "en": "The drifted coating was still well inside the specification. That is the point of process control: act on the process before the product goes out of specification."
+   }
   ],
   "w7": [
-   {"en": "Workshop seven. Run a gauge study on the supplied data, then build X-bar and R, EWMA and CUSUM charts for your group's coating data, and compare how soon each flags the planted drift."}
+   {
+    "en": "Workshop seven. Run a gauge study on the supplied data, then build X-bar and R, EWMA and CUSUM charts for your group's coating data, and compare how soon each flags the planted drift."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups."},
-   {"en": "Read the range chart before the X-bar chart. Control limits describe the process; specifications describe the customer's need."},
-   {"en": "For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate."},
-   {"en": "In session seventeen: autocorrelated readings, attribute charts, and process capability."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "Rational subgroups put short-term noise inside the subgroup, so changes over time show between subgroups."
+   },
+   {
+    "en": "Read the range chart before the X-bar chart. Control limits describe the process; specifications describe the customer's need."
+   },
+   {
+    "en": "For small sustained drifts, EWMA and CUSUM signal several times faster than an X-bar chart at the same false-alarm rate."
+   },
+   {
+    "en": "In session seventeen: autocorrelated readings, attribute charts, and process capability."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket: your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?"}
+   {
+    "en": "For the exit ticket: your process has frequent large jumps but rarely drifts. Which chart would you choose, and why?"
+   }
   ]
  }
 }

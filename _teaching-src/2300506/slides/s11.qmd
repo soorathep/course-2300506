@@ -289,20 +289,9 @@ The dual prices scarce resources. A coating hour is worth CNY 15,000; an idle fo
 
 [Session 12: Solver, the sensitivity report, and how far these prices can be trusted.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Linear programming | 线性规划 | Feasible region | 可行域 |
-| Decision variable | 决策变量 | Binding constraint | 紧约束 |
-| Objective function | 目标函数 | Dual problem | 对偶问题 |
-| Constraint | 约束条件 | Shadow price | 影子价格 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 A sales manager wants to push P orders to 70 MWh a week. Using only the dual prices, estimate the change in weekly contribution, and say what you would check before trusting it.

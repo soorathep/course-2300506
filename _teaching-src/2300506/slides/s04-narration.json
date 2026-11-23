@@ -2,90 +2,193 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session four, the first session on Markov analysis."},
-   {"en": "Today we model CellCo's cell line as a Markov chain, estimate its transition matrix from data, and test whether the night shift behaves like the day shift."}
+   {
+    "en": "Welcome to session four, the first session on Markov analysis."
+   },
+   {
+    "en": "Today we model CellCo's cell line as a Markov chain, estimate its transition matrix from data, and test whether the night shift behaves like the day shift."
+   }
   ],
   "route": [
-   {"en": "Here is the plan for the next two hours."},
-   {"en": "First, states, transition matrices and the steady state, followed by a dice activity in which you play the cell line."},
-   {"en": "After the break, we estimate a transition matrix from a log, put intervals on it, and test the night shift. The session ends with the launch of the group assignment."}
+   {
+    "en": "Here is the plan for the next two hours."
+   },
+   {
+    "en": "First, states, transition matrices and the steady state, followed by a dice activity in which you play the cell line."
+   },
+   {
+    "en": "After the break, we estimate a transition matrix from a log, put intervals on it, and test the night shift. The session ends with the launch of the group assignment."
+   }
   ],
   "states": [
-   {"en": "In every shift, CellCo records the state of its cell line: running, slow or down."},
-   {"en": "A Markov chain assumes that the next state depends only on the current state, not on the history before it."},
-   {"en": "The transition matrix holds the probability of moving from each state, in the row, to each state, in the column. Each row adds up to one."},
-   {"en": "For example, a running line stays running in four shifts out of six, and breaks down in one out of six. The values are sixths so that a die can play the line in the first activity."}
+   {
+    "en": "In every shift, CellCo records the state of its cell line: running, slow or down."
+   },
+   {
+    "en": "A Markov chain assumes that the next state depends only on the current state, not on the history before it."
+   },
+   {
+    "en": "The transition matrix holds the probability of moving from each state, in the row, to each state, in the column. Each row adds up to one."
+   },
+   {
+    "en": "For example, a running line stays running in four shifts out of six, and breaks down in one out of six. The values are sixths so that a die can play the line in the first activity."
+   }
   ],
   "n-step": [
-   {"en": "To find where the line will be after n shifts, multiply the starting distribution by the matrix n times."},
-   {"en": "Starting from down, the chance of running is 0.5 after one shift, 0.58 after two, and 0.60 after four."},
-   {"en": "After about four shifts, the line forgets where it started. The long-run distribution is the steady state, which solves pi equals pi times P."},
-   {"en": "Here the line runs 60 percent of shifts in the long run. If a slow shift makes half the cells, throughput is 70 percent of capacity."}
+   {
+    "en": "To find where the line will be after n shifts, multiply the starting distribution by the matrix n times."
+   },
+   {
+    "en": "Starting from down, the chance of running is 0.5 after one shift, 0.58 after two, and 0.60 after four."
+   },
+   {
+    "en": "After about four shifts, the line forgets where it started. The long-run distribution is the steady state, which solves pi equals pi times P."
+   },
+   {
+    "en": "Here the line runs 60 percent of shifts in the long run. If a slow shift makes half the cells, throughput is 70 percent of capacity."
+   }
   ],
   "n-explorer": [
-   {"en": "Choose a starting state and move the slider to change the number of shifts."},
-   {"en": "The bars show the probability of each state, and the dashed lines show the steady state."},
-   {"en": "Whatever the starting state, the bars reach the dashed lines within a few shifts."}
+   {
+    "en": "Choose a starting state and move the slider to change the number of shifts."
+   },
+   {
+    "en": "The bars show the probability of each state, and the dashed lines show the steady state."
+   },
+   {
+    "en": "Whatever the starting state, the bars reach the dashed lines within a few shifts."
+   }
   ],
   "readings": [
-   {"en": "The steady state answers practical questions."},
-   {"en": "The line returns to down every five shifts on average, which is one over 0.2."},
-   {"en": "Once it is running, it stays running for three shifts on average, which is one over one minus four sixths."},
-   {"en": "And at 70 percent effective throughput, a line rated at 2 gigawatt hours per year delivers about 1.4. That links directly to the demand numbers we used in sessions one to three."}
+   {
+    "en": "The steady state answers practical questions."
+   },
+   {
+    "en": "The line returns to down every five shifts on average, which is one over 0.2."
+   },
+   {
+    "en": "Once it is running, it stays running for three shifts on average, which is one over one minus four sixths."
+   },
+   {
+    "en": "And at 70 percent effective throughput, a line rated at 2 gigawatt hours per year delivers about 1.4. That links directly to the demand numbers we used in sessions one to three."
+   }
   ],
   "act1": [
-   {"en": "Activity one. You are the cell line."},
-   {"en": "Start in running and roll your die ten times. The rules on the slide tell you the next state for each roll. Write down your state after every roll."},
-   {"en": "Count your transitions and add them to the table on the board."},
-   {"en": "Then, in pairs, estimate each transition probability from the class total, and compare it with the true sixths. Finally, check what share of all shifts was running, and compare it with 0.6."}
+   {
+    "en": "Activity one. You are the cell line."
+   },
+   {
+    "en": "Start in running and roll your die ten times. The rules on the slide tell you the next state for each roll. Write down your state after every roll."
+   },
+   {
+    "en": "Count your transitions and add them to the table on the board."
+   },
+   {
+    "en": "Then, in pairs, estimate each transition probability from the class total, and compare it with the true sixths. Finally, check what share of all shifts was running, and compare it with 0.6."
+   }
   ],
   "estimate": [
-   {"en": "To estimate a transition matrix from a log, count the moves out of each state and divide by the number of visits to that state. This is the maximum-likelihood estimate."},
-   {"en": "Each estimate has a standard error, and an approximate 95 percent interval is the estimate plus or minus 1.96 standard errors."},
-   {"en": "In the day shift's log, the line left running 635 times and stayed running 448 times. So the estimate is 0.706, with an interval from 0.67 to 0.74."},
-   {"en": "Rows that are visited rarely have wide intervals. The down row was visited only 189 times, and its standard error is about twice that of the running row."}
+   {
+    "en": "To estimate a transition matrix from a log, count the moves out of each state and divide by the number of visits to that state. This is the maximum-likelihood estimate."
+   },
+   {
+    "en": "Each estimate has a standard error, and an approximate 95 percent interval is the estimate plus or minus 1.96 standard errors."
+   },
+   {
+    "en": "In the day shift's log, the line left running 635 times and stayed running 448 times. So the estimate is 0.706, with an interval from 0.67 to 0.74."
+   },
+   {
+    "en": "Rows that are visited rarely have wide intervals. The down row was visited only 189 times, and its standard error is about twice that of the running row."
+   }
   ],
   "sample-explorer": [
-   {"en": "This widget simulates a log of the chosen length and estimates every row with its 95 percent interval."},
-   {"en": "Move the slider from thirty shifts to thirty thousand, and draw new logs to see how much the estimates move."},
-   {"en": "Ten times more data makes the interval about three times narrower, because the standard error falls with the square root of the number of visits."}
+   {
+    "en": "This widget simulates a log of the chosen length and estimates every row with its 95 percent interval."
+   },
+   {
+    "en": "Move the slider from thirty shifts to thirty thousand, and draw new logs to see how much the estimates move."
+   },
+   {
+    "en": "Ten times more data makes the interval about three times narrower, because the standard error falls with the square root of the number of visits."
+   }
   ],
   "homogeneity": [
-   {"en": "Is the night shift different? Here are a thousand logged shifts from each."},
-   {"en": "For each starting state, a chi-square test compares the day and night counts. The three test statistics add up to 20.55, with 6 degrees of freedom, and a p-value of 0.002."},
-   {"en": "So one matrix does not fit both shifts."},
-   {"en": "The difference sits in the running row. By night, a running line breaks down in 23 percent of shifts, against 15 percent by day."}
+   {
+    "en": "Is the night shift different? Here are a thousand logged shifts from each."
+   },
+   {
+    "en": "For each starting state, a chi-square test compares the day and night counts. The three test statistics add up to 20.55, with 6 degrees of freedom, and a p-value of 0.002."
+   },
+   {
+    "en": "So one matrix does not fit both shifts."
+   },
+   {
+    "en": "The difference sits in the running row. By night, a running line breaks down in 23 percent of shifts, against 15 percent by day."
+   }
   ],
   "act2": [
-   {"en": "Activity two. Work in pairs for fifteen minutes."},
-   {"en": "Estimate the probability that a running line breaks down, separately for the day and the night shift, with 95 percent intervals."},
-   {"en": "Then compare the steady states of the two matrices, and estimate how many more shifts per thousand the night line would run if it behaved like the day line."},
-   {"en": "Finish with one sentence for the plant manager on what the night shift should investigate first."}
+   {
+    "en": "Activity two. Work in pairs for fifteen minutes."
+   },
+   {
+    "en": "Estimate the probability that a running line breaks down, separately for the day and the night shift, with 95 percent intervals."
+   },
+   {
+    "en": "Then compare the steady states of the two matrices, and estimate how many more shifts per thousand the night line would run if it behaved like the day line."
+   },
+   {
+    "en": "Finish with one sentence for the plant manager on what the night shift should investigate first."
+   }
   ],
   "act2-answer": [
-   {"en": "By day, the breakdown probability from running is 0.150, plus or minus 0.028. By night it is 0.231, plus or minus 0.036. The intervals do not overlap."},
-   {"en": "The day matrix runs 63.5 percent of shifts in the long run, the night matrix 52.8 percent. Matching the day shift would add about 107 running shifts per thousand."},
-   {"en": "The night shift should investigate why running shifts break down: the maintenance handover, staffing, or start-up after a planned stop."}
+   {
+    "en": "By day, the breakdown probability from running is 0.150, plus or minus 0.028. By night it is 0.231, plus or minus 0.036. The intervals do not overlap."
+   },
+   {
+    "en": "The day matrix runs 63.5 percent of shifts in the long run, the night matrix 52.8 percent. Matching the day shift would add about 107 running shifts per thousand."
+   },
+   {
+    "en": "The night shift should investigate why running shifts break down: the maintenance handover, staffing, or start-up after a planned stop."
+   }
   ],
   "assignment": [
-   {"en": "Now the group assignment for block one."},
-   {"en": "Groups of four to five write a board memo for CellCo, due on the twenty-first of February 2027."},
-   {"en": "It has three parts: a decision analysis, a Markov analysis of your group's own log, and a network plan for the chosen option."},
-   {"en": "You hand in a report of at most ten pages, a workbook or notebook, and a ten-minute recorded presentation. Each student also writes a two-page research note applying one method to their own research."}
+   {
+    "en": "Now the group assignment for block one."
+   },
+   {
+    "en": "Groups of four to five write a board memo for CellCo, due on the twenty-first of February 2027."
+   },
+   {
+    "en": "It has three parts: a decision analysis, a Markov analysis of your group's own log, and a network plan for the chosen option."
+   },
+   {
+    "en": "The deliverables are a report of at most ten pages, a workbook or notebook, and a ten-minute recorded presentation. Each student also writes a two-page research note applying one method to their own research."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "A Markov chain is a transition matrix. The steady state solves pi equals pi times P, and CellCo's line runs 60 percent of shifts in the long run."},
-   {"en": "Estimate each row as counts divided by visits, and report its interval. Rarely visited states have the widest intervals."},
-   {"en": "And test whether one matrix fits all conditions before you use it. CellCo's night shift breaks down more often."},
-   {"en": "Tomorrow, session five uses absorbing chains to compute yield, rework and scrap on the cell line."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "A Markov chain is a transition matrix. The steady state solves pi equals pi times P, and CellCo's line runs 60 percent of shifts in the long run."
+   },
+   {
+    "en": "Estimate each row as counts divided by visits, and report its interval. Rarely visited states have the widest intervals."
+   },
+   {
+    "en": "And test whether one matrix fits all conditions before you use it. CellCo's night shift breaks down more often."
+   },
+   {
+    "en": "Tomorrow, session five uses absorbing chains to compute yield, rework and scrap on the cell line."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket, explain in one sentence to a production engineer why two hundred logged shifts are not enough to estimate the down row precisely."},
-   {"en": "Remember that quiz one opens online this evening."}
+   {
+    "en": "For the exit ticket, explain in one sentence to a production engineer why two hundred logged shifts are not enough to estimate the down row precisely."
+   },
+   {
+    "en": "Remember that quiz one opens online this evening."
+   }
   ]
  }
 }

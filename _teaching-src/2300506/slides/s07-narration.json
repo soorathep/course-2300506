@@ -2,58 +2,117 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session seven, the first session on network models."},
-   {"en": "In one hour, we plan the installation of CellCo's storage system as a project network and find its critical path."}
+   {
+    "en": "Welcome to session seven, the first session on network models."
+   },
+   {
+    "en": "In one hour, we plan the installation of CellCo's storage system as a project network and find its critical path."
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First, activity-on-node networks and the forward and backward passes. Then your group builds the network from cards. We finish with slack and the critical path."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First, activity-on-node networks and the forward and backward passes. Then your group builds the network from cards. We finish with slack and the critical path."
+   }
   ],
   "project": [
-   {"en": "CellCo will install a ten megawatt hour storage system at its plant. The project has eight activities."},
-   {"en": "It starts with the site survey and permits. Then come the detailed design, the procurement of battery containers and of the power conversion system, and the civil works."},
-   {"en": "Installation and commissioning follow. The table lists each activity's predecessors and its most likely duration in weeks."}
+   {
+    "en": "CellCo will install a ten megawatt hour storage system at its plant. The project has eight activities."
+   },
+   {
+    "en": "It starts with the site survey and permits. Then come the detailed design, the procurement of battery containers and of the power conversion system, and the civil works."
+   },
+   {
+    "en": "Installation and commissioning follow. The table lists each activity's predecessors and its most likely duration in weeks."
+   }
   ],
   "aon": [
-   {"en": "In an activity-on-node network, each box is an activity, and each arrow says that one activity must finish before the next can start."},
-   {"en": "For example, installing the containers needs both the containers and the foundations, so F has two arrows coming in, from C and from D."},
-   {"en": "The boxes and arrows in amber lie on a critical path. We will see how to find it on the next slide."}
+   {
+    "en": "In an activity-on-node network, each box is an activity, and each arrow says that one activity must finish before the next can start."
+   },
+   {
+    "en": "For example, installing the containers needs both the containers and the foundations, so F has two arrows coming in, from C and from D."
+   },
+   {
+    "en": "The boxes and arrows in amber lie on a critical path. We will see how to find it on the next slide."
+   }
   ],
   "passes": [
-   {"en": "The forward pass finds the earliest times. An activity can start when its last predecessor finishes, so its earliest start is the largest earliest finish of its predecessors."},
-   {"en": "The backward pass starts from the project end and finds the latest times. An activity must finish before its first successor has to start."},
-   {"en": "Total slack is the latest start minus the earliest start. Activities with zero slack are critical: any delay to them delays the whole project."},
-   {"en": "Here, every activity except D has zero slack. D, the civil works, has six weeks of slack."}
+   {
+    "en": "The forward pass finds the earliest times. An activity can start when its last predecessor finishes, so its earliest start is the largest earliest finish of its predecessors."
+   },
+   {
+    "en": "The backward pass starts from the project end and finds the latest times. An activity must finish before its first successor has to start."
+   },
+   {
+    "en": "Total slack is the latest start minus the earliest start. Activities with zero slack are critical: any delay to them delays the whole project."
+   },
+   {
+    "en": "Here, every activity except D has zero slack. D, the civil works, has six weeks of slack."
+   }
   ],
   "act1": [
-   {"en": "Activity. Work in groups of four for twenty minutes."},
-   {"en": "Your group receives the eight activity cards in random order. Build the network on the sheet, with every arrow pointing from a predecessor to its successor."},
-   {"en": "Then write the earliest and latest times on each card, and find the project duration and the critical activities."},
-   {"en": "Finish with a gallery walk: check another group's network, and correct one error if you find one."}
+   {
+    "en": "Activity. Work in groups of four for twenty minutes."
+   },
+   {
+    "en": "Your group receives the eight activity cards in random order. Build the network on the sheet, with every arrow pointing from a predecessor to its successor."
+   },
+   {
+    "en": "Then write the earliest and latest times on each card, and find the project duration and the critical activities."
+   },
+   {
+    "en": "Finish with a gallery walk: check another group's network, and correct one error if you find one."
+   }
   ],
   "act1-answer": [
-   {"en": "The project takes nineteen weeks."},
-   {"en": "There are two critical paths, both nineteen weeks long: A, B, C, F, H, and A, B, E, G, H."},
-   {"en": "Only the civil works have slack. They can start up to six weeks late without delaying the project."},
-   {"en": "Two critical paths make the plan fragile. A delay to either the containers or the power conversion system delays commissioning, and shortening only one of them gains nothing."}
+   {
+    "en": "The project takes nineteen weeks."
+   },
+   {
+    "en": "There are two critical paths, both nineteen weeks long: A, B, C, F, H, and A, B, E, G, H."
+   },
+   {
+    "en": "Only the civil works have slack. They can start up to six weeks late without delaying the project."
+   },
+   {
+    "en": "Two critical paths make the plan fragile. A delay to either the containers or the power conversion system delays commissioning, and shortening only one of them gains nothing."
+   }
   ],
   "cpm-explorer": [
-   {"en": "Choose an activity and change its duration. The network recomputes the earliest and latest times and highlights the critical activities."},
-   {"en": "Try shortening the containers, activity C, from eight weeks to six. The project still takes nineteen weeks, because the other critical path does not change."},
-   {"en": "Then try lengthening the civil works beyond their slack, and watch them become critical."}
+   {
+    "en": "Choose an activity and change its duration. The network recomputes the earliest and latest times and highlights the critical activities."
+   },
+   {
+    "en": "Try shortening the containers, activity C, from eight weeks to six. The project still takes nineteen weeks, because the other critical path does not change."
+   },
+   {
+    "en": "Then try lengthening the civil works beyond their slack, and watch them become critical."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "An activity-on-node network shows the order of the work. The forward pass gives the earliest times, and the backward pass the latest."},
-   {"en": "CellCo's installation takes nineteen weeks, with two critical paths. Only the civil works have slack."},
-   {"en": "With parallel critical paths, shortening one activity alone does not shorten the project."},
-   {"en": "After lunch, in session eight, we add uncertain durations, estimate the chance of finishing on time, and decide what to pay to finish earlier."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "An activity-on-node network shows the order of the work. The forward pass gives the earliest times, and the backward pass the latest."
+   },
+   {
+    "en": "CellCo's installation takes nineteen weeks, with two critical paths. Only the civil works have slack."
+   },
+   {
+    "en": "With parallel critical paths, shortening one activity alone does not shorten the project."
+   },
+   {
+    "en": "After lunch, in session eight, we add uncertain durations, estimate the chance of finishing on time, and decide what to pay to finish earlier."
+   }
   ],
   "exit": [
-   {"en": "For the exit ticket: the civil works team asks to start four weeks late. Can the plant manager agree without delaying commissioning? Write down the number that decides it."}
+   {
+    "en": "For the exit ticket: the civil works team asks to start four weeks late. Can the plant manager agree without delaying commissioning? Write down the number that decides it."
+   }
   ]
  }
 }

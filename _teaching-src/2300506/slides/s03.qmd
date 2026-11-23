@@ -367,24 +367,9 @@ Building in stages is a real option. Expanding only if demand reaches 1.9 GWh/yr
 
 [Quiz 1 opens online this evening and covers Sessions 1 to 3. Session 4 starts Markov analysis: estimating a transition matrix from line data.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Monte Carlo simulation | 蒙特卡洛模拟 | Net present value (NPV) | 净现值 |
-| Probability distribution | 概率分布 | Discount rate | 折现率 |
-| Triangular distribution | 三角分布 | Annuity factor | 年金系数 |
-| Normal distribution | 正态分布 | Real option | 实物期权 |
-| Lognormal distribution | 对数正态分布 | Option to expand | 扩张期权 |
-| Percentile (P10, P90) | 百分位数 | Value of flexibility | 灵活性价值 |
-| Probability of loss | 亏损概率 | Correlation | 相关性 |
-| Standard error | 标准误差 | Sampling error | 抽样误差 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Write two sentences for CellCo's board: commit now or build in stages, and which number from the simulation supports your advice.

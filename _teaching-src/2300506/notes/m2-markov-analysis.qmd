@@ -198,26 +198,6 @@ Self-check · Session 6
 - **W3** part 2 (Session 5): $N$ and $B$ for the cell line, and the best improvement plan within the budget.
 - **W3** part 3 (Session 6): cost per shift of the four maintenance policies; optional policy-iteration notebook.
 
-## Key terms in English and Chinese {#glossary}
-
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Markov chain | 马尔可夫链 | State | 状态 |
-| Transition matrix | 转移矩阵 | Transition probability | 转移概率 |
-| n-step transition | n步转移 | Steady state (stationary distribution) | 稳态分布 |
-| Mean recurrence time | 平均返回时间 | Maximum-likelihood estimate | 最大似然估计 |
-| Standard error | 标准误差 | Confidence interval | 置信区间 |
-| Chi-square test | 卡方检验 | Homogeneity | 同质性 |
-| Absorbing state | 吸收态 | Transient state | 瞬态（非常返态） |
-| Absorbing Markov chain | 吸收马尔可夫链 | Fundamental matrix | 基本矩阵 |
-| Absorption probability | 吸收概率 | Expected number of visits | 期望访问次数 |
-| Yield | 良率 | Rework, scrap | 返工、报废 |
-| Payback period | 投资回收期 | Markov decision process (MDP) | 马尔可夫决策过程 |
-| Action | 行动（决策） | Policy | 策略 |
-| Policy iteration | 策略迭代 | Value function | 价值函数 |
-| Average cost per period | 单位时间平均成本 | Preventive maintenance | 预防性维护 |
-| Run to failure | 故障后维修 | | |
-
 ## Answers to the self-checks {#answers}
 
 **Session 4.**

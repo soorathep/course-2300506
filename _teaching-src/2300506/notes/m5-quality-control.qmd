@@ -199,25 +199,6 @@ Self-check · Session 18
 - **W7** (Sessions 15 and 16): Gage R&R on gauge data; X-bar and R, EWMA and CUSUM charts; detection times for a planted drift.
 - **W8** (Session 17): AR(1) residual chart; p chart for 30 lots; capability and the variation reduction needed for $C_{pk}$ 1.33.
 
-## Key terms in English and Chinese {#glossary}
-
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Common-cause variation | 普通原因变异 | Special-cause variation | 特殊原因变异 |
-| DMAIC | 定义-测量-分析-改进-控制 | Pareto chart | 帕累托图 |
-| Cause-and-effect diagram | 因果图（鱼骨图） | Measurement system analysis | 测量系统分析 |
-| Repeatability, reproducibility | 重复性、再现性 | Mass loading | 面密度（涂布量） |
-| Control chart | 控制图 | Rational subgroup | 合理子组 |
-| Control limit | 控制限 | Specification limit | 规格限 |
-| Run rules | 判异准则 | Average run length (ARL) | 平均运行长度 |
-| EWMA chart | 指数加权移动平均控制图 | CUSUM chart | 累积和控制图 |
-| Autocorrelation | 自相关 | Residual chart | 残差控制图 |
-| p chart, c chart | 不合格品率图、缺陷数图 | Process capability index | 过程能力指数 |
-| Parts per million (ppm) | 百万分率 | Re-centering | 过程对中 |
-| First-pass yield | 一次合格率 | Rolled throughput yield | 流通合格率 |
-| Defects per million opportunities | 百万机会缺陷数 | Overall equipment effectiveness (OEE) | 设备综合效率 |
-| Hidden factory | 隐藏工厂 | Cost of poor quality | 劣质成本 |
-
 ## Answers to the self-checks {#answers}
 
 **Session 15.**

@@ -484,24 +484,9 @@ AHP turns pairwise judgments into weights and checks their consistency. CellCo's
 
 [Session 3: Monte Carlo simulation of the new line's NPV, and the value of building in stages.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Decision tree | 决策树 | Expected value of sample information (EVSI) | 样本信息期望价值 |
-| Decision node | 决策节点 | Efficiency of sample information | 样本信息效率 |
-| Chance node | 机会节点 | Analytic hierarchy process (AHP) | 层次分析法 |
-| Fold back (roll back) | 逆推求解 | Pairwise comparison | 两两比较 |
-| Prior probability | 先验概率 | Criterion weight | 准则权重 |
-| Posterior probability | 后验概率 | Consistency ratio (CR) | 一致性比率 |
-| Bayes' theorem | 贝叶斯定理 | Pugh matrix | Pugh 矩阵 |
-| Levelized cost of storage (LCOS) | 平准化储能成本 | Sensitivity analysis | 敏感性分析 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Name one piece of information CellCo could buy before choosing its storage technology, and explain in one sentence how you would decide the most it should pay.

@@ -2,122 +2,267 @@
  "voice_en": "am_michael",
  "slides": {
   "title-slide": [
-   {"en": "Welcome to session three: simulation and real options."},
-   {"en": "Today we replace the three-column payoff table with thousands of simulated futures, and we put a value on the option to wait."}
+   {
+    "en": "Welcome to session three: simulation and real options."
+   },
+   {
+    "en": "Today we replace the three-column payoff table with thousands of simulated futures, and we put a value on the option to wait."
+   }
   ],
   "recap": [
-   {"en": "In session one, option A had three payoffs: minus 120, 80 and 260 million yuan, with an EMV of 56."},
-   {"en": "Real demand is not just low, medium or high. It can take any value in a range, and price and cathode cost move as well."},
-   {"en": "Today we simulate thousands of possible futures and look at the whole distribution of NPV."},
-   {"en": "Two questions guide the session. How likely is the new LFP line to lose money? And is it better to build the whole line now, or half now and the rest later?"}
+   {
+    "en": "In session one, option A had three payoffs: minus 120, 80 and 260 million yuan, with an EMV of 56."
+   },
+   {
+    "en": "Real demand is not just low, medium or high. It can take any value in a range, and price and cathode cost move as well."
+   },
+   {
+    "en": "Today we simulate thousands of possible futures and look at the whole distribution of NPV."
+   },
+   {
+    "en": "Two questions guide the session. How likely is the new LFP line to lose money? And is it better to build the whole line now, or half now and the rest later?"
+   }
   ],
   "route": [
-   {"en": "Here is the plan."},
-   {"en": "First we learn Monte Carlo simulation and build CellCo's NPV model. Then you will simulate it in Excel in pairs."},
-   {"en": "After the break, we value the option to build in stages and look at where simulation can mislead."},
-   {"en": "In the second activity, groups compete to find the best strategy for CellCo's board."}
+   {
+    "en": "Here is the plan."
+   },
+   {
+    "en": "First we learn Monte Carlo simulation and build CellCo's NPV model. Then you will simulate it in Excel in pairs."
+   },
+   {
+    "en": "After the break, we value the option to build in stages and look at where simulation can mislead."
+   },
+   {
+    "en": "In the second activity, groups compete to find the best strategy for CellCo's board."
+   }
   ],
   "monte-carlo": [
-   {"en": "Monte Carlo simulation has five steps."},
-   {"en": "First, write the NPV as a formula of the uncertain inputs. Second, give each uncertain input a probability distribution, from data or from expert judgment."},
-   {"en": "Third, draw one value of every input, compute the NPV, and repeat this a thousand times or more."},
-   {"en": "Fourth, summarize the results: the mean, the tenth, fiftieth and ninetieth percentiles, and the probability of loss. Together they form the risk profile."},
-   {"en": "The fifth step is to question the result: which input drives the spread, and would a different but reasonable distribution change the decision?"}
+   {
+    "en": "Monte Carlo simulation has five steps."
+   },
+   {
+    "en": "First, write the NPV as a formula of the uncertain inputs. Second, give each uncertain input a probability distribution, from data or from expert judgment."
+   },
+   {
+    "en": "Third, draw one value of every input, compute the NPV, and repeat this a thousand times or more."
+   },
+   {
+    "en": "Fourth, summarize the results: the mean, the tenth, fiftieth and ninetieth percentiles, and the probability of loss. Together they form the risk profile."
+   },
+   {
+    "en": "The fifth step is to question the result: which input drives the spread, and would a different but reasonable distribution change the decision?"
+   }
   ],
   "npv-model": [
-   {"en": "Here is CellCo's model for option A."},
-   {"en": "Each year, the line sells the smaller of its capacity, 2 gigawatt hours, and the demand D. Each kilowatt hour earns the price minus the cathode cost minus 190 yuan of other variable cost. Then 35 million of fixed cost is subtracted."},
-   {"en": "The yearly cash flow is multiplied by 6.710, the annuity factor for ten years at 8 percent, and the capital cost of 600 million is subtracted."},
-   {"en": "Demand follows a triangular distribution from the sales team's three estimates: a minimum of 0.9, a most likely value of 1.7, and a maximum of 2.5 gigawatt hours per year."},
-   {"en": "Price is normal with a mean of 380 and a standard deviation of 8 yuan per kilowatt hour. Cathode cost is lognormal with a median of 110, because a cost cannot be negative."}
+   {
+    "en": "Here is CellCo's model for option A."
+   },
+   {
+    "en": "Each year, the line sells the smaller of its capacity, 2 gigawatt hours, and the demand D. Each kilowatt hour earns the price minus the cathode cost minus 190 yuan of other variable cost. Then 35 million of fixed cost is subtracted."
+   },
+   {
+    "en": "The yearly cash flow is multiplied by 6.710, the annuity factor for ten years at 8 percent, and the capital cost of 600 million is subtracted."
+   },
+   {
+    "en": "Demand follows a triangular distribution from the sales team's three estimates: a minimum of 0.9, a most likely value of 1.7, and a maximum of 2.5 gigawatt hours per year."
+   },
+   {
+    "en": "Price is normal with a mean of 380 and a standard deviation of 8 yuan per kilowatt hour. Cathode cost is lognormal with a median of 110, because a cost cannot be negative."
+   }
   ],
   "excel": [
-   {"en": "In Excel, one row is one possible future."},
-   {"en": "Column F draws a uniform random number. Column A turns it into a triangular demand with the inverse formula shown. Columns B and C draw the price and the cathode cost, and column D computes the NPV."},
-   {"en": "Copy row two down to row one thousand and one. Then compute the average, the tenth percentile, and the share of negative NPVs."},
-   {"en": "Pressing F9 draws a thousand new futures."}
+   {
+    "en": "In Excel, one row is one possible future."
+   },
+   {
+    "en": "Column F draws a uniform random number. Column A turns it into a triangular demand with the inverse formula shown. Columns B and C draw the price and the cathode cost, and column D computes the NPV."
+   },
+   {
+    "en": "Copy row two down to row one thousand and one. Then compute the average, the tenth percentile, and the share of negative NPVs."
+   },
+   {
+    "en": "Pressing F9 draws a thousand new futures."
+   }
   ],
   "mc-explorer": [
-   {"en": "This simulator runs the same model in your browser."},
-   {"en": "Choose commit now or the staged strategy, and press run to draw a thousand futures. The histogram shows the distribution of NPV, with the tenth, fiftieth and ninetieth percentiles marked."},
-   {"en": "Each run gives slightly different numbers. That movement is sampling error, and it is a reason to report how many runs you used."},
-   {"en": "The correlation slider links price to demand. We will come back to it after the break."}
+   {
+    "en": "This simulator runs the same model in your browser."
+   },
+   {
+    "en": "Choose commit now or the staged strategy, and press run to draw a thousand futures. The histogram shows the distribution of NPV, with the tenth, fiftieth and ninetieth percentiles marked."
+   },
+   {
+    "en": "Each run gives slightly different numbers. That movement is sampling error, and it is a reason to report how many runs you used."
+   },
+   {
+    "en": "The correlation slider links price to demand. We will come back to it after the break."
+   }
   ],
   "risk-profile": [
-   {"en": "Here is the risk profile of option A from 400,000 runs, drawn as the teal outline."},
-   {"en": "The mean is 57, which matches the EMV of 56 from session one."},
-   {"en": "But the simulation shows much more. There is a 40 percent chance of losing money, and the tenth percentile is minus 208 million, far below the minus 120 of the low-demand column."},
-   {"en": "The amber histogram is the staged strategy, which we will explain after the break."}
+   {
+    "en": "Here is the risk profile of option A from 400,000 runs, drawn as the teal outline."
+   },
+   {
+    "en": "The mean is 57, which matches the EMV of 56 from session one."
+   },
+   {
+    "en": "But the simulation shows much more. There is a 40 percent chance of losing money, and the tenth percentile is minus 208 million, far below the minus 120 of the low-demand column."
+   },
+   {
+    "en": "The amber histogram is the staged strategy, which we will explain after the break."
+   }
   ],
   "act1": [
-   {"en": "Activity one. Work in pairs for twenty minutes."},
-   {"en": "Build the model in Excel with one thousand rows, and record four numbers: the mean, the tenth percentile, the ninetieth percentile, and the probability of loss."},
-   {"en": "Press F9 a few times and see how much the numbers move. Compare your results with the pair next to you."},
-   {"en": "Then find which input drives the spread, by fixing the price and the cathode cost at their means and running again."}
+   {
+    "en": "Activity one. Work in pairs for twenty minutes."
+   },
+   {
+    "en": "Build the model in Excel with one thousand rows, and record four numbers: the mean, the tenth percentile, the ninetieth percentile, and the probability of loss."
+   },
+   {
+    "en": "Press F9 a few times and see how much the numbers move. Compare your results with the pair next to you."
+   },
+   {
+    "en": "Then find which input drives the spread, by fixing the price and the cathode cost at their means and running again."
+   }
   ],
   "act1-answer": [
-   {"en": "Here are the reference values from 400,000 runs: a mean of 57, a tenth percentile of minus 208, a ninetieth percentile of 321, and a 40 percent chance of loss."},
-   {"en": "With a thousand runs, the standard error of the mean is about 201 divided by the square root of 1,000, which is 6.4. So two careful pairs can differ by about 13 in the mean."},
-   {"en": "Both groups of inputs matter. Fixing price and cathode cost cuts the standard deviation from 201 to 149. Fixing demand at 1.7 cuts it to 136."},
-   {"en": "The margin is small, so its uncertainty is multiplied by the volume and by the annuity factor."}
+   {
+    "en": "Here are the reference values from 400,000 runs: a mean of 57, a tenth percentile of minus 208, a ninetieth percentile of 321, and a 40 percent chance of loss."
+   },
+   {
+    "en": "With a thousand runs, the standard error of the mean is about 201 divided by the square root of 1,000, which is 6.4. So two careful pairs can differ by about 13 in the mean."
+   },
+   {
+    "en": "Both groups of inputs matter. Fixing price and cathode cost cuts the standard deviation from 201 to 149. Fixing demand at 1.7 cuts it to 136."
+   },
+   {
+    "en": "The margin is small, so its uncertainty is multiplied by the volume and by the annuity factor."
+   }
   ],
   "break": [
-   {"en": "Let us take a ten-minute break."},
-   {"en": "Afterwards we ask: what if CellCo does not have to decide everything today?"}
+   {
+    "en": "Let us take a ten-minute break."
+   },
+   {
+    "en": "Afterwards we ask: what if CellCo does not have to decide everything today?"
+   }
   ],
   "real-option": [
-   {"en": "Here is the staged strategy."},
-   {"en": "CellCo builds 1 gigawatt hour now for 330 million. After two years it knows its demand. If demand is at least a threshold T, it adds the second gigawatt hour for another 330 million."},
-   {"en": "Staging costs more in total, 660 million against 600, and in the first two years the plant sells at most 1 gigawatt hour."},
-   {"en": "In return, CellCo spends the second 330 million only in the futures where it pays."},
-   {"en": "The value of flexibility is the expected NPV of the staged strategy minus that of committing now. A real option is the right, but not the obligation, to invest later."}
+   {
+    "en": "Here is the staged strategy."
+   },
+   {
+    "en": "CellCo builds 1 gigawatt hour now for 330 million. After two years it knows its demand. If demand is at least a threshold T, it adds the second gigawatt hour for another 330 million."
+   },
+   {
+    "en": "Staging costs more in total, 660 million against 600, and in the first two years the plant sells at most 1 gigawatt hour."
+   },
+   {
+    "en": "In return, CellCo spends the second 330 million only in the futures where it pays."
+   },
+   {
+    "en": "The value of flexibility is the expected NPV of the staged strategy minus that of committing now. A real option is the right, but not the obligation, to invest later."
+   }
   ],
   "staged": [
-   {"en": "This table compares the strategies."},
-   {"en": "With a threshold of 1.9 gigawatt hours, the staged strategy has a mean of 79, against 57 for committing now. That is about 22 million of extra expected NPV."},
-   {"en": "It also halves the chance of loss, from 40 to 20 percent, and raises the tenth percentile from minus 208 to minus 43."},
-   {"en": "The price is lost upside: the ninetieth percentile falls from 321 to 201."},
-   {"en": "A threshold that is too low, such as 1.6, expands too often and gains nothing on the mean."}
+   {
+    "en": "This table compares the strategies."
+   },
+   {
+    "en": "With a threshold of 1.9 gigawatt hours, the staged strategy has a mean of 79, against 57 for committing now. That is about 22 million of extra expected NPV."
+   },
+   {
+    "en": "It also halves the chance of loss, from 40 to 20 percent, and raises the tenth percentile from minus 208 to minus 43."
+   },
+   {
+    "en": "The price is lost upside: the ninetieth percentile falls from 321 to 201."
+   },
+   {
+    "en": "A threshold that is too low, such as 1.6, expands too often and gains nothing on the mean."
+   }
   ],
   "misleads": [
-   {"en": "Simulation can mislead in three ways."},
-   {"en": "First, correlated inputs. We drew price and demand independently. If price falls when demand falls, with a correlation of 0.5, the tenth percentile of option A drops from minus 208 to minus 239. Ignoring correlation understated the downside."},
-   {"en": "Second, chosen distributions. The demand range came from three estimates by the sales team. Ask what evidence supports the minimum of 0.9, because the downside depends on it."},
-   {"en": "Third, one draw per input. Our model keeps price and demand fixed for ten years. A model with yearly changes would give a different spread. A simulation is only as good as its model."}
+   {
+    "en": "Simulation can mislead in three ways."
+   },
+   {
+    "en": "First, correlated inputs. We drew price and demand independently. If price falls when demand falls, with a correlation of 0.5, the tenth percentile of option A drops from minus 208 to minus 239. Ignoring correlation understated the downside."
+   },
+   {
+    "en": "Second, chosen distributions. The demand range came from three estimates by the sales team. Ask what evidence supports the minimum of 0.9, because the downside depends on it."
+   },
+   {
+    "en": "Third, one draw per input. Our model keeps price and demand fixed for ten years. A model with yearly changes would give a different spread. A simulation is only as good as its model."
+   }
   ],
   "act2": [
-   {"en": "Activity two, the strategy tournament. Work in groups of four for twenty-five minutes."},
-   {"en": "Your group advises CellCo's board. Choose commit now, or the staged strategy with a threshold of your choice, and be ready to defend it."},
-   {"en": "Try at least three strategies, and run each one three times to see the spread between runs."},
-   {"en": "Write your best strategy on the board with its mean, its tenth percentile, its probability of loss, and its certainty equivalents at R equal to 100 and 400."},
-   {"en": "Then, as a class, we decide which strategy wins for a risk-neutral board and which wins for a risk-averse board."}
+   {
+    "en": "Activity two, the strategy tournament. Work in groups of four for twenty-five minutes."
+   },
+   {
+    "en": "Your group advises CellCo's board. Choose commit now, or the staged strategy with a threshold of your choice, and be ready to defend it."
+   },
+   {
+    "en": "Try at least three strategies, and run each one three times to see the spread between runs."
+   },
+   {
+    "en": "Write your best strategy on the board with its mean, its tenth percentile, its probability of loss, and its certainty equivalents at R equal to 100 and 400."
+   },
+   {
+    "en": "Then, as a class, we decide which strategy wins for a risk-neutral board and which wins for a risk-averse board."
+   }
   ],
   "tournament": [
-   {"en": "This is the tournament simulator. It works like the earlier one, and it keeps a list of your runs, newest first."},
-   {"en": "Use the list to compare strategies, and remember that differences of a few million may only be sampling error."}
+   {
+    "en": "This is the tournament simulator. It works like the earlier one, and it keeps a list of your runs, newest first."
+   },
+   {
+    "en": "Use the list to compare strategies, and remember that differences of a few million may only be sampling error."
+   }
   ],
   "act2-answer": [
-   {"en": "Here are the reference results from 400,000 runs per strategy."},
-   {"en": "A risk-neutral board, which maximizes the mean, expands when demand reaches about 1.9 gigawatt hours per year."},
-   {"en": "A risk-averse board, with R equal to 100, gains from every increase in the threshold. At 2.4 it almost never expands, and its certainty equivalent is 37. For that board, the 1 gigawatt hour line alone is close to the safest choice."},
-   {"en": "Every staged strategy with a threshold of 1.7 or more beats committing now on the mean, the tenth percentile, and the probability of loss."},
-   {"en": "So the best moment to expand depends on the board's risk attitude."}
+   {
+    "en": "Here are the reference results from 400,000 runs per strategy."
+   },
+   {
+    "en": "A risk-neutral board, which maximizes the mean, expands when demand reaches about 1.9 gigawatt hours per year."
+   },
+   {
+    "en": "A risk-averse board, with R equal to 100, gains from every increase in the threshold. At 2.4 it almost never expands, and its certainty equivalent is 37. For that board, the 1 gigawatt hour line alone is close to the safest choice."
+   },
+   {
+    "en": "Every staged strategy with a threshold of 1.7 or more beats committing now on the mean, the tenth percentile, and the probability of loss."
+   },
+   {
+    "en": "So the best moment to expand depends on the board's risk attitude."
+   }
   ],
   "debrief": [
-   {"en": "Let us summarize."},
-   {"en": "Monte Carlo simulation turns a model and input distributions into a full risk profile. Option A's mean NPV of 57 hides a 40 percent chance of loss."},
-   {"en": "With a thousand runs, the mean carries a standard error of about 6. Report the number of runs, and do not read meaning into smaller differences."},
-   {"en": "Building in stages is a real option. Expanding only if demand reaches 1.9 gigawatt hours per year adds about 22 million of expected NPV and halves the chance of loss."},
-   {"en": "Quiz one opens online this evening and covers sessions one to three. After the break, session four starts Markov analysis."}
-  ],
-  "glossary": [
-   {"en": "This slide lists today's key terms in English and Chinese, for reference."},
-   {"en": "Use the English terms in your assignments and quizzes."}
+   {
+    "en": "Let us summarize."
+   },
+   {
+    "en": "Monte Carlo simulation turns a model and input distributions into a full risk profile. Option A's mean NPV of 57 hides a 40 percent chance of loss."
+   },
+   {
+    "en": "With a thousand runs, the mean carries a standard error of about 6. Report the number of runs, and do not read meaning into smaller differences."
+   },
+   {
+    "en": "Building in stages is a real option. Expanding only if demand reaches 1.9 gigawatt hours per year adds about 22 million of expected NPV and halves the chance of loss."
+   },
+   {
+    "en": "Quiz one opens online this evening and covers sessions one to three. After the break, session four starts Markov analysis."
+   }
   ],
   "exit": [
-   {"en": "To finish, take three minutes for the exit ticket."},
-   {"en": "Write two sentences for CellCo's board: commit now or build in stages, and which number from the simulation supports your advice."},
-   {"en": "Hand it in at the door."}
+   {
+    "en": "To finish, take three minutes for the exit ticket."
+   },
+   {
+    "en": "Write two sentences for CellCo's board: commit now or build in stages, and which number from the simulation supports your advice."
+   }
   ]
  }
 }

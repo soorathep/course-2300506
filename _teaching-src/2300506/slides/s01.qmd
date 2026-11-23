@@ -588,24 +588,9 @@ Utility puts the board's risk attitude into numbers. CellCo's choice moves from 
 
 [Session 2: a decision tree for an imperfect market survey (EVSI), and AHP to choose CellCo's storage technology.]{.note-line}
 
-## Key terms in English and Chinese {#glossary}
-
-::: {.gloss}
-| English | 中文 | English | 中文 |
-|---|---|---|---|
-| Decision alternative | 决策方案 | Minimax regret criterion | 最小最大后悔值准则 |
-| State of nature | 自然状态 | Expected monetary value (EMV) | 期望货币价值 |
-| Payoff table | 收益表 | Expected opportunity loss (EOL) | 期望机会损失 |
-| Maximax criterion | 乐观准则（大中取大） | Expected value of perfect information (EVPI) | 完全信息期望价值 |
-| Maximin criterion | 悲观准则（小中取大） | Utility function | 效用函数 |
-| Hurwicz criterion | 折中准则 | Certainty equivalent (CE) | 确定性等价 |
-| Laplace criterion | 等可能性准则 | Risk tolerance | 风险容忍度 |
-| Regret | 后悔值 | Risk aversion | 风险规避 |
-:::
-
 ## Exit ticket · 3 minutes {#exit .activity}
 
-[On your own · on paper · hand in at the door]{.act-label}
+[On your own · on paper]{.act-label}
 
 ::: {.prompt}
 Write two sentences for CellCo's board: which option you recommend, and which number from today supports it.
